@@ -17,6 +17,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     fill_in 'session[password]', with: 'password'
     click_link_or_button 'Login'
     assert current_path, root_url
+    save_and_open_page
     within ('#header') do
       assert page.has_content?('Weclome, User')
     end
