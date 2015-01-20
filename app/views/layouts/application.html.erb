@@ -15,7 +15,6 @@
   <%= menu_item "Cart" %>
   <%= menu_item "Admin Dashboard" %>
   <%= menu_item "Signup" %>
-  <%= menu_item "Logout" %>
     <% if current_user.nil? %>
       <%= menu_item do %>
         <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
@@ -26,10 +25,16 @@
       <% end %>
     <% else %>
       <%= menu_item "Welcome, #{current_user.username}" %>
+      <%= menu_item "Logout", logout_path, method: :delete %>
     <% end %>
   <% end %>
   <% end %>
   </div>
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
+
 <%= yield %>
 
 </body>
