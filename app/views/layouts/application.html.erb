@@ -7,7 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= nav_bar fixed: :top, brand: "Coffee House", responsive: true do %>
+  <%= menu_group do %>
+  <%= menu_item "Home", root_path %>
 
+  <%= menu_item "Menu" %>
+  <%= menu_item "Cart" %>
+  <%= menu_item "Admin Dashboard" %>
+  <%= menu_item "Login" %>
+  <%= menu_item "Signup" %>
+  <%= menu_item "Logout" %>
+  <% end %>
+  <% end %>
 <%= yield %>
 
 </body>

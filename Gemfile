@@ -30,6 +30,17 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
 gem 'skylight'
 
+
+gem "twitter-bootstrap-rails"
+
+gem 'bootstrap_form'
+
+gem "therubyracer"
+
+gem "less-rails"
+
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
