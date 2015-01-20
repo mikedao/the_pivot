@@ -18,7 +18,6 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Login'
     assert current_path, root_url
     within ('#header') do
-      save_and_open_page
       assert page.has_content?('Welcome, user')
     end
   end

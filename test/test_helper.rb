@@ -10,3 +10,9 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionDispatch::IntegrationTest
+  def teardown
+    reset_session!
+  end
+end
