@@ -3,12 +3,13 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   def setup
-    @user = User.create(username: 'user',
+    @user = User.new(username: 'user',
                         password: 'password',
                         first_name: 'John',
                         last_name: 'Doe',
                         email: 'example@example.com')
   end
+
   test "user has attributes" do
     assert @user.valid?
   end
