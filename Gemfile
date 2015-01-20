@@ -38,7 +38,7 @@ gem 'bootstrap_form'
 gem "therubyracer"
 
 gem "less-rails"
-
+gem "rails_12factor"
 
 
 # Use Capistrano for deployment
