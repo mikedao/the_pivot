@@ -1,3 +1,2 @@
 <h1>Your Cart</h1>
-
-<%= link_to('Order History', user_orders_path(@user)) %>
+<%= link_to('Order History', user_orders_path(current_user)) if current_user %>
