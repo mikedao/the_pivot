@@ -1,15 +1,18 @@
 Rails.application.routes.draw do
   get 'cart_items/create'
 
-   root 'welcome#index'
+  root 'welcome#index'
 
-   post '/login', to: 'sessions#create'
+  post '/login', to: 'sessions#create'
 
-   delete '/logout', to: 'sessions#destroy', as: 'logout'
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
 
-   resources :items
-   resources :cart_items
-   resources :orders
+  get '/cart', to: "sessions#showcart", as: "showcart"
+
+  resources :items
+
+  resources :users do
+    resources :orders
+  end
+
 end
