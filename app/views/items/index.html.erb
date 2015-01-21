@@ -1,14 +1,15 @@
 <div id="menu">
+
   Filter by Category:
   <% @categories.each do |category| %>
-  
+    <%= link_to category.name, items_path(category_name: category.name) %>
   <% end %>
 
   <ul>
     <% @items.each do |item| %>
       <li>
-        <%= item.name %>
-        <% item.categories.each do |category| %>
+        Item: <%= item.name %><br>
+        Categories: <% item.categories.each do |category| %>
           <%= category.name %>
         <% end %>
       </li>
