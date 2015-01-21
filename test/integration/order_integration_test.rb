@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrderTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  attr_reader :user
+  attr_reader :user, :order
 
   def setup
     @user = User.create(username: 'user',
@@ -10,15 +10,16 @@ class OrderTest < ActionDispatch::IntegrationTest
                       first_name: 'John',
                       last_name: 'Doe',
                       email: 'example@example.com')
+    @order = Order.create(total_cost: 100, user_id: user.id)
     visit root_url
   end
 
   test "user can view his orders page" do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     click_link_or_button 'Cart'
-    assert current_path, cart_items_path
+    assert current_path, showcart_path
     click_link_or_button 'Order History'
-    assert current_path, orders_path
+    assert current_path, user_orders_path(user)
     within ('#history') do
       assert page.has_content?('Order 1')
     end
@@ -30,7 +31,7 @@ class OrderTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Cart'
     click_link_or_button 'Order History'
     click_link_or_button 'Order 1'
-    assert current_path, order_path(order)
+    assert current_path, user_order_path(user, order)
     within ('#order_history') do
       assert page.has_content?('Pour Over')
     end
