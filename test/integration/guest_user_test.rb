@@ -6,9 +6,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   attr_reader :item1, :item2, :category1, :category2
 
   def setup
-    @item1 = Item.create(name: 'espresso', cost: 9000)
+    @item1 = Item.create(title: 'espresso', price: 9000)
     @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(name: 'cold pressed coffee', cost: 8000)
+    @item2 = Item.create(title: 'cold pressed coffee', price: 8000)
     @category2 = item2.categories.create(name: 'cold beverages')
   end
 
@@ -21,7 +21,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     visit root_path
     click_link_or_button('Menu')
     assert_equal items_path, current_path
-    assert page.has_content?(item1.name)
+    assert page.has_content?(item1.title)
     assert page.has_content?(category1.name)
   end
 
@@ -30,9 +30,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Menu')
     click_link_or_button(category1.name)
     assert_equal items_path, current_path
-    assert page.has_content?(item1.name)
+    assert page.has_content?(item1.title)
     assert page.has_content?(category1.name)
-    refute page.has_content?(item2.name)
+    refute page.has_content?(item2.title)
     refute page.has_content?(category2.name)
   end
 end
