@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserLoginTest < ActionDispatch::IntegrationTest
+class OrderTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   attr_reader :user
 
@@ -22,5 +22,12 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     within ('#history') do
       assert page.has_content?('Pour Over')
     end
+  end
+
+  test "link to each item exists" do
+    skip
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit orders_path
+    click_link_or_button ' Page'
   end
 end

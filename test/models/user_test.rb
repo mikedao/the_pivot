@@ -45,4 +45,9 @@ class UserTest < ActiveSupport::TestCase
     email2 = 'here@here@you'
     refute @user.valid_email?(email2)
   end
+
+  test "a user has an order" do
+    order_total_cost = user.order.total_cost
+    assert_equal 
+  end
 end
