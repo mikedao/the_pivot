@@ -1,15 +1,15 @@
 require 'test_helper'
 
-class OrderTest < ActionDispatch::IntegrationTest
+class OrderIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   attr_reader :user, :order
 
   def setup
     @user = User.create(username: 'user',
-                      password: 'password',
-                      first_name: 'John',
-                      last_name: 'Doe',
-                      email: 'example@example.com')
+                        password: 'password',
+                        first_name: 'John',
+                        last_name: 'Doe',
+                        email: 'example@example.com')
     @order = Order.create(total_cost: 100, user_id: user.id)
     visit root_url
   end
@@ -26,10 +26,10 @@ class OrderTest < ActionDispatch::IntegrationTest
   end
 
   test "user can view page for specific order" do
-    skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     click_link_or_button 'Cart'
     click_link_or_button 'Order History'
+    save_and_open_page
     click_link_or_button 'Order 1'
     assert current_path, user_order_path(user, order)
     within ('#order_history') do

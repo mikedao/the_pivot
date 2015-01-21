@@ -15,4 +15,8 @@ class SessionsController < ApplicationController
     flash[:notice] = "You have successfully logged out"
     redirect_to root_url
   end
+
+  def showcart
+    @user = User.find(current_user.id)
+  end
 end
