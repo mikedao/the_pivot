@@ -12,6 +12,4 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
     email: 'example@example.com')
     visit root_url
   end
-
-  test ''
 end
