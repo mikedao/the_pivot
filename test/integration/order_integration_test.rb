@@ -21,7 +21,7 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Order History'
     assert current_path, user_orders_path(user)
     within ('#history') do
-      assert page.has_content?('Order 1')
+      assert page.has_content?("Order #{order.id}")
     end
   end
 
@@ -29,8 +29,7 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     click_link_or_button 'Cart'
     click_link_or_button 'Order History'
-    save_and_open_page
-    click_link_or_button 'Order 1'
+    click_link_or_button "Order #{order.id}"
     assert current_path, user_order_path(user, order)
     within ('#order_history') do
       assert page.has_content?('Pour Over')
