@@ -4,7 +4,7 @@ class ItemTest < ActiveSupport::TestCase
   attr_reader :item
 
   def setup
-    @item = Item.create(name: 'espresso')
+    @item = Item.create(title: 'espresso')
     @category1 = @item.categories.create(name: 'hot beverages')
     @category2 = @item.categories.create(name: 'cold beverages')
   end
@@ -14,7 +14,7 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test 'it is invalid without a name' do
-    item.name = nil
+    item.title = nil
     assert item.invalid?
   end
 
