@@ -6,8 +6,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   attr_reader :category, :item
 
   def setup
-    @category = Category.create(name: 'hot beverages')
     @item = Item.create(name: 'espresso', cost: 9000)
+    @category = item.categories.create(name: 'hot beverages')
   end
 
   test 'a guest user can view home page' do

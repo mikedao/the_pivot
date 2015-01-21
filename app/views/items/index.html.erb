@@ -1,6 +1,8 @@
 <div id="menu">
   <% @items.each do |item| %>
     <%= item.name %>
-    <%= item.category %>
+    <% item.categories.each do |category| %>
+      <%= category.name %>
+    <% end %>
   <% end %>
 </div>
