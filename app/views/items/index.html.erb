@@ -1,8 +1,17 @@
 <div id="menu">
-  <% @items.each do |item| %>
-    <%= item.name %>
-    <% item.categories.each do |category| %>
-      <%= category.name %>
-    <% end %>
+  Filter by Category:
+  <% @categories.each do |category| %>
+  
   <% end %>
+
+  <ul>
+    <% @items.each do |item| %>
+      <li>
+        <%= item.name %>
+        <% item.categories.each do |category| %>
+          <%= category.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>
