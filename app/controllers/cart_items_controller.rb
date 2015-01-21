@@ -1,6 +1,4 @@
 class CartItemsController < ApplicationController
-  
-  def create
-
+  def index
   end
 end

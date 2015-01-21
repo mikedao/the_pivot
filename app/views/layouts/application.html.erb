@@ -12,7 +12,7 @@
   <%= menu_group do %>
   <%= menu_item "Home", root_path %>
   <%= menu_item "Menu", items_path %>
-  <%= menu_item "Cart" %>
+  <%= menu_item "Cart", cart_items_path %>
   <%= menu_item "Admin Dashboard" %>
   <%= menu_item "Signup" %>
     <% if current_user.nil? %>
@@ -24,7 +24,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= menu_item "Welcome, #{current_user.username}" %>
+      <%= menu_item "Welcome, #{current_user.first_name}" %>
       <%= menu_item "Logout", logout_path, method: :delete %>
     <% end %>
   <% end %>
