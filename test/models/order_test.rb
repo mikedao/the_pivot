@@ -30,4 +30,8 @@ class OrderTest < ActiveSupport::TestCase
     user_first_name = order.user.first_name
     assert_equal 'John', user_first_name
   end
+
+  test "order has items associated with it" do
+    skip
+  end
 end
