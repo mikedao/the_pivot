@@ -8,7 +8,7 @@
   <ul>
     <% @items.each do |item| %>
       <li>
-        Item: <%= item.name %><br>
+        Item: <%= item.title %><br>
         Categories: <% item.categories.each do |category| %>
           <%= category.name %>
         <% end %>
