@@ -1,13 +1,16 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  attr_reader :user, :order
 
   def setup
-    @user = User.new(username: 'user',
+    @user = User.create(username: 'user',
                         password: 'password',
                         first_name: 'John',
                         last_name: 'Doe',
                         email: 'example@example.com')
+    @order = Order.create(total_cost: 100,
+                          user_id: user.id)
   end
 
   test "user has attributes" do
@@ -47,7 +50,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "a user has an order" do
-    order_total_cost = user.order.total_cost
-    assert_equal 
+    order = user.orders.first
+    assert_equal 100, order.total_cost
   end
 end
