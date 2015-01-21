@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
    resources :items
+   resources :cart_items
+   resources :orders
 end

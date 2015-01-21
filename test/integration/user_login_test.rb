@@ -22,7 +22,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Login'
     assert current_path, root_url
     within ('#header') do
-      assert page.has_content?('Welcome, user')
+      assert page.has_content?('Welcome, John')
     end
   end
 
