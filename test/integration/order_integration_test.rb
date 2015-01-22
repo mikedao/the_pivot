@@ -16,7 +16,6 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "user can view his orders page" do
-    skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     click_link_or_button 'Cart'
     assert current_path, showcart_path

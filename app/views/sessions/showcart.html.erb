@@ -11,14 +11,18 @@
         <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
-    <% @cart.items.each do |item| %>
-      <tr>
-        <td><%= item.title %></td>
-        <td><%= item.description %></td>
-        <td></td>
-        <td><%= item.price %></td>
-        <td>Today</td>
-      </tr>
+    <% if @cart.nil? %>
+      <tr><td rowspan='6'>Your Cart Is Empty</td></tr>
+    <% else %>
+      <% @cart.items.each do |item| %>
+        <tr>
+          <td><%= item.title %></td>
+          <td><%= item.description %></td>
+          <td></td>
+          <td><%= item.price %></td>
+          <td>Today</td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 </div>
