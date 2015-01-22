@@ -1,0 +1,5 @@
+<h1><%= @item.title %></h1>
+
+<%= form_for @item, url: carts_path do |f| %>
+  <%= f.submit 'Add to Cart' %>
+<% end %>
