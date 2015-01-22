@@ -1,5 +1,5 @@
 class Cart
-  def inititalize(cart)
+  def initialize(cart)
     @cart = cart
   end
 

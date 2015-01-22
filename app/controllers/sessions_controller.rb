@@ -17,7 +17,6 @@ class SessionsController < ApplicationController
   end
 
   def showcart
-    # require "pry"; binding.pry
     @cart = Cart.new(session[:cart])
   end
 end
