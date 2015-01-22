@@ -1,4 +1,4 @@
-class Cart < ActiveRecord::Base
+class Cart
   def inititalize(cart)
     @cart = cart
   end
