@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    require "pry"; binding.pry
     @item = Item.find(params[:id])
   end
 end

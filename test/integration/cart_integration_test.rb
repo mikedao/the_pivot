@@ -10,7 +10,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     within('#flash_notice') do
       assert page.has_content?('Added to Cart')
     end
-    assert_equal 1, session[:cart][item.id]
     click_link_or_button('Cart')
     within('#cart_items') do
       assert page.has_content?('coffee')

@@ -17,5 +17,6 @@ class SessionsController < ApplicationController
   end
 
   def showcart
+    @cart = Cart.new(session[:cart])
   end
 end

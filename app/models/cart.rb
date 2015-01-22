@@ -1,5 +1,11 @@
 class Cart < ActiveRecord::Base
-  belongs_to :user
-  has_many :items
+  def inititalize(cart)
+    @cart = cart
+  end
 
+  def items
+    @cart.map do |k,v|
+      Item.find(k)
+    end
+  end
 end
