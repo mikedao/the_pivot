@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
-  attr_reader :order, :user
+  attr_reader :order, :user, :item
 
   def setup
     @user = User.create(username: 'user',
@@ -32,6 +32,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "order has items associated with it" do
-    skip
+    item = order.items.create(title: 'coffee')
+    assert_equal 'coffee', order.items.first.title
   end
 end
