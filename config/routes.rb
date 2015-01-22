@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/cart', to: "sessions#showcart", as: "showcart"
 
+  resources :category
   resources :items
 
   resources :users do
