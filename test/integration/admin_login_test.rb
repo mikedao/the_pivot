@@ -36,10 +36,12 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "registered admin can see create category on menu page" do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit items_path
-    save_and_open_page
     click_link_or_button "Create Category"
-    within("#category") do
+    within(".category") do
       assert page.has_content?("Create New Category")
     end
+    fill_in "categories[name]", with: "Merchandise"
+    click_link_or_button "Add Category"
+    assert page.has_content?("Merchandise")
   end
 end

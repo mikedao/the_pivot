@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :username, :password, :first_name, :last_name, :email, presence: true
 
-  enum roles: %w{user admin}
+  enum role: [:user, :admin]
 
   def valid_email?(email)
     if email_checker(email).nil?
@@ -17,5 +17,7 @@ class User < ActiveRecord::Base
   def email_checker(email)
     email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
   end
+
+
 
 end
