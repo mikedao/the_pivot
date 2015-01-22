@@ -1,2 +1,29 @@
 <h1>Your Cart</h1>
+<div id="cart_items">
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Item Name'>Item</th>
+        <th data-field='Description'>Description</th>
+        <th data-field='Quantity'>Quantity</th>
+        <th data-field='Subtotal'>Subtotal</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% if @cart.nil? %>
+      <tr><td rowspan='6'>Your Cart Is Empty</td></tr>
+    <% else %>
+      <% @cart.items.each do |item| %>
+        <tr>
+          <td><%= item.title %></td>
+          <td><%= item.description %></td>
+          <td></td>
+          <td><%= item.price %></td>
+          <td>Today</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
 <%= link_to('Order History', user_orders_path(current_user)) if current_user %>
