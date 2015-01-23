@@ -40,8 +40,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     within(".category") do
       assert page.has_content?("Create New Category")
     end
-    fill_in "categories[name]", with: "Merchandise"
-    click_link_or_button "Add Category"
-    assert page.has_content?("Merchandise")
   end
+
 end
