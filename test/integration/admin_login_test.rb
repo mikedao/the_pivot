@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GuestUserTest < ActionDispatch::IntegrationTest
+class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   attr_reader :user, :item1, :item2, :category1, :category2
@@ -40,6 +40,21 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     within(".category") do
       assert page.has_content?("Create New Category")
     end
+  end
+
+  test "registered admin can see edit button on menu page" do
+    skip
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit items_path
+    first(:link, "Edit").click
+    within("#edit") do
+      assert page.has_content?("Edit Item")
+    end
+    fill_in "items[title]", with: "Italian Drip"
+    fill_in "items[price]", with: 10000
+    click_button "Submit"
+    assert page.has_content?("Italian Drip")
+    assert page.has_content?(10000)
   end
 
 end

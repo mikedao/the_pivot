@@ -6,7 +6,6 @@
     <%= link_to "Create Category", new_category_path %>
     <% end %>
   </div>
-
   Filter by Category:
   <% @categories.each do |category| %>
     <%= link_to category.name, items_path(category_name: category.name) %>
@@ -15,7 +14,7 @@
   <ul>
     <% @items.each do |item| %>
       <li>
-        Item: <%= item.title %><br>
+        Item: <%= item.title %> <%= link_to "Edit", edit_item_path(item) %> <br>
         Categories: <% item.categories.each do |category| %>
           <%= category.name %>
         <% end %>
