@@ -11,7 +11,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?('Added to Cart')
     end
     click_link_or_button('Cart')
-    save_and_open_page
     within('#cart_items') do
       assert page.has_content?('coffee')
       assert page.has_content?('1')
