@@ -6,27 +6,3 @@
 *= require rails_bootstrap_forms
 *= require bootstrap_and_overrides
 */
-
-body {
-  font-family:Georgia, Serif;
-  background: url(image-path("coffee-plain.jpg")) no-repeat center center fixed;
-  background-size: cover;
-  color: #3F2A14;
-}
-
-
-.main-content {
-  margin-top: 65px;
-}
-
-h1 {
-  font-weight: bold;
-  margin-top: 70px;
-  text-align: center;
-}
-
-h3 {
-  font-weight: bold;
-  margin-top: 70px;
-  text-align: center;
-}
