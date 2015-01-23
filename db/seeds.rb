@@ -6,7 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 john = User.create(username: 'user',password: 'password', first_name: 'John', last_name: 'Doe', email: 'example@example.com', role: 1)
+
+category1 = Category.create(name: 'Coffee', image: "fa fa-coffee")
+category2 = Category.create(name: 'Brewing', image: "fa fa-tint")
+category3 = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
+category4 = Category.create(name: 'Chow', image: "fa fa-cutlery")
+category5 = Category.create(name: 'Shop All', image: "fa fa-archive")
 
 coffee = Category.create!(name: 'Coffee')
 brewing = Category.create!(name: 'Brewing')
