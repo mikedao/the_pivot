@@ -17,9 +17,9 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-  test "user is not valid without username" do
+  test "user is valid even without username" do
     @user.username = nil
-    assert @user.invalid?
+    assert @user.valid?
   end
 
   test "user is not valid without password" do
@@ -48,38 +48,35 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
   end
 
-  test "user has a display name that is optional between 2 and 32 characters" do
+  test "user has an optional username that is between 2 and 32 characters" do
     @user1 = User.create(username: 'user',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            display_name: "JohnDoe",
             email: 'example@example.com')
 
-    @user2 = User.create(username: 'user',
+    @user2 = User.create(username: 'us',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            display_name: "J",
             email: 'example@example.com')
 
-    @user3 = User.create(username: 'user',
+    @user3 = User.create(username: 'u',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            display_name: "ThisStringIs38charslongCanYouBelieveIt",
             email: 'example@example.com')
 
-    @user4 = User.create(username: 'user',
+    @user4 = User.create(username: 'ThisStringIs42CharactersLongBelieveItOrNot',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
             email: 'example@example.com')
 
     assert @user1.valid?
-    assert @user2.invalid?
+    assert @user2.valid?
     assert @user3.invalid?
-    assert @user4.valid?
+    assert @user4.invalid?
   end
 
   test 'an email has to be vaild format' do

@@ -3,9 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
 
-  validates :username, :password, :last_name, :email, presence: true
-  validates :first_name, length: { in: 0..255, allow_nil: false }
-  validates :display_name, length: { in: 2..32, allow_nil: true }
+  validates :password, :first_name, :last_name, :email, presence: true
+  validates :username, length: { in: 2..32, allow_nil: true }
 
   enum role: [:user, :admin]
 

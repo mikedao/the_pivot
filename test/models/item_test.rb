@@ -38,8 +38,8 @@ class ItemTest < ActiveSupport::TestCase
 
     assert @item1.valid?
     refute @item2.valid?
-    assert @item3.valid?
-    assert @item4.valid?
+    refute @item3.valid?
+    refute @item4.valid?
     refute @item5.valid?
   end
 

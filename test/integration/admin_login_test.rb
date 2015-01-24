@@ -35,7 +35,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   end
 
   test "an admin user has a unique email" do
-
+    skip
   end
 
   test "registered admin can see create category on menu page" do
