@@ -4,8 +4,10 @@ class Cart
   end
 
   def items
-    @cart.map do |k,v|
-      Item.find(k)
+    output = {}
+    @cart.each do |k,v|
+      output[Item.find(k)] = v
     end
+    output
   end
 end

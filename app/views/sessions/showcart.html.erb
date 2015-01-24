@@ -14,11 +14,11 @@
     <% if @cart.nil? %>
       <tr><td rowspan='6'>Your Cart Is Empty</td></tr>
     <% else %>
-      <% @cart.items.each do |item| %>
+      <% @cart.items.each do |item, quantity| %>
         <tr>
           <td><%= item.title %></td>
           <td><%= item.description %></td>
-          <td></td>
+          <td><%= quantity %></td>
           <td><%= item.price %></td>
           <td>Today</td>
         </tr>
