@@ -4,7 +4,7 @@
   <%= menu_item "Home", root_path %>
   <%= menu_item "Menu", items_path %>
   <%= menu_item "Cart", showcart_path %>
-  <%= menu_item "Admin Dashboard", admins_path %>
+  <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
   <%= menu_item "Signup", new_user_path if current_user.nil? %>
     <% if current_user.nil? %>
       <%= menu_item do %>
