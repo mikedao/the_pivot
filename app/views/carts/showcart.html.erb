@@ -25,8 +25,8 @@
     <% end %>
   </table>
 
-  <%= form_for @cart do |f| %>
-
+  <%= form_for :cart, url: checkout_cart_path do |f| %>
+    <%= f.submit 'Checkout' %>
   <% end %>
 </div>
 

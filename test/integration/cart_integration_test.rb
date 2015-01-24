@@ -103,4 +103,18 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
     assert_equal showcart_path, current_path
   end
+
+  test 'a user can checkout once logged in' do
+    skip
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+    #login user and click checkout on cart page
+    click_link_or_button('Checkout')
+
+    #assert other things as well
+    # assert_equal showcart_path, current_path
+  end
 end
