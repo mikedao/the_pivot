@@ -35,7 +35,13 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   end
 
   test "an admin user has a unique email" do
-    skip
+    @user1 = User.create(username: 'userd',
+                        password: 'password',
+                        first_name: 'Johnn',
+                        last_name: 'Does',
+                        email: 'example@example.com',
+                        role: 1)
+    assert_equal 1, User.all.count
   end
 
   test "registered admin can see create category on menu page" do

@@ -53,25 +53,25 @@ class UserTest < ActiveSupport::TestCase
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            email: 'example@example.com')
+            email: 'examples@example.com')
 
     @user2 = User.create(username: 'us',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            email: 'example@example.com')
+            email: 'example1@example.com')
 
     @user3 = User.create(username: 'u',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            email: 'example@example.com')
+            email: 'example5@example.com')
 
     @user4 = User.create(username: 'ThisStringIs42CharactersLongBelieveItOrNot',
             password: 'password',
             first_name: 'John',
             last_name: 'Doe',
-            email: 'example@example.com')
+            email: 'example4@example.com')
 
     assert @user1.valid?
     assert @user2.valid?
