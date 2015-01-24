@@ -67,4 +67,24 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     visit items_path
     refute page.has_content?("Create Category")
   end
+
+  test "an unauthorised user can view a single item's page" do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+
+    visit root_url
+    click_link_or_button('Menu')
+    click_link_or_button('coffee')
+
+    within('#title') do
+      assert page.has_content?('coffee')
+    end
+
+    within('#description') do
+      assert page.has_content?('black nectar of the gods')
+    end
+
+    within('#price') do
+      assert page.has_content?(1200)
+    end
+  end
 end
