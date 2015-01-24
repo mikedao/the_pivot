@@ -5,10 +5,9 @@
       <tr>
         <th data-field='Item Name'>Item</th>
         <th data-field='Description'>Description</th>
+        <th data-field='Price'>Price</th>
         <th data-field='Quantity'>Quantity</th>
         <th data-field='Subtotal'>Subtotal</th>
-        <th data-field='Order Status'>Order Status</th>
-        <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
     <% if @cart.nil? %>
@@ -18,9 +17,9 @@
         <tr>
           <td><%= item.title %></td>
           <td><%= item.description %></td>
+          <td><%= number_to_currency item.price / 100 %></td>
           <td><%= quantity %></td>
-          <td><%= item.price %></td>
-          <td>Today</td>
+          <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
         </tr>
       <% end %>
     <% end %>
