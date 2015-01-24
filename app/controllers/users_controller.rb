@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     if User.find_by(email: params[:signup][:email])
       flash[:notice] = "Account Already Exists"
+    redirect_to new_user_path
     else
       user = User.create(username: params[:signup][:username],
                          password: params[:signup][:password],
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
                          email: params[:signup][:email],
                          role: 0)
       session[:user_id] = user.id
-    end
     redirect_to root_url
+    end
   end
 end
