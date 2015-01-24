@@ -1,18 +1,30 @@
 <div id="menu">
 
-  Filter by Category:
-  <% @categories.each do |category| %>
-    <%= link_to category.name, items_path(category_name: category.name) %>
-  <% end %>
+<!--
+  <div>
+    <#% if current_user.admin? %>
+    <#%= link_to "Create Category", new_category_path %>
+    <#% end %>
+  </div> -->
 
-  <ul>
-    <% @items.each do |item| %>
-      <li>
-        Item: <%= item.title %><br>
-        Categories: <% item.categories.each do |category| %>
-          <%= category.name %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+
+<div class="category-row">
+  <% @categories.each do |category| %>
+  <a class="btn" href="#">
+    <i class="<%= category.image %> fa-3x"><br>
+    </i>  <%= category.name %></a>
+  <%#= link_to category.name, items_path(category_name: category.name) %>
+  <% end %>
+</div>
+
+
+<div class="row">
+  <% @items.each do |item| %>
+    <div class="box col-lg-3">
+      <h4 class="item-title"><%= item.title %></h4>
+      <img src="http://mydailyjava.com/wp-content/uploads/2010/10/3622331765_d514e02626_m.jpg" alt="coffee" />
+      <h5><%= item.description %></h5>
+    </div>
+  <% end %>
+</div>
 </div>
