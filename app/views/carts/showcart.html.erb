@@ -8,6 +8,7 @@
         <th data-field='Price'>Price</th>
         <th data-field='Quantity'>Quantity</th>
         <th data-field='Subtotal'>Subtotal</th>
+        <th></th>
       </tr>
     </thead>
     <% if @cart.nil? %>
@@ -19,7 +20,14 @@
           <td><%= item.description %></td>
           <td><%= number_to_currency item.price / 100 %></td>
           <td><%= quantity %></td>
-            <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
+          <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
+          <td>
+            <%= form_for :cart, url: cart_path do |f| %>
+              <input name="_method" type="hidden" value="delete" />
+              <%= f.hidden_field :item_id, :value => item.id %>
+              <%= f.submit 'Delete' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>

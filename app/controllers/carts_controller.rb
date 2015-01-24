@@ -1,4 +1,14 @@
 class CartsController < ApplicationController
+  def create
+    update_cart
+    flash[:notice] = 'Added to Cart'
+    redirect_to items_path
+  end
+
+  def showcart
+    @cart = Cart.new(session[:cart]) if session[:cart]
+  end
+
   def checkout_cart
     if session[:user_id].nil?
       flash[:alert] = 'You must login to checkout'
@@ -8,14 +18,10 @@ class CartsController < ApplicationController
     end
   end
 
-  def create
-    update_cart
-    flash[:notice] = 'Added to Cart'
-    redirect_to items_path
-  end
-
-  def showcart
-    @cart = Cart.new(session[:cart]) if session[:cart]
+  def delete_item_from_cart
+    session[:cart].delete(params[:cart][:item_id])
+    flash[:notice] = 'Item removed from cart'
+    redirect_to showcart_path
   end
 
   private

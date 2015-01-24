@@ -104,6 +104,21 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal showcart_path, current_path
   end
 
+  test 'a user can delete an item from their cart' do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    click_link_or_button('Delete')
+
+    within('#flash_notice') do
+      assert page.has_content?('Item removed from cart')
+    end
+    refute page.has_content?('coffee')
+    assert_equal showcart_path, current_path
+  end
+
   test 'a user can checkout once logged in' do
     skip
     item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
@@ -117,4 +132,10 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     #assert other things as well
     # assert_equal showcart_path, current_path
   end
+
+  #delete item
+  #edit item
+  #delete cart
+  #make item title a link to items/x page
+
 end
