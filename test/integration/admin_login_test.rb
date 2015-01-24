@@ -17,7 +17,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     @category1 = Category.create(name: 'Hot Beverages')
     @category2 = Category.create(name: 'cold beverages')
     @item1 = category1.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    @item2 = category2.items.create(title: 'cold pressed coffee', description: "hipster nonsense", price: 20000)
+    @item2 = category2.items.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense", price: 20000)
   end
 
   test 'an admin user can view home page' do
