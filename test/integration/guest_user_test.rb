@@ -2,6 +2,7 @@ require 'test_helper'
 
 class GuestUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
+  include FactoryGirl::Syntax::Methods
 
   attr_reader :user_admin, :user_user, :item1, :item2, :category1, :category2
 
@@ -20,9 +21,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
                             email: 'jwan622@example.com',
                             role: 0)
 
-    @item1 = Item.create(title: 'espresso', price: 9000)
+    @item1 = Item.create(title: 'espresso', description: "this is black gold", price: 30000)
     @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(title: 'cold pressed coffee', price: 8000)
+    @item2 = Item.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense")
     @category2 = item2.categories.create(name: 'cold beverages')
   end
 
@@ -66,5 +67,25 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit items_path
     refute page.has_content?("Create Category")
+  end
+
+  test "an unauthorised user can view a single item's page" do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+
+    visit root_url
+    click_link_or_button('Menu')
+    click_link_or_button('coffee')
+
+    within('#title') do
+      assert page.has_content?('coffee')
+    end
+
+    within('#description') do
+      assert page.has_content?('black nectar of the gods')
+    end
+
+    within('#price') do
+      assert page.has_content?(1200)
+    end
   end
 end

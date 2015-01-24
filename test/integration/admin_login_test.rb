@@ -2,6 +2,7 @@ require 'test_helper'
 
 class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
+  include FactoryGirl::Syntax::Methods
 
   attr_reader :user, :item1, :item2, :category1, :category2
 
@@ -13,9 +14,9 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                 email: 'example@example.com',
                 role: 1)
 
-    @item1 = Item.create(title: 'espresso', price: 9000)
+    @item1 = Item.create(title: 'espresso', description: "this is black gold", price: 30000)
     @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(title: 'cold pressed coffee', price: 8000)
+    @item2 = Item.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense", price: 20000)
     @category2 = item2.categories.create(name: 'cold beverages')
   end
 
@@ -33,9 +34,19 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(category1.name)
   end
 
+  test "an admin user has a unique email" do
+    @user1 = User.create(username: 'userd',
+                        password: 'password',
+                        first_name: 'Johnn',
+                        last_name: 'Does',
+                        email: 'example@example.com',
+                        role: 1)
+    assert_equal 1, User.all.count
+  end
 
-  test 'an admin user can go to the admin dashboard' do
-
+  test "registered admin can see create category on menu page" do
+    skip
+>>>>>>> a40d29e3d65a751e41bf529b1af8794e080eeabd
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit root_path
     click_link_or_button('Admin Dashboard')
