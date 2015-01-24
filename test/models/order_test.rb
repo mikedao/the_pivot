@@ -32,7 +32,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "order has items associated with it" do
-    item = order.items.create(title: 'coffee')
+    item = order.items.create(title: 'coffee', description: "akjdf", price: 203921)
     assert_equal 'coffee', order.items.first.title
   end
 end
