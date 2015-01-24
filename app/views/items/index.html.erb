@@ -21,7 +21,7 @@
 <div class="row">
   <% @items.each do |item| %>
     <div class="box col-lg-3">
-      <h4 class="item-title"><%= item.title %></h4>
+      <h4> <%= link_to("#{item.title}", item_path(item))%></h4>
       <img src="http://mydailyjava.com/wp-content/uploads/2010/10/3622331765_d514e02626_m.jpg" alt="coffee" />
       <h5><%= item.description %></h5>
     </div>

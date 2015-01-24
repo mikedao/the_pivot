@@ -1,5 +1,11 @@
-<h1><%= @item.title %></h1>
-<%= form_for @item, url: cart_path do |f| %>
+<div id="title"><h1><%= @item.title %></h1></div>
+
+<img src="http://mydailyjava.com/wp-content/uploads/2010/10/3622331765_d514e02626_m.jpg" alt="coffee" />
+<div id="description"><%= @item.description %></div>
+<div id="price"><%= @item.price %></div>
+
+<%= form_for :cart, url: carts_path do |f| %>
+  <%= f.hidden_field :id, value: @item.id %>
   <%= f.select :quantity, options_for_select((1..10)) %>
   <%= f.submit 'Add to Cart' %>
 <% end %>
