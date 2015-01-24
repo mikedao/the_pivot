@@ -7,12 +7,11 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
-  get '/cart', to: "carts#showcart", as: "showcart"
-
-
   resources :categories
 
-  resources :carts
+  post '/carts', to: 'carts#create', as: 'carts'
+  get '/cart', to: 'carts#showcart', as: 'showcart'
+  post '/cart', to: 'carts#checkout_cart', as: 'checkout_cart'
 
   resources :items
 

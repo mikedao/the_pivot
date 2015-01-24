@@ -21,10 +21,10 @@ class GuestUserTest < ActionDispatch::IntegrationTest
                             email: 'jwan622@example.com',
                             role: 0)
 
-    @item1 = Item.create(title: 'espresso', description: "this is black gold", price: 30000)
-    @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense")
-    @category2 = item2.categories.create(name: 'cold beverages')
+    @category1 = Category.create(name: 'Hot Beverages')
+    @category2 = Category.create(name: 'cold beverages')
+    @item1 = category1.items.create(title: 'espresso', description: "this is black gold", price: 30000)
+    @item2 = category2.items.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense")
   end
 
   test 'a guest user can view home page' do
@@ -85,7 +85,44 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     end
 
     within('#price') do
-      assert page.has_content?(1200)
+      assert page.has_content?('$12.00')
+    end
+  end
+
+  test "an unauthorized user can signup" do
+    visit root_url
+    click_link_or_button('Signup')
+
+    fill_in 'signup[username]', with: 'theChosen1'
+    fill_in 'signup[password]', with: 'gryffendor'
+    fill_in 'signup[password_confirmation]', with: 'gryffendor'
+    fill_in 'signup[first_name]', with: 'Harry'
+    fill_in 'signup[last_name]', with: 'Potter'
+    fill_in 'signup[email]', with: 'RedHeadLover@hogwarts.com'
+
+    click_link_or_button('Create Account')
+
+    assert current_path, root_url
+    within('#header') do
+      assert page.has_content?('Welcome, Harry')
+    end
+  end
+
+  test "if user already exists they can't sign up again" do
+    visit root_url
+    click_link_or_button('Signup')
+
+    fill_in 'signup[username]', with: "jeff"
+    fill_in 'signup[password]', with: 'wan'
+    fill_in 'signup[password_confirmation]', with: 'wan'
+    fill_in 'signup[first_name]', with: 'Jeff'
+    fill_in 'signup[last_name]', with: 'Wan'
+    fill_in 'signup[email]', with: 'jwan622@example.com'
+
+    click_link_or_button('Create Account')
+    save_and_open_page
+    within('#flash_notice') do
+      assert page.has_content?('Account Already Exists')
     end
   end
 end
