@@ -1,13 +1,4 @@
 class CartsController < ApplicationController
-  def checkout_cart
-    if session[:user_id].nil?
-      flash[:alert] = 'You must login to checkout'
-      redirect_to showcart_path
-    else
-
-    end
-  end
-
   def create
     update_cart
     flash[:notice] = 'Added to Cart'
@@ -17,6 +8,31 @@ class CartsController < ApplicationController
   def showcart
     authorize!(:read, current_user)
     @cart = Cart.new(session[:cart]) if session[:cart]
+  end
+
+  def checkout_cart
+    if session[:user_id].nil?
+      flash[:alert] = 'You must login to checkout'
+      redirect_to showcart_path
+    else
+
+    end
+  end
+
+  def delete_item
+    if params[:cart].nil?
+      delete_all_items_from_cart
+    else
+      delete_specific_item_from_cart
+      flash[:notice] = 'Item removed from cart'
+    end
+    redirect_to showcart_path
+  end
+
+  def update_item_quantity
+    session[:cart][params[:update_item_quantity][:item_id]] = params[:update_item_quantity][:quantity]
+    flash[:notice] = 'Item quantity updated'
+    redirect_to showcart_path
   end
 
   private
@@ -35,5 +51,13 @@ class CartsController < ApplicationController
     else
       session[:cart][params[:cart][:id]] = params[:cart][:quantity].to_s
     end
+  end
+
+  def delete_all_items_from_cart
+    session.delete(:cart)
+  end
+
+  def delete_specific_item_from_cart
+    session[:cart].delete(params[:cart][:item_id])
   end
 end
