@@ -1,13 +1,5 @@
 <div id="menu">
 
-<!--
-  <div>
-    <#% if current_user.admin? %>
-    <#%= link_to "Create Category", new_category_path %>
-    <#% end %>
-  </div> -->
-
-
 <div class="category-row">
   <% @categories.each do |category| %>
   <a class="btn" href="<%= items_path(category_name: category.name) %>">
