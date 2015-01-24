@@ -33,13 +33,13 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(category1.name)
   end
 
-  test "registered admin can see create category on menu page" do
+  test 'an admin user can go to the admin dashboard' do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit items_path
-    click_link_or_button "Create Category"
-    within(".category") do
-      assert page.has_content?("Create New Category")
+    visit root_path
+    click_link_or_button('Admin Dashboard')
+    assert admins_path, current_path
+    within ('#admin_header') do
+      assert page.has_content?("Welcome Admin")
     end
   end
-
 end
