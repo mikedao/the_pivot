@@ -45,11 +45,10 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   end
 
   test "registered admin can see create category on menu page" do
-    skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit root_path
     click_link_or_button('Admin Dashboard')
-    assert admins_path, current_path
+    assert admin_dashboard_path, current_path
     within ('#admin_header') do
       assert page.has_content?("Welcome Admin")
     end

@@ -42,7 +42,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test 'a guest user can browse items by category' do
-    # skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit root_path
     click_link_or_button('Menu')
@@ -120,7 +119,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     fill_in 'signup[email]', with: 'jwan622@example.com'
 
     click_link_or_button('Create Account')
-    save_and_open_page
+
     within('#flash_notice') do
       assert page.has_content?('Account Already Exists')
     end
