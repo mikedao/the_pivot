@@ -5,7 +5,6 @@ class ItemTest < ActiveSupport::TestCase
 
   test 'it is valid' do
     category = Category.create(name: "hot beverages")
-
     item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
 
     assert item.valid?
@@ -13,7 +12,6 @@ class ItemTest < ActiveSupport::TestCase
 
   test 'it cannot have an empty string as a title' do
     category = Category.create(name: "hot beverages")
-
     item = category.items.create(title: '', description: "this is black gold", price: 30000)
     assert item.invalid?
   end

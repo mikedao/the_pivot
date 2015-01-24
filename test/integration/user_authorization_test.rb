@@ -6,10 +6,12 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = User.create(username: 'user',
-    password: 'password',
-    first_name: 'John',
-    last_name: 'Doe',
-    email: 'example@example.com')
-    visit root_url
+                        password: 'password',
+                        first_name: 'John',
+                        last_name: 'Doe',
+                        email: 'example@example.com')
+                        visit root_url
   end
+
+
 end
