@@ -2,6 +2,7 @@ require 'test_helper'
 
 class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
+  include FactoryGirl::Syntax::Methods
 
   attr_reader :user, :item1, :item2, :category1, :category2
 
@@ -13,9 +14,9 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                 email: 'example@example.com',
                 role: 1)
 
-    @item1 = Item.create(title: 'espresso', price: 9000)
+    @item1 = Item.create(title: 'espresso', description: "this is black gold", price: 30000)
     @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(title: 'cold pressed coffee', price: 8000)
+    @item2 = Item.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense", price: 20000)
     @category2 = item2.categories.create(name: 'cold beverages')
   end
 
@@ -31,6 +32,10 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert_equal items_path, current_path
     assert page.has_content?(item1.title)
     assert page.has_content?(category1.name)
+  end
+
+  test "an admin user has a unique email" do
+
   end
 
   test "registered admin can see create category on menu page" do

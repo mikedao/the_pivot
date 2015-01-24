@@ -32,6 +32,12 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
   end
 
+  test "user is not valid with empty strings as name" do
+    user.first_name = ""
+    user.last_name = ""
+    assert user.invalid?
+  end
+
   test "user is not valid without last name" do
     @user.last_name = nil
     assert @user.invalid?
@@ -42,11 +48,47 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
   end
 
+  test "user has a display name that is optional between 2 and 32 characters" do
+    @user1 = User.create(username: 'user',
+            password: 'password',
+            first_name: 'John',
+            last_name: 'Doe',
+            display_name: "JohnDoe",
+            email: 'example@example.com')
+
+    @user2 = User.create(username: 'user',
+            password: 'password',
+            first_name: 'John',
+            last_name: 'Doe',
+            display_name: "J",
+            email: 'example@example.com')
+
+    @user3 = User.create(username: 'user',
+            password: 'password',
+            first_name: 'John',
+            last_name: 'Doe',
+            display_name: "ThisStringIs38charslongCanYouBelieveIt",
+            email: 'example@example.com')
+
+    @user4 = User.create(username: 'user',
+            password: 'password',
+            first_name: 'John',
+            last_name: 'Doe',
+            email: 'example@example.com')
+
+    assert @user1.valid?
+    assert @user2.invalid?
+    assert @user3.invalid?
+    assert @user4.valid?
+  end
+
   test 'an email has to be vaild format' do
     email1 = @user.email
     assert @user.valid_email?(email1)
     email2 = 'here@here@you'
     refute @user.valid_email?(email2)
+    email3 = "eskimo.eskimo@eskimo"
+    refute user.valid_email?(email3)
   end
 
   test "a user has an order" do
