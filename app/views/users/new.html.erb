@@ -1,0 +1,11 @@
+<h1>Signup Page</h1>
+
+<%= form_for :signup, url: users_path do |f| %>
+  <%= f.text_field :username, :placeholder => 'username' %><br>
+  <%= f.text_field :first_name, :placeholder => 'first name' %><br>
+  <%= f.text_field :last_name, :placeholder => 'last name' %><br>
+  <%= f.password_field :password, :placeholder => 'password' %><br>
+  <%= f.password_field :password_confirmation, :placeholder => 'confirm password' %><br>
+  <%= f.email_field :email, :placeholder => 'email' %><br>
+<%= f.submit 'Create Account' %>
+<% end %>

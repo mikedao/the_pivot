@@ -17,7 +17,12 @@ Rails.application.routes.draw do
 
   resources :items
 
-  resources :admins
+  namespace :admin do
+    get '/dashboard', to: 'base#dashboard'
+    resources :categories
+    resources :items
+    resources :orders
+  end
 
   resources :users do
     resources :orders

@@ -85,7 +85,44 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     end
 
     within('#price') do
-      assert page.has_content?(1200)
+      assert page.has_content?('$12.00')
+    end
+  end
+
+  test "an unauthorized user can signup" do
+    visit root_url
+    click_link_or_button('Signup')
+
+    fill_in 'signup[username]', with: 'theChosen1'
+    fill_in 'signup[password]', with: 'gryffendor'
+    fill_in 'signup[password_confirmation]', with: 'gryffendor'
+    fill_in 'signup[first_name]', with: 'Harry'
+    fill_in 'signup[last_name]', with: 'Potter'
+    fill_in 'signup[email]', with: 'RedHeadLover@hogwarts.com'
+
+    click_link_or_button('Create Account')
+
+    assert current_path, root_url
+    within('#header') do
+      assert page.has_content?('Welcome, Harry')
+    end
+  end
+
+  test "if user already exists they can't sign up again" do
+    visit root_url
+    click_link_or_button('Signup')
+
+    fill_in 'signup[username]', with: "jeff"
+    fill_in 'signup[password]', with: 'wan'
+    fill_in 'signup[password_confirmation]', with: 'wan'
+    fill_in 'signup[first_name]', with: 'Jeff'
+    fill_in 'signup[last_name]', with: 'Wan'
+    fill_in 'signup[email]', with: 'jwan622@example.com'
+
+    click_link_or_button('Create Account')
+    save_and_open_page
+    within('#flash_notice') do
+      assert page.has_content?('Account Already Exists')
     end
   end
 end
