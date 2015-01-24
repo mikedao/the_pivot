@@ -11,7 +11,7 @@
         <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
         <%= f.text_field :username, :placeholder => 'username' %>
         <%= f.password_field :password, :placeholder => 'password' %>
-        <%= f.submit 'Login' %>
+          <%= f.submit 'Login' %>
         <% end %>
       <% end %>
     <% else %>
