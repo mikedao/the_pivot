@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
-  get '/cart', to: "sessions#showcart", as: "showcart"
+  get '/cart', to: "carts#showcart", as: "showcart"
 
 
   resources :categories
