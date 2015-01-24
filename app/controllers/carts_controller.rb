@@ -18,13 +18,19 @@ class CartsController < ApplicationController
     end
   end
 
-  def delete_item_from_cart
+  def delete_item
     if params[:cart].nil?
       delete_all_items_from_cart
     else
       delete_specific_item_from_cart
       flash[:notice] = 'Item removed from cart'
     end
+    redirect_to showcart_path
+  end
+
+  def update_item_quantity
+    session[:cart][params[:update_item_quantity][:item_id]] = params[:update_item_quantity][:quantity]
+    flash[:notice] = 'Item quantity updated'
     redirect_to showcart_path
   end
 

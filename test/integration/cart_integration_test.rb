@@ -105,7 +105,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test 'a user can edit the quantity of an item in their cart' do
-    skip
     coffee = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
     aeropress = Item.create(title: 'aeropress', description: 'light stuff', price: 1300)
     visit "/items/#{coffee.id}"
@@ -115,6 +114,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     click_link_or_button('Cart')
 
     within("#item_#{coffee.id}") do
+      select '7', from: 'update_item_quantity[quantity]'
       click_link_or_button('Update Quantity')
     end
 
@@ -122,7 +122,9 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?('Item quantity updated')
     end
     assert page.has_content?('coffee')
-    assert page.has_content?('9')
+    within("#quantity_#{coffee.id}") do
+      assert page.has_content?('7')
+    end
     assert page.has_content?('aeropress')
     assert_equal showcart_path, current_path
   end
@@ -160,6 +162,17 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal showcart_path, current_path
   end
 
+  test 'item titles on cart page are links' do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    click_link_or_button('coffee')
+
+    assert_equal item_path(item.id), current_path
+  end
+
   test 'a user can checkout once logged in' do
     skip
     item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
@@ -174,7 +187,5 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     # assert_equal showcart_path, current_path
   end
 
-  #edit item
-  #make item title a link to items/x page
-
+  #update session[:cart][:id] to session[:cart][:item_id]
 end
