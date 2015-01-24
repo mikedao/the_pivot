@@ -4,8 +4,7 @@ class CartsController < ApplicationController
       flash[:alert] = 'You must login to checkout'
       redirect_to showcart_path
     else
-      require "pry"; binding.pry
-      # redirect_to user_orders_path(id: session[:user_id])
+
     end
   end
 
@@ -36,5 +35,4 @@ class CartsController < ApplicationController
       session[:cart][params[:cart][:id]] = params[:cart][:quantity].to_s
     end
   end
-
 end
