@@ -45,7 +45,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit root_path
     click_link_or_button('Menu')
-    save_and_open_page
     click_link_or_button(category1.name)
     assert_equal items_path, current_path
     assert page.has_content?(item1.title)
