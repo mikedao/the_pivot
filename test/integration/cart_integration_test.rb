@@ -91,6 +91,16 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test 'an unauthorized user cannot checkout until logged in' do
-    
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+    click_link_or_button('Checkout')
+
+    within('#flash_alert') do
+      assert page.has_content?('You must login to checkout')
+    end
+    assert_equal showcart_path, current_path
   end
 end

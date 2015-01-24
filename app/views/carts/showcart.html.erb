@@ -19,10 +19,15 @@
           <td><%= item.description %></td>
           <td><%= number_to_currency item.price / 100 %></td>
           <td><%= quantity %></td>
-          <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
+            <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
         </tr>
       <% end %>
     <% end %>
   </table>
+
+  <%= form_for @cart do |f| %>
+
+  <% end %>
 </div>
+
 <%= link_to('Order History', user_orders_path(current_user)) if current_user %>
