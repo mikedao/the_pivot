@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :read, Cart, id: user.id
+    can :read, Order, id: user.id
     # if user.admin?
     #   can :, Cart
     # end

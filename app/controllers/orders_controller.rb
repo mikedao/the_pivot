@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def index
+    authorize!(:read, current_user)
     @user = User.find(current_user.id)
   end
 
