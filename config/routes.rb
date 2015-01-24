@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :items
 
+  resources :admins
+
   resources :users do
     resources :orders
   end

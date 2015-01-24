@@ -47,12 +47,14 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   test "registered admin can see create category on menu page" do
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit items_path
-    click_link_or_button "Create Category"
-    within(".category") do
-      assert page.has_content?("Create New Category")
+    visit root_path
+    click_link_or_button('Admin Dashboard')
+    assert admins_path, current_path
+    within ('#admin_header') do
+      assert page.has_content?("Welcome Admin")
     end
   end
+
 
   test "registered admin can see edit button on menu page" do
     skip
@@ -68,5 +70,4 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Italian Drip")
     assert page.has_content?(10000)
   end
-
 end
