@@ -9,15 +9,11 @@
 
 john = User.create(username: 'user',password: 'password', first_name: 'John', last_name: 'Doe', email: 'example@example.com', role: 1)
 
-category1 = Category.create(name: 'Coffee', image: "fa fa-coffee")
-category2 = Category.create(name: 'Brewing', image: "fa fa-tint")
-category3 = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
-category4 = Category.create(name: 'Chow', image: "fa fa-cutlery")
-category5 = Category.create(name: 'Shop All', image: "fa fa-archive")
-
-coffee = Category.create!(name: 'Coffee')
-brewing = Category.create!(name: 'Brewing')
-merchandise = Category.create!(name: 'Merchandise')
+coffee = Category.create(name: 'Coffee', image: "fa fa-coffee")
+brewing = Category.create(name: 'Brewing', image: "fa fa-tint")
+merchandise = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
+chow = Category.create(name: 'Chow', image: "fa fa-cutlery")
+shop_all = Category.create(name: 'Shop All', image: "fa fa-archive")
 
 item1 = coffee.items.create!(title: 'Non-fat latte with caramel drizzle', description: 'For the skinny but caffeinated', price: 1000, photo: 'http://i.huffpost.com/gen/1270227/thumbs/o-COFFEE-570.jpg?5')
 item2 = coffee.items.create!(title: 'Grande iced sugar-free vanilla latte with soy milk', description: 'For the healthy organic individual', price: 800, photo: 'http://i.huffpost.com/gen/1269829/thumbs/o-COFFEE-570.jpg?1')
