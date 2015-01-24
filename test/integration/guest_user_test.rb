@@ -21,10 +21,10 @@ class GuestUserTest < ActionDispatch::IntegrationTest
                             email: 'jwan622@example.com',
                             role: 0)
 
-    @item1 = Item.create(title: 'espresso', description: "this is black gold", price: 30000)
-    @category1 = item1.categories.create(name: 'Hot Beverages')
-    @item2 = Item.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense")
-    @category2 = item2.categories.create(name: 'cold beverages')
+    @category1 = Category.create(name: 'Hot Beverages')
+    @category2 = Category.create(name: 'cold beverages')
+    @item1 = category1.items.create(title: 'espresso', description: "this is black gold", price: 30000)
+    @item2 = category2.items.create(title: 'cold pressed coffee', price: 8000, description: "hipster nonsense")
   end
 
   test 'a guest user can view home page' do
@@ -42,7 +42,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test 'a guest user can browse items by category' do
-    # skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit root_path
     click_link_or_button('Menu')

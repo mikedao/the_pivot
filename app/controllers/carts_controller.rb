@@ -15,6 +15,7 @@ class CartsController < ApplicationController
   end
 
   def showcart
+    authorize!(:read, current_user)
     @cart = Cart.new(session[:cart]) if session[:cart]
   end
 
