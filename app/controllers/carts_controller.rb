@@ -1,4 +1,13 @@
 class CartsController < ApplicationController
+  def checkout_cart
+    if session[:user_id].nil?
+      flash[:alert] = 'You must login to checkout'
+      redirect_to showcart_path
+    else
+
+    end
+  end
+
   def create
     update_cart
     flash[:notice] = 'Added to Cart'
