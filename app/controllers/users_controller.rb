@@ -8,14 +8,15 @@ class UsersController < ApplicationController
       flash[:notice] = "Account Already Exists"
       redirect_to new_user_path
     else
-      user = User.create(username: params[:signup][:username],
-                         password: params[:signup][:password],
-                         first_name: params[:signup][:first_name],
-                         last_name: params[:signup][:last_name],
-                         email: params[:signup][:email],
-                         role: 0)
+      user = User.create(user_params)
       session[:user_id] = user.id
       redirect_to root_url
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:signup).permit(:username, :password, :first_name, :last_name, :email, :role)
   end
 end

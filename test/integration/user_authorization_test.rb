@@ -32,6 +32,6 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
   end
 
   test "an admin user cannot change personal data besides their own" do
-
+    skip
   end
 end
