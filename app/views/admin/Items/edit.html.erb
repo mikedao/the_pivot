@@ -3,4 +3,6 @@
   <h3>Edit Item</h3>
 </div>
 
-  <%= render partial: 'shared/edit_item_form', locals: {item: Item.new} %>
+<%= render "shared/back_button" %>
+
+<%= render partial: 'shared/edit_item_form', locals: {item: Item.new} %>

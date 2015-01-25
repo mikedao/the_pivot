@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     else
       @items = Category.find_by(name: params[:category_name]).items
     end
-    @categories = Category.all
+      @categories = Category.all
   end
 
   def show

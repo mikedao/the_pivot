@@ -1,7 +1,8 @@
 <div id="categories_header">
   <h1>Categories</h1>
-  <%= link_to 'Back', admin_dashboard_path %>
 </div>
+
+<%= render "shared/back_button" %>
 
 <div class="category-row">
   <% @categories.each do |category| %>
@@ -12,10 +13,9 @@
 </div>
 
 <div class="category">
-  <h1> Create New Category </h1>
+  <h4 class="form-title"> Create New Category </h1>
   <%= bootstrap_form_for(:categories, style: :inline, url: categories_path) do |f| %>
   <%= f.text_field :name %>
   <%= f.submit "Add Category" %>
   <% end %>
-  <h3>Logo Roulette Will Take Place For Your Category.</h3>
 </div>

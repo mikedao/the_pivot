@@ -1,5 +1,5 @@
 <div class="category">
-  <h1> Create New Category </h1>
+  <h4 class="form-title"> Create New Category </h4>
   <%= bootstrap_form_for(:categories, style: :inline, url: categories_path) do |f| %>
     <%= f.text_field :name %>
     <%= f.submit "Add Category" %>

@@ -27,7 +27,6 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Nice Try")
 
     visit "/users/#{user.id}/orders"
-    save_and_open_page
     assert page.has_content?("Order History")
   end
 end
