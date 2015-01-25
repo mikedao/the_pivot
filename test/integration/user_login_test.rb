@@ -35,4 +35,11 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       assert page.has_content?("You have successfully logged out")
     end
   end
+
+  test 'a logged in user cannot fo to any admin url' do
+    ApplicationController.any_instance?.stub(current_user).return(user)
+    visit admin_path
+      assert root_path, current_path
+  end
+
 end
