@@ -104,6 +104,75 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal showcart_path, current_path
   end
 
+  test 'a user can edit the quantity of an item in their cart' do
+    coffee = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    aeropress = Item.create(title: 'aeropress', description: 'light stuff', price: 1300)
+    visit "/items/#{coffee.id}"
+    click_link_or_button('Add to Cart')
+    visit "/items/#{aeropress.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    within("#item_#{coffee.id}") do
+      select '7', from: 'update_item_quantity[quantity]'
+      click_link_or_button('Update Quantity')
+    end
+
+    within('#flash_notice') do
+      assert page.has_content?('Item quantity updated')
+    end
+    assert page.has_content?('coffee')
+    within("#quantity_#{coffee.id}") do
+      assert page.has_content?('7')
+    end
+    assert page.has_content?('aeropress')
+    assert_equal showcart_path, current_path
+  end
+
+  test 'a user can delete an item from their cart' do
+    coffee = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    aeropress = Item.create(title: 'aeropress', description: 'light stuff', price: 1300)
+    visit "/items/#{coffee.id}"
+    click_link_or_button('Add to Cart')
+    visit "/items/#{aeropress.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    within("#item_#{coffee.id}") do
+      click_link_or_button('Delete')
+    end
+
+    within('#flash_notice') do
+      assert page.has_content?('Item removed from cart')
+    end
+    refute page.has_content?('coffee')
+    assert page.has_content?('aeropress')
+    assert_equal showcart_path, current_path
+  end
+
+  test 'a user can empty their cart' do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    click_link_or_button('Empty Cart')
+
+    assert page.has_content?('Your Cart Is Empty')
+    assert_equal showcart_path, current_path
+  end
+
+  test 'item titles on cart page are links' do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    visit "/items/#{item.id}"
+    click_link_or_button('Add to Cart')
+    click_link_or_button('Cart')
+
+    click_link_or_button('coffee')
+
+    assert_equal item_path(item.id), current_path
+  end
+
   test 'a user can checkout once logged in' do
     skip
     item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
@@ -117,4 +186,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     #assert other things as well
     # assert_equal showcart_path, current_path
   end
+
+  #update session[:cart][:id] to session[:cart][:item_id]
 end

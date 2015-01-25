@@ -6,6 +6,7 @@ class ItemTest < ActiveSupport::TestCase
   test 'it is valid' do
     category = Category.create(name: "hot beverages")
     item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
+
     assert item.valid?
   end
 
@@ -17,6 +18,7 @@ class ItemTest < ActiveSupport::TestCase
 
   test "it cannot have an empty string as a description" do
     category = Category.create(name: "hot beverages")
+
     item = category.items.create(title: 'espresso', description: "", price: 30000)
     assert item.invalid?
   end
@@ -26,6 +28,7 @@ class ItemTest < ActiveSupport::TestCase
     category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
     category.items.create(title: 'espresso', description: "this is bleck gold", price: 30000)
     category.items.create(title: 'espresso', description: "this is back gold", price: 30000)
+
     assert_equal 1, Item.where(:title => "espresso").count
   end
 
@@ -56,5 +59,6 @@ class ItemTest < ActiveSupport::TestCase
     category = Category.create(name: "hot beverages")
     item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
     assert item.categories
+
   end
 end
