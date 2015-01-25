@@ -18,7 +18,13 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  def create
+  def new
+  end
 
+  def create
+    require "pry"; binding.pry
+    cart = Cart.new(session[:cart])
+    cart.items
+    @order = Order.create(id: session[:user_id], total_cost: )
   end
 end
