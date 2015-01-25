@@ -16,12 +16,12 @@
         <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
-    <% @order.items.each do |item| %>
+    <% @order.item_orders.each do |item_order| %>
       <tr>
-        <td><%= item.title %></td>
-        <td><%= 'needs to be fixed' %></td>
-        <td><%= item.price %></td>
-        <td><%= item.line_item_cost %></td>
+        <td><%= link_to item_order.item.title, item_path(item_order.item) %></td>
+        <td><%= item_order.quantity %></td>
+        <td><%= item_order.item.price %></td>
+        <td><%= item_order.line_item_cost %></td>
         <td><%= @order.status %></td>
         <td><%= @order.created_at %></td>
       </tr>

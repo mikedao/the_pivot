@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
 
   def index
-
     if current_user.id == params[:user_id].to_i
       @user = User.find(params[:user_id])
       render :index
@@ -22,9 +21,24 @@ class OrdersController < ApplicationController
   end
 
   def create
-    require "pry"; binding.pry
     cart = Cart.new(session[:cart])
-    cart.items
-    @order = Order.create(id: session[:user_id], total_cost: )
+    total_cost = 0
+    cart.items.each do |item, quantity|
+      total_cost += item.price * quantity.to_i
+    end
+    @order = Order.create(
+      user_id: session[:user_id],
+      total_cost: total_cost,
+      status: 'ordered'
+      )
+    cart.items.each do |item, quantity|
+      ItemOrder.create(
+        item_id: item.id,
+        order_id: @order.id,
+        quantity: quantity,
+        line_item_cost: item.price * quantity.to_i
+        )
+    end
+    redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 end
