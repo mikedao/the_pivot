@@ -1,0 +1,10 @@
+<div id="edit-form">
+  <%= bootstrap_form_for(@item) do |f| %>
+    <%= f.text_field :title %>
+    <%= f.text_field :price %>
+    <%= f.text_area  :description %>
+    <%= f.text_field :photo %>
+    <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
+    <%= f.submit "Update" %>
+  <% end %>
+</div>

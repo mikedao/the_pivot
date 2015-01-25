@@ -120,7 +120,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     fill_in 'signup[email]', with: 'jwan622@example.com'
 
     click_link_or_button('Create Account')
-    save_and_open_page
     within('#flash_notice') do
       assert page.has_content?('Account Already Exists')
     end

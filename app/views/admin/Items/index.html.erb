@@ -1,0 +1,31 @@
+<div id="items_header">
+  <h1> Items <h1>
+</div>
+
+<div class="item">
+  <h1> Create New Item </h1>
+  <%= bootstrap_form_for(@item, style: :inline, url: items_path) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_field :price %>
+  <%= f.text_field :description %>
+  <%= f.text_field :photo %>
+  <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
+  <%= f.submit "Create Item" %>
+  <% end %>
+</div>
+
+
+<div class="row">
+  <% @items.each do |item| %>
+  <div class="box col-lg-3">
+    <h4> <%= link_to("#{item.title}", item_path(item))%></h4>
+    <img src="http://mydailyjava.com/wp-content/uploads/2010/10/3622331765_d514e02626_m.jpg" alt="coffee" />
+    <h5><%= item.description %></h5>
+   <li>
+    <div class="item_edit">  <%= link_to("Edit Item", edit_admin_item_path(item)) %></div>
+    <div class="item_delete">  <%= link_to("Delete", admin_item_path(item), :method => 'delete') %></div>
+    </li>
+  </div>
+  <% end %>
+</div>
+</div>
