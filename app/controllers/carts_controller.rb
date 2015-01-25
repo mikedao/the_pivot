@@ -41,6 +41,7 @@ class CartsController < ApplicationController
     if session[:cart]
       update_existing_cart
     else
+      require 'pry' ; binding.pry
       session[:cart] = { params[:cart][:id] => params[:cart][:quantity] }
     end
   end
