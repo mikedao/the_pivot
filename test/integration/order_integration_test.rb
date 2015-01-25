@@ -42,6 +42,6 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit orders_path
-    click_link_or_button ' Page'
+    click_link_or_button 'Page'
   end
 end
