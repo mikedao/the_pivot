@@ -35,4 +35,29 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       assert page.has_content?("You have successfully logged out")
     end
   end
+
+  test 'a logged in user cannot go to admin dashboard' do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_dashboard_path
+      assert root_path, current_path
+  end
+
+  test 'a logged in user cannot go to admin items path' do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_items_path
+    assert root_path, current_path
+  end
+
+  test 'a logged in user cannot go to category path' do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_categories_path
+    assert root_path, current_path
+  end
+
+  test 'a logged in user cannot go to orders path' do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_orders_path
+    assert root_path, current_path
+  end
+
 end

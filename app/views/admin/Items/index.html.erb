@@ -1,0 +1,34 @@
+<div id="items_header">
+  <h1> Menu Items <h1>
+</div>
+<%= render "shared/back_button" %>
+
+<div class="item">
+  <h4 class="form-title"> Create New Item </h4>
+  <%= bootstrap_form_for(@item, style: :inline, url: items_path) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_field :price %>
+  <%= f.text_field :description %>
+  <%= f.text_field :photo %>
+  <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
+  <%= f.submit "Create Item" %>
+  <% end %>
+</div>
+
+
+<div class="row">
+  <% @items.each do |item| %>
+  <div class="box col-lg-3">
+    <h4 class="item-title"> <%= link_to("#{item.title}", item_path(item))%></h4>
+      <div class="thumbnail">
+        <%= image_tag("#{item.photo}") %>
+      </div>
+    <h5 class="item-desc"><%= item.description %></h5>
+   <li>
+    <div class="item_edit">  <%= link_to("Edit Item", edit_admin_item_path(item)) %></div>
+    <div class="item_delete">  <%= link_to("Delete", admin_item_path(item), :method => 'delete') %></div>
+    </li>
+  </div>
+  <% end %>
+</div>
+</div>

@@ -50,23 +50,82 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Admin Dashboard')
     assert admin_dashboard_path, current_path
     within ('#admin_header') do
-      assert page.has_content?("Welcome Admin")
+      assert page.has_content?("Admin Dashboard")
     end
   end
 
-
-  test "registered admin can see edit button on menu page" do
-    skip
+  test "registered admin can go to the admin categories page" do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit items_path
-    first(:link, "Edit").click
+    visit root_path
+    click_link_or_button('Admin Dashboard')
+    assert admin_dashboard_path, current_path
+
+    click_link_or_button('Categories')
+    assert admin_categories_path, current_path
+    within ('#categories_header') do
+      assert page.has_content?("Categories")
+    end
+  end
+
+  test "registered admin can create a category" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_categories_path
+    fill_in "categories[name]", with: "Brew"
+    click_button 'Add Category'
+      assert page.has_content?("Brew")
+  end
+
+  test "registed admin can create a new item" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_dashboard_path
+    click_link_or_button('Items')
+    fill_in "item[title]", with: "Danish"
+    fill_in "item[price]", with: 4
+    fill_in "item[description]",  with: "Flakey raspberry filled pastry."
+    fill_in "item[photo]", with: "foods.jpg"
+    select "cold beverages", from: "item[categories][]"
+    click_button 'Create Item'
+      assert page.has_content?("Danish")
+  end
+
+  test "registered admin can go to admin items page" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_dashboard_path
+    click_link_or_button('Items')
+    assert admin_items_path, current_path
+      within ('#items_header') do
+        assert page.has_content?('Items')
+    end
+  end
+
+  test "registered admin can go to the admin orders page" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+      visit admin_dashboard_path
+      click_link_or_button('Orders')
+      assert admin_orders_path, current_path
+        within('#orders_header') do
+          assert page.has_content?('Orders')
+    end
+  end
+
+  test 'registered admin can delete items' do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_items_path
+      assert 2, Item.all.count
+      first('.item_delete').click_link_or_button('Delete')
+      assert 1, Item.all.count
+  end
+
+
+  test "registered admin can see edit an item in the admin item page" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_items_path
+    first('.item_edit').click_link_or_button('Edit')
     within("#edit") do
       assert page.has_content?("Edit Item")
     end
-    fill_in "items[title]", with: "Italian Drip"
-    fill_in "items[price]", with: 10000
-    click_button "Submit"
+    fill_in "item[title]", with: "Italian Drip"
+    click_button "Update"
     assert page.has_content?("Italian Drip")
-    assert page.has_content?(10000)
   end
 end
