@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
         line_item_cost: item.price * quantity.to_i
         )
     end
+    session.delete(:cart)
     redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 end

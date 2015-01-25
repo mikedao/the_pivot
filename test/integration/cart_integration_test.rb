@@ -199,7 +199,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
     assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
     # assert_template "users/#{user.id}/orders"
-    assert page.has_content?("2400")
+    assert page.has_content?("$24.00")
     assert page.has_content?("coffee")
   end
 end
