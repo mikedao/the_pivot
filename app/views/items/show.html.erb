@@ -5,7 +5,7 @@
 <div id="price"><%= number_to_currency @item.price / 100 %></div>
 
 <%= form_for :cart, url: carts_path do |f| %>
-  <%= f.hidden_field :id, value: @item.id %>
+  <%= f.hidden_field :item_id, value: @item.id %>
   <%= f.select :quantity, options_for_select((1..10)) %>
   <%= f.submit 'Add to Cart' %>
 <% end %>
