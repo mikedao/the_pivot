@@ -6,6 +6,6 @@
 
 <%= form_for :cart, url: carts_path do |f| %>
   <%= f.hidden_field :item_id, value: @item.id %>
-  <%= f.select :quantity, options_for_select((1..10)) %>
-  <%= f.submit 'Add to Cart' %>
+  <%= f.select :quantity, options_for_select((1..10))%>
+  <%= f.submit 'Add to Cart', class: "btn btn-default add-cart"%>
 <% end %>
