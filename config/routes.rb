@@ -28,4 +28,5 @@ Rails.application.routes.draw do
     resources :orders
   end
 
+  match '/create_order', via: [:get], to: "orders#create"
 end
