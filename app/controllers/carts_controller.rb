@@ -15,7 +15,7 @@ class CartsController < ApplicationController
       flash[:alert] = 'You must login to checkout'
       redirect_to showcart_path
     else
-
+      redirect_to create_order_path
     end
   end
 
@@ -41,15 +41,15 @@ class CartsController < ApplicationController
     if session[:cart]
       update_existing_cart
     else
-      session[:cart] = { params[:cart][:id] => params[:cart][:quantity] }
+      session[:cart] = { params[:cart][:item_id] => params[:cart][:quantity] }
     end
   end
 
   def update_existing_cart
-    if session[:cart][params[:cart][:id]]
-      session[:cart][params[:cart][:id]] = (session[:cart][params[:cart][:id]].to_i + params[:cart][:quantity].to_i).to_s
+    if session[:cart][params[:cart][:item_id]]
+      session[:cart][params[:cart][:item_id]] = (session[:cart][params[:cart][:item_id]].to_i + params[:cart][:quantity].to_i).to_s
     else
-      session[:cart][params[:cart][:id]] = params[:cart][:quantity].to_s
+      session[:cart][params[:cart][:item_id]] = params[:cart][:quantity].to_s
     end
   end
 

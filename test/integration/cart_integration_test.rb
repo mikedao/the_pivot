@@ -35,6 +35,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?('coffee')
       assert page.has_content?('1')
     end
+
   end
 
   test 'an unauthorized user can add up to 10 of the same item at one time' do
@@ -174,18 +175,31 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test 'a user can checkout once logged in' do
-    skip
-    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    item = Item.create(
+      title: 'coffee',
+      description: 'black nectar of the gods',
+      price: 1200
+      )
+    user = User.create(
+      username: 'user123',
+      password: 'password123',
+      first_name: 'first',
+      last_name: 'last',
+      email: 'user123@example.com'
+      )
     visit "/items/#{item.id}"
-
+    select '2', from: 'cart[quantity]'
     click_link_or_button('Add to Cart')
+    fill_in 'session[username]', with: user.username
+    fill_in 'session[password]', with: user.password
+    click_link_or_button('Login')
     click_link_or_button('Cart')
-    #login user and click checkout on cart page
+
     click_link_or_button('Checkout')
 
-    #assert other things as well
-    # assert_equal showcart_path, current_path
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
+    # assert_template "users/#{user.id}/orders"
+    assert page.has_content?("$24.00")
+    assert page.has_content?("coffee")
   end
-
-  #update session[:cart][:id] to session[:cart][:item_id]
 end
