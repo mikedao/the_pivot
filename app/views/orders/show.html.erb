@@ -13,7 +13,6 @@
         <th data-field="Price">Price</th>
         <th data-field='Subtotal'>Subtotal</th>
         <th data-field='Order Status'>Order Status</th>
-        <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
     <% @order.item_orders.each do |item_order| %>
@@ -23,7 +22,6 @@
         <td><%= number_to_currency item_order.item.price / 100 %></td>
         <td><%= number_to_currency item_order.line_item_cost / 100 %></td>
         <td><%= @order.status %></td>
-        <td>'needs to be fixed'</td>
       </tr>
     <% end %>
   </table>
