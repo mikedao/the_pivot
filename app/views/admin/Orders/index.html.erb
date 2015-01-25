@@ -10,7 +10,7 @@
       <th data-field='Order Number'> Order Number </th>
       <th data-field='Total Cost'>Total Cost</th>
       <th data-field='Order Status'>Order Status</th>
-      <th data-field='time'>Subimitted At</th>
+      <th data-field='time'>Submitted At</th>
     </tr>
   </thead>
     <% @users.each do |user| %>
@@ -18,7 +18,7 @@
     <tr>
       <tr>
         <td><%= link_to("#{user.first_name}'s Order #{order.id}", user_order_path(user, order)) %></td>
-        <td><%= order.total_cost %></td>
+        <td><%= number_to_currency order.total_cost/100 %></td>
         <td><%= order.status %></td>
         <td>Today</td>
     <% end %>
