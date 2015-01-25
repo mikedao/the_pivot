@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
   end
 
+  def full_name
+    first_name + " " + last_name
+  end
+
 
 
 end
