@@ -1,6 +1,6 @@
 <div id="title"><h1><%= @item.title %></h1></div>
 
-<img src="http://mydailyjava.com/wp-content/uploads/2010/10/3622331765_d514e02626_m.jpg" alt="coffee" />
+<%= image_tag("#{@item.photo}") %>
 <div id="description"><%= @item.description %></div>
 <div id="price"><%= number_to_currency @item.price / 100 %></div>
 

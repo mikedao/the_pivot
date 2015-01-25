@@ -13,7 +13,6 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                 last_name: 'Doe',
                 email: 'example@example.com',
                 role: 1)
-
     @category1 = Category.create(name: 'Hot Beverages')
     @category2 = Category.create(name: 'cold beverages')
     @item1 = category1.items.create(title: 'espresso', description: "this is black gold", price: 30000)
@@ -61,7 +60,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Admin Dashboard')
     assert admin_dashboard_path, current_path
 
-    click_link_or_button('Categories')
+    click_link_or_button('Category')
     assert admin_categories_path, current_path
     within ('#categories_header') do
       assert page.has_content?("Categories")
@@ -128,5 +127,25 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     fill_in "item[title]", with: "Italian Drip"
     click_button "Update"
     assert page.has_content?("Italian Drip")
+  end
+
+  test "an admin can view all the orders" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    @non_admin = User.create(username: 'yayaya',
+                             password: 'password',
+                             first_name: 'John',
+                             last_name: 'Doe',
+                             email: 'unique@yahoo.com',
+                             role: 0)
+    @order = Order.create(total_cost: 100, user_id: @non_admin.id)
+    @item = @order.items.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+
+    visit root_url
+
+    click_link_or_button('Admin Dashboard')
+    click_link_or_button('Orders')
+    within('#admin-order-table') do
+      assert page.has_content?("Order #{@order.id}")
+    end
   end
 end
