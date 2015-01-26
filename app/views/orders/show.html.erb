@@ -2,7 +2,8 @@
   <%= flash[:alert] %>
 </div>
 
-<h1>Order History</h1>
+<h1><%= "Order #{@order.id}" %></h1>
+<h3><%= "#{@order.user.full_name}"%><br><%= "#{@order.user.email}" %></h3>
 
 <div id="history">
   <table class='table table-bordered'>
