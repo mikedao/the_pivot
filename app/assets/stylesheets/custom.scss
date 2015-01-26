@@ -29,6 +29,19 @@ h3 {
   margin-bottom: 100px;
 }
 
+#signup {
+  text-align: center;
+  
+}
+
+.item_edit {
+  color: #758db2;
+  text-align: center;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+
 .item-title {
   min-height: 40px;
   margin-bottom: 5px;
@@ -54,6 +67,16 @@ h3 {
   margin-bottom: 100px;
 }
 
+.btn-update-quantity {
+  float: right;
+}
+
+.btn-delete-cart-item {
+  float: right;
+  margin-top: 10px;
+  width: 129px;
+}
+
 .admin_btn {
   text-align: center;
   margin-top: 20px;
@@ -67,4 +90,8 @@ h3 {
 
 .admin-links {
   text-align: center;
+}
+
+.add-cart {
+  margin-left: 20px;
 }
