@@ -137,14 +137,15 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                              last_name: 'Doe',
                              email: 'unique@yahoo.com',
                              role: 0)
-    @order = Order.create(total_cost: 100, user_id: @non_admin.id)
+    @order = Order.create(total_cost: 100, user_id: @non_admin.id, status: "completed")
     @item = @order.items.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
 
     visit root_url
 
     click_link_or_button('Admin Dashboard')
     click_link_or_button('Orders')
-    within('#admin-order-table') do
+
+    within('#completed') do
       assert page.has_content?("Order #{@order.id}")
     end
   end

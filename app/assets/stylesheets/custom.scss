@@ -31,7 +31,7 @@ h3 {
 
 #signup {
   text-align: center;
-  
+
 }
 
 .item_edit {
@@ -49,6 +49,21 @@ h3 {
 
 .item-desc {
   min-height: 50px;
+}
+
+#flash_error {
+  text-align: center;
+  color: red;
+}
+
+#flash_alert {
+  color:red;
+  text-align: center;
+}
+
+#flash_notice {
+  text-align: center;
+  color:green;
 }
 
 .category-row {
