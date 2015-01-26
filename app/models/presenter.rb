@@ -10,6 +10,5 @@ class Presenter
     Category.all.each do |category|
       category.name
     end.uniq
-    require 'pry' ; binding.pry
   end
 end
