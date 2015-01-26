@@ -1,6 +1,7 @@
 class Presenter
 
-  attr_reader :items, :categories,
+  attr_reader :items, :categories
+  
   def initialize
     @items = Item.all
     @categories = Category.all
