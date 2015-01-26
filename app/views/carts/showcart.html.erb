@@ -23,17 +23,18 @@
           <td id=<%= "quantity_#{item.id}" %>><%= quantity %></td>
           <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
           <td>
+
             <%= form_for :update_item_quantity, url: update_item_quantity_path do |f| %>
               <%= f.select 'quantity', options_for_select((1..10)) %>
               <input name="_method" type="hidden" value="put" />
               <%= f.hidden_field :item_id, :value => item.id %>
-              <%= f.submit 'Update Quantity' %>
+              <%= f.submit 'Update Quantity', class: "btn btn-default btn-update-quantity" %>
             <% end %>
 
             <%= form_for :cart, url: cart_path do |f| %>
               <input name="_method" type="hidden" value="delete" />
               <%= f.hidden_field :item_id, :value => item.id %>
-              <%= f.submit 'Delete' %>
+              <%= f.submit 'Delete', class: "btn btn-default btn-delete-cart-item" %>
             <% end %>
           </td>
         </tr>
@@ -50,5 +51,3 @@
     <%= f.submit 'Empty Cart' %>
   <% end %>
 </div>
-
-<%= link_to('Order History', user_orders_path(current_user)) if current_user %>
