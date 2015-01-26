@@ -6,7 +6,7 @@
 
 
 <div class="status-row">
-  <% sort_status = %w(#paid #cancelled #ordered #cancelled) %>
+  <% sort_status = %w(#paid #cancelled #ordered #complete) %>
   <% sort_status.each do |status| %>
   <a class="btn" href="<%= status %>">
     <i class="fa fa-sort-desc fa-3x"><br>
@@ -14,28 +14,79 @@
   <% end %>
 </div>
 
-  <% @users.each do |user| %>
-  <% user.orders.each do |order| %>
-  <% if order.status == "completed" %>
-    <div id="completed">
-      <h4> Completed </h4>
-      <%= render partial: "shared/status_table", :locals => {user: user, order: order}%>
+<div id="admin-order-table">
+<h4> Completed </h4>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% Order.complete.each do |order| %>
+      <div id="completed">
+        <%= render partial: "shared/status_table", :locals => {order: order}%>
+      </div>
+    <% end %>
+  </table>
+</div>
+
+<div id="admin-order-table">
+<h4> Paid </h4>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% Order.paid.each do |order| %>
+    <div id="paid">
+      <%= render partial: "shared/status_table", :locals => {order: order}%>
     </div>
-  <% elsif order.status == "paid" %>
-  <div id="paid">
-    <h4> Paid </h4>
-    <%= render partial: "shared/status_table", :locals => {user: user, order: order}%>
-  </div>
-  <% elsif order.status == "ordered" %>
-  <div id="ordered">
-    <h4> Ordered </h4>
-    <%= render partial: "shared/status_table", :locals => {user: user, order: order}%>
-  </div>
-  <% else %>
-  <div id="cancelled">
-    <h4> Cancelled </h4>
-    <%= render partial: "shared/status_table", :locals => {user: user, order: order}%>
-  </div>
-  <% end %>
-  <% end %>
-<% end %>
+    <% end %>
+  </table>
+</div>
+
+
+<div id="admin-order-table">
+<h4> Ordered </h4>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% Order.ordered.each do |order| %>
+    <div id="ordered">
+      <%= render partial: "shared/status_table", :locals => {order: order}%>
+    </div>
+    <% end %>
+  </table>
+</div>
+
+<div id="admin-order-table">
+<h4> Cancelled </h4>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% Order.cancelled.each do |order| %>
+    <div id="cancelled">
+      <%= render partial: "shared/status_table", :locals => {order: order}%>
+    </div>
+    <% end %>
+  </table>
+</div>

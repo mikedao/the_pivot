@@ -25,6 +25,22 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def complete
+    orders.select { |order| order.status == 'complete'}
+  end
+
+  def paid
+    orders.select { |order| order.status == 'paid'}
+  end
+
+  def cancelled
+    orders.select { |order| order.status == 'cancelled'}
+  end
+
+  def ordered
+    orders.select { |order| order.status == 'ordered'}
+  end
+
 
 
 end
