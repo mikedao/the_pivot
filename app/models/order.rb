@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   validates :total_cost, :user_id, presence: true
 
   def self.complete
-    all.select { |order| order.status == 'complete'}
+    all.select { |order| order.status == 'completed'}
   end
 
   def self.paid
