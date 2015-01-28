@@ -61,7 +61,7 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it has a photo by default" do
-    skip #paperclip magic in the works
+    skip
     category = Category.create(name: "hot beverages")
     item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
     refute item.photo == []
