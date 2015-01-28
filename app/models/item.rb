@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+  # has_attached_file :photo, :default_url => "/images/:style/default.jpg"
+
   has_many :items_categories
   has_many :categories, through: :items_categories
 

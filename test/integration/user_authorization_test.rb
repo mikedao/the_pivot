@@ -15,6 +15,8 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorized user cannot see another user's order history and only his own" do
+    user = create(:user)
+    user1 = create(:user)
     user1 = User.create(username: 'xxx',
                         password: 'yyy',
                         first_name: 'Jeff',

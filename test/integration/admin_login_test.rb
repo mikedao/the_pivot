@@ -2,7 +2,6 @@ require 'test_helper'
 
 class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  include FactoryGirl::Syntax::Methods
 
   attr_reader :user, :item1, :item2, :category1, :category2
 

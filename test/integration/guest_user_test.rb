@@ -102,9 +102,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Create Account')
 
     assert current_path, root_url
-    within('#header') do
-      assert page.has_content?('Welcome, Harry')
-    end
+    assert page.has_content?('Welcome, Harry')
   end
 
   test "if user already exists they can't sign up again" do
