@@ -148,4 +148,29 @@ class AdminUserTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Order #{@order.id}")
     end
   end
+
+  test "an admin can change order status" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    @non_admin = User.create(username: 'yayaya',
+                             password: 'password',
+                             first_name: 'John',
+                             last_name: 'Doe',
+                             email: 'unique@yahoo.com',
+                             role: 0)
+    @order = Order.create(total_cost: 100, user_id: @non_admin.id, status: "ordered")
+    @item = @order.items.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+
+    visit root_url
+    click_link_or_button('Admin Dashboard')
+    click_link_or_button('Orders')
+
+    within("#ordered") do
+      select 'completed', from: 'update_order_status[status]'
+      click_link_or_button('Update Status')
+    end
+
+    within("#completed") do
+      assert page.has_content?("Order #{@order.id}")
+    end
+  end
 end

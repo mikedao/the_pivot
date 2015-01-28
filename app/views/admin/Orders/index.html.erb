@@ -15,7 +15,7 @@
 </div>
 
 <div class="admin-order-table">
-<h4> Completed </h4>
+  <h4> Ordered (<%= Order.ordered.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
       <tr>
@@ -23,6 +23,27 @@
         <th data-field='Total Cost'>Total Cost</th>
         <th data-field='Order Status'>Order Status</th>
         <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
+      </tr>
+    </thead>
+    <div id="ordered">
+      <% Order.ordered.each do |order| %>
+      <%= render partial: "shared/status_table", :locals => {order: order}%>
+      <% end %>
+    </div>
+  </table>
+</div>
+
+<div class="admin-order-table">
+<h4> Completed (<%= Order.complete.count %>) </h4>
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
       </tr>
     </thead>
     <div id="completed">
@@ -34,7 +55,7 @@
 </div>
 
 <div class="admin-order-table">
-<h4> Paid </h4>
+<h4> Paid (<%= Order.paid.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
       <tr>
@@ -42,6 +63,7 @@
         <th data-field='Total Cost'>Total Cost</th>
         <th data-field='Order Status'>Order Status</th>
         <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
       </tr>
     </thead>
     <div id="paid">
@@ -52,9 +74,8 @@
   </table>
 </div>
 
-
 <div class="admin-order-table">
-<h4> Ordered </h4>
+<h4> Cancelled (<%= Order.cancelled.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
       <tr>
@@ -62,25 +83,7 @@
         <th data-field='Total Cost'>Total Cost</th>
         <th data-field='Order Status'>Order Status</th>
         <th data-field='time'>Submitted At</th>
-      </tr>
-    </thead>
-    <div id="ordered">
-      <% Order.ordered.each do |order| %>
-        <%= render partial: "shared/status_table", :locals => {order: order}%>
-      <% end %>
-    </div>
-  </table>
-</div>
-
-<div class="admin-order-table">
-<h4> Cancelled </h4>
-  <table class='table table-bordered'>
-    <thead>
-      <tr>
-        <th data-field='Order Number'> Order Number </th>
-        <th data-field='Total Cost'>Total Cost</th>
-        <th data-field='Order Status'>Order Status</th>
-        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
       </tr>
     </thead>
     <div id="cancelled">
