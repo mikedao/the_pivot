@@ -1,7 +1,7 @@
 <div id="title"><h1><%= @item.title %></h1></div>
 <%= render "shared/back_button" %>
 
-<%= image_tag("#{@item.photo}") %>
+<%= image_tag @item.image.url %>
 <div id="description"><%= @item.description %></div>
 <div id="price"><%= number_to_currency @item.price / 100 %></div>
 

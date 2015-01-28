@@ -81,11 +81,22 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     fill_in "item[price]", with: 4
     fill_in "item[description]",  with: "Flakey raspberry filled pastry."
     file_path = Rails.root + 'app/assets/images/foods.jpg'
-    attach_file('item[photo]', file_path)
-    # fill_in "item[photo]", with: "foods.jpg"
+    attach_file('item[image]', file_path)
     select "cold beverages", from: "item[categories][]"
     click_button 'Create Item'
     assert page.has_content?("Danish")
+  end
+
+  test "registed admin can create a new item without an image" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_dashboard_path
+    click_link_or_button('Items')
+    fill_in "item[title]", with: "something"
+    fill_in "item[price]", with: 4
+    fill_in "item[description]",  with: "Flakey raspberry filled pastry."
+    select "cold beverages", from: "item[categories][]"
+    click_button 'Create Item'
+    assert page.has_content?("something")
   end
 
   test "registered admin can go to admin items page" do
