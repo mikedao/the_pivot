@@ -4,9 +4,7 @@ class ItemTest < ActiveSupport::TestCase
   attr_reader :item
 
   test 'it is valid' do
-    category = Category.create(name: "hot beverages")
-    item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-
+    item = create(:item)
     assert item.valid?
   end
 
@@ -47,18 +45,19 @@ class ItemTest < ActiveSupport::TestCase
     refute item5.valid?
   end
 
-
   test 'it can have many categories' do
-    category = Category.create(name: "hot beverages")
-    item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    category1 = item.categories.create(name: 'cold beverages')
+    item = create(:item, category_count: 2)
+
     assert_equal 2, item.categories.count
   end
 
   test "it has to have at least a category" do
-    category = Category.create(name: "hot beverages")
-    item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
+    item = create(:item, category_count: 1)
+    item1 = create(:item, category_count: 3)
+
     assert item.categories
+    assert_equal 1, item.categories.count
+    assert_equal 3, item.categories.count
   end
 
   test "it has a photo by default" do

@@ -14,16 +14,13 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "user can login" do
-    within ("#header") do
-      assert page.has_content?('Coffee House')
-    end
+    assert page.has_content?('Coffee House')
+
     fill_in 'session[username]', with: 'user'
     fill_in 'session[password]', with: 'password'
     click_link_or_button 'Login'
     assert current_path, root_url
-    within ('#header') do
-      assert page.has_content?('Welcome, John')
-    end
+    assert page.has_content?('Welcome, John')
   end
 
   test 'a user can logout' do
@@ -39,7 +36,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   test 'a logged in user cannot go to admin dashboard' do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit admin_dashboard_path
-      assert root_path, current_path
+    assert root_path, current_path
   end
 
   test 'a logged in user cannot go to admin items path' do
