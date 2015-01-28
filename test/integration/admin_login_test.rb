@@ -211,6 +211,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Retire')
 
     visit items_path
-    refute page.has_content?('black nectar')    
+    refute page.has_content?('black nectar')
   end
+
+  test "an admin updates an order status and the user now sees the time of the update on order show page"
 end
