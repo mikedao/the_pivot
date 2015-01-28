@@ -5,6 +5,17 @@ FactoryGirl.define do
     last_name "Federer"
     sequence(:email) { |n| "person#{n}@gmail.com"}
     role 0
+
+    factory :user_with_orders do
+
+      transient do
+        orders_count 2
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:order, evaluator.orders_count, user_id: user.id)
+      end
+    end
   end
 
   factory :category do
@@ -31,8 +42,17 @@ FactoryGirl.define do
   end
 
   factory :order do
-    user
     total_cost 8900
     status "completed"
+    user
+
+    # transient do
+    #   user_id nil
+    #   user_count 1
+    # end
+
+    # after(:create) do |order, evaluator|
+    #   create_list(:user, user_count, :user_id => user_id, orders: [order])
+    # end
   end
 end

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def index
-    if current_user.id == params[:user_id].to_i
+    if current_user && current_user.id == params[:user_id].to_i
       @user = User.find(params[:user_id])
       render :index
     else
@@ -14,7 +14,12 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    if current_user && current_user.id == params[:user_id].to_i
+      @order = Order.find(params[:id])
+    else
+      flash[alert] = "Nice Try"
+      redirect_to root_path
+    end
   end
 
   def new

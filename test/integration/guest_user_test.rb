@@ -121,4 +121,18 @@ class GuestUserTest < ActionDispatch::IntegrationTest
       assert page.has_content?('Account Already Exists')
     end
   end
+
+  test "a unauthorized user cannot see another user's order page" do
+    user1 = create(:user_with_orders)
+
+    visit "/users/#{user1.id}/orders/"
+
+    refute page.has_content?("Order History")
+    assert page.has_content?("Nice Try")
+
+    visit "/users/#{user1.id}/orders/#{user1.orders.first.id}"
+
+    refute page.has_content?("Order #{user1.orders.first.id}")
+    assert page.has_content?("Nice Try")
+  end
 end
