@@ -61,9 +61,8 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it has a photo by default" do
-    skip
     category = Category.create(name: "hot beverages")
     item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    refute item.photo == []
+    assert item.image.url
   end
 end

@@ -39,7 +39,7 @@ gem "therubyracer"
 
 gem "less-rails"
 gem "rails_12factor"
-
+gem 'paperclip'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

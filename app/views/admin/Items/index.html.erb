@@ -5,11 +5,12 @@
 
 <div class="item">
   <h4 class="form-title"> Create New Item </h4>
-  <%= bootstrap_form_for(@item, style: :inline, url: items_path) do |f| %>
+  <%= bootstrap_form_for(@item, style: :inline, url: items_path, html: {multipart: true}) do |f| %>
   <%= f.text_field :title %>
   <%= f.text_field :price %>
   <%= f.text_field :description %>
-  <%= f.text_field :photo %>
+  <%= f.label :image, 'Attach an Image' %><br />
+  <%= f.file_field :image %>
   <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
   <%= f.submit "Create Item" %>
   <% end %>
@@ -21,7 +22,7 @@
   <div class="box col-lg-3">
     <h4 class="item-title"> <%= link_to("#{item.title}", item_path(item))%></h4>
       <div class="thumbnail">
-        <%= image_tag("#{item.photo}") %>
+        <%= image_tag item.image.url %>
       </div>
     <h5 class="item-desc"><%= item.description %></h5>
 
