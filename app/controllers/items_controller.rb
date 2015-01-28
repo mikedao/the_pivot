@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     if params[:category_name] == 'Shop All' || params[:category_name].nil?
-      @items = Item.all
+      @items = Item.active
     else
       @items = Category.find_by(name: params[:category_name]).items
     end

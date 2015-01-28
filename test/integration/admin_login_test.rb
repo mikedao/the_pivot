@@ -185,4 +185,32 @@ class AdminUserTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Order #{@order.id}")
     end
   end
+
+  test "an admin can retire an item" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    Item.destroy_all
+    @item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200, retired: false)
+
+    visit admin_items_path
+    select 'true', from: 'retire[status]'
+    click_link_or_button('Retire')
+
+    assert page.has_content?("Retired")
+  end
+
+  test "an item does not appear on menu after admin retires it" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    Item.destroy_all
+    @item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200, retired: false)
+    visit items_path
+
+    assert page.has_content?('black nectar')
+
+    visit admin_items_path
+    select 'true', from: 'retire[status]'
+    click_link_or_button('Retire')
+
+    visit items_path
+    refute page.has_content?('black nectar')    
+  end
 end

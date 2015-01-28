@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+
+  scope :active, -> {where(retired:false)}
   has_attached_file :image, :default_url => "default.jpg"
   validates_attachment_content_type :image, content_type: ['image/jpg', 'image/jpeg', 'image/png']
 
