@@ -80,10 +80,12 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     fill_in "item[title]", with: "Danish"
     fill_in "item[price]", with: 4
     fill_in "item[description]",  with: "Flakey raspberry filled pastry."
-    fill_in "item[photo]", with: "foods.jpg"
+    file_path = Rails.root + 'app/assets/images/foods.jpg'
+    attach_file('item[photo]', file_path)
+    # fill_in "item[photo]", with: "foods.jpg"
     select "cold beverages", from: "item[categories][]"
     click_button 'Create Item'
-      assert page.has_content?("Danish")
+    assert page.has_content?("Danish")
   end
 
   test "registered admin can go to admin items page" do

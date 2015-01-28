@@ -9,7 +9,7 @@
   <%= f.text_field :title %>
   <%= f.text_field :price %>
   <%= f.text_field :description %>
-  <%= f.text_field :photo %>
+  <%= f.file_field :photo %>
   <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
   <%= f.submit "Create Item" %>
   <% end %>

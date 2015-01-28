@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-  @item = Item.create(item_params)
+    @item = Item.create(item_params)
     add_category(params[:item][:categories])
     redirect_to items_path
   end
