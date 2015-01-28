@@ -123,6 +123,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "a unauthorized user cannot see another user's order page" do
+    order = create(:order)
     user1 = create(:user_with_orders)
 
     visit "/users/#{user1.id}/orders/"
