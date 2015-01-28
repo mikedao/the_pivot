@@ -3,7 +3,8 @@
     <%= f.text_field :title %>
     <%= f.text_field :price %>
     <%= f.text_area  :description %>
-    <%= f.text_field :photo %>
+    <%= f.label :image, 'Attach an Image' %><br />
+    <%= f.file_field :image %>
     <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
     <%= f.submit "Update" %>
   <% end %>

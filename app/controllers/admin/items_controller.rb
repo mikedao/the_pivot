@@ -14,4 +14,10 @@ class Admin::ItemsController < Admin::BaseController
     @item.destroy
     redirect_to admin_items_path
   end
+
+  def update
+    item = Item.find(params[:retire][:item_id])
+    item.update(retired: params[:retire][:status])
+    redirect_to admin_items_path
+  end
 end

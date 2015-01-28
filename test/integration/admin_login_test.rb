@@ -80,10 +80,23 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     fill_in "item[title]", with: "Danish"
     fill_in "item[price]", with: 4
     fill_in "item[description]",  with: "Flakey raspberry filled pastry."
-    fill_in "item[photo]", with: "foods.jpg"
+    file_path = Rails.root + 'app/assets/images/foods.jpg'
+    attach_file('item[image]', file_path)
     select "cold beverages", from: "item[categories][]"
     click_button 'Create Item'
-      assert page.has_content?("Danish")
+    assert page.has_content?("Danish")
+  end
+
+  test "registed admin can create a new item without an image" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit admin_dashboard_path
+    click_link_or_button('Items')
+    fill_in "item[title]", with: "something"
+    fill_in "item[price]", with: 4
+    fill_in "item[description]",  with: "Flakey raspberry filled pastry."
+    select "cold beverages", from: "item[categories][]"
+    click_button 'Create Item'
+    assert page.has_content?("something")
   end
 
   test "registered admin can go to admin items page" do
@@ -171,5 +184,33 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     within("#completed") do
       assert page.has_content?("Order #{@order.id}")
     end
+  end
+
+  test "an admin can retire an item" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    Item.destroy_all
+    @item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200, retired: false)
+
+    visit admin_items_path
+    select 'true', from: 'retire[status]'
+    click_link_or_button('Retire')
+
+    assert page.has_content?("Retired")
+  end
+
+  test "an item does not appear on menu after admin retires it" do
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    Item.destroy_all
+    @item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200, retired: false)
+    visit items_path
+
+    assert page.has_content?('black nectar')
+
+    visit admin_items_path
+    select 'true', from: 'retire[status]'
+    click_link_or_button('Retire')
+
+    visit items_path
+    refute page.has_content?('black nectar')    
   end
 end

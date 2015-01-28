@@ -5,11 +5,12 @@
 
 <div class="item">
   <h4 class="form-title"> Create New Item </h4>
-  <%= bootstrap_form_for(@item, style: :inline, url: items_path) do |f| %>
+  <%= bootstrap_form_for(@item, style: :inline, url: items_path, html: {multipart: true}) do |f| %>
   <%= f.text_field :title %>
   <%= f.text_field :price %>
   <%= f.text_field :description %>
-  <%= f.text_field :photo %>
+  <%= f.label :image, 'Attach an Image' %><br />
+  <%= f.file_field :image %>
   <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
   <%= f.submit "Create Item" %>
   <% end %>
@@ -21,19 +22,24 @@
   <div class="box col-lg-3">
     <h4 class="item-title"> <%= link_to("#{item.title}", item_path(item))%></h4>
       <div class="thumbnail">
-        <%= image_tag("#{item.photo}") %>
+        <%= image_tag item.image.url %>
       </div>
     <h5 class="item-desc"><%= item.description %></h5>
-
+    <h5><%= "Retired" if item.retired %></h5>
     <div class="item_edit">
-      <%= link_to("Edit Item", edit_admin_item_path(item), :class => "btn btn-default") %>
+      <%= link_to("Edit Item", edit_admin_item_path(item), :class => "btn btn-default", style: :inline) %>
     </div>
 
     <div class="item_delete">
-      <%= link_to("Delete", admin_item_path(item), :method => 'delete', :class => "btn btn-default" ) %>
+      <%= link_to("Delete", admin_item_path(item), :method => 'delete', :class => "btn btn-default", style: :inline ) %>
     </div>
-
-
+    <div class="retire-btn">
+      <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
+      <%= f.select 'status', options_for_select([['true'], ['false']])%>
+      <%= f.hidden_field :item_id, :value => item.id %>
+      <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
+      <% end %>
+    </div>
   </div>
   <% end %>
 </div>
