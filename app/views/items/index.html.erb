@@ -1,24 +1,25 @@
 <div id="menu">
-<%= render "shared/back_button" %>
-<h1> Menu </h1>
-<div class="category-row">
-  <% @categories.each do |category| %>
-  <a class="btn" href="<%= items_path(category_name: category.name) %>">
-    <i class="<%= category.image %> fa-3x"><br>
-    </i>  <%= category.name %></a>
-  <% end %>
-</div>
+  <h1> Menu </h1>
 
+  <div class="category-row">
+    <%= render "shared/back_button" %>
+    <% @categories.each do |category| %>
+      <a class="btn" href="<%= items_path(category_name: category.name) %>">
+        <i class="<%= category.image %> fa-3x"><br>
+        </i><%= category.name %>
+      </a>
+    <% end %>
+  </div>
 
-<div class="row">
-  <% @items.each do |item| %>
-    <div class="box col-lg-3">
-      <h4 class="item-title"> <%= link_to("#{item.title}", item_path(item))%></h4>
-      <div class="thumbnail">
-        <%= image_tag("#{item.photo}") %>
+  <div class="row">
+    <% @items.each do |item| %>
+      <div class="box col-lg-3">
+        <h4 class="item-title"> <%= link_to("#{item.title}", item_path(item))%></h4>
+        <div class="thumbnail">
+          <%= image_tag("#{item.photo}") %>
+        </div>
+        <h5 class="item-desc"><%= item.description %></h5>
       </div>
-      <h5 class="item-desc"><%= item.description %></h5>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 </div>
