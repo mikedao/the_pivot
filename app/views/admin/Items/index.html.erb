@@ -24,16 +24,21 @@
         <%= image_tag("#{item.photo}") %>
       </div>
     <h5 class="item-desc"><%= item.description %></h5>
-
+    <h5><%= "Retired" if item.retired %></h5>
     <div class="item_edit">
-      <%= link_to("Edit Item", edit_admin_item_path(item), :class => "btn btn-default") %>
+      <%= link_to("Edit Item", edit_admin_item_path(item), :class => "btn btn-default", style: :inline) %>
     </div>
 
     <div class="item_delete">
-      <%= link_to("Delete", admin_item_path(item), :method => 'delete', :class => "btn btn-default" ) %>
+      <%= link_to("Delete", admin_item_path(item), :method => 'delete', :class => "btn btn-default", style: :inline ) %>
     </div>
-
-
+    <div class="retire-btn">
+      <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
+      <%= f.select 'status', options_for_select([['true'], ['false']])%>
+      <%= f.hidden_field :item_id, :value => item.id %>
+      <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
+      <% end %>
+    </div>
   </div>
   <% end %>
 </div>
