@@ -34,6 +34,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   end
 
   test 'a logged in user cannot go to admin dashboard' do
+    user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit admin_dashboard_path
     assert root_path, current_path
