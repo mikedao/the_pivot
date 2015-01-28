@@ -32,8 +32,4 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
     visit "/users/#{user.id}/orders"
     assert page.has_content?("Order History")
   end
-
-  test "an admin user cannot change personal data besides their own" do
-    skip
-  end
 end

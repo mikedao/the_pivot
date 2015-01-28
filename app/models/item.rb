@@ -13,10 +13,6 @@ class Item < ActiveRecord::Base
   # validates :photo, allow_blank: true
   # after_validation :categories
 
-  def quantity
-
-  end
-
   # def has_categories
   #   errors.add(:category, "needs a category") if self.categories.empty?
   # end

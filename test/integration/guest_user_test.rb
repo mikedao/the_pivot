@@ -53,13 +53,12 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "registered admin can create category" do
-    skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_admin)
-    visit items_path
-    click_link_or_button "Create Category"
-    fill_in "categories[name]", with: "Merchandise"
+    visit admin_dashboard_path
+    click_link_or_button "Category"
+    fill_in "categories[name]", with: "Blah"
     click_link_or_button "Add Category"
-    assert page.has_content?("Merchandise")
+    assert page.has_content?("Blah")
   end
 
   test "unregistered admin cannot see category" do

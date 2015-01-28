@@ -43,11 +43,11 @@
   </table>
 
   <%= form_for :cart, url: checkout_cart_path do |f| %>
-    <%= f.submit 'Checkout' %>
+    <%= f.submit 'Checkout', class: 'btn btn-default' %>
   <% end %>
 
   <%= form_for :cart, url: cart_path do |f| %>
     <input name="_method" type="hidden" value="delete" />
-    <%= f.submit 'Empty Cart' %>
+    <%= f.submit 'Empty Cart', class: 'btn btn-default' %>
   <% end %>
 </div>
