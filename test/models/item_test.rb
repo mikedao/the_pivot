@@ -57,7 +57,7 @@ class ItemTest < ActiveSupport::TestCase
 
     assert item.categories
     assert_equal 1, item.categories.count
-    assert_equal 3, item.categories.count
+    assert_equal 3, item1.categories.count
   end
 
   test "it has a photo by default" do
