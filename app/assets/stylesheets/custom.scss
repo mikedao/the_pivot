@@ -34,14 +34,6 @@ h3 {
 
 }
 
-.item_edit {
-  color: #758db2;
-  text-align: center;
-  margin-right: 15px;
-  margin-left: 15px;
-}
-
-
 .item-title {
   min-height: 40px;
   margin-bottom: 5px;
@@ -91,13 +83,13 @@ h3 {
   margin-top: 10px;
   width: 129px;
 }
-// 
-// .admin_btn {
-//   text-align: center;
-//   margin-top: 20px;
-//   padding-left: 50px;
-//   padding-right: 50px;
-// }
+
+.admin_btn {
+  text-align: center;
+  margin-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
 
 #admin_header {
   margin-bottom: 70px;
@@ -109,4 +101,9 @@ h3 {
 
 .add-cart {
   margin-left: 20px;
+}
+
+.drop-down {
+  margin-left: 201px;
+  color: #758db2;
 }

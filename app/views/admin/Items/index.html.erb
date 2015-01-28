@@ -26,20 +26,24 @@
       </div>
     <h5 class="item-desc"><%= item.description %></h5>
     <h5><%= "Retired" if item.retired %></h5>
-    <div class="item_edit">
-      <%= link_to("Edit Item", edit_admin_item_path(item), :class => "btn btn-default", style: :inline) %>
-    </div>
-
-    <div class="item_delete">
-      <%= link_to("Delete", admin_item_path(item), :method => 'delete', :class => "btn btn-default", style: :inline ) %>
-    </div>
-    <div class="retire-btn">
+    <form class="form-horizontal">
+      <div class="retire-form">
       <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
-      <%= f.select 'status', options_for_select([['true'], ['false']])%>
+      <div class="drop-down"><%= f.select 'status', options_for_select([['true'], ['false']])%></div>
       <%= f.hidden_field :item_id, :value => item.id %>
+    </div>
       <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
       <% end %>
+  </form>
+
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button"  <a class="btn btn-default" href= edit_admin_item_path(item)>
+        <i class="fa fa-pencil-square-o"></i></a>Edit</button>
+      <button type="button"  <a class="btn btn-default" href= admin_item_path(item), method="delete">
+        <i class="fa fa-trash-o"></i></a>Delete</button>
     </div>
+
+
   </div>
   <% end %>
 </div>
