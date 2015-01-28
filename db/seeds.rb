@@ -1,4 +1,7 @@
-john = User.create(username: 'user',password: 'password', first_name: 'John', last_name: 'Doe', email: 'example@example.com', role: 1)
+rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
+jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last_name: 'Casimir', email: 'demo+jeff@jumpstartlab.com', role: 0)
+jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
+josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
 
 coffee = Category.create(name: 'Coffee', image: "fa fa-coffee")
 brewing = Category.create(name: 'Brewing', image: "fa fa-tint")
@@ -27,3 +30,18 @@ item15 = coffee.items.create!(title: 'Cinnful Capuccino', description: 'An espre
 item16 = coffee.items.create!(title: 'Cocoa', description: 'delicious organic chocolate to be savoured as it is or combined with intriguing infusions.', price: 500, image: File.new("#{Rails.root}/app/assets/images/coco.jpg"))
 item17 = coffee.items.create!(title: 'Latte', description: 'A shot of strong espresso coffee, with a healthy covering of hot steamed milk and a topping of steamed milk froth served in a glass.', price: 500, image: File.new("#{Rails.root}/app/assets/images/latte.jpg"))
 item18 = coffee.items.create!(title: 'Green Tea', description: 'Green tea potential health benefits for everything from fighting cancer to helping your heart, and it taste pretty okay too.', price: 500, image: File.new("#{Rails.root}/app/assets/images/green-tea.jpg"))
+
+
+jeff.orders.create(total_cost: 20000, user_id: jeff.id, status: 'completed'))
+jeff.orders.create(total_cost: 1000, user_id: jeff.id, status: 'ordered'))
+
+rachel.orders.create(total_cost: 7500, user_id: rachel.id, status: 'ordered'))
+rachel.orders.create(total_cost: 1900, user_id: rachel.id, status: 'cancelled'))
+rachel.orders.create(total_cost: 77000, user_id: rachel.id, status: 'paid'))
+
+jorge.orders.create(total_cost: 5000, user_id: jorge.id, status: 'cancelled'))
+jorge.orders.create(total_cost: 250, user_id: jorge.id, status: 'completed'))
+
+josh.orders.create(total_cost: 5000, user_id: josh.id, status: 'cancelled'))
+josh.orders.create(total_cost: 20000, user_id: josh.id, status: 'paid'))
+josh.orders.create(total_cost: 1032, user_id: josh.id, status: 'paid'))
