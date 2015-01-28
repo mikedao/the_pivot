@@ -21,6 +21,16 @@ FactoryGirl.define do
   factory :category do
     sequence(:name) { |n| "hot beverages#{n}" }
     image "default.jpg"
+
+    factory :category_with_items do
+      transient do
+        item_count 1
+      end
+
+      after(:create) do |category, evaluator|
+        create_list(:item, evaluator.item_count, :title => "cocoa", categories: [category])
+      end
+    end
   end
 
   factory :item do

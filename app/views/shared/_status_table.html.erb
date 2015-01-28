@@ -5,11 +5,11 @@
   <td><%= order.created_at.strftime("%b %d, %Y") %></td>
   <td>
     <%= form_for :update_order_status, url: admin_order_path(order) do |f| %>
-    <%= f.select 'status', options_for_select(["#{order.status}",['completed'], ['paid'],
-                                              ['cancelled'], ['ordered']])%>
-    <input name="_method" type="hidden" value="put" />
-    <%= f.hidden_field :order_id, :value => order.id %>
-    <%= f.submit 'Update Status', class: "btn btn-default btn-update-quantity" %>
+      <%= f.select 'status', options_for_select(["#{order.status}",['completed'], ['paid'],
+                                                ['cancelled'], ['ordered']])%>
+      <input name="_method" type="hidden" value="put" />
+      <%= f.hidden_field :order_id, :value => order.id %>
+      <%= f.submit 'Update Status', class: "btn btn-default btn-update-quantity" %>
     <% end %>
   </td>
 </tr>

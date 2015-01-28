@@ -8,6 +8,7 @@
         <th data-field='Order Number'> Order Number </th>
         <th data-field='Total Cost'>Total Cost</th>
         <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Status As Of At</th>
         <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
@@ -17,7 +18,8 @@
         <td><%= link_to("Order #{order.id}", user_order_path(@user, order)) %></td>
         <td><%= number_to_currency order.total_cost/100 %></td>
         <td><%= order.status %></td>
-        <td><%= order.created_at.strftime("%b %d, %Y") %></td>
+        <td><%= order.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
+        <td><%= order.created_at.strftime("%b %d, %Y, %I:%M") %></td>
     <% end %>
       </tr>
   </table>
