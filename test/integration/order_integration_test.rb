@@ -10,8 +10,9 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
                         first_name: 'John',
                         last_name: 'Doe',
                         email: 'example@example.com')
-    @order = Order.create(total_cost: 100, user_id: user.id)
-    @item = order.items.create(title: 'Pour Over')
+    @item = Item.create(title: 'Pour Over', description: 'blah', price: 1000)
+    @order = item.orders.create(total_cost: 1000, user_id: user.id)
+    @order.item_orders.first.update(quantity: 1, line_item_cost: 1000)
     visit root_url
   end
 
@@ -27,21 +28,13 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "user can view page for specific order" do
-    skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     click_link_or_button 'Cart'
     click_link_or_button 'Order History'
     click_link_or_button "Order #{order.id}"
     assert current_path, user_order_path(user, order)
-    within ('#order_history') do
+    within ('#history') do
       assert page.has_content?('Pour Over')
     end
-  end
-
-  test "link to each item exists" do
-    skip
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit orders_path
-    click_link_or_button 'Page'
   end
 end
