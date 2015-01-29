@@ -52,8 +52,6 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it has to have at least a category" do
-    category = create(:category)
-
     item = create(:item_with_categories, category_count: 1)
     item1 = create(:item_with_categories, category_count: 3)
 
