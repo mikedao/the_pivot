@@ -177,7 +177,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Orders')
 
     within("#ordered") do
-      select 'completed', from: 'update_order_status[status]'
+      select 'completed', from: "update_order_status[status_#{@order.id}]"
       click_link_or_button('Update Status')
     end
 
@@ -192,7 +192,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     @item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200, retired: false)
 
     visit admin_items_path
-    select 'true', from: 'retire[status]'
+    select 'true', from: "retire[status_#{@item.id}]"
     click_link_or_button('Retire')
 
     assert page.has_content?("Retired")
@@ -207,7 +207,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?('black nectar')
 
     visit admin_items_path
-    select 'true', from: 'retire[status]'
+    select 'true', from: "retire[status_#{@item.id}]"
     click_link_or_button('Retire')
 
     visit items_path
@@ -222,7 +222,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
     visit admin_dashboard_path
     click_link_or_button "Orders"
-    select "completed", from: "update_order_status[status]"
+    select "completed", from: "update_order_status[status_#{order.id}]"
     click_button "Update Status"
 
     refute_equal orig_status, order.reload.status

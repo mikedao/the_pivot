@@ -16,8 +16,8 @@ class Admin::ItemsController < Admin::BaseController
   end
 
   def update
-    item = Item.find(params[:retire][:item_id])
-    item.update(retired: params[:retire][:status])
+    item = Item.find(params[:id])
+    item.update(retired: params[:retire]["status_#{item.id}"])
     redirect_to admin_items_path
   end
 end

@@ -35,8 +35,7 @@
     </div>
     <div class="retire-btn">
       <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
-      <%= f.select 'status', options_for_select([['true'], ['false']])%>
-      <%= f.hidden_field :item_id, :value => item.id %>
+      <%= f.select "status_#{item.id}", options_for_select([['true'], ['false']])%>
       <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
       <% end %>
     </div>
