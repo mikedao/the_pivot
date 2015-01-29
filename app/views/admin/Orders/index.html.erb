@@ -13,6 +13,7 @@
 </div>
 
 <div class="admin-order-table">
+  <div id="ordered">
   <h4> Ordered (<%= Order.ordered.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
@@ -24,16 +25,16 @@
         <th data-field='update'>Update Order</th>
       </tr>
     </thead>
-    <div id="ordered">
       <% Order.ordered.each do |order| %>
       <%= render partial: "shared/status_table", :locals => {order: order}%>
       <% end %>
-    </div>
   </table>
+  </div>
 </div>
 
 <div class="admin-order-table">
-<h4> Completed (<%= Order.complete.count %>) </h4>
+ <div id="completed">
+  <h4> Completed (<%= Order.complete.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
       <tr>
@@ -44,15 +45,15 @@
         <th data-field='update'>Update Order</th>
       </tr>
     </thead>
-    <div id="completed">
       <% Order.complete.each do |order| %>
         <%= render partial: "shared/status_table", :locals => {order: order}%>
       <% end %>
-    </div>
   </table>
+  </div>
 </div>
 
 <div class="admin-order-table">
+  <div id="paid">
 <h4> Paid (<%= Order.paid.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
@@ -64,15 +65,15 @@
         <th data-field='update'>Update Order</th>
       </tr>
     </thead>
-    <div id="paid">
       <% Order.paid.each do |order| %>
         <%= render partial: "shared/status_table", :locals => {order: order}%>
       <% end %>
-    </div>
   </table>
+  </div>
 </div>
 
 <div class="admin-order-table">
+  <div id="cancelled">
 <h4> Cancelled (<%= Order.cancelled.count %>) </h4>
   <table class='table table-bordered'>
     <thead>
@@ -84,10 +85,9 @@
         <th data-field='update'>Update Order</th>
       </tr>
     </thead>
-    <div id="cancelled">
       <% Order.cancelled.each do |order| %>
         <%= render partial: "shared/status_table", :locals => {order: order}%>
       <% end %>
-    </div>
   </table>
+  </div>
 </div>
