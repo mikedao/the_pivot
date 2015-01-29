@@ -14,8 +14,9 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if current_user && current_user.id == params[:user_id].to_i
-      @order = Order.find(params[:id])
+    @order = Order.find(params[:id])
+    if current_user && current_user.id == @order.user_id || current_user.admin?
+      @order
     else
       flash[:alert] = "Nice Try"
       redirect_to root_path

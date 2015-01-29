@@ -1,23 +1,22 @@
-  <%= nav_bar fixed: :top, brand: "Coffee House", responsive: true do %>
+<%= nav_bar fixed: :top, brand: "Coffee House", responsive: true do %>
   <%= menu_group do %>
-  <%= menu_item "Home", root_path %>
-  <%= menu_item "Menu", items_path %>
-  <%= menu_item "Cart", showcart_path %>
-  <%= menu_item "Order History", user_orders_path(current_user) if current_user %>
-  <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
-  <%= menu_item "Signup", new_user_path if current_user.nil? %>
+    <%= menu_item "Home", root_path %>
+    <%= menu_item "Menu", items_path %>
+    <%= menu_item "Cart", showcart_path %>
+    <%= menu_item "Order History", user_orders_path(current_user) if current_user %>
+    <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
+    <%= menu_item "Signup", new_user_path if current_user.nil? %>
     <% if current_user.nil? %>
       <%= menu_item do %>
         <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
-        <%= f.text_field :username, :placeholder => 'username' %>
-        <%= f.password_field :password, :placeholder => 'password' %>
+          <%= f.text_field :username, :placeholder => 'username' %>
+          <%= f.password_field :password, :placeholder => 'password' %>
           <%= f.submit 'Login' %>
         <% end %>
       <% end %>
     <% else %>
-  <%= menu_item "Welcome, #{current_user.first_name}" %>
-  <%= menu_item "Logout", logout_path, method: :delete %>
-  <% end %>
+      <%= menu_item "Welcome, #{current_user.first_name}" %>
+      <%= menu_item "Logout", logout_path, method: :delete %>
+    <% end %>
   <% end %>
 <% end %>
-</div>
