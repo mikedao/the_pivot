@@ -42,22 +42,22 @@ jeff_order_3 = item7.orders.create(total_cost: item7.price, user_id: jeff.id, st
 jeff_order_3.item_orders.last.update(quantity: 15, line_item_cost: item7.price)
 
 jeff_order_4 = item10.orders.create(total_cost: item10.price, user_id: jeff.id, status: 'paid')
-jeff_order_4.item_orders.last.update(quantity: 1, line_item_cost: item10.price)
+jeff_order_4.item_orders.last.update(quantity: 19, line_item_cost: item10.price)
 
 rachel_order_1 = item2.orders.create(total_cost: item2.price, user_id: rachel.id, status: 'completed')
-rachel_order_1.item_orders.last.update(quantity: 1, line_item_cost: item2.price)
+rachel_order_1.item_orders.last.update(quantity: 4, line_item_cost: item2.price)
 
 rachel_order_2 = item11.orders.create(total_cost: item11.price, user_id: rachel.id, status: 'ordered')
-rachel_order_2.item_orders.last.update(quantity: 1, line_item_cost: item11.price)
+rachel_order_2.item_orders.last.update(quantity: 6, line_item_cost: item11.price)
 
 jorge_order_1 = item16.orders.create(total_cost: item16.price, user_id: jorge.id, status: 'cancelled')
-jorge_order_1.item_orders.last.update(quantity: 1, line_item_cost: item16.price)
+jorge_order_1.item_orders.last.update(quantity: 7, line_item_cost: item16.price)
 
 jorge_order_2 = item11.orders.create(total_cost: item11.price, user_id: jorge.id, status: 'cancelled')
-jorge_order_2.item_orders.last.update(quantity: 1, line_item_cost: item11.price)
+jorge_order_2.item_orders.last.update(quantity: 2, line_item_cost: item11.price)
 
 josh_order_1 = item16.orders.create(total_cost: item5.price, user_id: josh.id, status: 'paid')
-josh_order_1.item_orders.last.update(quantity: 1, line_item_cost: item5.price)
+josh_order_1.item_orders.last.update(quantity: 12, line_item_cost: item5.price)
 
 josh_order_2 = item11.orders.create(total_cost: item17.price, user_id: josh.id, status: 'completed')
 josh_order_2.item_orders.last.update(quantity: 1, line_item_cost: item17.price)
