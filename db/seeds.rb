@@ -3,6 +3,7 @@ jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last
 jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
 josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
 
+puts "#{User.count} users created."
 coffee = Category.create(name: 'Coffee', image: "fa fa-coffee")
 brewing = Category.create(name: 'Brewing', image: "fa fa-tint")
 merchandise = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
