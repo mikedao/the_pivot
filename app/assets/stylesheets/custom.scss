@@ -1,5 +1,4 @@
 
-
 body {
   font-family:Georgia, Serif;
   background: url(image-path("symphony.png")) repeat;
@@ -18,10 +17,16 @@ h1 {
   text-shadow: 0px 2px 3px #666;
 }
 
+#title {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-right: 30px;
+  text-shadow: 0px 2px 3px #666;
+}
+
 h3 {
   font-weight: bold;
   text-align: center;
-  margin-bottom: 80px;
 }
 
 .main-body {
@@ -106,4 +111,13 @@ h3 {
 .drop-down {
   margin-left: 201px;
   color: #758db2;
+}
+
+.brand {
+  margin-right: 10px;
+  text-shadow: 0px 2px 3px #666;
+}
+
+a {
+  
 }

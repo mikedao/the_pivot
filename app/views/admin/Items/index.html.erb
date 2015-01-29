@@ -3,19 +3,22 @@
 </div>
 <%= render "shared/back_button" %>
 
-<div class="item">
-  <h4 class="form-title"> Create New Item </h4>
-  <%= bootstrap_form_for(@item, style: :inline, url: items_path, html: {multipart: true}) do |f| %>
-  <%= f.text_field :title %>
-  <%= f.text_field :price %>
-  <%= f.text_field :description %>
-  <%= f.label :image, 'Attach an Image' %><br />
-  <%= f.file_field :image %>
-  <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
-  <%= f.submit "Create Item" %>
-  <% end %>
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="item">
+      <h4 class="form-title"> Create New Item </h4>
+        <%= bootstrap_form_for(@item, style: :inline, url: items_path, html: {multipart: true}) do |f| %>
+          <%= f.text_field :title %>
+          <%= f.text_field :price %>
+          <%= f.text_field :description %>
+          <%= f.label :image, 'Attach an Image' %><br />
+          <%= f.file_field :image %>
+          <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
+          <%= f.submit "Create Item" %>
+        <% end %>
+    </div>
+  </div>
 </div>
-
 
 <div class="row">
   <% @items.each do |item| %>
@@ -28,22 +31,19 @@
     <h5><%= "Retired" if item.retired %></h5>
     <form class="form-horizontal">
       <div class="retire-form">
-      <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
+        <%= form_for :retire, url: admin_item_path(item), method: "put" do |f| %>
       <div class="drop-down"><%= f.select 'status', options_for_select([['true'], ['false']])%></div>
-      <%= f.hidden_field :item_id, :value => item.id %>
-    </div>
-      <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
-      <% end %>
-  </form>
-
-    <div class="btn-group" role="group" aria-label="...">
+        <%= f.hidden_field :item_id, :value => item.id %>
+      </div>
+        <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
+        <% end %>
+    </form>
+    <div class="btn-group" role="group">
       <button type="button"  <a class="btn btn-default" href= edit_admin_item_path(item)>
         <i class="fa fa-pencil-square-o"></i></a>Edit</button>
       <button type="button"  <a class="btn btn-default" href= admin_item_path(item), method="delete">
         <i class="fa fa-trash-o"></i></a>Delete</button>
     </div>
-
-
   </div>
   <% end %>
 </div>

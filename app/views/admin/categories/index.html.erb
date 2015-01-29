@@ -2,20 +2,15 @@
   <h1>Categories</h1>
 </div>
 
-<%= render "shared/back_button" %>
-
-<div class="category-row">
-  <% @categories.each do |category| %>
-  <a class="btn" href="<%= items_path(category_name: category.name) %>">
-    <i class="<%= category.image %> fa-3x"><br>
-    </i>  <%= category.name %></a>
-    <% end %>
-</div>
-
-<div class="category">
-  <h4 class="form-title"> Create New Category </h1>
-  <%= bootstrap_form_for(:categories, style: :inline, url: categories_path) do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit "Add Category" %>
-  <% end %>
+<%= render "shared/category_row" %>
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="category">
+      <h4 class="form-title"> Create New Category </h4>
+      <%= bootstrap_form_for(:categories, style: :inline, url: categories_path) do |f| %>
+      <%= f.text_field :name %>
+      <%= f.submit "Add Category" %>
+      <% end %>
+    </div>
+  </div>
 </div>

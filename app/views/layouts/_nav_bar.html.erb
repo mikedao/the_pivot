@@ -1,5 +1,11 @@
 
-  <%= nav_bar fixed: :top, brand: "Cinema Coffee", responsive: true do %>
+  <%= nav_bar fixed: :top, responsive: true do %>
+  <%= menu_group do %>
+    <a class="brand" href="/"><%= image_tag "logo5.png" %></a>
+  <% end %>
+  <%= menu_group do %>
+      <h3 id="title">Cinema Coffee</h3>
+  <% end %>
   <%= menu_group do %>
   <%= menu_item "Home", root_path %>
   <%= menu_item "Menu", items_path %>

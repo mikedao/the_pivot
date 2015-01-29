@@ -1,16 +1,7 @@
 <div id="menu">
   <h1> Menu </h1>
 
-  <div class="category-row">
-    <%= render "shared/back_button" %>
-    <% @categories.each do |category| %>
-      <a class="btn" href="<%= items_path(category_name: category.name) %>">
-        <i class="<%= category.image %> fa-3x"><br>
-        </i><%= category.name %>
-      </a>
-    <% end %>
-  </div>
-
+<%= render 'shared/category_row' %>
   <div class="row">
     <% @items.each do |item| %>
       <div class="box col-lg-3">
