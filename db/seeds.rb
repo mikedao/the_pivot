@@ -32,16 +32,32 @@ item17 = coffee.items.create!(title: 'Latte', description: 'A shot of strong esp
 item18 = coffee.items.create!(title: 'Green Tea', description: 'Green tea potential health benefits for everything from fighting cancer to helping your heart, and it taste pretty okay too.', price: 500, image: File.new("#{Rails.root}/app/assets/images/green-tea.jpg"))
 
 
-jeff.orders.create(total_cost: 20000, user_id: jeff.id, status: 'completed'))
-jeff.orders.create(total_cost: 1000, user_id: jeff.id, status: 'ordered'))
+jeff_order_1 = item1.orders.create(total_cost: item1.price, user_id: jeff.id, status: 'completed')
+jeff_order_1.item_orders.last.update(quantity: 10, line_item_cost: item1.price)
 
-rachel.orders.create(total_cost: 7500, user_id: rachel.id, status: 'ordered'))
-rachel.orders.create(total_cost: 1900, user_id: rachel.id, status: 'cancelled'))
-rachel.orders.create(total_cost: 77000, user_id: rachel.id, status: 'paid'))
+jeff_order_2 = item3.orders.create(total_cost: item3.price, user_id: jeff.id, status: 'ordered')
+jeff_order_2.item_orders.last.update(quantity: 11, line_item_cost: item3.price)
 
-jorge.orders.create(total_cost: 5000, user_id: jorge.id, status: 'cancelled'))
-jorge.orders.create(total_cost: 250, user_id: jorge.id, status: 'completed'))
+jeff_order_3 = item7.orders.create(total_cost: item7.price, user_id: jeff.id, status: 'cancelled')
+jeff_order_3.item_orders.last.update(quantity: 15, line_item_cost: item7.price)
 
-josh.orders.create(total_cost: 5000, user_id: josh.id, status: 'cancelled'))
-josh.orders.create(total_cost: 20000, user_id: josh.id, status: 'paid'))
-josh.orders.create(total_cost: 1032, user_id: josh.id, status: 'paid'))
+jeff_order_4 = item10.orders.create(total_cost: item10.price, user_id: jeff.id, status: 'paid')
+jeff_order_4.item_orders.last.update(quantity: 1, line_item_cost: item10.price)
+
+rachel_order_1 = item2.orders.create(total_cost: item2.price, user_id: rachel.id, status: 'completed')
+rachel_order_1.item_orders.last.update(quantity: 1, line_item_cost: item2.price)
+
+rachel_order_2 = item11.orders.create(total_cost: item11.price, user_id: rachel.id, status: 'ordered')
+rachel_order_2.item_orders.last.update(quantity: 1, line_item_cost: item11.price)
+
+jorge_order_1 = item16.orders.create(total_cost: item16.price, user_id: jorge.id, status: 'cancelled')
+jorge_order_1.item_orders.last.update(quantity: 1, line_item_cost: item16.price)
+
+jorge_order_2 = item11.orders.create(total_cost: item11.price, user_id: jorge.id, status: 'cancelled')
+jorge_order_2.item_orders.last.update(quantity: 1, line_item_cost: item11.price)
+
+josh_order_1 = item16.orders.create(total_cost: item5.price, user_id: josh.id, status: 'paid')
+josh_order_1.item_orders.last.update(quantity: 1, line_item_cost: item5.price)
+
+josh_order_2 = item11.orders.create(total_cost: item17.price, user_id: josh.id, status: 'completed')
+josh_order_2.item_orders.last.update(quantity: 1, line_item_cost: item17.price)
