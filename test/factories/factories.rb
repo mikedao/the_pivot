@@ -13,7 +13,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, evaluator|
-        create_list(:order, evaluator.orders_count, user_id: user.id)
+        create_list(:order, evaluator.orders_count, user: user)
       end
     end
   end
@@ -32,6 +32,7 @@ FactoryGirl.define do
       end
     end
   end
+
 
   factory :item do
     sequence(:title) { |n| "espresso#{n}" }
