@@ -1,0 +1,9 @@
+<div class="category-row">
+  <%= render "shared/back_button" %>
+  <% @categories.each do |category| %>
+  <a class="btn" href="<%= items_path(category_name: category.name) %>">
+    <i class="<%= category.image %> fa-3x"><br>
+    </i><%= category.name %>
+  </a>
+  <% end %>
+</div>

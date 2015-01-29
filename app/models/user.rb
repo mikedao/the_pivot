@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :username, length: { in: 2..32, allow_nil: true }
   validates :email, uniqueness: { case_sensitive: false }, presence: true
 
-  enum role: [:user, :admin]
+  enum role: [:default, :admin]
 
   def valid_email?(email)
     if email_checker(email).nil?

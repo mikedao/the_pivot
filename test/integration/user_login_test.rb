@@ -14,7 +14,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "user can login" do
-    assert page.has_content?('Coffee House')
+    assert page.has_content?('Cinema Coffee')
 
     fill_in 'session[username]', with: 'user'
     fill_in 'session[password]', with: 'password'

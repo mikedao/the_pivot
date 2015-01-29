@@ -1,5 +1,4 @@
 
-
 body {
   font-family:Georgia, Serif;
   background: url(image-path("symphony.png")) repeat;
@@ -18,10 +17,16 @@ h1 {
   text-shadow: 0px 2px 3px #666;
 }
 
+#title {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-right: 30px;
+  text-shadow: 0px 2px 3px #666;
+}
+
 h3 {
   font-weight: bold;
   text-align: center;
-  margin-bottom: 80px;
 }
 
 .main-body {
@@ -33,14 +38,6 @@ h3 {
   text-align: center;
 
 }
-
-.item_edit {
-  color: #758db2;
-  text-align: center;
-  margin-right: 15px;
-  margin-left: 15px;
-}
-
 
 .item-title {
   min-height: 40px;
@@ -91,13 +88,13 @@ h3 {
   margin-top: 10px;
   width: 129px;
 }
-// 
-// .admin_btn {
-//   text-align: center;
-//   margin-top: 20px;
-//   padding-left: 50px;
-//   padding-right: 50px;
-// }
+
+.admin_btn {
+  text-align: center;
+  margin-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
 
 #admin_header {
   margin-bottom: 70px;
@@ -109,4 +106,30 @@ h3 {
 
 .add-cart {
   margin-left: 20px;
+}
+
+.drop-down {
+  margin-left: 201px;
+  color: #758db2;
+}
+
+.brand {
+  margin-right: 10px;
+  text-shadow: 0px 2px 3px #666;
+}
+
+a {
+  color: #758db2;
+}
+
+.status-row {
+  text-align: center;
+}
+
+#store-name {
+  color: #504d4f;
+}
+
+.retire-btn {
+  margin-bottom: 54px;
 }
