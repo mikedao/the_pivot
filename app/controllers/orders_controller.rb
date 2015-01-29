@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    if current_user && current_user.id == @order.user_id || current_user.admin?
+    if current_user && (current_user.id == @order.user_id || current_user.admin?)
       @order
     else
       flash[:alert] = "Nice Try"
