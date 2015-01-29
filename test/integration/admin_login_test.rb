@@ -132,7 +132,6 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
     visit admin_items_path
     first('.item_edit').click_link_or_button('Edit')
-    save_and_open_page
     within("#edit") do
       assert page.has_content?("Edit Item")
     end
