@@ -29,7 +29,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test 'a guest user can view home page' do
     visit root_path
-    assert page.has_content?('Coffee House')
+    assert page.has_content?('Cinema Coffee')
   end
 
   test 'a guest user can see all items' do
