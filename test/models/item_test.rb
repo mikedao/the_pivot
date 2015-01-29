@@ -46,14 +46,14 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test 'it can have many categories' do
-    item = create(:item, category_count: 2)
+    item = create(:item_with_categories, category_count: 2)
 
     assert_equal 2, item.categories.count
   end
 
   test "it has to have at least a category" do
-    item = create(:item, category_count: 1)
-    item1 = create(:item, category_count: 3)
+    item = create(:item_with_categories, category_count: 1)
+    item1 = create(:item_with_categories, category_count: 3)
 
     assert item.categories
     assert_equal 1, item.categories.count
