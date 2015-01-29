@@ -1,0 +1,118 @@
+<div id="orders_header">
+  <h1>Orders</h1>
+</div>
+<<<<<<< HEAD:app/views/admin/Orders/index.html.erb
+=======
+
+<%= render "shared/back_button" %>
+>>>>>>> master:app/views/admin/orders/index.html.erb
+
+<div class="status-row">
+  <%= render "shared/back_button" %>
+  <% sort_status = %w(#paid #cancelled #ordered #completed) %>
+  <% sort_status.each do |status| %>
+  <a class="btn" href="<%= status %>">
+    <i class="fa fa-sort-desc fa-3x"><br>
+    </i>  <%= status %></a>
+  <% end %>
+</div>
+
+<div class="admin-order-table">
+  <div id="ordered">
+  <h4> Ordered (<%= Order.ordered.count %>) </h4>
+  <table class='table table-bordered'>
+<<<<<<< HEAD:app/views/admin/Orders/index.html.erb
+    <%= render 'shared/order_table_header' %>
+    <div id="ordered">
+=======
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
+      </tr>
+    </thead>
+>>>>>>> master:app/views/admin/orders/index.html.erb
+      <% Order.ordered.each do |order| %>
+      <%= render partial: "shared/status_table", :locals => {order: order}%>
+      <% end %>
+  </table>
+  </div>
+</div>
+
+<div class="admin-order-table">
+ <div id="completed">
+  <h4> Completed (<%= Order.complete.count %>) </h4>
+  <table class='table table-bordered'>
+<<<<<<< HEAD:app/views/admin/Orders/index.html.erb
+    <%= render 'shared/order_table_header' %>
+    <div id="completed">
+=======
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
+      </tr>
+    </thead>
+>>>>>>> master:app/views/admin/orders/index.html.erb
+      <% Order.complete.each do |order| %>
+        <%= render partial: "shared/status_table", :locals => {order: order}%>
+      <% end %>
+  </table>
+  </div>
+</div>
+
+<div class="admin-order-table">
+  <div id="paid">
+<h4> Paid (<%= Order.paid.count %>) </h4>
+  <table class='table table-bordered'>
+<<<<<<< HEAD:app/views/admin/Orders/index.html.erb
+    <%= render 'shared/order_table_header' %>
+    <div id="paid">
+=======
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
+      </tr>
+    </thead>
+>>>>>>> master:app/views/admin/orders/index.html.erb
+      <% Order.paid.each do |order| %>
+        <%= render partial: "shared/status_table", :locals => {order: order}%>
+      <% end %>
+  </table>
+  </div>
+</div>
+
+<div class="admin-order-table">
+  <div id="cancelled">
+<h4> Cancelled (<%= Order.cancelled.count %>) </h4>
+  <table class='table table-bordered'>
+<<<<<<< HEAD:app/views/admin/Orders/index.html.erb
+    <%= render 'shared/order_table_header' %>
+    <div id="cancelled">
+=======
+    <thead>
+      <tr>
+        <th data-field='Order Number'> Order Number </th>
+        <th data-field='Total Cost'>Total Cost</th>
+        <th data-field='Order Status'>Order Status</th>
+        <th data-field='time'>Submitted At</th>
+        <th data-field='update'>Update Order</th>
+      </tr>
+    </thead>
+>>>>>>> master:app/views/admin/orders/index.html.erb
+      <% Order.cancelled.each do |order| %>
+        <%= render partial: "shared/status_table", :locals => {order: order}%>
+      <% end %>
+  </table>
+  </div>
+</div>
