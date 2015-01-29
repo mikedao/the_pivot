@@ -123,16 +123,16 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "a unauthorized user cannot see another user's order page" do
     order = create(:order)
-    user1 = create(:user_with_orders)
+    user = order.user
 
-    visit "/users/#{user1.id}/orders/"
+    visit "/users/#{user.id}/orders/"
 
     refute page.has_content?("Order History")
     assert page.has_content?("Nice Try")
 
-    visit "/users/#{user1.id}/orders/#{user1.orders.first.id}"
+    visit "/users/#{user.id}/orders/#{order.id}"
 
-    refute page.has_content?("Order #{user1.orders.first.id}")
+    refute page.has_content?("Order #{order.id}")
     assert page.has_content?("Nice Try")
   end
 end
