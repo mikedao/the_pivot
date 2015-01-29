@@ -211,6 +211,20 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button('Retire')
 
     visit items_path
-    refute page.has_content?('black nectar')    
+    refute page.has_content?('black nectar')
+  end
+
+  test "an admin updates an order status through admin dashboard and the order has a changed status" do
+    admin = create(:user, role: 1)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+    order = create(:order, status: "paid")
+    orig_status = order.status
+
+    visit admin_dashboard_path
+    click_link_or_button "Orders"
+    select "completed", from: "update_order_status[status]"
+    click_button "Update Status"
+
+    refute_equal orig_status, order.reload.status
   end
 end
