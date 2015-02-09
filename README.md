@@ -1,6 +1,7 @@
 ## The Pivot
 
 This is a project for the Turing School of Software and Design.
+(http://turing.io)
 
 The goal is to take legacy code, namely a website that was previously a site
 for a restaurant, and turn it into a multitenant site.
@@ -9,7 +10,8 @@ In particular, we are building Keevahh.
 
 Keevahh
 
-Micro-lending is a powerful tool for social progress. Let’s rework Dinner Dash into a micro-lending platform.
+Micro-lending is a powerful tool for social progress. Let’s rework Dinner Dash
+into a micro-lending platform.
 
 * Users register on the site as either a borrower (the business) or a lender
 (the customer)
