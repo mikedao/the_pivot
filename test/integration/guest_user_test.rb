@@ -128,11 +128,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     visit "/users/#{user.id}/orders/"
 
     refute page.has_content?("Order History")
-    assert page.has_content?("Nice Try")
 
     visit "/users/#{user.id}/orders/#{order.id}"
 
     refute page.has_content?("Order #{order.id}")
-    assert page.has_content?("Nice Try")
   end
 end
