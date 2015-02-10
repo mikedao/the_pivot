@@ -6,7 +6,7 @@ This is a project for the Turing School of Software and Design.
 The goal is to take legacy code, namely a website that was previously a site
 for a restaurant, and turn it into a multitenant site.
 
-In particular, we are building Keevahh.
+We are building Keevah, a micro-lending platform, mimicking functionality of the Kiva Microfund's site, Kiva.org.
 
 Keevahh
 
