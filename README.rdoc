@@ -1,1 +1,0 @@
-To view the live site, visit https://coffee-house2.herokuapp.com/
