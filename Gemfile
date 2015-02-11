@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-
+# Simplecov gem
+gem 'simplecov', :require => false, :group => :test
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 gem 'pg'
@@ -58,6 +59,5 @@ group :development, :test do
   gem 'spring'
   gem 'capybara'
   gem 'mocha'
-  gem 'pry'
   gem 'launchy'
 end
