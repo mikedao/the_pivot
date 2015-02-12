@@ -1,14 +1,10 @@
-require 'test_helper'
+require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   attr_reader :user, :order
 
   def setup
-    @user = User.create(username: 'user',
-                        password: 'password',
-                        first_name: 'John',
-                        last_name: 'Doe',
-                        email: 'example@example.com')
+    @user = create(:user)
     @order = Order.create(total_cost: 100,
                           user_id: user.id)
   end
@@ -43,46 +39,30 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
   end
 
+  test "user is not valid without address" do
+    @user.address = nil
+    assert @user.invalid?
+  end
+
   test "user is not valid without email" do
     @user.email = nil
     assert @user.invalid?
   end
 
   test "user has an optional username that is between 2 and 32 characters" do
-    @user1 = User.create(username: 'user',
-            password: 'password',
-            first_name: 'John',
-            last_name: 'Doe',
-            email: 'examples@example.com')
+    user1 = build(:user)
+    user2 = build(:user, username: "u")
+    user3 = build(:user, username: "ThisStringIs42CharactersLongBelieveItOrNot")
 
-    @user2 = User.create(username: 'us',
-            password: 'password',
-            first_name: 'John',
-            last_name: 'Doe',
-            email: 'example1@example.com')
-
-    @user3 = User.create(username: 'u',
-            password: 'password',
-            first_name: 'John',
-            last_name: 'Doe',
-            email: 'example5@example.com')
-
-    @user4 = User.create(username: 'ThisStringIs42CharactersLongBelieveItOrNot',
-            password: 'password',
-            first_name: 'John',
-            last_name: 'Doe',
-            email: 'example4@example.com')
-
-    assert @user1.valid?
-    assert @user2.valid?
-    assert @user3.invalid?
-    assert @user4.invalid?
+    assert user1.valid?
+    assert user2.invalid?
+    assert user3.invalid?
   end
 
-  test 'an email has to be vaild format' do
+  test "an email has to be vaild format" do
     email1 = @user.email
     assert @user.valid_email?(email1)
-    email2 = 'here@here@you'
+    email2 = "here@here@you"
     refute @user.valid_email?(email2)
     email3 = "eskimo.eskimo@eskimo"
     refute user.valid_email?(email3)

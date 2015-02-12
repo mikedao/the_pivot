@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class Tenants::ItemsController < ApplicationController
   include ItemsHelper
 
   def index
@@ -7,7 +7,9 @@ class ItemsController < ApplicationController
     else
       @items = Category.find_by(name: params[:category_name]).items
     end
-      @categories = Category.all
+    @categories = Category.all
+    @tenant = Tenant.find_by(organization: params[:tenant])
+    # require 'pry' ; binding.pry
   end
 
   def show
