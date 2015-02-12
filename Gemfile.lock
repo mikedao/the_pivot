@@ -234,7 +234,7 @@ DEPENDENCIES
   capybara (~> 2.4.4)
   coffee-rails (~> 4.1.0)
   factory_girl_rails (~> 4.0)
-  faker (= 1.4.2)
+  faker (~> 1.4.2)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.3)
   launchy (~> 2.4.3)
