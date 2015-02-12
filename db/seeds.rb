@@ -11,12 +11,11 @@ User.create!(
   role 0
 )
 
-
 5.times do |n|
   name = Faker::Name.name
   email = "ProFactoryFarms-#{n+1}@gmail.com",
   password = "password"
-  User.create!(``
+  User.create!(
     name:  "Ronald McDonald#{n+1}",
     email: "ProFactoryFarms@gmail.com",
     password:              "password",
@@ -27,9 +26,18 @@ User.create!(
     country: "USA",
     credit_card_info: "1111222#{n+1}33334444",
     role 0
+  )
+end
+
+people_category = Category.create!(
+  name: "People"
 )
 
-end
+public_category = Category.create!(
+  name: "Public"
+)
+
+people_category
 
 
 # rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)

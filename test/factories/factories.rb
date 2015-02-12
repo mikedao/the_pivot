@@ -22,14 +22,13 @@ FactoryGirl.define do
     sequence(:credit_card_info) { |n| "1111222#{n}233334444" }
     role 0
 
-      factory :user_as_tenant do
+    factory :user_as_tenant do
 
       before(:create) do |user|
         user.tenant = create_list(:tenant, 1, location: "Mexico City")
       end
     end
   end
-
 
   factory :tenant do
     location "Shenzhen"
