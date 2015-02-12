@@ -59,7 +59,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user_admin)
     visit admin_dashboard_path
     click_link_or_button "Category"
-    fill_in "categor"es[nam"]", with: "Blah"
+    fill_in "categories[name]", with: "Blah"
     click_link_or_button "Add Category"
     assert page.has_content?("Blah")
   end

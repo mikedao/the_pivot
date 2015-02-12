@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20150212015057) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "item_orders", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string   "title"
     t.integer  "price"
@@ -56,13 +63,6 @@ ActiveRecord::Schema.define(version: 20150212015057) do
     t.integer  "total_cost"
     t.integer  "user_id"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "item_orders", force: :cascade do |t|
-    t.integer  "item_id"
-    t.integer  "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

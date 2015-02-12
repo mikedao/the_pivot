@@ -20,12 +20,11 @@ FactoryGirl.define do
     zipcode "10003"
     country "USA"
     sequence(:credit_card_info) { |n| "1111222#{n}233334444" }
-    role 0
 
     factory :user_as_tenant do
 
       before(:create) do |user|
-        user.tenant = create_list(:tenant, 1, location: "Mexico City")
+        user.tenant << create(:tenant)
       end
     end
   end
@@ -57,7 +56,11 @@ FactoryGirl.define do
     repayment_rate 3
 
     before(:create) do |item|
-      item.tenant = create_list(:tenant, 1, location: "mexico city")
+      item.tenant = create(:tenant)
+    end
+
+    before(:create) do |item|
+      item.categories << create_list(:category, 3, name: "Civic")
     end
   end
 

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_one  :tenant
   has_many :orders
 
   validates :password, :first_name, :last_name, presence: true
