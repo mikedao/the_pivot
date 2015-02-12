@@ -3,6 +3,5 @@ class UpdatePhotos < ActiveRecord::Migration
     remove_column :photos, :item_id
 
     add_reference :photos, :item, index: true
-
   end
 end

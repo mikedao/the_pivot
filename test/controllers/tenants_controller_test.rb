@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TenantsControllerTest < ActionController::TestCase
   test "should get index" do
@@ -10,5 +10,4 @@ class TenantsControllerTest < ActionController::TestCase
     get :show
     assert_response :success
   end
-
 end

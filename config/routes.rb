@@ -8,10 +8,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
-  get 'cart_items/create'
-
-
-
+  get "cart_items/create"
 
   post '/carts', to: 'carts#create', as: 'carts'
   get '/cart', to: 'carts#showcart', as: 'showcart'
@@ -32,18 +29,15 @@ Rails.application.routes.draw do
 
   # resources :tenants, path: "", param: :tenant
 
-  scope ':tenant', module: 'tenants' do
-    get '/' => 'items#index', as: :tenant
+  scope ":tenant", module: "tenants" do
+    get "/" => "items#index", as: :tenant
     resources :categories
     resources :items
   end
 
-
   match '/create_order', via: [:get], to: "orders#create"
 end
-
-
-#this maybe useful for multitenancy
+# this maybe useful for multitenancy
 
 # scope ':username ' do
 #   resources :articles, :only => [:show, :index]

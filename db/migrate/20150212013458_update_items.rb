@@ -10,6 +10,5 @@ class UpdateItems < ActiveRecord::Migration
     add_column :items, :requested_by, :date
     add_column :items, :reqpayment_begin, :date
     add_column :items, :repayment_rate, :integer
-
   end
 end

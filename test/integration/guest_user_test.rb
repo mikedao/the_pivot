@@ -68,7 +68,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   # test "an unauthorised user can view a single items page" do
-  #   item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+  # item = Item.create(title: 'coffee', description: 'black nectar of the
+  # gods', price: 1200)
   #
   #   visit root_url
   #   click_link_or_button('Menu')
@@ -87,11 +88,13 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   #   end
   # end
 
-  test "an unauthorised user can view a tenants page which only shows their products" do
-    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
-    category = item.categories(name: 'agriculture')
-    user = create(:user)
-    tenant = create(:tenant)
+  test "an unauthorised user can view a tenants page which only shows their
+  products" do
+    item = Item.create(title: 'coffee',
+                       description: 'black nectar of the gods', price: 1200)
+    item.categories(name: 'agriculture')
+    create(:user)
+    create(:tenant)
     # tenant.items < item
 
     visit items_path(tenant: tenant.organization)
@@ -100,11 +103,13 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("coffee")
   end
 
-  test "an unauthorised user can view a tenants root page and be shown their products" do
-    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
-    category = item.categories(name: 'agriculture')
-    user = create(:user)
-    tenant = create(:tenant)
+  test "an unauthorised user can view a tenants root page and be shown their
+  products" do
+    Item.create(title: 'coffee', description: 'black nectar of the gods',
+                price: 1200)
+    item.categories(name: 'agriculture')
+    create(:user)
+    create(:tenant)
 
     visit tenant_path(tenant: tenant.organization)
 
