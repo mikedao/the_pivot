@@ -20,17 +20,6 @@ FactoryGirl.define do
     organization "lucy"
   end
 
-  factory :category do
-    sequence(:name) { |n| "hot beverages#{n}" }
-    image "default.jpg"
-
-    factory :category_with_items do
-      transient do
-        item_count 1
-      end
-    end
-  end
-
   factory :order do
     total_cost 8900
     status "completed"
@@ -53,6 +42,12 @@ FactoryGirl.define do
 
   factory :category do
     sequence(:name) { |n| "hot beverages#{n}" }
+    description "European and obnoxious"
   end
 
+  factory :order do
+    user
+    total_cost 8900
+    status "completed"
+  end
 end
