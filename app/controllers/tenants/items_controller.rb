@@ -9,7 +9,6 @@ class Tenants::ItemsController < ApplicationController
     end
     @categories = Category.all
     @tenant = Tenant.find_by(organization: params[:tenant])
-    # require 'pry' ; binding.pry
   end
 
   def show

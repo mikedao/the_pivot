@@ -6,6 +6,11 @@ class Tenants::CategoriesController < ApplicationController
     redirect_to items_path
   end
 
+  def index
+    @tenant = Tenant.find_by(organization: params[:tenant])
+    @categories = @tenant.items.map(&:categories).uniq.flatten
+  end
+
   private
 
   def choose_icon

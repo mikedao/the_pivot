@@ -4,7 +4,7 @@ FactoryGirl.define do
     first_name  "Roger"
     last_name "Federer"
     password "password"
-    sequence(:address) { |n| "412#{n} Tasty Animals Lane" }
+    # sequence(:address) { |n| "412#{n} Tasty Animals Lane" }
     sequence(:email) { |n| "person#{n}@gmail.com"}
     sequence(:credit_card_info) { |n| "1111222#{n}233334444" }
     role 0
@@ -28,7 +28,6 @@ FactoryGirl.define do
 
   factory :category do
     sequence(:name) { |n| "hot beverages#{n}" }
-    image "default.jpg"
 
     factory :category_with_items do
       transient do
