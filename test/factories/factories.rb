@@ -74,7 +74,7 @@ FactoryGirl.define do
     image_file_size 3
 
     before(:create) do |photo|
-      photo.item = create(:item)
+      photo.item << create(:item)
     end
   end
 end
