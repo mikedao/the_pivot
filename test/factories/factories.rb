@@ -51,7 +51,8 @@ FactoryGirl.define do
   factory :item do
     sequence(:title) { |n| "espresso#{n}" }
     price 800
-    description "We product only the finest blood diamonds in Sierra Leone. Diamond are forever."
+    description "We produce only the finest blood diamonds in Sierra Leone.
+                Diamond are forever."
     retired false
     repayment_rate 3
 

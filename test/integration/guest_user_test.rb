@@ -59,7 +59,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user_admin)
     visit admin_dashboard_path
     click_link_or_button "Category"
-    fill_in "categories[name]", with: "Blah"
+    fill_in "categor"es[nam"]", with: "Blah"
     click_link_or_button "Add Category"
     assert page.has_content?("Blah")
   end
@@ -70,29 +70,34 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     refute page.has_content?("Create Category")
   end
 
-  # test "an unauthorised user can view a single items page" do
-  # item = Item.create(title: 'coffee', description: 'black nectar of the
-  # gods', price: 1200)
-  #
-  #   visit root_url
-  #   click_link_or_button('Menu')
-  #   click_link_or_button('coffee')
-  #
-  #   within('#title') do
-  #     assert page.has_content?('coffee')
-  #   end
-  #
-  #   within('#description') do
-  #     assert page.has_content?('black nectar of the gods')
-  #   end
-  #
-  #   within('#price') do
-  #     assert page.has_content?('$12.00')
-  #   end
-  # end 
+  test "an unauthorised user can view a single items page" do
+    skip
+    Item.create(
+      title:       "coffee",
+      description: "black nectar of the gods",
+      price:       1200
+    )
+
+    visit root_url
+    click_link_or_button("Menu")
+    click_link_or_button("coffee")
+
+    within("#title") do
+      assert page.has_content?("coffee")
+    end
+
+    within("#description") do
+      assert page.has_content?("black nectar of the gods")
+    end
+
+    within("#price") do
+      assert page.has_content?("$12.00")
+    end
+  end
 
   test "an unauthorised user can view a tenants page which only shows their
   products" do
+
     item = Item.create(title: "coffee",
                        description: "black nectar of the gods", price: 1200)
     item.categories(name: "agriculture")

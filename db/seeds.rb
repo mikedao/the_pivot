@@ -1,31 +1,31 @@
 User.create!(
-  name:  "Ronald McDonald",
-  email: "ProFactoryFarms@gmail.com",
+  name:                  "Ronald McDonald",
+  email:                 "ProFactoryFarms@gmail.com",
   password:              "password",
   password_confirmation: "password",
-  city: "Atlanta",
-  state: "GA",
-  zipcode: 50240,
-  country: "USA",
-  credit_card_info: "1111222233334444",
-  role 0
+  city:                  "Atlanta",
+  state:                 "GA",
+  zipcode:               50240,
+  country:               "USA",
+  credit_card_info:      "1111222233334444",
+  role                   0
 )
 
 5.times do |n|
-  name = Faker::Name.name
-  email = "ProFactoryFarms-#{n+1}@gmail.com",
-  password = "password"
+  name =                    Faker::Name.name
+  email =                   "ProFactoryFarms-#{n+1}@gmail.com",
+  password =                "password"
   User.create!(
-    name:  "Ronald McDonald#{n+1}",
-    email: "ProFactoryFarms@gmail.com",
-    password:              "password",
-    password_confirmation: "password",
-    city: "Atlanta",
-    state: "GA",
-    zipcode: 50240,
-    country: "USA",
-    credit_card_info: "1111222#{n+1}33334444",
-    role 0
+    name:                   "Ronald McDonald#{n+1}",
+    email:                  "ProFactoryFarms@gmail.com",
+    password:               "password",
+    password_confirmation:  "password",
+    city:                   "Atlanta",
+    state:                  "GA",
+    zipcode:                50240,
+    country:                "USA",
+    credit_card_info:       "1111222#{n+1}33334444",
+    role                    0
   )
 end
 
@@ -38,12 +38,6 @@ public_category = Category.create!(
 )
 
 people_category.items
-
-
-# rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
-# jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last_name: 'Casimir', email: 'demo+jeff@jumpstartlab.com', role: 0)
-# jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
-# josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
 
 puts "#{User.count} users created."
 
