@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => "Nice Try"
-  end
-
   private
 
   def current_user
@@ -13,6 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    redirect_to login_path, alert: "Not authorized" if current_user.nil?    #how is flash affected here?
+    redirect_to login_path if current_user.nil?   
   end
 end

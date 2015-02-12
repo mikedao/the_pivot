@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   attr_reader :user, :order
@@ -17,7 +17,6 @@ class UserTest < ActiveSupport::TestCase
     @user.username = nil
     assert @user.valid?
   end
-
 
   test "user is not valid without password" do
     @user.password = nil
@@ -53,17 +52,17 @@ class UserTest < ActiveSupport::TestCase
   test "user has an optional username that is between 2 and 32 characters" do
     user1 = build(:user)
     user2 = build(:user, username: "u")
-    user3 = build(:user, username: 'ThisStringIs42CharactersLongBelieveItOrNot')
+    user3 = build(:user, username: "ThisStringIs42CharactersLongBelieveItOrNot")
 
     assert user1.valid?
     assert user2.invalid?
     assert user3.invalid?
   end
 
-  test 'an email has to be vaild format' do
+  test "an email has to be vaild format" do
     email1 = @user.email
     assert @user.valid_email?(email1)
-    email2 = 'here@here@you'
+    email2 = "here@here@you"
     refute @user.valid_email?(email2)
     email3 = "eskimo.eskimo@eskimo"
     refute user.valid_email?(email3)

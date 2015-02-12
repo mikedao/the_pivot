@@ -21,5 +21,4 @@ class Order < ActiveRecord::Base
   def self.ordered
     all.select { |order| order.status == 'ordered'}
   end
-
 end

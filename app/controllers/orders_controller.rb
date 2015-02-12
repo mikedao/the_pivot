@@ -5,20 +5,15 @@ class OrdersController < ApplicationController
       @user = User.find(params[:user_id])
       render :index
     else
-      flash[:alert] = "Nice Try"
       redirect_to root_path
     end
-
-    # @order = Order.new
-    # authorize!(:read, @order)
   end
 
   def show
     @order = Order.find(params[:id])
-    if current_user && (current_user.id == @order.user_id || current_user.admin?)
+    if order_owner_or_admin?
       @order
     else
-      flash[:alert] = "Nice Try"
       redirect_to root_path
     end
   end
@@ -47,5 +42,11 @@ class OrdersController < ApplicationController
     end
     session.delete(:cart)
     redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
+  end
+
+  private
+
+  def order_owner_or_admin?
+    current_user && (current_user.id == @order.user_id || current_user.admin?)
   end
 end
