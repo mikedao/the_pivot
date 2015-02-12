@@ -3,12 +3,12 @@ require 'test_helper'
 class ItemTest < ActiveSupport::TestCase
   attr_reader :item
 
-  test 'it is valid' do
-    item = create(:item)
+  test "it is valid" do
+    item = build(:item)
     assert item.valid?
   end
 
-  test 'it cannot have an empty string as a title' do
+  test "it cannot have an empty string as a title" do
     category = Category.create(name: "hot beverages")
     item = category.items.create(title: '', description: "this is black gold", price: 30000)
     assert item.invalid?
@@ -45,19 +45,21 @@ class ItemTest < ActiveSupport::TestCase
     refute item5.valid?
   end
 
-  test 'it can have many categories' do
-    item = create(:item_with_categories, category_count: 2)
+  test "it must have at least one factory" do
+    item = create(:item)
+    item.categories << create(:category)
 
-    assert_equal 2, item.categories.count
+    assert_equal 1, item.categories.count
   end
 
-  test "it has to have at least a category" do
-    item = create(:item_with_categories, category_count: 1)
-    item1 = create(:item_with_categories, category_count: 3)
+  test "it can have multiple categories" do
+    item = create(:item)
+    item.categories << Category.create(name: "Bad Category")
+    item.categories << Category.create(name: "Good Category")
+    item.categories << Category.create(name: "Medium Category")
 
     assert item.categories
-    assert_equal 1, item.categories.count
-    assert_equal 3, item1.categories.count
+    assert_equal 3, item.categories.count
   end
 
   test "it has a photo by default" do
