@@ -38,4 +38,8 @@ FactoryGirl.define do
     factory :order_with_user
   end
 
+  factory :cart do
+    item
+  end
+
 end
