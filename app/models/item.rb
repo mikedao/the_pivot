@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
   has_many :items_categories
   has_many :categories, through: :items_categories
 
-  has_many :item_ordersite
+  has_many :item_orders
   has_many :orders, through: :item_orders
 
   validates :description, length: { in: 0..255, allow_nil: false }, presence: true
