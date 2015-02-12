@@ -6,12 +6,11 @@ class CartsController < ApplicationController
   end
 
   def showcart
-    # authorize!(:read, current_user)
     @cart = Cart.new(session[:cart]) if session[:cart]
   end
 
   def checkout_cart
-    if session[:user_id].nil?
+    if current_user.nil?
       flash[:alert] = 'You must login to checkout'
       redirect_to showcart_path
     else

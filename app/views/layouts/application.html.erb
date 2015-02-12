@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DinnerDash</title>
+  <title>Keevahh</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -9,15 +9,14 @@
   <link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
   <div class="main-body container">
     <%= render "layouts/nav_bar" %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>
+		
+		<%= yield %>
 
-    <%= yield %>
-  </div>
-
+	</div>
 </body>
 </html>

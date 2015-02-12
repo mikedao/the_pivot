@@ -27,7 +27,6 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit "/users/#{user1.id}/orders"
-    assert page.has_content?("Nice Try")
 
     visit "/users/#{user.id}/orders"
     assert page.has_content?("Order History")
