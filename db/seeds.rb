@@ -37,7 +37,7 @@ public_category = Category.create!(
   name: "Public"
 )
 
-people_category
+people_category.items
 
 
 # rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
