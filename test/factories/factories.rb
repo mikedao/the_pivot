@@ -60,7 +60,7 @@ FactoryGirl.define do
     end
 
     before(:create) do |item|
-      item.categories << create_list(:category, 3, name: "Civic")
+      item.categories << create_list(:category, 1, name: "Civic")
     end
   end
 

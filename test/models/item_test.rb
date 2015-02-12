@@ -32,12 +32,12 @@ class ItemTest < ActiveSupport::TestCase
 
   test "it has a valid price" do
     category = create(:category, name: "hot beverages")
-    item1 = create(:item, categories:[category], price: 40004)
-    invalid_item1 = build(:item, categories:[category], price: 400.04)
-    invalid_item2 = build(:item, categories:[category], price: "dasj")
-    invalid_item3 = build(:item, categories:[category], price: "4%" )
-    invalid_item4 = build(:item, categories:[category], price: -4)
-    invalid_item5 = build(:item, categories:[category], price: 4000000)
+    item1 = create(:item, categories: [category], price: 40004)
+    invalid_item1 = build(:item, categories: [category], price: 400.04)
+    invalid_item2 = build(:item, categories: [category], price: "dasj")
+    invalid_item3 = build(:item, categories: [category], price: "4%")
+    invalid_item4 = build(:item, categories: [category], price: -4)
+    invalid_item5 = build(:item, categories: [category], price: 4000000)
 
     assert item1.valid?
     refute invalid_item1.valid?
@@ -57,7 +57,8 @@ class ItemTest < ActiveSupport::TestCase
     1.upto(3) do |i|
       categories << create(:category, name: "Bad Category#{i}")
     end
-    item = create(:item, categories: categories)
+    item = create(:item)
+    item.categories = categories
 
     assert_equal 3, item.categories.count
   end

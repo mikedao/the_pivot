@@ -1,7 +1,6 @@
 <div id="title">
   <h1><%= @tenant.organization.upcase %></h1>
 
-<%= render 'shared/category_row' %>
   <div class="row">
     <% @tenant.items.each do |item| %>
       <div class="box col-lg-3">

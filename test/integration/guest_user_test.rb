@@ -74,17 +74,17 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "an unauthorised user can view a tenant's page which only shows their
   products" do
-    non_tenant_category = create(:category)
+    non_tenant_category = create(:category, name: "bad cats")
     tenant_category = create(:category, name: "agriculture")
-    non_tenant_item = create(:item, categories: [create(:category)])
-    tenant = create(:tenant)
-    tenant_item = create(:item, title: "cats", categories: [tenant_category])
+    non_tenant_item = create(:item, categories: [non_tenant_category])
+    tenant = create(:tenant, organization: "bob")
+    tenant_item = create(:item, title: "cats", description: "good",
+                         categories: [tenant_category])
     tenant.items << tenant_item
-
     visit tenant_path(tenant: tenant.organization)
 
-    assert_equal "/lucy", current_path
-    within(".item-category") do
+    assert_equal "/bob", current_path
+    within first(".item-category") do
       assert page.has_content?(tenant_category.name)
       refute page.has_content?(non_tenant_category.name)
     end
