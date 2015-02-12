@@ -1,9 +1,26 @@
-rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
-jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last_name: 'Casimir', email: 'demo+jeff@jumpstartlab.com', role: 0)
-jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
-josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
+User.create!(name:  "Ronald McDonald",
+             email: "ProFactoryFarms@gmail.com",
+             password:              "password",
+             password_confirmation: "password")
+
+5.times do |n|
+  name = Faker::Name.name
+  email = "ProFactoryFarms-#{n+1}@gmail.com",
+  password = "password"
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end
+
+
+# rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
+# jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last_name: 'Casimir', email: 'demo+jeff@jumpstartlab.com', role: 0)
+# jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
+# josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
 
 puts "#{User.count} users created."
+
 coffee = Category.create(name: 'Coffee', image: "fa fa-coffee")
 brewing = Category.create(name: 'Brewing', image: "fa fa-tint")
 merchandise = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
