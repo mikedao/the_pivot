@@ -6,7 +6,11 @@ class User < ActiveRecord::Base
   validates :password, :first_name, :last_name, presence: true
   validates :username, length: { in: 2..32, allow_nil: true }
   validates :email, uniqueness: { case_sensitive: false }, presence: true
-  validates :address, presence: true
+  validates :street, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zipcode, presence: true
+  validates :country, presence: true
 
   enum role: [:default, :admin]
 
