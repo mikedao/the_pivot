@@ -1,0 +1,16 @@
+<div id="title">
+  <h1>Areas where you can help!</h1>
+
+<%= render 'shared/category_row' %>
+  <div class="row">
+    <% @categories.each do |category| %>
+      <div class="box col-lg-3">
+        <h4 class="category-name"> <%= link_to("#{category.name}", tenant_categories_path(tenant: @tenant.organization, id: category.id))%></h4>
+        <div class="thumbnail">
+          <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
+        </div>
+        <h5 class="cat-name"><%= category.name %></h5>
+      </div>
+    <% end %>
+  </div>
+</div>
