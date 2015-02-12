@@ -14,12 +14,12 @@ class GuestUserTest < ActionDispatch::IntegrationTest
                               email:      "example@example.com",
                               role:       1)
 
-    @user_user = User.create( username:   "jeff",
-                              password:   "wan",
-                              first_name: "Jeff",
-                              last_name:  "Wan",
-                              email:      "jwan622@example.com",
-                              role:       0)
+    @user_user = User.create(username:   "jeff",
+                             password:   "wan",
+                             first_name: "Jeff",
+                             last_name:  "Wan",
+                             email:      "jwan622@example.com",
+                             role:       0)
 
     @category1 = Category.create(name: "Hot Beverages")
     @category2 = Category.create(name: "cold beverages")
