@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   sequence :email do |n|
-    "ILikeKumqutas#{n}"
+    "ILikeKumqutas#{n}@gmail.com"
   end
 
   factory :user do
@@ -77,5 +77,4 @@ FactoryGirl.define do
       photo.item = create(:item)
     end
   end
-
 end

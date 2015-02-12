@@ -89,7 +89,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   #   within('#price') do
   #     assert page.has_content?('$12.00')
   #   end
-  # end
+  # end 
 
   test "an unauthorised user can view a tenants page which only shows their
   products" do
