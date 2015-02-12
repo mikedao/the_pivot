@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   has_many :items_categories
   has_many :categories, through: :items_categories
 
-  has_many :item_orders
+  has_many :item_ordersite
   has_many :orders, through: :item_orders
   belongs_to :tenant
 
