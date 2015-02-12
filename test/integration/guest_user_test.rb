@@ -67,24 +67,49 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     refute page.has_content?("Create Category")
   end
 
-  test "an unauthorised user can view a single item's page" do
+  # test "an unauthorised user can view a single items page" do
+  #   item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+  #
+  #   visit root_url
+  #   click_link_or_button('Menu')
+  #   click_link_or_button('coffee')
+  #
+  #   within('#title') do
+  #     assert page.has_content?('coffee')
+  #   end
+  #
+  #   within('#description') do
+  #     assert page.has_content?('black nectar of the gods')
+  #   end
+  #
+  #   within('#price') do
+  #     assert page.has_content?('$12.00')
+  #   end
+  # end
+
+  test "an unauthorised user can view a tenants page which only shows their products" do
     item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    category = item.categories(name: 'agriculture')
+    user = create(:user)
+    tenant = create(:tenant)
+    # tenant.items < item
 
-    visit root_url
-    click_link_or_button('Menu')
-    click_link_or_button('coffee')
+    visit items_path(tenant: tenant.organization)
 
-    within('#title') do
-      assert page.has_content?('coffee')
-    end
+    assert_equal "/lucy/items", current_path
+    assert page.has_content?("coffee")
+  end
 
-    within('#description') do
-      assert page.has_content?('black nectar of the gods')
-    end
+  test "an unauthorised user can view a tenants root page and be shown their products" do
+    item = Item.create(title: 'coffee', description: 'black nectar of the gods', price: 1200)
+    category = item.categories(name: 'agriculture')
+    user = create(:user)
+    tenant = create(:tenant)
 
-    within('#price') do
-      assert page.has_content?('$12.00')
-    end
+    visit tenant_path(tenant: tenant.organization)
+
+    assert_equal "/lucy", current_path
+    assert page.has_content?("coffee")
   end
 
   test "an unauthorized user can signup" do

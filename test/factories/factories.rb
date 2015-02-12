@@ -1,9 +1,12 @@
 FactoryGirl.define do
-  factory :user, aliases: [:fat_model, :skinny_controller] do
-    password "password"
+  factory :user do
+    username "LambPETAsAreTasty"
     first_name  "Roger"
     last_name "Federer"
+    password "password"
+    sequence(:address) { |n| "412#{n} Tasty Animals Lane" }
     sequence(:email) { |n| "person#{n}@gmail.com"}
+    sequence(:credit_card_info) { |n| "1111222#{n}233334444" }
     role 0
 
     factory :user_with_orders do
@@ -16,6 +19,11 @@ FactoryGirl.define do
         create_list(:order, evaluator.orders_count, user: user)
       end
     end
+  end
+
+  factory :tenant do
+    location "Shenzhen"
+    organization "lucy"
   end
 
   factory :category do
@@ -47,10 +55,6 @@ FactoryGirl.define do
       after(:create) do |item, evaluator|
         create_list(:category, evaluator.category_count, :name => "hot beverages", items: [item])
       end
-      # categories = create_list(:category, evaluator.category_count, :name => "hot beverages")
-      # categories.each do |category|
-        # CategoryItem.create(category: category, item: item)
-      # end
     end
   end
 

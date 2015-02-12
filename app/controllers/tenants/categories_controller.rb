@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Tenants::CategoriesController < ApplicationController
 
   def create
     Category.create(name: params[:categories][:name],
