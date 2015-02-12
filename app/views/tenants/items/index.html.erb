@@ -10,6 +10,9 @@
           <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
         </div>
         <h5 class="item-desc"><%= item.description %></h5>
+        <% item.categories.each do |category| %>
+          <div class="item-category"><%= category.name %></div>
+        <% end %>
       </div>
     <% end %>
   </div>

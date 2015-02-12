@@ -1,8 +1,6 @@
 <div class="category-row">
   <%= render "shared/back_button" %>
   <% @categories.each do |category| %>
-  <a class="btn" href="">
-    <%= category.name %>
-  </a>
+    <%= link_to("#{category.name}", category_path(id: category.id)) %>
   <% end %>
 </div>

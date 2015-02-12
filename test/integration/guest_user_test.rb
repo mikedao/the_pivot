@@ -4,32 +4,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include FactoryGirl::Syntax::Methods
 
-  attr_reader :user_admin, :user_user, :item1, :item2, :category1, :category2
-
-  def setup
-    @user_admin = User.create(username:   "user",
-                              password:   "password",
-                              first_name: "John",
-                              last_name:  "Doe",
-                              email:      "example@example.com",
-                              role:       1)
-
-    @user_user = User.create(username:   "jeff",
-                             password:   "wan",
-                             first_name: "Jeff",
-                             last_name:  "Wan",
-                             email:      "jwan622@example.com",
-                             role:       0)
-
-    @category1 = Category.create(name: "Hot Beverages")
-    @category2 = Category.create(name: "cold beverages")
-    @item1 = category1.items.create(title: "espresso",
-                                    description: "this is black gold",
-                                    price: 30000)
-    @item2 = category2.items.create(title: "cold pressed coffee", price: 8000,
-                                    description: "hipster nonsense")
-  end
-
   test "a guest user can view a home page" do
     skip
     visit root_path
@@ -100,37 +74,23 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "an unauthorised user can view a tenant's page which only shows their
   products" do
-    Item.create(title: "coffee",
-                description: "black nectar of the gods", price: 1200)
+    non_tenant_category = create(:category)
+    tenant_category = create(:category, name: "agriculture")
+    non_tenant_item = create(:item)
     tenant = create(:tenant)
-    tenant_item = tenant.items.create(title: "cafe",
-                                      description: "algo bueno",
-                                      price: 1200)
-    tenant_item.categories(name: "agriculture")
+    tenant_item = create(:item, title: "cats")
+    tenant_item.categories << tenant_category
+    tenant.items << tenant_item
 
     visit tenant_path(tenant: tenant.organization)
 
     assert_equal "/lucy", current_path
-    assert page.has_content?("cafe")
-    refute page.has_content?("nectar")
-  end
-
-  test "an unauthorised user can view a tenant's categories page" do
-    item = create(:item)
-    cat1 = create(:category, name: "cookies")
-    item.categories = [cat1]
-    tenant = create(:tenant)
-    tenant_item = tenant.items.create(title: "cafe",
-                                      description: "algo bueno",
-                                      price: 1200)
-    cat2 = create(:category, name: "agriculture")
-    tenant_item.categories << cat2
-
-    visit categories_path(tenant: tenant.organization)
-
-    assert_equal "/lucy/categories", current_path
-    assert page.has_content?("agriculture")
-    refute page.has_content?("cookies")
+    within(".item-category") do
+      assert page.has_content?(tenant_category.name)
+      refute page.has_content?(non_tenant_category.name)
+    end
+    assert page.has_content?(tenant_item.title)
+    refute page.has_content?(non_tenant_item.title)
   end
 
   test "an unauthorized user can signup" do
