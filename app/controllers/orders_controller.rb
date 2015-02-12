@@ -11,8 +11,8 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    if order_owner_or_admin? 
-			@order
+    if order_owner_or_admin?
+      @order
     else
       redirect_to root_path
     end
@@ -44,9 +44,9 @@ class OrdersController < ApplicationController
     redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 
-	private
+  private
 
-	def order_owner_or_admin?
-		current_user && (current_user.id == @order.user_id || current_user.admin?)
-	end
+  def order_owner_or_admin?
+    current_user && (current_user.id == @order.user_id || current_user.admin?)
+  end
 end
