@@ -61,7 +61,6 @@ FactoryGirl.define do
     end
   end
 
-
   factory :admin do
     username "JeffWan"
     password "password"
