@@ -1,64 +1,147 @@
-rachel = User.create(username: 'rachel',password: 'password', first_name: 'Rachel', last_name: 'Warbelow', email: "demo+rachel@jumpstartlab.com", role: 0)
-jeff = User.create(username: 'j3',password: 'password', first_name: 'Jeff', last_name: 'Casimir', email: 'demo+jeff@jumpstartlab.com', role: 0)
-jorge = User.create(username: 'novohispano',password: 'password', first_name: 'Jorge', last_name: 'Tellez', email: 'demo+jorge@jumpstartlab.com', role: 0)
-josh = User.create(username: 'josh',password: 'password', first_name: 'Josh', last_name: 'Cheek', email: 'demo+josh@jumpstartlab.com', role: 1)
+# Users
+User.create!(
+  username:              "RMcDonald",
+  first_name:            "Ronald",
+  last_name:             "McDonald",
+  email:                 "ProFactoryFarms@gmail.com",
+  password:              "password",
+  password_confirmation: "password",
+  city:                  "Atlanta",
+  state:                 "GA",
+  street:                "666 Mockingbird Lane",
+  zipcode:               50240,
+  country:               "USA",
+  credit_card_info:      "1111222233334444"
+)
+
+5.times do |n|
+  username =                Faker::Internet.user_name
+  first_name =              Faker::Name.first_name
+  last_name =               Faker::Name.last_name
+  country =                 Faker::Address.country
+  email =                   "ProFactoryFarms-#{n + 1}@gmail.com"
+  password =                "password"
+  credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
+  street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
+  User.create!(
+    username:               username,
+    email:                  email,
+    password:               password,
+    password_confirmation:  password,
+    first_name:             first_name,
+    last_name:              last_name,
+    city:                   "Atlanta",
+    state:                  "GA",
+    zipcode:                50240,
+    street:                 street,
+    country:                country,
+    credit_card_info:       credit_card_info
+  )
+end
 
 puts "#{User.count} users created."
-coffee = Category.create(name: 'Coffee', image: "fa fa-coffee")
-brewing = Category.create(name: 'Brewing', image: "fa fa-tint")
-merchandise = Category.create(name: 'Merchandise', image: "fa fa-gratipay")
-chow = Category.create(name: 'Chow', image: "fa fa-cutlery")
-shop_all = Category.create(name: 'Shop All', image: "fa fa-archive")
 
-item1 = brewing.items.create!(title: 'Mexican Organic Dark Coffee', description: 'Bold smoky aroma with a smooth body and dark cocoa finish.', price: 1200, image: File.new("#{Rails.root}/app/assets/images/beans.png"))
-item2 = brewing.items.create!(title: 'Columbian Dark Coffee', description: 'Creamy and smooth-bodied with a smoky aroma and well-balanced flavor.', price: 1500, image: File.new("#{Rails.root}/app/assets/images/coffee.bag.jpg"))
+ronald1 = User.find(1)
+ronald2 = User.find(2)
+ronald3 = User.find(3)
+ronald4 = User.find(4)
 
-item3 = merchandise.items.create!(title: 'Clear Kit', description: 'Full Kit.', price: 8000, image: File.new("#{Rails.root}/app/assets/images/merch.jpg"))
-item4 = merchandise.items.create!(title: 'Coffee Grinder', description: 'Classic hand crank coffee grinder.', price: 2000, image: File.new("#{Rails.root}/app/assets/images/grinder.jpg"))
-item5 = merchandise.items.create!(title: 'Espresso Machine', description: 'Bring out the indulgent European in you.', price: 12000, image: File.new("#{Rails.root}/app/assets/images/espresso-machine.jpg"))
-item6 = merchandise.items.create!(title: 'Coffee Maker', description: 'Chrome coffee maker, for the baller in you.', price: 5000, image: File.new("#{Rails.root}/app/assets/images/coffee-maker.jpg"))
+# tenants
+Tenant.create!(
+  location:              "East Timor represent",
+  organization:          "Bridge Builders off the island."
+)
 
-item7 = chow.items.create!(title: 'Artichoke Souffle', description: 'Try this rich-tasting cheese, artichoke and spinach soufflé recipe for your next brunch.', price: 700, image: File.new("#{Rails.root}/app/assets/images/breakfast.jpg"))
-item8 = chow.items.create!(title: 'Berry Tart', description: 'Lightly sweetened berries top vanilla bean-flecked pastry cream contained in a graham cracker crust.', price: 500, image: File.new("#{Rails.root}/app/assets/images/tarts.jpg"))
-item9 = chow.items.create!(title: 'Caprese Panini', description: 'The classic combination of mozzarella, tomatoes and basil is known as caprese.', price: 700, image: File.new("#{Rails.root}/app/assets/images/panini.jpg"))
-item10 = chow.items.create!(title: 'Blueberry Muffin', description: 'Blueberry muffins balance a moist, buttery crumb topping and are equally delicious with blueberries in season.', price: 400, image: File.new("#{Rails.root}/app/assets/images/muffin.jpg"))
-item11 = chow.items.create!(title: 'Wedge Salad', description: 'Hearts of romaine lettuce, painted with a herb vinaigrette, and grilled.', price: 800, image: File.new("#{Rails.root}/app/assets/images/salad.jpg"))
-item12 = chow.items.create!(title: 'Tomato Soup and Toasted Ravioli', description: 'Creamy tomatoe soup made from freash local ingrediants, garnished with our in house toasted ravioli pasta.', price: 800, image: File.new("#{Rails.root}/app/assets/images/soup.jpg"))
+4.times do |n|
+  location =              "East Timor represent#{n + 1}"
+  organization =          "Bridge Builders off the island#{n + 1}"
+  Tenant.create!(
+    location:             location,
+    organization:         organization
+  )
+end
 
-item13 = coffee.items.create!(title: 'Capuccino', description: 'Our Creamy cappuccino offers a stronger espresso flavor and a luxurious texture.', price: 500, image: File.new("#{Rails.root}/app/assets/images/biscotti.jpg"))
-item14 = coffee.items.create!(title: 'Chocolate Capuccino', description: 'Chocolaty sweetness and hearty coffee unite to create a decadent cup of cappuccino.', price: 500, image: File.new("#{Rails.root}/app/assets/images/choc-coffee.jpg"))
-item15 = coffee.items.create!(title: 'Cinnful Capuccino', description: 'An espresso and cinnamon-scented scone with cappuccino.', price: 500, image: File.new("#{Rails.root}/app/assets/images/cinn-tea.png"))
-item16 = coffee.items.create!(title: 'Cocoa', description: 'Delicious organic chocolate to be savoured as it is or combined with intriguing infusions.', price: 500, image: File.new("#{Rails.root}/app/assets/images/coco.jpg"))
-item17 = coffee.items.create!(title: 'Latte', description: 'A shot of strong espresso coffee, with a healthy covering of hot steamed milk and a topping of steamed milk froth served in a glass.', price: 500, image: File.new("#{Rails.root}/app/assets/images/latte.jpg"))
-item18 = coffee.items.create!(title: 'Green Tea', description: 'Green tea potential health benefits for everything from fighting cancer to helping your heart, and it taste pretty okay too.', price: 500, image: File.new("#{Rails.root}/app/assets/images/green-tea.jpg"))
+# admin
+Admin.create!(
+        username: "Mugato4Eva",
+        password: "password",
+        email:    "HanselIsSoHotRightNow@hotmail.com"
+      )
 
+# categories
+people_category = Category.create!(
+  name: "People"
+)
 
-jeff_order_1 = item1.orders.create(total_cost: item1.price, user_id: jeff.id, status: 'completed')
-jeff_order_1.item_orders.last.update(quantity: 10, line_item_cost: item1.price)
+public_category = Category.create!(
+  name: "Public"
+)
 
-jeff_order_2 = item3.orders.create(total_cost: item3.price, user_id: jeff.id, status: 'ordered')
-jeff_order_2.item_orders.last.update(quantity: 11, line_item_cost: item3.price)
+startup_category = Category.create!(
+  name: "Startup"
+)
 
-jeff_order_3 = item7.orders.create(total_cost: item7.price, user_id: jeff.id, status: 'cancelled')
-jeff_order_3.item_orders.last.update(quantity: 15, line_item_cost: item7.price)
+conflict_zone_category = Category.create!(
+  name: "Conflict Zones"
+)
 
-jeff_order_4 = item10.orders.create(total_cost: item10.price, user_id: jeff.id, status: 'paid')
-jeff_order_4.item_orders.last.update(quantity: 19, line_item_cost: item10.price)
+# items
+timmys_vaccines_nigeria = people_category.
+                    items.create!(
+                      title: "Timmy's vaccine shots",
+                      price: 5000,
+                      description: "These are malaria shots for little Timmy.",
+                      retired: false
+                      )
 
-rachel_order_1 = item2.orders.create(total_cost: item2.price, user_id: rachel.id, status: 'completed')
-rachel_order_1.item_orders.last.update(quantity: 4, line_item_cost: item2.price)
+stevens_books_bangkok = startup_category.
+                          items.create!(
+                            title: "Steven's school books",
+                            price: 4000,
+                            description: "How can I teach deez kiiiids?",
+                            retired: false
+                            )
 
-rachel_order_2 = item11.orders.create(total_cost: item11.price, user_id: rachel.id, status: 'ordered')
-rachel_order_2.item_orders.last.update(quantity: 6, line_item_cost: item11.price)
+johns_waterworks_cotedivore = public_category.
+                      items.
+                      create!(
+                        title: "John's water supply for village",
+                        price: 9000,
+                        description: "We need water for our village of people.",
+                        retired: false
+                      )
 
-jorge_order_1 = item16.orders.create(total_cost: item16.price, user_id: jorge.id, status: 'cancelled')
-jorge_order_1.item_orders.last.update(quantity: 7, line_item_cost: item16.price)
+debeers_conflict_diamonds_ivorycoast = conflict_zone_category.
+                                items.create!(
+                                  title: "De Beers",
+                                  price: 16000,
+                                  description: "Conflict diamonds are forever",
+                                  retired: false
+                                )
 
-jorge_order_2 = item11.orders.create(total_cost: item11.price, user_id: jorge.id, status: 'cancelled')
-jorge_order_2.item_orders.last.update(quantity: 2, line_item_cost: item11.price)
+# Orders with items
+timmys_vaccines_nigeria.orders.create!(
+                                total_cost: timmys_vaccines_nigeria.price,
+                                user_id:    ronald1.id,
+                                status:     "ordered"
+                                )
 
-josh_order_1 = item16.orders.create(total_cost: item5.price, user_id: josh.id, status: 'paid')
-josh_order_1.item_orders.last.update(quantity: 12, line_item_cost: item5.price)
+stevens_books_bangkok.orders.create!(
+                              total_cost: stevens_books_bangkok.price,
+                              user_id:    ronald2.id,
+                              status:     "ordered"
+                              )
 
-josh_order_2 = item11.orders.create(total_cost: item17.price, user_id: josh.id, status: 'completed')
-josh_order_2.item_orders.last.update(quantity: 1, line_item_cost: item17.price)
+johns_waterworks_cotedivore.
+                      orders.create!(
+                        total_cost: johns_waterworks_cotedivore.price,
+                        user_id:    ronald3.id,
+                        status:     "completed"
+                        )
+
+debeers_conflict_diamonds_ivorycoast.
+                      orders.create!(
+                        total_cost: debeers_conflict_diamonds_ivorycoast.price,
+                        user_id:    ronald4.id,
+                        status:     "ordered"
+                        )
