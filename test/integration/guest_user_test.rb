@@ -76,10 +76,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   products" do
     non_tenant_category = create(:category)
     tenant_category = create(:category, name: "agriculture")
-    non_tenant_item = create(:item)
+    non_tenant_item = create(:item, categories: [create(:category)])
     tenant = create(:tenant)
-    tenant_item = create(:item, title: "cats")
-    tenant_item.categories << tenant_category
+    tenant_item = create(:item, title: "cats", categories: [tenant_category])
     tenant.items << tenant_item
 
     visit tenant_path(tenant: tenant.organization)

@@ -5,6 +5,7 @@ class ItemTest < ActiveSupport::TestCase
 
   test "it is valid" do
     item = build(:item)
+    item.categories << create(:category)
     assert item.valid?
   end
 
@@ -22,49 +23,48 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it cannot have a duplicate title" do
-    category = Category.create(name: "hot beverages")
-    category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    category.items.create(title: 'espresso', description: "this is bleck gold", price: 30000)
-    category.items.create(title: 'espresso', description: "this is back gold", price: 30000)
+    category = create(:category)
+    create(:item, title: "espresso", categories: [category])
+    invalid_item = build(:item, title: "espresso", categories: [category])
 
-    assert_equal 1, Item.where(:title => "espresso").count
+    assert invalid_item.invalid?
   end
 
   test "it has a valid price" do
-    category = Category.create(name: "hot beverages")
-    item1 = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    item2 = category.items.create(title: 'italian roast', description: "this is blak gold", price: "10.00z")
-    item3 = category.items.create(title: 'decaf something or other', description: "this is blakc gold", price: ".01")
-    item4 = category.items.create(title: 'sludge', description: "this is blakc gold", price: 0.01)
-    item5 = category.items.create(title: 'just straight espresso beans in a cup', description: "this is blakc gold")
+    category = create(:category, name: "hot beverages")
+    item1 = create(:item, categories:[category], price: 40004)
+    invalid_item1 = build(:item, categories:[category], price: 400.04)
+    invalid_item2 = build(:item, categories:[category], price: "dasj")
+    invalid_item3 = build(:item, categories:[category], price: "4%" )
+    invalid_item4 = build(:item, categories:[category], price: -4)
+    invalid_item5 = build(:item, categories:[category], price: 4000000)
 
     assert item1.valid?
-    refute item2.valid?
-    refute item3.valid?
-    refute item4.valid?
-    refute item5.valid?
+    refute invalid_item1.valid?
+    refute invalid_item2.valid?
+    refute invalid_item3.valid?
+    refute invalid_item4.valid?
+    refute invalid_item5.valid?
   end
 
-  test "it must have at least one factory" do
-    item = create(:item)
-    item.categories << create(:category)
-
-    assert_equal 1, item.categories.count
+  test "it must have at least one category" do
+    item = build(:item, categories: [])
+    assert item.invalid?
   end
 
   test "it can have multiple categories" do
-    item = create(:item)
-    item.categories << Category.create(name: "Bad Category")
-    item.categories << Category.create(name: "Good Category")
-    item.categories << Category.create(name: "Medium Category")
+    categories = []
+    1.upto(3) do |i|
+      categories << create(:category, name: "Bad Category#{i}")
+    end
+    item = create(:item, categories: categories)
 
-    assert item.categories
     assert_equal 3, item.categories.count
   end
 
   test "it has a photo by default" do
-    category = Category.create(name: "hot beverages")
-    item = category.items.create(title: 'espresso', description: "this is black gold", price: 30000)
-    assert item.image.url
+    item = create(:item, categories: [create(:category)])
+
+    assert_equal 1, item.photos.count
   end
 end
