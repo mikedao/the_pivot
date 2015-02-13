@@ -4,7 +4,7 @@ require "test_helper"
 class CartIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  teardown do 
+  teardown do
     FactoryGirl.reload
   end
 
@@ -74,7 +74,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an unauthorized user can add different items to the cart and show the correct price" do
+  test "an unauthorized user can add different items to the cart and
+        show the correct price" do
     bad_item = create(:item)
     bad_item2 = create(:item)
     visit "/items/#{bad_item.id}"
@@ -182,7 +183,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "a user can checkout once logged in" do
     item = create(:item)
     user = create(:user)
-
+    
     visit "/items/#{item.id}"
     select "2", from: "cart[quantity]"
     click_link_or_button("Add to Cart")
