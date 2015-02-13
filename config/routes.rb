@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  scope ":tenant", module: "tenants", as: "tenant" do
+  scope ":slug", module: "tenants", as: "tenant" do
     get "/" => "items#index"
     resources :items
   end
