@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
 
-  # get 'tenants/index'
-  #
-  # get 'tenants/show'
-  #
   root 'welcome#index'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
+  resources :categories, only: [:show, :index]
+  resources :items
   get "cart_items/create"
 
   post '/carts', to: 'carts#create', as: 'carts'
@@ -18,31 +16,16 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/dashboard', to: 'base#dashboard'
-    # resources :categories
-    # resources :items
-    # resources :orders
   end
 
   resources :users do
     resources :orders
   end
 
-  # resources :tenants, path: "", param: :tenant
-
-  scope ":tenant", module: "tenants" do
-    get "/" => "items#index", as: :tenant
-    resources :categories
+  scope ":slug", module: "tenants", as: "tenant" do
+    get "/" => "items#index"
     resources :items
   end
 
   match '/create_order', via: [:get], to: "orders#create"
 end
-# this maybe useful for multitenancy
-
-# scope ':username ' do
-#   resources :articles, :only => [:show, :index]
-#
-#   namespace :admin do
-#     resources :articles, :except => [:show, :index]
-#   end
-# end
