@@ -86,37 +86,36 @@ conflict_zone_category = Category.create!(
 )
 
 # items
-timmys_vaccines_nigeria = people_category.
-                    items.create!(
+timmys_vaccines_nigeria = Item.create!(
                       title: "Timmy's vaccine shots",
                       price: 5000,
                       description: "These are malaria shots for little Timmy.",
-                      retired: false
+                      retired: false,
+                      categories: [people_category]
                       )
 
-stevens_books_bangkok = startup_category.
-                          items.create!(
+stevens_books_bangkok = Item.create!(
                             title: "Steven's school books",
                             price: 4000,
                             description: "How can I teach deez kiiiids?",
-                            retired: false
+                            retired: false,
+                            categories: [startup_category]
                             )
 
-johns_waterworks_cotedivore = public_category.
-                      items.
-                      create!(
+johns_waterworks_cotedivore = Item.create!(
                         title: "John's water supply for village",
                         price: 9000,
                         description: "We need water for our village of people.",
-                        retired: false
+                        retired: false,
+                        categories: [public_category]
                       )
 
-debeers_conflict_diamonds_ivorycoast = conflict_zone_category.
-                                items.create!(
+debeers_conflict_diamonds_ivorycoast = Item.create!(
                                   title: "De Beers",
                                   price: 16000,
                                   description: "Conflict diamonds are forever",
-                                  retired: false
+                                  retired: false,
+                                  categories: [conflict_zone_category]
                                 )
 
 # Orders with items
