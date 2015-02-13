@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
   def create
     update_cart
-    flash[:notice] = 'Added to Cart'
+    flash[:notice] = "Added to Cart"
     redirect_to items_path
   end
 
@@ -11,7 +11,7 @@ class CartsController < ApplicationController
 
   def checkout_cart
     if current_user.nil?
-      flash[:alert] = 'You must login to checkout'
+      flash[:alert] = "You must login to checkout"
       redirect_to showcart_path
     else
       cart = Cart.new(session[:cart])
@@ -23,7 +23,7 @@ class CartsController < ApplicationController
       @order = Order.create(
         user_id: session[:user_id],
         total_cost: total_cost,
-        status: 'ordered'
+        status: "ordered"
         )
       cart.items.each do |item, quantity|
         ItemOrder.create(
@@ -32,10 +32,10 @@ class CartsController < ApplicationController
           quantity: quantity,
           line_item_cost: item.price * quantity.to_i
           )
-        end
+      end
       session.delete(:cart)
       redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
-      end
+    end
   end
 
   def delete_item
@@ -43,14 +43,14 @@ class CartsController < ApplicationController
       delete_all_items_from_cart
     else
       delete_specific_item_from_cart
-      flash[:notice] = 'Item removed from cart'
+      flash[:notice] = "Item removed from cart"
     end
     redirect_to showcart_path
   end
 
   def update_item_quantity
     session[:cart][params[:update_item_quantity][:item_id]] = params[:update_item_quantity][:quantity]
-    flash[:notice] = 'Item quantity updated'
+    flash[:notice] = "Item quantity updated"
     redirect_to showcart_path
   end
 
