@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CreateAUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -33,4 +33,3 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Please try again.")
   end
 end
-
