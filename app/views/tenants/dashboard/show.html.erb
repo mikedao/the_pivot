@@ -1,0 +1,27 @@
+<%= render "shared/back_button" %>
+<div id="admin_header">
+  <h1><%= @tenant.organization %>'s Dashboard</h1>
+</div>
+
+<div id="projects">
+  <table class='table table-bordered'>
+    <thead>
+      <tr class="warning">
+        <th data-field='Project'> Project </th>
+        <th data-field='Price'>Total Cost</th>
+        <th data-field='retired'>Status</th>
+        <th data-field='time'>Status As Of</th>
+        <th data-field='time'>Submitted At</th>
+      </tr>
+    </thead>
+    <% @tenant.items.each do |item| %>
+      <tr>
+        <td><%= link_to("#{item.title}", item_path(id: item.id)) %></td>
+        <td><%= number_to_currency item.price/100 %></td>
+        <td><%= item.retired %></td>
+        <td><%= item.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
+        <td><%= item.created_at.strftime("%b %d, %Y, %I:%M") %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
