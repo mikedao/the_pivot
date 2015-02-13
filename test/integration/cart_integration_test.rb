@@ -194,9 +194,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
     click_link_or_button('Checkout')
 
-    # assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
-    # assert_template "users/#{user.id}/orders"
-    # assert page.has_content?("$8.00")
-    # assert page.has_content?("espresso")
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
+    assert page.has_content?("$8.00")
+    assert page.has_content?("espresso")
   end
 end
