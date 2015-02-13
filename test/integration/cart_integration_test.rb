@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 
 class CartIntegrationTest < ActionDispatch::IntegrationTest
@@ -8,191 +8,191 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     FactoryGirl.reload
   end
 
-  test 'a cart starts empty' do
-    visit '/'
+  test "a cart starts empty" do
+    visit "/"
 
-    click_link_or_button('Cart')
+    click_link_or_button("Cart")
 
-    within('#cart_items') do
-      assert page.has_content?('Your Cart Is Empty')
+    within("#cart_items") do
+      assert page.has_content?("Your Cart Is Empty")
     end
   end
 
-  test 'an unauthorized user can add an item to the cart' do
+  test "an unauthorized user can add an item to the cart" do
     item = create(:item)
     visit "/items/#{item.id}"
 
-    click_button 'Add to Cart'
+    click_button "Add to Cart"
 
-    within('#flash_notice') do
-      assert page.has_content?('Added to Cart')
+    within("#flash_notice") do
+      assert page.has_content?("Added to Cart")
     end
   end
 
-  test 'an unauthorized user with items in their cart can view their cart' do
+  test "an unauthorized user with items in their cart can view their cart" do
     item = create(:item)
     visit "/items/#{item.id}"
 
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    within('#cart_items') do
+    within("#cart_items") do
       assert page.has_content?("produce only the finest")
-      assert page.has_content?('1')
+      assert page.has_content?("1")
     end
 
   end
 
-  test 'an unauthorized user can add up to 10 of the same item at one time' do
+  test "an unauthorized user can add up to 10 of the same item at one time" do
     item = create(:item)
 
     visit "/items/#{item.id}"
-    select "10", from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    select "10", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    within('#cart_items') do
-      assert page.has_content?('produce only the finest')
-      assert page.has_content?('10')
+    within("#cart_items") do
+      assert page.has_content?("produce only the finest")
+      assert page.has_content?("10")
     end
   end
 
-  test 'an unauthorized user can add more of the same item' do
+  test "an unauthorized user can add more of the same item" do
     item = create(:item)
 
     visit "/items/#{item.id}"
-    select "10", from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
+    select "10", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
     visit "/items/#{item.id}"
-    select "1", from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    select "1", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    within('#cart_items') do
-      assert page.has_content?('produce only the finest')
-      assert page.has_content?('11')
+    within("#cart_items") do
+      assert page.has_content?("produce only the finest")
+      assert page.has_content?("11")
     end
   end
 
-  test 'an unauthorized user can add different items to the cart and show the correct price' do
+  test "an unauthorized user can add different items to the cart and show the correct price" do
     bad_item = create(:item)
     bad_item2 = create(:item)
     visit "/items/#{bad_item.id}"
 
-    select "1", from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
+    select "1", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
     visit "/items/#{bad_item2.id}"
-    select "2", from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    select "2", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    within('#cart_items') do
-      assert page.has_content?('espresso')
-      assert page.has_content?('1')
-      assert page.has_content?('$8.00')
-      assert page.has_content?('espresso2')
-      assert page.has_content?('2')
-      assert page.has_content?('$16.00')
+    within("#cart_items") do
+      assert page.has_content?("espresso")
+      assert page.has_content?("1")
+      assert page.has_content?("$8.00")
+      assert page.has_content?("espresso2")
+      assert page.has_content?("2")
+      assert page.has_content?("$16.00")
     end
   end
 
-  test 'an unauthorized user cannot checkout until logged in' do
+  test "an unauthorized user cannot checkout until logged in" do
     item = create(:item)
     visit "/items/#{item.id}"
 
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
-    click_link_or_button('Checkout')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
+    click_link_or_button("Checkout")
 
-    within('#flash_alert') do
-      assert page.has_content?('You must login to checkout')
+    within("#flash_alert") do
+      assert page.has_content?("You must login to checkout")
     end
     assert_equal showcart_path, current_path
   end
 
-  test 'a user can edit the quantity of an item in their cart' do
+  test "a user can edit the quantity of an item in their cart" do
     bad_item = create(:item)
     worse_item = create(:item)
     visit "/items/#{bad_item.id}"
-    click_link_or_button('Add to Cart')
+    click_link_or_button("Add to Cart")
     visit "/items/#{worse_item.id}"
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
     within("#item_#{bad_item.id}") do
-      select '7', from: 'update_item_quantity[quantity]'
-      click_link_or_button('Update Quantity')
+      select "7", from: "update_item_quantity[quantity]"
+      click_link_or_button("Update Quantity")
     end
 
-    within('#flash_notice') do
-      assert page.has_content?('Item quantity updated')
+    within("#flash_notice") do
+      assert page.has_content?("Item quantity updated")
     end
-    assert page.has_content?('espresso')
+    assert page.has_content?("espresso")
     within("#quantity_#{bad_item.id}") do
       assert page.has_content?('7')
     end
-    assert page.has_content?('espresso2')
+    assert page.has_content?("espresso2")
     assert_equal showcart_path, current_path
   end
 
-  test 'a user can delete an item from their cart' do
+  test "a user can delete an item from their cart" do
     bad_item = create(:item)
     worse_item = create(:item)
     visit "/items/#{bad_item.id}"
-    click_link_or_button('Add to Cart')
+    click_link_or_button("Add to Cart")
     visit "/items/#{worse_item.id}"
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
     within("#item_#{worse_item.id}") do
-      click_link_or_button('Delete')
+      click_link_or_button("Delete")
     end
 
-    within('#flash_notice') do
-      assert page.has_content?('Item removed from cart')
+    within("#flash_notice") do
+      assert page.has_content?("Item removed from cart")
     end
-    refute page.has_content?('espresso2')
-    assert page.has_content?('espresso')
+    refute page.has_content?("espresso2")
+    assert page.has_content?("espresso")
     assert_equal showcart_path, current_path
   end
 
-  test 'a user can empty their cart' do
+  test "a user can empty their cart" do
     item = create(:item)
     visit "/items/#{item.id}"
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    click_link_or_button('Empty Cart')
+    click_link_or_button("Empty Cart")
 
-    assert page.has_content?('Your Cart Is Empty')
+    assert page.has_content?("Your Cart Is Empty")
     assert_equal showcart_path, current_path
   end
 
-  test 'item titles on cart page are links' do
+  test "item titles on cart page are links" do
     item = create(:item)
     visit "/items/#{item.id}"
-    click_link_or_button('Add to Cart')
-    click_link_or_button('Cart')
+    click_link_or_button("Add to Cart")
+    click_link_or_button("Cart")
 
-    click_link_or_button('espresso')
+    click_link_or_button("espresso")
 
     assert_equal item_path(item.id), current_path
   end
 
-  test 'a user can checkout once logged in' do
+  test "a user can checkout once logged in" do
     item = create(:item)
     user = create(:user)
 
     visit "/items/#{item.id}"
-    select '2', from: 'cart[quantity]'
-    click_link_or_button('Add to Cart')
+    select "2", from: "cart[quantity]"
+    click_link_or_button("Add to Cart")
     
-    fill_in 'session[username]', with: user.username
-    fill_in 'session[password]', with: user.password
-    click_link_or_button('Login')
-    click_link_or_button('Cart')
+    fill_in "session[username]", with: user.username
+    fill_in "session[password]", with: user.password
+    click_link_or_button("Login")
+    click_link_or_button("Cart")
 
-    click_link_or_button('Checkout')
+    click_link_or_button("Checkout")
 
     assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
     assert page.has_content?("$8.00")
