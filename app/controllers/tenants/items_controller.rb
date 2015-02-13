@@ -7,9 +7,9 @@ class Tenants::ItemsController < ApplicationController
     else
       @items = Category.find_by(name: params[:category_name]).items
     end
-    @categories = Category.all
+
     @tenant = Tenant.find_by(organization: params[:tenant])
-    # require 'pry' ; binding.pry
+    @categories = Category.all
   end
 
   def show

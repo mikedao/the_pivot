@@ -4,13 +4,16 @@
     <a class="brand" href="/"><%= image_tag "logo5.png" %></a>
   <% end %>
   <%= menu_group do %>
-      <h3 id="store-name">Cinema Coffee</h3>
+      <h3 id="store-name">Keevahh</h3>
   <% end %>
   <%= menu_group do %>
     <%= menu_item "Home", root_path %>
-    <%= menu_item "Menu", items_path %>
+    <% if @tenant %>
+      <%= menu_item "Lend", categories_path(tenant: @tenant.organization) %>
+    <% else %>
+      <%= menu_item "Lend", root_path %>
+    <% end %>
     <%= menu_item "Cart", showcart_path %>
-    <%= menu_item "Order History", user_orders_path(current_user) if current_user %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
     <% if current_user.nil? %>
     	<%= menu_item "Signup", new_user_path %>
