@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20150212015057) do
   create_table "items", force: :cascade do |t|
     t.string   "title"
     t.integer  "price"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "description"
-    t.boolean  "retired",          default: false
+    t.boolean  "retired",               default: false
     t.integer  "tenant_id"
     t.date     "requested_by"
     t.date     "reqpayment_begin"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 20150212015057) do
   create_table "items_categories", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20150212015057) do
     t.string   "email"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "role",               default: 0
+    t.integer  "role",                           default: 0
     t.string   "credit_card_info"
     t.string   "street"
     t.string   "city"
