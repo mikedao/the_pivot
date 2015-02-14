@@ -49,7 +49,7 @@ FactoryGirl.define do
 
   factory :project do
     sequence(:title) { |n| "espresso#{n}" }
-    price 800
+    price 801
     description "We produce only the finest blood diamonds in Sierra Leone.
                 Diamond are forever."
     retired false
