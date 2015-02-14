@@ -12,6 +12,11 @@
         <% item.categories.each do |category| %>
           <div class="item-category"><%= category.name %></div>
         <% end %>
+        <%= form_for :cart, url: carts_path do |f| %>
+          <%= f.hidden_field :item_id, value: item.id %>
+          <%= f.hidden_field :loan_amount, value: 25 %>
+          <%= f.submit 'Lend $25', class: "btn btn-default" %>
+        <% end %>
       </div>
     <% end %>
   </div>

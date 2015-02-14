@@ -40,7 +40,8 @@ class CartsController < ApplicationController
     if session[:cart]
       update_existing_cart
     else
-      session[:cart] = { params[:cart][:item_id] => params[:cart][:quantity] }
+      session[:cart] = { params[:cart][:item_id] => params[:cart][:loan_amount] }
+      redirect_to showcart_path
     end
   end
 
