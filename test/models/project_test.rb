@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ProjectTest < ActiveSupport::TestCase
   attr_reader :project
@@ -11,14 +11,18 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "it cannot have an empty string as a title" do
     category = Category.create(name: "hot beverages")
-    project = category.projects.create(title: '', description: "this is black gold", price: 30000)
+    project = category.projects.create(title: "",
+                                       description: "this is black gold",
+                                       price: 30000)
     assert project.invalid?
   end
 
   test "it cannot have an empty string as a description" do
     category = Category.create(name: "hot beverages")
 
-    project = category.projects.create(title: 'espresso', description: "", price: 30000)
+    project = category.projects.create(title: "espresso",
+                                       description: "",
+                                       price: 30000)
     assert project.invalid?
   end
 

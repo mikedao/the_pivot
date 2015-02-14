@@ -6,7 +6,7 @@ class Tenants::ProjectsController < ApplicationController
 
     redirect_to root_path if @tenant.nil?
 
-    if params[:category_name] == 'Shop All' || params[:category_name].nil?
+    if params[:category_name] == "Shop All" || params[:category_name].nil?
       @projects = Project.active
     else
       @projects = Category.find_by(name: params[:category_name]).projects
@@ -33,7 +33,8 @@ class Tenants::ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title, :price, :description, :retired,
-                                 :tenant_id, :repayment_begin, :repayment_rate)
+    params.require(:project).permit(:title, :price, :description,
+                                    :retired, :tenant_id, :repayment_begin,
+                                    :repayment_rate)
   end
 end
