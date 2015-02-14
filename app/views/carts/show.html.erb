@@ -1,35 +1,34 @@
-<h1>Your Cart</h1>
+<h1>Pending Loans</h1>
 <%= render "shared/back_button" %>
 
 <div id="cart_items">
   <table class='table table-bordered'>
     <thead>
       <tr class="warning">
-        <th data-field='Item Name'>Item</th>
-        <th data-field='Description'>Description</th>
-        <th data-field='Price'>Price</th>
-        <th data-field='Quantity'>Quantity</th>
-        <th data-field='Subtotal'>Subtotal</th>
+        <th data-field='Organization Name'>Organization Name</th>
+        <th data-field='Purpose'>Purpose</th>
+        <th data-field='Amount'>Amount</th>
         <th></th>
       </tr>
     </thead>
-    <% if @cart.nil? %>
-      <tr><td colspan='6'>Your Cart Is Empty</td></tr>
+    <% if @pending_loans.empty? %>
+      <tr><td colspan='6'>You Have No Pending Loans</td></tr>
     <% else %>
-      <% @cart.items.each do |item, quantity| %>
+      <% @pending_loans.each do |item, loan_amount| %>
         <tr id=<%= "item_#{item.id}" %>>
+          <td><%= item.tenant.organization %></td>
           <td><%= link_to item.title, item_path(item) %></td>
-          <td><%= item.description %></td>
-          <td><%= number_to_currency item.price / 100 %></td>
-          <td id=<%= "quantity_#{item.id}" %>><%= quantity %></td>
-          <td><%= number_to_currency item.price.to_i * quantity.to_i / 100 %></td>
+          <td id=<%= "quantity_#{item.id}" %>><%= loan_amount %></td>
           <td>
-
-            <%= form_for :update_item_quantity, url: update_item_quantity_path do |f| %>
-              <%= f.select 'quantity', options_for_select((1..10)) %>
+            <%= form_for :update_pending_loan_amount, url: update_item_quantity_path do |f| %>
+              <%= f.select(:loan_amount) do %>
+                <% [["$25", 25], ["$50", 50], ["$100", 100], ["$500", 500]].each do |amount| %>
+                  <%= content_tag(:option, amount.first, value: amount.last) %>
+                <% end %>
+              <% end %>
               <input name="_method" type="hidden" value="put" />
               <%= f.hidden_field :item_id, :value => item.id %>
-              <%= f.submit 'Update Quantity', class: "btn btn-default btn-update-quantity" %>
+              <%= f.submit 'Update Amount', class: "btn btn-default btn-update-quantity" %>
             <% end %>
 
             <%= form_for :cart, url: cart_path do |f| %>

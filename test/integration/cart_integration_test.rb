@@ -185,21 +185,44 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal item_path(item.id), current_path
   end
 
-  test "an authenticated user can add items to their cart" do
+  test "an authenticated user can add default amount to their cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
     tenant = create(:tenant)
     tenant.items << create(:item)
 
     visit "/#{tenant.organization}"
-    save_and_open_page
     within(".row") do
-      click_link_or_button("Lend $25")
+      click_link_or_button("Lend")
     end
 
-    assert_equal '/pending_loans', current_path
+    assert_equal '/pending_loan', current_path
     within('#cart_items') do
       assert page.has_content?(tenant.items.first.title)
+      assert page.has_content?("25")
+    end
+  end
+
+  test "an authenticated user can select a different amount for a loan and add it to their cart" do
+    authenticated_user = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
+    tenant = create(:tenant)
+    tenant.items << create(:item)
+
+    visit "/#{tenant.organization}"
+    within(".row") do
+      select "$50", :from => "pending_loan[loan_amount]"
+      click_link_or_button("Lend")
+    end
+
+    assert_equal '/pending_loan', current_path
+    within("h1") do
+      assert page.has_content?("Pending Loans")
+    end
+    within('#cart_items') do
+      assert page.has_content?(tenant.organization)
+      assert page.has_content?(tenant.items.first.title)
+      assert page.has_content?("50")
     end
   end
 
@@ -231,5 +254,24 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     # assert_template "users/#{user.id}/orders"
     assert page.has_content?("$24.00")
     assert page.has_content?("coffee")
+  end
+
+  test "an authenticated user can update the loan amount on the pending loans page" do
+    tenant = create(:tenant)
+    tenant.items << create(:item)
+
+    visit "/#{tenant.organization}"
+    within(".row") do
+      select "$50", :from => "pending_loan[loan_amount]"
+      click_link_or_button("Lend")
+    end
+
+    assert_equal '/pending_loan', current_path
+    within("#item_#{tenant.items.first.id}") do
+      select "100", :from => "update_pending_loan_amount[loan_amount]"
+      click_link_or_button("Update Amount")
+    end
+    assert_equal '/pending_loan', current_path
+    assert page.has_content?("100")
   end
 end

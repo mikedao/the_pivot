@@ -2,11 +2,14 @@ class CartsController < ApplicationController
   def create
     update_cart
     flash[:notice] = 'Added to Cart'
-    redirect_to items_path
+    redirect_to pending_loan_path
   end
 
-  def showcart
-    @cart = Cart.new(session[:cart]) if session[:cart]
+  def show
+    @pending_loans = {}
+    session[:pending_loan].each do |item_id, loan_amount|
+      @pending_loans[Item.find(item_id.to_i)] = loan_amount
+    end
   end
 
   def checkout_cart
@@ -29,19 +32,18 @@ class CartsController < ApplicationController
   end
 
   def update_item_quantity
-    session[:cart][params[:update_item_quantity][:item_id]] = params[:update_item_quantity][:quantity]
+    session[:pending_loan][params[:update_pending_loan_amount][:item_id]] = params[:update_pending_loan_amount][:loan_amount]
     flash[:notice] = 'Item quantity updated'
-    redirect_to showcart_path
+    redirect_to pending_loan_path
   end
 
   private
 
   def update_cart
-    if session[:cart]
+    if session[:pending_loan]
       update_existing_cart
     else
-      session[:cart] = { params[:cart][:item_id] => params[:cart][:loan_amount] }
-      redirect_to showcart_path
+      session[:pending_loan] = { params[:pending_loan][:item_id] => params[:pending_loan][:loan_amount] }
     end
   end
 
@@ -54,7 +56,7 @@ class CartsController < ApplicationController
   end
 
   def delete_all_items_from_cart
-    session.delete(:cart)
+    session.delete(:pending_cart)
   end
 
   def delete_specific_item_from_cart
