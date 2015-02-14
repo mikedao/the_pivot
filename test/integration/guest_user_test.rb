@@ -10,26 +10,26 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Cinema Coffee")
   end
 
-  test "a guest user can see all items" do
+  test "a guest user can see all projects" do
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit root_path
     click_link_or_button("Menu")
-    assert_equal items_path, current_path
-    assert page.has_content?(item1.title)
+    assert_equal projects_path, current_path
+    assert page.has_content?(project1.title)
     assert page.has_content?(category1.name)
   end
 
-  test "a guest user can browse items by category" do
+  test "a guest user can browse projects by category" do
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit root_path
     click_link_or_button("Menu")
     click_link_or_button(category1.name)
-    assert_equal items_path, current_path
-    assert page.has_content?(item1.title)
+    assert_equal projects_path, current_path
+    assert page.has_content?(project1.title)
     assert page.has_content?(category1.name)
-    refute page.has_content?(item2.title)
+    refute page.has_content?(project2.title)
   end
 
   test "registered admin can create category" do
@@ -45,13 +45,13 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "unregistered admin cannot see category" do
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
-    visit items_path
+    visit projects_path
     refute page.has_content?("Create Category")
   end
 
-  test "an unauthorised user can view a single items page" do
+  test "an unauthorised user can view a single projects page" do
     skip
-    Item.create(title: "coffee",
+    Project.create(title: "coffee",
                 description: "black nectar of the gods",
                 price: 1200)
 
@@ -76,21 +76,21 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   products" do
     non_tenant_category = create(:category, name: "bad cats")
     tenant_category = create(:category, name: "agriculture")
-    non_tenant_item = create(:item, categories: [non_tenant_category])
+    non_tenant_project = create(:project, categories: [non_tenant_category])
     tenant = create(:tenant, organization: "bob's")
-    tenant_item = create(:item, title: "cats", description: "good",
+    tenant_project = create(:project, title: "cats", description: "good",
                          categories: [tenant_category])
-    tenant.items << tenant_item
+    tenant.projects << tenant_project
 
     visit tenant_path(slug: tenant.slug)
 
     assert_equal "/bob-s", current_path
-    within first(".item-category") do
+    within first(".project-category") do
       assert page.has_content?(tenant_category.name)
       refute page.has_content?(non_tenant_category.name)
     end
-    assert page.has_content?(tenant_item.title)
-    refute page.has_content?(non_tenant_item.title)
+    assert page.has_content?(tenant_project.title)
+    refute page.has_content?(non_tenant_project.title)
   end
 
   test "will be redirected to home page if tenant does not exist" do

@@ -40,9 +40,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert root_path, current_path
   end
 
-  test 'a logged in user cannot go to admin items path' do
+  test 'a logged in user cannot go to admin projects path' do
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit admin_items_path
+    visit admin_projects_path
     assert root_path, current_path
   end
 

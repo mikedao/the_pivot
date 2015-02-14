@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrderIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  attr_reader :user, :order, :item
+  attr_reader :user, :order, :project
 
   def setup
     @user = User.create(username: 'user',
@@ -10,9 +10,9 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
                         first_name: 'John',
                         last_name: 'Doe',
                         email: 'example@example.com')
-    @item = Item.create(title: 'Pour Over', description: 'blah', price: 1000)
-    @order = item.orders.create(total_cost: 1000, user_id: user.id)
-    @order.item_orders.first.update(quantity: 1, line_item_cost: 1000)
+    @project = Project.create(title: 'Pour Over', description: 'blah', price: 1000)
+    @order = project.orders.create(total_cost: 1000, user_id: user.id)
+    @order.loans.first.update(quantity: 1, line_project_cost: 1000)
     visit root_url
   end
 

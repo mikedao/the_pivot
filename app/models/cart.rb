@@ -3,10 +3,10 @@ class Cart
     @cart = cart
   end
 
-  def items
+  def projects
     output = {}
     @cart.each do |k,v|
-      output[Item.find(k)] = v
+      output[Project.find(k)] = v
     end
     output
   end
