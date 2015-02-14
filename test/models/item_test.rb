@@ -68,4 +68,10 @@ class ItemTest < ActiveSupport::TestCase
 
     assert_equal 1, item.photos.count
   end
+
+  test "it has a formatted dollar amount" do
+    item = create(:item, categories: [create(:category)], price: 40004)
+
+    assert_equal "$400.04", item.formatted_dollar_amount
+  end
 end

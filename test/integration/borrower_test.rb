@@ -21,6 +21,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
 
     tenant.items.each do |item|
       assert page.has_content?(item.title)
+      assert page.has_content?("$8.01")
     end
   end
 
