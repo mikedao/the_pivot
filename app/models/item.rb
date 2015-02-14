@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
 
   scope :active, -> {where(retired:false)}
 
@@ -21,6 +22,10 @@ class Item < ActiveRecord::Base
   validates :categories, presence: true
 
   before_save :add_default_photo
+
+  def formatted_dollar_amount
+    number_to_currency(price / 100.00)
+  end
 
   private
 
