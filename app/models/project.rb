@@ -1,12 +1,12 @@
-class Item < ActiveRecord::Base
+class Project < ActiveRecord::Base
 
   scope :active, -> {where(retired:false)}
 
-  has_many :items_categories
-  has_many :categories, through: :items_categories
+  has_many :projects_categories
+  has_many :categories, through: :projects_categories
   has_many :photos
-  has_many :item_orders
-  has_many :orders, through: :item_orders
+  has_many :loans
+  has_many :orders, through: :loans
   belongs_to :tenant
 
   validates :description, length: { in: 0..255, allow_nil: false }, presence: true
@@ -21,6 +21,10 @@ class Item < ActiveRecord::Base
   validates :categories, presence: true
 
   before_save :add_default_photo
+
+  def formatted_dollar_amount
+    number_to_currency(price / 100.00)
+  end
 
   private
 

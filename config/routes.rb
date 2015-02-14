@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  root "welcome#index"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy", as: "logout"
 
   resources :categories, only: [:show, :index]
-  resources :items
-  get "cart_items/create"
+  resources :projects
+  get "cart_projects/create"
 
   post '/carts', to: 'carts#create', as: 'carts'
   get '/pending_loan', to: 'carts#show', as: 'pending_loan'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   put '/cart', to: 'carts#update_item_quantity', as: 'update_item_quantity'
 
   namespace :admin do
-    get '/dashboard', to: 'base#dashboard'
+    get "/dashboard", to: "base#dashboard"
   end
 
   resources :users do
@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   scope ":slug", module: "tenants", as: "tenant" do
     get "/" => "items#index"
     resources :items
+    get "/dashboard" => "dashboard#show"
   end
 
-  match '/create_order', via: [:get], to: "orders#create"
+  match "/create_order", via: [:get], to: "orders#create"
 end

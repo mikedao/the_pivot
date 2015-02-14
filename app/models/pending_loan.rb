@@ -3,10 +3,10 @@ class PendingLoan
     @pending_loan = pending_loan
   end
 
-  def items
+  def projects
     output = {}
-    @pending_loan.each do |item_id, loan_amount|
-      output[Item.find(item_id)] = loan_amount
+    @pending_loan.each do |project_id, loan_amount|
+      output[Project.find(project_id)] = loan_amount
     end
     output
   end

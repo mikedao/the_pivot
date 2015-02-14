@@ -47,20 +47,20 @@ FactoryGirl.define do
     end
   end
 
-  factory :item do
+  factory :project do
     sequence(:title) { |n| "espresso#{n}" }
-    price 800
+    price 801
     description "We produce only the finest blood diamonds in Sierra Leone.
                 Diamond are forever."
     retired false
     repayment_rate 3
 
-    before(:create) do |item|
-      item.tenant = create(:tenant)
+    before(:create) do |project|
+      project.tenant = create(:tenant)
     end
 
-    before(:create) do |item|
-      item.categories << create_list(:category, 1, name: "Civic")
+    before(:create) do |project|
+      project.categories << create_list(:category, 1, name: "Civic")
     end
   end
 
@@ -76,7 +76,7 @@ FactoryGirl.define do
     image_file_size 3
 
     before(:create) do |photo|
-      photo.item << create(:item)
+      photo.project << create(:project)
     end
   end
 end

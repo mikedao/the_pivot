@@ -7803,7 +7803,7 @@ button.close {
 .fa-bomb:before {
   content: "\f1e2";
 }
-/* line 2, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 2, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 body {
   font-family: "PT Mono";
   background: url("/assets/wood-b8b6c212cf9f585cc846f530e334fe1a.jpg") repeat;
@@ -7811,7 +7811,7 @@ body {
   color: #090909;
 }
 
-/* line 9, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 9, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 h1 {
   font-weight: bold;
   text-align: center;
@@ -7819,12 +7819,12 @@ h1 {
   margin-bottom: 40px;
 }
 
-/* line 16, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 16, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .form-title {
   text-shadow: 0px 2px 3px #666;
 }
 
-/* line 20, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 20, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #title {
   font-weight: bold;
   margin-top: 20px;
@@ -7832,84 +7832,84 @@ h1 {
   text-shadow: 0px 2px 3px #666;
 }
 
-/* line 27, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 27, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 h3 {
   font-weight: bold;
   text-align: center;
 }
 
-/* line 32, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 32, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .main-body {
   margin-top: 60px;
   margin-bottom: 100px;
 }
 
-/* line 37, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 37, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #signup {
   text-align: center;
 }
 
-/* line 42, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
-.item-title {
+/* line 42, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
+.project-title {
   min-height: 40px;
   margin-bottom: 5px;
 }
 
-/* line 47, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
-.item-desc {
+/* line 47, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
+.project-desc {
   min-height: 50px;
 }
 
-/* line 51, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 51, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #flash_error {
   text-align: center;
   color: red;
 }
 
-/* line 56, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 56, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #flash_alert {
   color: red;
   text-align: center;
 }
 
-/* line 61, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 61, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #flash_notice {
   text-align: center;
   color: green;
 }
 
-/* line 66, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 66, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .category-row {
   text-align: center;
   margin-bottom: 50px;
 }
 
-/* line 71, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 71, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .btn {
   color: #504d4f;
   text-align: center;
 }
 
-/* line 76, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 76, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .logo {
   text-align: center;
   margin-top: 100px;
   margin-bottom: 100px;
 }
 
-/* line 82, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 82, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .btn-update-quantity {
   float: right;
 }
 
-/* line 86, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
-.btn-delete-cart-item {
+/* line 86, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
+.btn-delete-cart-project {
   float: right;
   margin-top: 10px;
   width: 129px;
 }
 
-/* line 92, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 92, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .admin_btn {
   text-align: center;
   margin-top: 20px;
@@ -7917,51 +7917,56 @@ h3 {
   padding-right: 50px;
 }
 
-/* line 99, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 99, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #admin_header {
   margin-bottom: 70px;
 }
 
-/* line 103, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 103, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .admin-links {
   text-align: center;
 }
 
-/* line 107, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 107, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .add-cart {
   margin-left: 20px;
 }
 
-/* line 111, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 111, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .drop-down {
   margin-left: 201px;
   color: #504d4f;
 }
 
-/* line 116, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 116, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .brand {
   margin-right: 10px;
   text-shadow: 0px 2px 3px #666;
 }
 
-/* line 121, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 121, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 a {
   color: #504d4f;
 }
 
-/* line 125, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 125, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .status-row {
   text-align: center;
 }
 
-/* line 129, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 129, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 #store-name {
   color: #504d4f;
 }
 
-/* line 133, /Users/orion/Turing/module2/projects/dinner_dash_production/dinner_dash/app/assets/stylesheets/custom.scss */
+/* line 133, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
 .retire-btn {
   margin-bottom: 54px;
+}
+
+/* line 137, /Users/e/Documents/Turing/mod3/the_pivot/app/assets/stylesheets/custom.scss */
+td {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 /*
 
