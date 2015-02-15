@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       if user.valid?
         create_user(user)
       else
-        invalid_user(user)
+        invalid_user
       end
     end
   end
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     params.require(:signup).permit(:email)
   end
 
-  def invalid_user(user)
+  def invalid_user
     flash[:notice] = "Please try again."
     redirect_to new_user_path
   end

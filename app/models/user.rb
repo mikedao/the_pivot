@@ -16,15 +16,7 @@ class User < ActiveRecord::Base
   enum role: [:default, :admin]
 
   def valid_email?(email)
-    if email_checker(email).nil?
-      false
-    else
-      true
-    end
-  end
-
-  def email_checker(email)
-    email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
+    email_checker(email)
   end
 
   def full_name
@@ -37,5 +29,11 @@ class User < ActiveRecord::Base
 
   def lender?
     tenant_id.nil?
+  end
+
+  private
+
+  def email_checker(email)
+    email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
   end
 end
