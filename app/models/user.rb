@@ -13,8 +13,6 @@ class User < ActiveRecord::Base
   validates :zipcode, presence: true
   validates :country, presence: true
 
-  enum role: [:default, :admin]
-
   def valid_email?(email)
     email_checker(email)
   end
