@@ -7,10 +7,11 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "category is not valid without a name" do
-    category = build(:category, name: nil)
-    category = build(:category, name: "  ")
+    category1 = build(:category, name: nil)
+    category2 = build(:category, name: "  ")
 
-    assert category.invalid?
+    assert category1.invalid?
+    assert category2.invalid?
   end
 
   test "category names are unique" do

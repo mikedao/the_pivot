@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   end
 
   scope ":slug", module: "tenants", as: "tenant" do
-    get "/" => "items#index"
-    resources :items
+    get "/" => "projects#index"
+    resources :projects
     get "/dashboard" => "dashboard#show"
   end
 

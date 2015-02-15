@@ -9,7 +9,8 @@ class Project < ActiveRecord::Base
   has_many :orders, through: :loans
   belongs_to :tenant
 
-  validates :description, length: { in: 100..255, allow_nil: false }, presence: true
+  validates :description, length: { in: 100..255, allow_nil: false },
+                          presence: true
   validates :title, presence: true, uniqueness: true, allow_blank: false
   validates :price, presence: true,
                     numericality:

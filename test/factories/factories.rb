@@ -31,7 +31,7 @@ FactoryGirl.define do
 
   factory :tenant do
     location "Shenzhen"
-    organization "lucy"
+    sequence(:organization) { |n| "lucy#{n}" }
   end
 
   factory :category do
@@ -48,7 +48,7 @@ FactoryGirl.define do
   end
 
   factory :project do
-    sequence(:title) { |n| "espresso#{n}" }
+    sequence(:title) { |n| "espresso#{13 * n}" }
     price 8001
     description "We produce only the finest blood diamonds in Sierra Leone.
                 Diamond are forever." * 2
