@@ -9,14 +9,15 @@ class TenantsController < ApplicationController
   end
 
   def create
-    if tenant.find_by(organization: params[:tenant_signup][:organization])
+    if Tenant.find_by(organization: params[:tenant_signup][:organization])
       flash[:notice] = "Organization Already Exists"
       redirect_to new_tenant_path
     else
-      tenant = @current_user.tenant.new(org_params)
+      tenant = Tenant.new(org_params)
       if tenant.valid?
         tenant.save
-        redirect_to root_path
+        session[:tenant_id] = tenant.id
+        redirect_to new_user_path
         flash[:notice] = "Organization Created."
       else
         flash[:notice] = "Please try again."

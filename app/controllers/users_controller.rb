@@ -8,16 +8,12 @@ class UsersController < ApplicationController
       redirect_to new_user_path
     else
       user = User.new(user_params)
+      user.tenant_id = session[:tenant_id]
       if user.valid?
         user.save
         session[:user_id] = user.id
-        if borrower?
-          flash[:notice] = "Please tell us about your organization"
-          redirect_to new_tenant_path
-        else
-          flash[:notice] = "Thank you for creating an account."
-          redirect_to root_path
-        end
+        flash[:notice] = "Thank you for creating an account."
+        redirect_to root_path
       else
         flash[:notice] = "Please try again."
         redirect_to new_user_path

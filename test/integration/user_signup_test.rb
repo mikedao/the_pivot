@@ -3,8 +3,11 @@ require "test_helper"
 class CreateAUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "a user can be created, and is automatically logged in" do
-    visit new_user_path
+  test "it allows a user to sign up as a lender and is logged in" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Lender"
+
     fill_in "signup[username]", with: "username"
     fill_in "signup[first_name]", with: "firstname"
     fill_in "signup[last_name]", with: "lastname"
@@ -16,15 +19,16 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     fill_in "signup[password]", with: "password"
     fill_in "signup[password_confirmation]", with: "password"
     fill_in "signup[email]", with: "email@example.com"
-
     click_link_or_button "Create Account"
 
     assert_equal root_path, current_path
-    assert page.has_content?("firstname")
+    assert page.has_content?("Thank you for creating an account.")
   end
 
-  test "a guest user is returned to signup page if details invalid" do
-    visit new_user_path
+  test "it allows a person to fail signing up and returns to signup page" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Lender"
     fill_in "signup[username]", with: "username"
 
     click_link_or_button "Create Account"
@@ -32,4 +36,35 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert_equal new_user_path, current_path
     assert page.has_content?("Please try again.")
   end
+
+  test "it allows a person to create an organization" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+
+    fill_in "tenant_signup[location]", with: "location"
+    fill_in "tenant_signup[organization]", with: "organization"
+
+    click_link_or_button "Create Organization"
+
+    assert page.has_content?("Organization Created")
+  end
+
+
+  test "it redirects user to user signup after creating an organization" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+
+    fill_in "tenant_signup[location]", with: "location"
+    fill_in "tenant_signup[organization]", with: "organization"
+
+    click_link_or_button "Create Organization"
+
+    assert_equal new_user_path, current_path
+  end
+
+
+
+
 end
