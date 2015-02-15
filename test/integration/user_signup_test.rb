@@ -64,7 +64,51 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert_equal new_user_path, current_path
   end
 
+  test "it redirects user to org signup if organization is invalid" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+
+    fill_in "tenant_signup[location]", with: "location"
+    click_link_or_button "Create Organization"
+
+    assert_equal new_tenant_path, current_path
+  end
+
+  test "it displays an error message if organization is not created" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+
+    fill_in "tenant_signup[location]", with: "location"
+    click_link_or_button "Create Organization"
+
+    assert page.has_content?("Please try again.")
+  end
 
 
+  test "it allows a user to fully complete borrower signup" do
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+    fill_in "tenant_signup[location]", with: "location"
+    fill_in "tenant_signup[organization]", with: "organization"
+    click_link_or_button "Create Organization"
+    fill_in "signup[username]", with: "username"
+    fill_in "signup[first_name]", with: "firstname"
+    fill_in "signup[last_name]", with: "lastname"
+    fill_in "signup[street]", with: "street"
+    fill_in "signup[city]", with: "city"
+    fill_in "signup[state]", with: "state"
+    fill_in "signup[zipcode]", with: "zipcode"
+    fill_in "signup[country]", with: "country"
+    fill_in "signup[password]", with: "password"
+    fill_in "signup[password_confirmation]", with: "password"
+    fill_in "signup[email]", with: "email@example.com"
+    click_link_or_button "Create Account"
+
+    assert_equal root_path, current_path
+    assert page.has_content?("Thank you for creating an account.")
+  end
 
 end
