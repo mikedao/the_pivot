@@ -1,6 +1,6 @@
 # Users
 User.create!(
-  username:              "DCathy",
+  username:              "D`Cathy",
   first_name:            "Dan",
   last_name:             "Cathy",
   email:                 "DanCathy@gmail.com",
