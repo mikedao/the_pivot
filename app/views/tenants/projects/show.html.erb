@@ -1,0 +1,15 @@
+<div id="title"><h1><%= @project.title %></h1></div>
+<%= render "shared/back_button" %>
+
+<%= image_tag '#' %>
+<h2><%= "RETIRED ITEM" if @project.retired %></h2>
+<div id="description"><%= @project.description %></div>
+<div id="price"><%= number_to_currency @project.price / 100 %></div>
+
+<% unless @project.retired %>
+  <%= form_for :cart, url: carts_path do |f| %>
+    <%= f.hidden_field :project_id, value: @project.id %>
+    <%= f.select :quantity, options_for_select((1..10))%>
+    <%= f.submit 'Add to Cart', class: "btn btn-default add-cart"%>
+  <% end %>
+<% end %>

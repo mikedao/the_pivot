@@ -9,19 +9,19 @@
   <table class='table table-bordered'>
     <thead>
       <tr>
-        <th data-field='Order Number'> Item </th>
+        <th data-field='Order Number'> Project </th>
         <th data-field='Quantity'>Quantity</th>
         <th data-field="Price">Price</th>
         <th data-field='Subtotal'>Subtotal</th>
         <th data-field='Order Status'>Order Status</th>
       </tr>
     </thead>
-    <% @order.item_orders.each do |item_order| %>
+    <% @order.loans.each do |loan| %>
       <tr>
-        <td><%= link_to item_order.item.title, item_path(item_order.item) %></td>
-        <td><%= item_order.quantity %></td>
-        <td><%= number_to_currency item_order.item.price / 100 %></td>
-        <td><%= number_to_currency item_order.line_item_cost / 100 %></td>
+        <td><%= link_to loan.project.title, project_path(loan.project) %></td>
+        <td><%= loan.quantity %></td>
+        <td><%= number_to_currency loan.project.price / 100 %></td>
+        <td><%= number_to_currency loan.line_item_cost / 100 %></td>
         <td><%= @order.status %></td>
       </tr>
     <% end %>
