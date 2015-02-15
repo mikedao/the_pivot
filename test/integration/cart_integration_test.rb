@@ -3,9 +3,9 @@ require "test_helper"
 class CartIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test 'a cart starts empty' do
+  test "a cart starts empty" do
     skip
-    visit '/'
+    visit "/"
 
     click_link_or_button("Cart")
 
@@ -215,7 +215,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
   test "an authenticated user can add default amount to their cart" do
     authenticated_user = create(:user)
-    ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
+    ApplicationController.any_instance.stubs(:current_user).
+      returns(authenticated_user)
     tenant = create(:tenant)
     tenant.projects << create(:project)
 
@@ -224,16 +225,17 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend")
     end
 
-    assert_equal '/pending_loan', current_path
-    within('#pending_loans') do
+    assert_equal "/pending_loan", current_path
+    within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
       assert page.has_content?("25")
     end
   end
 
-  test "an authenticated user can select a different amount for a loan and add it to their cart" do
+  test "authed user can select a diff amt for a loan add it to their cart" do
     authenticated_user = create(:user)
-    ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
+    ApplicationController.any_instance.stubs(:current_user).
+      returns(authenticated_user)
     tenant = create(:tenant)
     tenant.projects << create(:project, price: 5000)
 
@@ -242,11 +244,11 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend")
     end
 
-    assert_equal '/pending_loan', current_path
+    assert_equal "/pending_loan", current_path
     within("h1") do
       assert page.has_content?("Pending Loans")
     end
-    within('#pending_loans') do
+    within("#pending_loans") do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
       assert page.has_content?("50")
@@ -285,7 +287,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
   test "an authenticated user can delete a pending loan from their cart" do
     authenticated_user = create(:user)
-    ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
+    ApplicationController.any_instance.stubs(:current_user).
+      returns(authenticated_user)
     tenant = create(:tenant)
     tenant.projects << create(:project)
 
@@ -295,7 +298,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button("Delete")
 
-    within('#pending_loans') do
+    within("#pending_loans") do
       refute page.has_content?(tenant.projects.first.title)
       refute page.has_content?("25")
     end

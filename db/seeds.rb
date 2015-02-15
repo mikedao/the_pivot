@@ -41,7 +41,7 @@ end
 
 puts "#{User.count} users created."
 
-ronald1 = User.find(1)find
+ronald1 = User.find(1)
 ronald2 = User.find(2)
 ronald3 = User.find(3)
 ronald4 = User.find(4)

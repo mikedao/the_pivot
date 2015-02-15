@@ -32,8 +32,9 @@ class PendingLoansController < ApplicationController
   end
 
   def update_project_amount
-    session[:pending_loan][params[:update_pending_loan_amount][:project_id]] = params[:update_pending_loan_amount][:loan_amount]
-    flash[:notice] = 'Project loan amount updated'
+    session[:pending_loan][params[:update_pending_loan_amount][:project_id]] =
+       params[:update_pending_loan_amount][:loan_amount]
+    flash[:notice] = "Project loan amount updated"
     redirect_to pending_loan_path
   end
 
@@ -44,7 +45,8 @@ class PendingLoansController < ApplicationController
       update_existing_cart
     else
       session[:pending_loan] = {
-        params[:pending_loan][:project_id] => params[:pending_loan][:loan_amount]
+        params[:pending_loan][:project_id] =>
+         params[:pending_loan][:loan_amount]
       }
     end
   end

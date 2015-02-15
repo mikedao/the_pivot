@@ -139,18 +139,16 @@ td {
 }
 
 // variables, mixins
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+@mixin box-sizing {
+  box-sizing: border-box;
 }
 
-/* miscellaneous */
+// miscellaneous
 
-.debug_dump {
+.debug-dump {
   clear: both;
   float: left;
-  width: 100%;
   margin-top: 45px;
-  @include box_sizing;
+  width: 100%;
+  @include box-sizing;
 }
