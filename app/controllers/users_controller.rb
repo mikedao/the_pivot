@@ -10,11 +10,7 @@ class UsersController < ApplicationController
       user = User.new(user_params)
       user.tenant_id = session[:tenant_id]
       if user.valid?
-        user.save
-        session[:user_id] = user.id
-        UserMailer.welcome_borrower(user).deliver_now
-        flash[:notice] = "Thank you for creating an account."
-        redirect_to root_path
+        create_user(user)
       else
         flash[:notice] = "Please try again."
         redirect_to new_user_path
@@ -23,6 +19,19 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def create_user(user)
+    user.save
+    session[:user_id] = user.id
+    send_welcome_email(user)
+    flash[:notice] = "Thank you for creating an account."
+    redirect_to root_path
+  end
+
+  def send_welcome_email(user)
+    UserMailer.welcome_borrower(user).deliver_now if user.borrower?
+    UserMailer.welcome_lender(user).deliver_now if user.lender?
+  end
 
   def user_params
     params.require(:signup).permit(:username,

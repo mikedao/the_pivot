@@ -4,9 +4,9 @@ FactoryGirl.define do
     "New York City #{n}"
   end
 
-  sequence :email do |n|
-    "ILikeKumqutas#{n}@gmail.com"
-  end
+#  sequence :email do |n|
+#    "ILikeKumqutas#{n}@gmail.com"
+#  end
 
   factory :user do
     username "LambPETAsAreTasty"
@@ -14,8 +14,8 @@ FactoryGirl.define do
     last_name "Federer"
     password "password"
     sequence(:street) { |n| "412#{n} Tasty Animals Lane" }
-    city
-    email
+    city "new york"
+    email "test@test.com"
     state "NY"
     zipcode "10003"
     country "USA"

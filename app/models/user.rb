@@ -30,4 +30,20 @@ class User < ActiveRecord::Base
   def full_name
     first_name + " " + last_name
   end
+
+  def borrower?
+    if self.tenant_id
+      true
+    else
+      false
+    end
+  end
+
+  def lender?
+    if self.tenant_id.nil?
+      true
+    else
+      false
+    end
+  end
 end
