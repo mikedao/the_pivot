@@ -13,8 +13,6 @@
     <%= f.password_field :password, :placeholder => 'password', class: "form-control" %><br>
     <%= f.password_field :password_confirmation, :placeholder => 'confirm password',  class: "form-control" %><br>
     <%= f.email_field :email, :placeholder => 'email', class: "form-control" %><br>
-    <%= f.check_box (:borrower) %>
-    <%= f.label :borrower, "I want to raise money." %><br><br>
   <%= f.submit 'Create Account' %>
   <% end %>
 </div>

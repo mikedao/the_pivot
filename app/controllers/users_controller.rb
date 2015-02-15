@@ -37,9 +37,4 @@ class UsersController < ApplicationController
                                    :email
                                   )
   end
-
-  def borrower?
-    params.require(:signup).permit(:borrower)[:borrower] == "1"
-  end
-
 end
