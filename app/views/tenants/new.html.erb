@@ -1,0 +1,9 @@
+<h1>Create Your Organization</h1>
+
+<div id="signup" class="col-md-4 col-md-offset-4">
+  <%= form_for :tenant_signup, url: tenants_path do |f| %>
+    <%= f.text_field :location, :placeholder => 'location', class: "form-control" %><br>
+    <%= f.text_field :organization, :placeholder => "organization name", class: "form-control" %><br>
+    <%= f.submit "Create Organization" %>
+  <% end %>
+</div>
