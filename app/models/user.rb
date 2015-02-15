@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def borrower?
-    if self.tenant_id
+    if tenant_id
       true
     else
       false
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def lender?
-    if self.tenant_id.nil?
+    if tenant_id.nil?
       true
     else
       false

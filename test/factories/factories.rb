@@ -4,9 +4,9 @@ FactoryGirl.define do
     "New York City #{n}"
   end
 
-#  sequence :email do |n|
-#    "ILikeKumqutas#{n}@gmail.com"
-#  end
+  sequence :email do |n|
+    "ILikeKumqutas#{n}@gmail.com"
+  end
 
   factory :user do
     username "LambPETAsAreTasty"

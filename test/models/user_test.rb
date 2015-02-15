@@ -103,7 +103,6 @@ class UserTest < ActiveSupport::TestCase
 
     result = user.borrower?
 
-
     assert result
     refute user.lender?
   end
@@ -116,5 +115,4 @@ class UserTest < ActiveSupport::TestCase
     assert result
     refute user.borrower?
   end
-
 end

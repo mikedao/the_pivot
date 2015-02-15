@@ -10,5 +10,4 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: @user.email, subject: "Welcome to Keevah, Lender!"
   end
-
 end

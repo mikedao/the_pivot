@@ -1,7 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
 class UserMailerTest < ActionMailer::TestCase
-
   test "welcome borrower email is proper" do
     tenant = create(:tenant)
     tenant.user <<  create(:user)
@@ -25,6 +24,4 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ["michael.dao@gmail.com"], mail.from
     assert_match "lender", mail.body.encoded
   end
-
-
 end
