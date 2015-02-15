@@ -23,6 +23,7 @@ User.create!(
   password =                "password"
   credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
   street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
+  tenant_id =               rand(1..3)
   User.create!(
     username:               username,
     email:                  email,
@@ -35,7 +36,8 @@ User.create!(
     zipcode:                50240,
     street:                 street,
     country:                country,
-    credit_card_info:       credit_card_info
+    credit_card_info:       credit_card_info,
+    tenant_id:              tenant_id
   )
 end
 
