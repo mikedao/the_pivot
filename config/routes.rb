@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get "/cart", to: "carts#showcart", as: "showcart"
   post "/cart", to: "carts#checkout_cart", as: "checkout_cart"
   delete "/cart", to: "carts#delete_project", as: "cart"
-  put "/cart", to: "carts#update_project_quantity", as: "update_project_quantity"
+  put "/cart", to: "carts#update_project_quantity", 
+               as: "update_project_quantity"
 
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
