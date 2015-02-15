@@ -43,7 +43,7 @@ FactoryGirl.define do
     status "completed"
 
     before(:create) do |order|
-      order.user = create_list(:user, 1, username: "PETA4Lyfe")
+      order.user = create(:user, username: "PETA4Lyfe")
     end
   end
 
@@ -76,7 +76,14 @@ FactoryGirl.define do
     image_file_size 3
 
     before(:create) do |photo|
-      photo.project << create(:project)
+      photo.projects << create(:project)
+    end
+  end
+
+  factory :loan do
+    before(:create) do |loan|
+      loan.project = create(:project)
+      loan.order = create(:order)
     end
   end
 end

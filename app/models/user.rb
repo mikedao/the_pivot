@@ -16,13 +16,11 @@ class User < ActiveRecord::Base
   enum role: [:default, :admin]
 
   def valid_email?(email)
-    if email_checker(email).nil?
-      false
-    else
-      true
-    end
+    email_checker(email)
   end
 
+  private
+  
   def email_checker(email)
     email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
   end

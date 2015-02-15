@@ -4,12 +4,7 @@ class OrderTest < ActiveSupport::TestCase
   attr_reader :order, :user, :project
 
   def setup
-    @user = User.create(username: "user",
-                        password: "password",
-                        first_name: "John",
-                        last_name: "Doe",
-                        email: "example@example.com")
-    @order = Order.create(total_cost: 5, user_id: user.id)
+    @order = create(:order, total_cost: 5, user_id: user.id)
   end
 
   test "an order has attributes" do
