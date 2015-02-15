@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:show, :index]
   resources :projects
 
+  get "/choose", to: "static_pages#choose"
   post "/pending_loans", to: "pending_loans#create"
   delete "/pending_loans", to: "pending_loans#destroy"
   get "/pending_loan", to: "pending_loans#show"
