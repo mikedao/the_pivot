@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
-
   test "it has attributes" do
     category = build(:category)
     assert category.valid?

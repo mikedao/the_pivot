@@ -19,13 +19,13 @@ class User < ActiveRecord::Base
     email_checker(email)
   end
 
-  private
-  
-  def email_checker(email)
-    email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
-  end
-
   def full_name
     first_name + " " + last_name
+  end
+
+  private
+
+  def email_checker(email)
+    email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/)
   end
 end

@@ -1,7 +1,6 @@
 require "test_helper"
 
 class AdminTest < ActiveSupport::TestCase
-
   test "admin has attributes" do
     admin = build(:admin)
     assert admin.valid?

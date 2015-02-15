@@ -4,7 +4,14 @@ class Order < ActiveRecord::Base
   has_many :loans
   has_many :projects, through: :loans
 
-  validates :total_cost, :user_id, presence: true
+  validates :total_cost, allow_blank: false,
+                         numericality:
+                         {
+                           only_integer: true,
+                           greater_than: 0,
+                           less_than: 1000000
+                         }
+  validates :user_id, presence: true
 
   def self.complete
     all.select { |order| order.status == 'completed'}

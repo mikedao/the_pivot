@@ -49,9 +49,9 @@ FactoryGirl.define do
 
   factory :project do
     sequence(:title) { |n| "espresso#{n}" }
-    price 801
+    price 8001
     description "We produce only the finest blood diamonds in Sierra Leone.
-                Diamond are forever."
+                Diamond are forever." * 2
     retired false
     repayment_rate 3
 
@@ -60,7 +60,7 @@ FactoryGirl.define do
     end
 
     before(:create) do |project|
-      project.categories << create_list(:category, 1, name: "Civic")
+      project.categories << create(:category)
     end
   end
 
@@ -74,10 +74,6 @@ FactoryGirl.define do
     image_file_name "bridge_of_some_kind"
     image_content_type "something that needs to be built"
     image_file_size 3
-
-    before(:create) do |photo|
-      photo.projects << create(:project)
-    end
   end
 
   factory :loan do
