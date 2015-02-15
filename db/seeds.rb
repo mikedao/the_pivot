@@ -41,15 +41,15 @@ end
 
 puts "#{User.count} users created."
 
-ronald1 = User.find(1)
+ronald1 = User.find(1)find
 ronald2 = User.find(2)
 ronald3 = User.find(3)
 ronald4 = User.find(4)
 
 # tenants
-Tenant.create!(
+bridge_builders = Tenant.create!(
   location:              "East Timor represent",
-  organization:          "Bridge Builders off the island."
+  organization:          "bridge-builders"
 )
 
 4.times do |n|
@@ -91,7 +91,8 @@ timmys_vaccines_nigeria = Project.create!(
                       price: 5000,
                       description: "These are malaria shots for little Timmy.",
                       retired: false,
-                      categories: [people_category]
+                      categories: [people_category],
+                      tenant_id: bridge_builders.id
                       )
 
 stevens_books_bangkok = Project.create!(
