@@ -39,7 +39,7 @@ FactoryGirl.define do
   end
 
   factory :order do
-    total_cost 8900
+    total_cost 5000
     status "completed"
 
     before(:create) do |order|
@@ -49,7 +49,7 @@ FactoryGirl.define do
 
   factory :project do
     sequence(:title) { |n| "espresso#{n}" }
-    price 801
+    price 2500
     description "We produce only the finest blood diamonds in Sierra Leone.
                 Diamond are forever."
     retired false

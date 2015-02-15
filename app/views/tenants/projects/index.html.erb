@@ -12,6 +12,11 @@
         <% project.categories.each do |category| %>
           <div class="project-category"><%= category.name %></div>
         <% end %>
+        <%= form_for :pending_loan, url: pending_loans_path do |f| %>
+          <%= f.hidden_field :project_id, value: project.id %>
+          <%= f.hidden_field :loan_amount, value: project.price %>
+          <%= f.submit 'Lend', class: "btn btn-default" %>
+        <% end %>
       </div>
     <% end %>
   </div>
