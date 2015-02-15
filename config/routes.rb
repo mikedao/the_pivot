@@ -4,15 +4,25 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
+  resources :tenants, only: [:new, :create]
   resources :categories, only: [:show, :index]
   resources :projects
   get "cart_projects/create"
 
+<<<<<<< HEAD
   post '/carts', to: 'carts#create', as: 'carts'
   get '/pending_loan', to: 'carts#show', as: 'pending_loan'
   post '/cart', to: 'carts#checkout_cart', as: 'checkout_cart'
   delete '/cart', to: 'carts#delete_item', as: 'cart'
   put '/cart', to: 'carts#update_project_amount', as: 'update_project_amount'
+=======
+  get "choose"      => "static_pages#choose"
+  post "/carts", to: "carts#create", as: "carts"
+  get "/cart", to: "carts#showcart", as: "showcart"
+  post "/cart", to: "carts#checkout_cart", as: "checkout_cart"
+  delete "/cart", to: "carts#delete_item", as: "cart"
+  put "/cart", to: "carts#update_item_quantity", as: "update_item_quantity"
+>>>>>>> 893be0174671c573ca98bdd66f79a8f09291274b
 
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
