@@ -1,7 +1,7 @@
 class Tenant < ActiveRecord::Base
   has_many :projects
   has_many :categories, through: :projects
-  has_many :user
+  has_many :users
 
   before_save :create_slug
 

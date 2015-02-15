@@ -98,8 +98,8 @@ class UserTest < ActiveSupport::TestCase
 
   test "it knows if it is a borrower" do
     tenant = create(:tenant)
-    tenant.user << create(:user)
-    user = tenant.user.first
+    tenant.users << create(:user)
+    user = tenant.users.first
 
     assert user.borrower?
     refute user.lender?
