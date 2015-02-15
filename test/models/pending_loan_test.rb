@@ -1,5 +1,3 @@
-require 'test_helper'
-
+require "test_helper"
 class PendingLoanTest < ActiveSupport::TestCase
-
 end

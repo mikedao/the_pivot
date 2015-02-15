@@ -13,7 +13,7 @@
     <% else %>
       <%= menu_item "Lend", root_path %>
     <% end %>
-    <%= menu_item "Cart", pending_loan_path %>
+    <%= menu_item "Cart", pending_loans_path %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
     <% if current_user.nil? %>
     	<%= menu_item "Signup", choose_path %>

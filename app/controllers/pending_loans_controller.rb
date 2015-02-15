@@ -1,7 +1,7 @@
-class CartsController < ApplicationController
+class PendingLoansController < ApplicationController
   def create
     update_cart
-    flash[:notice] = 'Added to Pending Loans'
+    flash[:notice] = "Added to Pending Loans"
     redirect_to pending_loan_path
   end
 
@@ -21,19 +21,20 @@ class CartsController < ApplicationController
     end
   end
 
-  def delete_project
-    if params[:cart].nil?
+  def delete_pending_loan
+    if params[:pending_loan].nil?
       delete_all_projects_from_cart
     else
       delete_specific_project_from_cart
       flash[:notice] = "Project removed from cart"
     end
-    redirect_to showcart_path
+    redirect_to pending_loan_path
   end
 
   def update_project_amount
-    session[:pending_loan][params[:update_pending_loan_amount][:project_id]] = params[:update_pending_loan_amount][:loan_amount]
-    flash[:notice] = 'Project loan amount updated'
+    session[:pending_loan][params[:update_pending_loan_amount][:project_id]] =
+       params[:update_pending_loan_amount][:loan_amount]
+    flash[:notice] = "Project loan amount updated"
     redirect_to pending_loan_path
   end
 
@@ -44,7 +45,8 @@ class CartsController < ApplicationController
       update_existing_cart
     else
       session[:pending_loan] = {
-        params[:pending_loan][:project_id] => params[:pending_loan][:loan_amount]
+        params[:pending_loan][:project_id] =>
+         params[:pending_loan][:loan_amount]
       }
     end
   end
@@ -64,6 +66,6 @@ class CartsController < ApplicationController
   end
 
   def delete_specific_project_from_cart
-    session[:cart].delete(params[:cart][:project_id])
+    session[:pending_loan].delete(params[:pending_loan][:project_id])
   end
 end
