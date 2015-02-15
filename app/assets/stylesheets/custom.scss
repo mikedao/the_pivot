@@ -39,12 +39,12 @@ h3 {
 
 }
 
-.item-title {
+.project-title {
   min-height: 40px;
   margin-bottom: 5px;
 }
 
-.item-desc {
+.project-desc {
   min-height: 50px;
 }
 
@@ -83,7 +83,7 @@ h3 {
   float: right;
 }
 
-.btn-delete-cart-item {
+.btn-delete-cart-project {
   float: right;
   margin-top: 10px;
   width: 129px;
@@ -136,4 +136,21 @@ a {
 
 td {
   background-color: rgba(255, 255, 255, .5);
+}
+
+// variables, mixins
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

@@ -1,0 +1,53 @@
+<h1>Pending Loans</h1>
+<%= render "shared/back_button" %>
+
+<div id="cart_projects">
+  <table class='table table-bordered'>
+    <thead>
+      <tr class="warning">
+        <th data-field='Organization Name'>Organization Name</th>
+        <th data-field='Purpose'>Purpose</th>
+        <th data-field='Amount'>Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% if @pending_loans.empty? %>
+      <tr><td colspan='6'>You Have No Pending Loans</td></tr>
+    <% else %>
+      <% @pending_loans.each do |project, loan_amount| %>
+        <tr id=<%= "project_#{project.id}" %>>
+          <td><%= project.tenant.organization %></td>
+          <td><%= link_to project.title, project_path(project) %></td>
+          <td id=<%= "quantity_#{project.id}" %>><%= loan_amount %></td>
+          <td>
+            <%= form_for :update_pending_loan_amount, url: update_project_amount_path do |f| %>
+              <%= f.select(:loan_amount) do %>
+                <% [["$25", 25], ["$50", 50], ["$100", 100], ["$500", 500]].each do |amount| %>
+                  <%= content_tag(:option, amount.first, value: amount.last) %>
+                <% end %>
+              <% end %>
+              <input name="_method" type="hidden" value="put" />
+              <%= f.hidden_field :project_id, :value => project.id %>
+              <%= f.submit 'Update Amount', class: "btn btn-default btn-update-quantity" %>
+            <% end %>
+
+            <%= form_for :cart, url: cart_path do |f| %>
+              <input name="_method" type="hidden" value="delete" />
+              <%= f.hidden_field :project_id, :value => project.id %>
+              <%= f.submit 'Delete', class: "btn btn-default btn-delete-cart-project" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <%= form_for :cart, url: checkout_cart_path do |f| %>
+    <%= f.submit 'Checkout', class: 'btn btn-default' %>
+  <% end %>
+
+  <%= form_for :cart, url: cart_path do |f| %>
+    <input name="_method" type="hidden" value="delete" />
+    <%= f.submit 'Empty Cart', class: 'btn btn-default' %>
+  <% end %>
+</div>

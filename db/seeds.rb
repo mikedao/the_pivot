@@ -85,8 +85,8 @@ conflict_zone_category = Category.create!(
   name: "Conflict Zones"
 )
 
-# items
-timmys_vaccines_nigeria = Item.create!(
+# projects
+timmys_vaccines_nigeria = Project.create!(
                       title: "Timmy's vaccine shots",
                       price: 5000,
                       description: "These are malaria shots for little Timmy.",
@@ -95,7 +95,7 @@ timmys_vaccines_nigeria = Item.create!(
                       tenant_id: bridge_builders.id
                       )
 
-stevens_books_bangkok = Item.create!(
+stevens_books_bangkok = Project.create!(
                             title: "Steven's school books",
                             price: 4000,
                             description: "How can I teach deez kiiiids?",
@@ -103,7 +103,7 @@ stevens_books_bangkok = Item.create!(
                             categories: [startup_category]
                             )
 
-johns_waterworks_cotedivore = Item.create!(
+johns_waterworks_cotedivore = Project.create!(
                         title: "John's water supply for village",
                         price: 9000,
                         description: "We need water for our village of people.",
@@ -111,7 +111,7 @@ johns_waterworks_cotedivore = Item.create!(
                         categories: [public_category]
                       )
 
-debeers_conflict_diamonds_ivorycoast = Item.create!(
+debeers_conflict_diamonds_ivorycoast = Project.create!(
                                   title: "De Beers",
                                   price: 16000,
                                   description: "Conflict diamonds are forever",
@@ -119,7 +119,7 @@ debeers_conflict_diamonds_ivorycoast = Item.create!(
                                   categories: [conflict_zone_category]
                                 )
 
-# Orders with items
+# Orders with projects
 timmys_vaccines_nigeria.orders.create!(
                                 total_cost: timmys_vaccines_nigeria.price,
                                 user_id:    ronald1.id,
