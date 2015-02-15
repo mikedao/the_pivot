@@ -3,7 +3,6 @@ class Tenants::ProjectsController < ApplicationController
 
   def index
     @tenant = Tenant.find_by(slug: params[:slug])
-
     redirect_to root_path if @tenant.nil?
 
     if params[:category_name] == "Shop All" || params[:category_name].nil?
