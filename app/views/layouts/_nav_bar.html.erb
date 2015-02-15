@@ -16,7 +16,7 @@
     <%= menu_item "Cart", showcart_path %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
     <% if current_user.nil? %>
-    	<%= menu_item "Signup", new_user_path %>
+    	<%= menu_item "Signup", choose_path %>
       <%= menu_item do %>
         <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
         <%= f.text_field :username, :placeholder => 'username' %>
