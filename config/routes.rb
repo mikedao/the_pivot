@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
+  resources :tenants, only: [:new, :create]
   resources :categories, only: [:show, :index]
   resources :projects
   get "cart_projects/create"
 
+  get "choose"      => "static_pages#choose"
   post "/carts", to: "carts#create", as: "carts"
   get "/cart", to: "carts#showcart", as: "showcart"
   post "/cart", to: "carts#checkout_cart", as: "checkout_cart"
