@@ -1,4 +1,5 @@
 class Category < ActiveRecord::Base
+<<<<<<< HEAD
   has_many :items_categories
   has_many :items, through: :items_categories
 

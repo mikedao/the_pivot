@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213025747) do
+ActiveRecord::Schema.define(version: 20150214203606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,33 +30,11 @@ ActiveRecord::Schema.define(version: 20150213025747) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "item_orders", force: :cascade do |t|
-    t.integer  "item_id"
+  create_table "loans", force: :cascade do |t|
+    t.integer  "project_id"
     t.integer  "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "price"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "description"
-    t.boolean  "retired",               default: false
-    t.integer  "tenant_id"
-    t.date     "requested_by"
-    t.integer  "repayment_rate"
-    t.date     "repayment_begin"
-  end
-
-  add_index "items", ["tenant_id"], name: "index_items_on_tenant_id", using: :btree
-
-  create_table "items_categories", force: :cascade do |t|
-    t.integer  "item_id"
-    t.integer  "category_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -74,10 +52,32 @@ ActiveRecord::Schema.define(version: 20150213025747) do
     t.datetime "image_updated_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.integer  "item_id"
+    t.integer  "project_id"
   end
 
-  add_index "photos", ["item_id"], name: "index_photos_on_item_id", using: :btree
+  add_index "photos", ["project_id"], name: "index_photos_on_project_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "price"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "description"
+    t.boolean  "retired",         default: false
+    t.integer  "tenant_id"
+    t.date     "requested_by"
+    t.integer  "repayment_rate"
+    t.date     "repayment_begin"
+  end
+
+  add_index "projects", ["tenant_id"], name: "index_projects_on_tenant_id", using: :btree
+
+  create_table "projects_categories", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "tenants", force: :cascade do |t|
     t.string   "location"
@@ -107,5 +107,4 @@ ActiveRecord::Schema.define(version: 20150213025747) do
   end
 
   add_index "users", ["tenant_id"], name: "index_users_on_tenant_id", using: :btree
-
 end
