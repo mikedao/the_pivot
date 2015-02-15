@@ -7,15 +7,14 @@ Rails.application.routes.draw do
   resources :tenants, only: [:new, :create]
   resources :categories, only: [:show, :index]
   resources :projects
-  get "cart_projects/create"
 
-  get "choose"      => "static_pages#choose"
-  post "/carts", to: "carts#create", as: "carts"
-  get "/cart", to: "carts#showcart", as: "showcart"
-  post "/cart", to: "carts#checkout_cart", as: "checkout_cart"
-  delete "/cart", to: "carts#delete_item", as: "cart"
-  put "/cart", to: "carts#update_item_quantity", as: "update_item_quantity"
-
+  post "/pending_loans", to: "pending_loans#create"
+  delete "/pending_loans", to: "pending_loans#destroy"
+  get "/pending_loan", to: "pending_loans#show"
+  delete "/pending_loan", to: "pending_loans#delete_pending_loan",
+                          as: "delete_pending_loan"
+  post "/pending_loan", to: "pending_loans#checkout_pending_loans",
+                        as: "checkout_pending_loans"
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
   end
@@ -25,8 +24,8 @@ Rails.application.routes.draw do
   end
 
   scope ":slug", module: "tenants", as: "tenant" do
-    get "/" => "items#index"
-    resources :items
+    get "/" => "projects#index"
+    resources :projects
     get "/dashboard" => "dashboard#show"
   end
 
