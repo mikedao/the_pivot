@@ -9,8 +9,8 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
                         password: "password",
                         first_name: "John",
                         last_name: "Doe",
-                        email: "example@example.com",
-                        role: 1)
+                        email: "example@example.com"
+                        )
                         visit root_url
   end
 
@@ -22,8 +22,8 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
                         password: "yyy",
                         first_name: "Jeff",
                         last_name: "Wan",
-                        email: "examples@example.com",
-                        role: 1)
+                        email: "examples@example.com"
+                        )
 
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
