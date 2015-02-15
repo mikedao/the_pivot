@@ -24,7 +24,6 @@ class TenantsController < ApplicationController
         redirect_to new_tenant_path
       end
     end
-
   end
 
   private
@@ -32,5 +31,4 @@ class TenantsController < ApplicationController
   def org_params
     params.require(:tenant_signup).permit(:location, :organization)
   end
-
 end

@@ -50,7 +50,6 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Organization Created")
   end
 
-
   test "it redirects user to user signup after creating an organization" do
     visit root_path
     click_link_or_button "Signup"
@@ -86,7 +85,6 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Please try again.")
   end
 
-
   test "it allows a user to fully complete borrower signup" do
     visit root_path
     click_link_or_button "Signup"
@@ -110,5 +108,4 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert_equal root_path, current_path
     assert page.has_content?("Thank you for creating an account.")
   end
-
 end
