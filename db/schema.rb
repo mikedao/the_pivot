@@ -108,6 +108,4 @@ ActiveRecord::Schema.define(version: 20150215003301) do
     t.integer  "tenant_id"
   end
 
-  add_index "users", ["tenant_id"], name: "index_users_on_tenant_id", using: :btree
-
 end
