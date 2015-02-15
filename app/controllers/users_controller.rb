@@ -12,6 +12,7 @@ class UsersController < ApplicationController
       if user.valid?
         user.save
         session[:user_id] = user.id
+        UserMailer.welcome_borrower(user).deliver_now
         flash[:notice] = "Thank you for creating an account."
         redirect_to root_path
       else
