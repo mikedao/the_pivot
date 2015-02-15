@@ -14,8 +14,8 @@ FactoryGirl.define do
     last_name "Federer"
     password "password"
     sequence(:street) { |n| "412#{n} Tasty Animals Lane" }
-    city
-    email
+    city "new york"
+    email "test@test.com"
     state "NY"
     zipcode "10003"
     country "USA"

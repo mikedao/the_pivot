@@ -21,6 +21,14 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def borrower?
+    !tenant_id.nil?
+  end
+
+  def lender?
+    tenant_id.nil?
+  end
+
   private
 
   def email_checker(email)

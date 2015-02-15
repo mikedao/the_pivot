@@ -95,4 +95,20 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal "Roger Federer", user.full_name
   end
+
+  test "it knows if it is a borrower" do
+    tenant = create(:tenant)
+    tenant.user << create(:user)
+    user = tenant.user.first
+
+    assert user.borrower?
+    refute user.lender?
+  end
+
+  test "it knows if it is a lender" do
+    user = create(:user)
+
+    assert user.lender?
+    refute user.borrower?
+  end
 end
