@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/pending_loan', to: 'carts#show', as: 'pending_loan'
   post '/cart', to: 'carts#checkout_cart', as: 'checkout_cart'
   delete '/cart', to: 'carts#delete_item', as: 'cart'
-  put '/cart', to: 'carts#update_item_quantity', as: 'update_item_quantity'
+  put '/cart', to: 'carts#update_project_amount', as: 'update_project_amount'
 
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   end
 
   scope ":slug", module: "tenants", as: "tenant" do
-    get "/" => "items#index"
-    resources :items
+    get "/" => "projects#index"
+    resources :projects
     get "/dashboard" => "dashboard#show"
   end
 

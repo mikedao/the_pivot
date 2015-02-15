@@ -7,8 +7,8 @@ class CartsController < ApplicationController
 
   def show
     @pending_loans = {}
-    session[:pending_loan].each do |item_id, loan_amount|
-      @pending_loans[Item.find(item_id.to_i)] = loan_amount
+    session[:pending_loan].each do |project_id, loan_amount|
+      @pending_loans[Project.find(project_id.to_i)] = loan_amount
     end
   end
 
@@ -31,7 +31,7 @@ class CartsController < ApplicationController
     redirect_to showcart_path
   end
 
-  def update_project_quantity
+  def update_project_amount
     session[:pending_loan][params[:update_pending_loan_amount][:project_id]] = params[:update_pending_loan_amount][:loan_amount]
     flash[:notice] = 'Project loan amount updated'
     redirect_to pending_loan_path

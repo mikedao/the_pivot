@@ -20,7 +20,7 @@
           <td><%= link_to project.title, project_path(project) %></td>
           <td id=<%= "quantity_#{project.id}" %>><%= loan_amount %></td>
           <td>
-            <%= form_for :update_pending_loan_amount, url: update_project_quantity_path do |f| %>
+            <%= form_for :update_pending_loan_amount, url: update_project_amount_path do |f| %>
               <%= f.select(:loan_amount) do %>
                 <% [["$25", 25], ["$50", 50], ["$100", 100], ["$500", 500]].each do |amount| %>
                   <%= content_tag(:option, amount.first, value: amount.last) %>

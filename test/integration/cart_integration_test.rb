@@ -142,7 +142,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     click_link_or_button("Cart")
 
     within("#project_#{coffee.id}") do
-      select "7", from: "update_project_quantity[quantity]"
+      select "7", from: "update_project_amount[loan_amount]"
       click_link_or_button("Update Quantity")
 
     end
@@ -226,7 +226,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
     assert_equal '/pending_loan', current_path
     save_and_open_page
-    within('#cart_items') do
+    within('#cart_projects') do
       assert page.has_content?(tenant.projects.first.title)
       assert page.has_content?("25")
     end
@@ -249,7 +249,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Pending Loans")
     end
     save_and_open_page
-    within('#cart_items') do
+    within('#cart_projects') do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
       assert page.has_content?("50")
@@ -297,7 +297,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal '/pending_loan', current_path
-    within("#item_#{tenant.projects.first.id}") do
+    within("#project_#{tenant.projects.first.id}") do
       select "100", :from => "update_pending_loan_amount[loan_amount]"
       click_link_or_button("Update Amount")
     end
