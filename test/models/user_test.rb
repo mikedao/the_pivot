@@ -101,18 +101,14 @@ class UserTest < ActiveSupport::TestCase
     tenant.user << create(:user)
     user = tenant.user.first
 
-    result = user.borrower?
-
-    assert result
+    assert user.borrower?
     refute user.lender?
   end
 
   test "it knows if it is a lender" do
     user = create(:user)
 
-    result = user.lender?
-
-    assert result
+    assert user.lender?
     refute user.borrower?
   end
 end
