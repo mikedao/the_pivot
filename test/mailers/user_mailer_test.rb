@@ -8,7 +8,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     mail = UserMailer.welcome_borrower(user)
 
-    assert_equal "Welcome to Keevah, Borrower!", mail.subject
+    assert_equal "Welcome to Keevahh, Borrower!", mail.subject
     assert_equal [user.email], mail.to
     assert_equal ["michael.dao@gmail.com"], mail.from
     assert_match "borrower", mail.body.encoded
@@ -19,7 +19,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     mail = UserMailer.welcome_lender(user)
 
-    assert_equal "Welcome to Keevah, Lender!", mail.subject
+    assert_equal "Welcome to Keevahh, Lender!", mail.subject
     assert_equal [user.email], mail.to
     assert_equal ["michael.dao@gmail.com"], mail.from
     assert_match "lender", mail.body.encoded

@@ -32,18 +32,10 @@ class User < ActiveRecord::Base
   end
 
   def borrower?
-    if tenant_id
-      true
-    else
-      false
-    end
+    !tenant_id.nil?
   end
 
   def lender?
-    if tenant_id.nil?
-      true
-    else
-      false
-    end
+    tenant_id.nil?
   end
 end
