@@ -1,15 +1,15 @@
 # Users
 User.create!(
-  username:              "RMcDonald",
-  first_name:            "Ronald",
-  last_name:             "McDonald",
-  email:                 "ProFactoryFarms@gmail.com",
+  username:              "D`Cathy",
+  first_name:            "Dan",
+  last_name:             "Cathy",
+  email:                 "DanCathy@gmail.com",
   password:              "password",
   password_confirmation: "password",
   city:                  "Atlanta",
   state:                 "GA",
-  street:                "666 Mockingbird Lane",
-  zipcode:               50240,
+  street:                "5200 Buffington Road",
+  zipcode:               30349,
   country:               "USA",
   credit_card_info:      "1111222233334444"
 )
@@ -19,7 +19,7 @@ User.create!(
   first_name =              Faker::Name.first_name
   last_name =               Faker::Name.last_name
   country =                 Faker::Address.country
-  email =                   "ProFactoryFarms-#{n + 1}@gmail.com"
+  email =                   "FlowersNPuppies-#{n + 1}@gmail.com"
   password =                "password"
   credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
   street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
@@ -49,12 +49,12 @@ ronald4 = User.find(4)
 # tenants
 bridge_builders = Tenant.create!(
   location:              "East Timor represent",
-  organization:          "bridge-builders"
+  organization:          "Bridge Builders"
 )
 
 4.times do |n|
   location =              "East Timor represent#{n + 1}"
-  organization =          "Bridge Builders off the island#{n + 1}"
+  organization =          "Bridge Builders#{n + 1}"
   Tenant.create!(
     location:             location,
     organization:         organization
@@ -63,9 +63,9 @@ end
 
 # admin
 Admin.create!(
-        username: "Mugato4Eva",
+        username: "FlowersNPuppies",
         password: "password",
-        email:    "HanselIsSoHotRightNow@hotmail.com"
+        email:    "FlowersNPuppies.@gmail.com"
       )
 
 # categories
@@ -104,9 +104,9 @@ stevens_books_bangkok = Project.create!(
                             )
 
 johns_waterworks_cotedivore = Project.create!(
-                        title: "John's water supply for village",
+                        title: "Fresh Water Purifiers",
                         price: 9000,
-                        description: "We need water for our village of people.",
+                        description: "We need clean water for our village of people.",
                         retired: false,
                         categories: [public_category]
                       )
@@ -114,7 +114,7 @@ johns_waterworks_cotedivore = Project.create!(
 debeers_conflict_diamonds_ivorycoast = Project.create!(
                                   title: "De Beers",
                                   price: 16000,
-                                  description: "Conflict diamonds are forever",
+                                  description: "Conflict Diamonds Are Forever",
                                   retired: false,
                                   categories: [conflict_zone_category]
                                 )
