@@ -7,8 +7,12 @@ class PendingLoansController < ApplicationController
 
   def show
     @pending_loans = {}
-    session[:pending_loan].each do |project_id, loan_amount|
-      @pending_loans[Project.find(project_id.to_i)] = loan_amount
+    if pending_loans_exist?
+      session[:pending_loan].each do |project_id, loan_amount|
+        @pending_loans[Project.find(project_id.to_i)] = loan_amount
+      end
+    else
+      @pending_loans
     end
   end
 
@@ -67,6 +71,10 @@ class PendingLoansController < ApplicationController
   def update_specific_loan
     session[:pending_loan][params[:pending_loan][:project_id]] =
     session[:pending_loan][params[:pending_loan][:project_id]]
+  end
+
+  def pending_loans_exist?
+    session[:pending_loan] != nil
   end
 
   def delete_all_projects_from_cart
