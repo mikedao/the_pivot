@@ -184,7 +184,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
       click_button("Checkout")
     end
 
-    assert page.has_content?("You must login to lend money")
+    assert page.has_content?("You Must Login to Lend Money")
     assert_equal "/pending_loan", current_path
   end
 
