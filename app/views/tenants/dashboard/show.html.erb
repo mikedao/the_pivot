@@ -14,13 +14,13 @@
         <th data-field='time'>Submitted At</th>
       </tr>
     </thead>
-    <% @tenant.items.each do |item| %>
+    <% @tenant.projects.each do |project| %>
       <tr>
-        <td><%= link_to("#{item.title}", item_path(id: item.id)) %></td>
-        <td><%= item.formatted_dollar_amount %></td>
-        <td><%= item.retired %></td>
-        <td><%= item.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
-        <td><%= item.created_at.strftime("%b %d, %Y, %I:%M") %></td>
+        <td><%= link_to("#{project.title}", project_path(id: project.id)) %></td>
+        <td><%= project.formatted_dollar_amount %></td>
+        <td><%= project.retired %></td>
+        <td><%= project.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
+        <td><%= project.created_at.strftime("%b %d, %Y, %I:%M") %></td>
       </tr>
     <% end %>
   </table>
