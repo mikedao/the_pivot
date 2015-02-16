@@ -1,6 +1,6 @@
 # Users
 User.create!(
-  username:              "D`Cathy",
+  username:              "DCathy",
   first_name:            "Dan",
   last_name:             "Cathy",
   email:                 "DanCathy@gmail.com",
@@ -45,12 +45,6 @@ ronald1 = User.find(2)
 ronald2 = User.find(3)
 ronald3 = User.find(4)
 ronald4 = User.find(5)
-
-# tenants
-# bridge_builders = Tenant.create!(
-#   location:              "East Timor represent",
-#   organization:          "Bridge Builders"
-# )
 
 4.times do |n|
   location =              "East Timor represent#{n + 1}"
