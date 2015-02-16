@@ -20,7 +20,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     fill_in "session[username]", with: "user"
     fill_in "session[password]", with: "password"
     click_link_or_button "Login"
-    assert current_path, root_url
+    assert_equal current_path, root_url
     assert page.has_content?("Welcome, John")
   end
 
