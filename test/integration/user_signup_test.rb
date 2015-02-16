@@ -133,6 +133,5 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_path, current_path
     assert page.has_content?("Account Already Exists")
-   end
-
+  end
 end
