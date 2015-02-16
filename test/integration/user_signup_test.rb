@@ -108,4 +108,31 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     assert_equal root_path, current_path
     assert page.has_content?("Thank you for creating an account.")
   end
+
+  test "a user cannot sign up with a non unique email address" do
+    create(:user)
+
+    visit root_path
+    click_link_or_button "Signup"
+    click_link_or_button "Borrower"
+    fill_in "tenant_signup[location]", with: "location"
+    fill_in "tenant_signup[organization]", with: "organization"
+    click_link_or_button "Create Organization"
+    fill_in "signup[username]", with: "username"
+    fill_in "signup[first_name]", with: "firstname"
+    fill_in "signup[last_name]", with: "lastname"
+    fill_in "signup[street]", with: "street"
+    fill_in "signup[city]", with: "city"
+    fill_in "signup[state]", with: "state"
+    fill_in "signup[zipcode]", with: "zipcode"
+    fill_in "signup[country]", with: "country"
+    fill_in "signup[password]", with: "password"
+    fill_in "signup[password_confirmation]", with: "password"
+    fill_in "signup[email]", with: "test@test.com"
+    click_link_or_button "Create Account"
+
+    assert_equal new_user_path, current_path
+    assert page.has_content?("Account Already Exists")
+   end
+
 end
