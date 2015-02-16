@@ -26,17 +26,17 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorised user can view a single projects page" do
+    user = create(:user)
+    project = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
 
-    visit root_url
-    click_link_or_button("Menu")
-    click_link_or_button("coffee")
+    visit root_path
+    click_link_or_button(project.categories.first.name)
+    click_link_or_button(project.title)
 
-    within("#title") do
-      assert page.has_content?("coffee")
-    end
-
-    within("#description") do
-      assert page.has_content?("black nectar of the gods")
+    assert_equal category_path(id: project.categories.first.id), current_path
+    assert page.has_content?(project.title)
+    assert page.has_content?(project.categories.first.name)
   end
 
   test "a guest user can browse projects by category" do
