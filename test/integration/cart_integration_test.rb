@@ -41,7 +41,27 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?("coffee")
       assert page.has_content?("1")
     end
+  end
 
+  test "an authenticated user can delete an item from the cart" do
+    authenticated_user = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).
+                                       returns(authenticated_user)
+    project = create(:project)
+
+    visit "/"
+    click_link_or_button(project.categories.first.name)
+    first(".row").click_button("Lend")
+
+    within("#pending_loans") do
+      click_link_or_button("Delete")
+    end
+    within("#flash_notice") do
+      assert page.has_content?("Project removed from cart")
+    end
+
+    refute page.has_content?(project.title)
+    assert_equal pending_loan_path, current_path
   end
 
   test "an unauthorized user can add up to 10 of the project at one time" do
@@ -153,32 +173,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     within("#quantity_#{coffee.id}") do
       assert page.has_content?("7")
     end
-    assert page.has_content?("aeropress")
-    assert_equal showcart_path, current_path
-  end
-
-  test "a user can delete an project from their cart" do
-    skip
-    coffee = Project.create(title: "coffee",
-                            description: "black nectar of the gods",
-                            price: 1200)
-    aeropress = Project.create(title: "aeropress",
-                               description: "light stuff",
-                               price: 1300)
-    visit "/projects/#{coffee.id}"
-    click_link_or_button("Add to Cart")
-    visit "/projects/#{aeropress.id}"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
-
-    within("#project_#{coffee.id}") do
-      click_link_or_button("Delete")
-    end
-
-    within("#flash_notice") do
-      assert page.has_content?("Project removed from cart")
-    end
-    refute page.has_content?("coffee")
     assert page.has_content?("aeropress")
     assert_equal showcart_path, current_path
   end

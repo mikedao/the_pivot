@@ -16,16 +16,7 @@ class PendingLoansController < ApplicationController
     end
   end
 
-  def checkout_pending_loans
-    if current_user.nil?
-      flash[:alert] = "You must login to lend money"
-      redirect_to pending_loan_path
-    else
-      redirect_to create_order_path
-    end
-  end
-
-  def delete_pending_loan
+  def update
     if params[:pending_loan].nil?
       delete_all_projects_from_cart
     else
@@ -33,6 +24,15 @@ class PendingLoansController < ApplicationController
       flash[:notice] = "Project removed from cart"
     end
     redirect_to pending_loan_path
+  end
+
+  def checkout_pending_loans
+    if current_user.nil?
+      flash[:alert] = "You Must Login to Lend Money"
+      redirect_to pending_loan_path
+    else
+      redirect_to create_order_path
+    end
   end
 
   def update_project_amount
