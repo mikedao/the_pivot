@@ -60,7 +60,7 @@ class PendingLoansController < ApplicationController
       (session[:pending_loan][params[:pending_loan][:project_id]].to_i +
       params[:pending_loan][:quantity].to_i).to_s
     else
-      session[:pending_loan][params[:pending_loan][:project_id]] = 
+      session[:pending_loan][params[:pending_loan][:project_id]] =
       params[:pending_loan][:quantity].to_s
     end
   end
