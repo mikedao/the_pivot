@@ -63,9 +63,9 @@ end
 
 # admin
 Admin.create!(
-        username: "Mugato4Eva",
+        username: "admin",
         password: "password",
-        email:    "HanselIsSoHotRightNow@hotmail.com"
+        email:    "admin@admin.com"
       )
 
 # categories
