@@ -53,8 +53,9 @@ FactoryGirl.define do
 
   factory :project do
     sequence(:title) { |n| "De Beers#{n}" }
-    price 801
-    description "Conflict Diamonds are Forever."
+    price 13000
+    description "Conflict Diamonds are Forever. We artificially created demand
+                for conflict diamonds through brilliant advertising campaigns."
     retired false
     repayment_rate 3
 

@@ -41,16 +41,16 @@ end
 
 puts "#{User.count} users created."
 
-ronald1 = User.find(1)
-ronald2 = User.find(2)
-ronald3 = User.find(3)
-ronald4 = User.find(4)
+ronald1 = User.find(2)
+ronald2 = User.find(3)
+ronald3 = User.find(4)
+ronald4 = User.find(5)
 
 # tenants
-bridge_builders = Tenant.create!(
-  location:              "East Timor represent",
-  organization:          "Bridge Builders"
-)
+# bridge_builders = Tenant.create!(
+#   location:              "East Timor represent",
+#   organization:          "Bridge Builders"
+# )
 
 4.times do |n|
   location =              "East Timor represent#{n + 1}"
@@ -60,6 +60,10 @@ bridge_builders = Tenant.create!(
     organization:         organization
   )
 end
+
+bridge_builders1 = Tenant.find(1)
+bridge_builders2 = Tenant.find(2)
+bridge_builders3 = Tenant.find(3)
 
 # admin
 Admin.create!(
@@ -88,11 +92,11 @@ conflict_zone_category = Category.create!(
 # projects
 timmys_vaccines_nigeria = Project.create!(
                   title: "Timmy's vaccine shots",
-                  price: 5000,
+                  price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: bridge_builders.id
+                  tenant_id: bridge_builders1.id
                   )
 
 stevens_books_bangkok = Project.create!(
@@ -100,7 +104,8 @@ stevens_books_bangkok = Project.create!(
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
-                  categories: [startup_category]
+                  categories: [startup_category],
+                  tenant_id: bridge_builders1.id
                   )
 
 johns_waterworks_cotedivore = Project.create!(
@@ -108,7 +113,8 @@ johns_waterworks_cotedivore = Project.create!(
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
-                  categories: [public_category]
+                  categories: [public_category],
+                  tenant_id: bridge_builders2.id
                   )
 
 debeers_conflict_diamonds_ivorycoast = Project.create!(
@@ -116,7 +122,8 @@ debeers_conflict_diamonds_ivorycoast = Project.create!(
                   price: 16000,
                   description: "Conflict diamonds are forever" * 5,
                   retired: false,
-                  categories: [conflict_zone_category]
+                  categories: [conflict_zone_category],
+                  tenant_id: bridge_builders3.id
                   )
 
 # Orders with projects

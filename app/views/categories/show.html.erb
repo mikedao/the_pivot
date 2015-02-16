@@ -9,6 +9,11 @@
         <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
       </div>
       <h5 class="project-desc"><%= project.description %></h5>
+      <%= form_for :pending_loan, url: pending_loans_path do |f| %>
+        <%= f.hidden_field :project_id, value: project.id %>
+        <%= f.hidden_field :loan_amount, value: project.price %>
+        <%= f.submit 'Lend', class: "btn btn-default" %>
+      <% end %>
     </div>
     <% end %>
   </div>

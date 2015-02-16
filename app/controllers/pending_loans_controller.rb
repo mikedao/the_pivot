@@ -12,10 +12,10 @@ class PendingLoansController < ApplicationController
     end
   end
 
-  def checkout_cart
+  def checkout_pending_loans
     if current_user.nil?
-      flash[:alert] = "You must login to checkout"
-      redirect_to showcart_path
+      flash[:alert] = "You must login to lend money"
+      redirect_to pending_loan_path
     else
       redirect_to create_order_path
     end
@@ -52,13 +52,20 @@ class PendingLoansController < ApplicationController
   end
 
   def update_existing_cart
-    if session[:cart][params[:cart][:project_id]]
-      session[:cart][params[:cart][:project_id]] =
-      (session[:cart][params[:cart][:project_id]].to_i +
-      params[:cart][:quantity].to_i).to_s
+    if loan_is_already_pending
+      update_specific_loan
     else
-      session[:cart][params[:cart][:project_id]] = params[:cart][:quantity].to_s
+      session[:pending_loan][params[:pending_loan][:project_id]] = params[:pending_loan][:loan_amount].to_s
     end
+  end
+
+  def loan_is_already_pending
+    session[:pending_loan][params[:pending_loan][:project_id]]
+  end
+
+  def update_specific_loan
+    session[:pending_loan][params[:pending_loan][:project_id]] =
+    session[:pending_loan][params[:pending_loan][:project_id]]
   end
 
   def delete_all_projects_from_cart
