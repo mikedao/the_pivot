@@ -23,7 +23,7 @@ FactoryGirl.define do
     state "NY"
     zipcode "10003"
     country "USA"
-    sequence(:credit_card_info) { |n| "1111222#{n}2333#{n+3}4444" }
+    sequence(:credit_card_info) { |n| "1111222#{n}2333#{n + 3}4444" }
 
     factory :user_as_tenant do
 

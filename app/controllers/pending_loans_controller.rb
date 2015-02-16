@@ -55,7 +55,8 @@ class PendingLoansController < ApplicationController
     if loan_is_already_pending
       update_specific_loan
     else
-      session[:pending_loan][params[:pending_loan][:project_id]] = params[:pending_loan][:loan_amount].to_s
+      session[:pending_loan][params[:pending_loan][:project_id]] =
+      params[:pending_loan][:loan_amount].to_s
     end
   end
 

@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   post "/pending_loan", to: "pending_loans#checkout_pending_loans",
                         as: "checkout_pending_loans"
                         
-
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
   end
