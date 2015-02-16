@@ -24,8 +24,8 @@ class OrdersController < ApplicationController
   def create
     pending_loans = PendingLoan.new(session[:pending_loan])
     total_cost = 0
-    pending_loans.projects.each do |project, _loan_amount|
-      total_cost += project.price * _loan_amount
+    pending_loans.projects.each do |project, _|
+      total_cost += project.price
     end
     @order = Order.create(
       user_id: session[:user_id].to_i,
