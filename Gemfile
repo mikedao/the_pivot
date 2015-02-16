@@ -42,6 +42,7 @@ gem "therubyracer",             '~> 0.12.1'
 gem "less-rails",               '~> 2.6.0'
 gem "rails_12factor",           '~> 0.0.3'
 gem 'paperclip',                '~> 4.2.1'
+gem 'faker',                    '~> 1.4.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -52,7 +53,6 @@ group :development, :test do
   gem 'pry',                    '~>0.10.1'
   gem 'pry-byebug',             '~> 2.0.0'
   gem "factory_girl_rails",     '~> 4.0'
-  gem 'faker',                  '~> 1.4.2'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console',            '~> 2.0'
