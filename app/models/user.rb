@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     tenant_id.nil?
   end
 
+  def admin?
+    false
+  end
+
   private
 
   def email_checker(email)

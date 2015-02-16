@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def create
     if User.find_by(new_email)
+      duplicate_email
     else
       user = User.new(user_params)
       user.tenant_id = session[:tenant_id]
