@@ -3,25 +3,46 @@ class UsersController < ApplicationController
   end
 
   def create
-    if User.find_by(email: params[:signup][:email])
-      flash[:notice] = "Account Already Exists"
-      redirect_to new_user_path
+    if User.find_by(new_email)
     else
       user = User.new(user_params)
       user.tenant_id = session[:tenant_id]
       if user.valid?
-        user.save
-        session[:user_id] = user.id
-        flash[:notice] = "Thank you for creating an account."
-        redirect_to root_path
+        create_user(user)
       else
-        flash[:notice] = "Please try again."
-        redirect_to new_user_path
+        invalid_user
       end
     end
   end
 
   private
+
+  def duplicate_email
+    flash[:notice] = "Account Already Exists"
+    redirect_to new_user_path
+  end
+
+  def new_email
+    params.require(:signup).permit(:email)
+  end
+
+  def invalid_user
+    flash[:notice] = "Please try again."
+    redirect_to new_user_path
+  end
+
+  def create_user(user)
+    user.save
+    session[:user_id] = user.id
+    send_welcome_email(user)
+    flash[:notice] = "Thank you for creating an account."
+    redirect_to root_path
+  end
+
+  def send_welcome_email(user)
+    UserMailer.welcome_borrower(user).deliver_now if user.borrower?
+    UserMailer.welcome_lender(user).deliver_now if user.lender?
+  end
 
   def user_params
     params.require(:signup).permit(:username,

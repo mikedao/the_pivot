@@ -22,25 +22,24 @@ class OrdersController < ApplicationController
   end
 
   def create
-    cart = Cart.new(session[:cart])
+    binding.pry
+    pending_loans = PendingLoan.new(session[:pending_loan])
     total_cost = 0
-    cart.projects.each do |project, quantity|
-      total_cost += project.price * quantity.to_i
+    pending_loans.projects.each do |project, loan_amount|
+      total_cost += project.price * loan_amount
     end
     @order = Order.create(
-      user_id: session[:user_id],
+      user_id: session[:user_id].to_i,
       total_cost: total_cost,
-      status: 'ordered'
+      status: 'completed'
       )
-    cart.projects.each do |project, quantity|
+    pending_loans.projects.each do |project, loan_amount|
       Loan.create(
         project_id: project.id,
-        order_id: @order.id,
-        quantity: quantity,
-        line_item_cost: project.price * quantity.to_i
+        order_id: @order.id
         )
     end
-    session.delete(:cart)
+    session.delete(:pending_loan)
     redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 
