@@ -3,8 +3,8 @@ require "test_helper"
 class UserMailerTest < ActionMailer::TestCase
   test "welcome borrower email is proper" do
     tenant = create(:tenant)
-    tenant.user <<  create(:user)
-    user = tenant.user.first
+    tenant.users <<  create(:user)
+    user = tenant.users.first
 
     mail = UserMailer.welcome_borrower(user)
 
@@ -23,5 +23,19 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [user.email], mail.to
     assert_equal ["michael.dao@gmail.com"], mail.from
     assert_match "lender", mail.body.encoded
+  end
+
+  test "a platform admin new borrower alert email is valid" do
+    admin = create(:admin)
+    tenant = create(:tenant)
+    tenant.users << create(:user)
+    user = tenant.users.first
+
+    mail = UserMailer.pending_borrower_alert(user)
+
+    assert_equal "Pending Borrower", mail.subject
+    assert_equal [admin.email], mail.to
+    assert_equal ["michael.dao@gmail.com"], mail.from
+    assert_match "Pending", mail.body.encoded
   end
 end
