@@ -136,7 +136,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "an authenticated user can add default amount to their cart" do
-    skip
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
@@ -151,12 +150,11 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("25")
+      assert page.has_content?(tenant.projects.first.price)
     end
   end
 
-  test "authed user can select a diff amt for a loan add it to their cart" do
-    skip
+  test "an authed user can select a diff amt for a loan add it to their cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
@@ -175,8 +173,21 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     within("#pending_loans") do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("50")
+      assert page.has_content?(tenant.projects.first.price)
     end
+  end
+
+  test "an unauthenticated user that clicks 'Checkout' is prompted
+        to login or create an account" do
+    project = create(:project)
+
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    click_link_or_button "Checkout"
+
+    assert page.has_content?("You must login to checkout")
   end
 
   test "a user can checkout once logged in" do
@@ -201,7 +212,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "an authenticated user can delete a pending loan from their cart" do
-    skip
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
