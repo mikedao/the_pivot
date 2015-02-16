@@ -4,13 +4,12 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "a cart starts empty" do
-    skip
     visit "/"
 
-    click_link_or_button("Cart")
+    click_link_or_button("Pending Loans")
 
     within("#pending_loans") do
-      assert page.has_content?("Your Cart Is Empty")
+      assert page.has_content?("You Have No Pending Loans")
     end
   end
 
@@ -229,7 +228,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("25")
+      assert page.has_content?("13000")
     end
   end
 

@@ -23,7 +23,7 @@ class OrderTest < ActiveSupport::TestCase
     order = create(:order, total_cost: 505)
     user_first_name = order.user.first_name
 
-    assert_equal "Roger", user_first_name
+    assert_equal "Roger1", user_first_name
   end
 
   test "an order has projects associated with it" do

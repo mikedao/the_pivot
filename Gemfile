@@ -50,10 +50,11 @@ gem 'faker',                    '~> 1.4.2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug',                 '~> 3.5.1'
-  gem 'pry',                    '~>0.10.1'
+  gem 'pry',                    '~> 0.10.1'
   gem 'pry-byebug',             '~> 2.0.0'
   gem "factory_girl_rails",     '~> 4.0'
-
+  gem 'minitest-around'
+  gem 'database_cleaner',       '~> 1.4.0'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console',            '~> 2.0'
 

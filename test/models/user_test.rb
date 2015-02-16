@@ -93,7 +93,7 @@ class UserTest < ActiveSupport::TestCase
   test "full name is actually full name" do
     user = build(:user)
 
-    assert_equal "Roger Federer", user.full_name
+    assert_equal "Roger1 Federer", user.full_name
   end
 
   test "it knows if it is a borrower" do
