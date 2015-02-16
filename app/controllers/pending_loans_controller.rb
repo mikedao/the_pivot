@@ -18,7 +18,8 @@ class PendingLoansController < ApplicationController
     if current_user.nil?
       flash[:alert] = "You must login to checkout"
       redirect_to pending_loan_path
-    else      redirect_to create_order_path
+    else      
+      redirect_to create_order_path
     end
   end
 

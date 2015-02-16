@@ -194,7 +194,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     skip
     project = create(:project)
     user = create(:user)
-    
+
     visit "/#{project.tenant.organization}"
     within(".row") do
       click_link_or_button("Lend")
@@ -226,7 +226,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
     within("#pending_loans") do
       refute page.has_content?(tenant.projects.first.title)
-      refute page.has_content?("25")
+      refute page.has_content?(tenant.projects.first.price)
     end
   end
 end
