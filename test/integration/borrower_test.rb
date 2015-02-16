@@ -13,7 +13,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   test "a borrower can see all their projects" do
     borrower = create(:user)
     tenant = create(:tenant)
-    tenant.items << create(:item)
+    tenant.projects << create(:project)
     borrower.tenant_id = tenant.id
     ApplicationController.any_instance.stubs(:current_user).returns(borrower)
 

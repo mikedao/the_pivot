@@ -18,16 +18,10 @@ class UserAuthorizationTest < ActionDispatch::IntegrationTest
         only his own" do
     user = create(:user)
     user1 = create(:user)
-    user1 = User.create(username: "xxx",
-                        password: "yyy",
-                        first_name: "Jeff",
-                        last_name: "Wan",
-                        email: "examples@example.com"
-                        )
-
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit "/users/#{user1.id}/orders"
+    assert_equal root_url, current_path
 
     visit "/users/#{user.id}/orders"
     assert page.has_content?("Order History")
