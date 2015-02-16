@@ -87,61 +87,59 @@ conflict_zone_category = Category.create!(
 
 # projects
 timmys_vaccines_nigeria = Project.create!(
-                      title: "Timmy's vaccine shots",
-                      price: 5000,
-                      description: "These are malaria shots for little Timmy.",
-                      retired: false,
-                      categories: [people_category],
-                      tenant_id: bridge_builders.id
-                      )
+                  title: "Timmy's vaccine shots",
+                  price: 5000,
+                  description: "These are malaria shots for little Timmy." * 3,
+                  retired: false,
+                  categories: [people_category],
+                  tenant_id: bridge_builders.id
+                  )
 
 stevens_books_bangkok = Project.create!(
-                            title: "Steven's school books",
-                            price: 4000,
-                            description: "How can I teach deez kiiiids?",
-                            retired: false,
-                            categories: [startup_category]
-                            )
+                  title: "Steven's school books",
+                  price: 4000,
+                  description: "How can I teach deez kiiiids?" * 5,
+                  retired: false,
+                  categories: [startup_category]
+                  )
 
 johns_waterworks_cotedivore = Project.create!(
-                        title: "John's water supply for village",
-                        price: 9000,
-                        description: "We need water for our village of people.",
-                        retired: false,
-                        categories: [public_category]
-                      )
+                  title: "John's water supply for village",
+                  price: 9000,
+                  description: "We need water for our village of people." * 3,
+                  retired: false,
+                  categories: [public_category]
+                  )
 
 debeers_conflict_diamonds_ivorycoast = Project.create!(
-                                  title: "De Beers",
-                                  price: 16000,
-                                  description: "Conflict diamonds are forever",
-                                  retired: false,
-                                  categories: [conflict_zone_category]
-                                )
+                  title: "De Beers",
+                  price: 16000,
+                  description: "Conflict diamonds are forever" * 5,
+                  retired: false,
+                  categories: [conflict_zone_category]
+                  )
 
 # Orders with projects
 timmys_vaccines_nigeria.orders.create!(
-                                total_cost: timmys_vaccines_nigeria.price,
-                                user_id:    ronald1.id,
-                                status:     "ordered"
-                                )
+                  total_cost: timmys_vaccines_nigeria.price,
+                  user_id:    ronald1.id,
+                  status:     "ordered"
+                  )
 
 stevens_books_bangkok.orders.create!(
-                              total_cost: stevens_books_bangkok.price,
-                              user_id:    ronald2.id,
-                              status:     "ordered"
-                              )
+                  total_cost: stevens_books_bangkok.price,
+                  user_id:    ronald2.id,
+                  status:     "ordered"
+                  )
 
-johns_waterworks_cotedivore.
-                      orders.create!(
-                        total_cost: johns_waterworks_cotedivore.price,
-                        user_id:    ronald3.id,
-                        status:     "completed"
-                        )
+johns_waterworks_cotedivore.orders.create!(
+                  total_cost: johns_waterworks_cotedivore.price,
+                  user_id:    ronald3.id,
+                  status:     "completed"
+                  )
 
-debeers_conflict_diamonds_ivorycoast.
-                      orders.create!(
-                        total_cost: debeers_conflict_diamonds_ivorycoast.price,
-                        user_id:    ronald4.id,
-                        status:     "ordered"
-                        )
+debeers_conflict_diamonds_ivorycoast.orders.create!(
+                  total_cost: debeers_conflict_diamonds_ivorycoast.price,
+                  user_id:    ronald4.id,
+                  status:     "ordered"
+                  )
