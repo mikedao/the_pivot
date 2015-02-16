@@ -45,12 +45,12 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
   test "an authenticated user can delete an item from the cart" do
     authenticated_user = create(:user)
-    ApplicationController.any_instance.stubs(:current_user).returns(authenticated_user)
+    ApplicationController.any_instance.stubs(:current_user).
+                                       returns(authenticated_user)
     project = create(:project)
-    project1 = create(:project)
 
     visit "/"
-    click_link_or_button("Public Works1")
+    click_link_or_button(project.categories.first.name)
     first(".row").click_button("Lend")
 
     within("#pending_loans") do
@@ -60,7 +60,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Project removed from cart")
     end
 
-    refute page.has_content?("De Beers1")
+    refute page.has_content?(project.title)
     assert_equal pending_loan_path, current_path
   end
 
@@ -299,5 +299,4 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       refute page.has_content?("25")
     end
   end
-
 end
