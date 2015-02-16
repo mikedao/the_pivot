@@ -4,7 +4,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "an admin can log in and get to the dashboard" do
-    admin = create(:admin)
+    create(:admin)
 
     visit root_path
     fill_in "session[username]", with: "admin"
