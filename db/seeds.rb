@@ -89,7 +89,7 @@ conflict_zone_category = Category.create!(
 timmys_vaccines_nigeria = Project.create!(
                       title: "Timmy's vaccine shots",
                       price: 5000,
-                      description: "These are malaria shots for little Timmy.",
+                      description: "These are malaria shots for little Timmy." * 3,
                       retired: false,
                       categories: [people_category],
                       tenant_id: bridge_builders.id
@@ -98,7 +98,7 @@ timmys_vaccines_nigeria = Project.create!(
 stevens_books_bangkok = Project.create!(
                             title: "Steven's school books",
                             price: 4000,
-                            description: "How can I teach deez kiiiids?",
+                            description: "How can I teach deez kiiiids?" * 5,
                             retired: false,
                             categories: [startup_category]
                             )
@@ -106,7 +106,7 @@ stevens_books_bangkok = Project.create!(
 johns_waterworks_cotedivore = Project.create!(
                         title: "John's water supply for village",
                         price: 9000,
-                        description: "We need water for our village of people.",
+                        description: "We need water for our village of people." * 3,
                         retired: false,
                         categories: [public_category]
                       )
@@ -114,7 +114,7 @@ johns_waterworks_cotedivore = Project.create!(
 debeers_conflict_diamonds_ivorycoast = Project.create!(
                                   title: "De Beers",
                                   price: 16000,
-                                  description: "Conflict diamonds are forever",
+                                  description: "Conflict diamonds are forever" * 5,
                                   retired: false,
                                   categories: [conflict_zone_category]
                                 )
