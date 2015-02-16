@@ -23,6 +23,7 @@
         <td><%= project.retired %></td>
         <td><%= project.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
         <td><%= project.created_at.strftime("%b %d, %Y, %I:%M") %></td>
+        <td><%= link_to("Edit", edit_project_path(id: project.id, tenant_id: @tenant.id)) %><td>
       </tr>
     <% end %>
   </table>

@@ -54,6 +54,23 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   end
 
   test "a borrower can update an project" do
+    borrower = create(:user_as_borrower)
+    tenant = borrower.tenant
+    tenant.projects << create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(borrower)
+    visit tenant_dashboard_path(slug: borrower.tenant.slug)
+
+    click_link_or_button("Edit")
+    assert_equal edit_project_path(id: tenant.projects.last.id), current_path
+    fill_in "project[title]", with: "Updated Water Project for our town"
+    fill_in "project[price]", with: 40004
+    fill_in "project[description]",  with: "a" * 150
+    file_path = Rails.root + "app/assets/images/froth.jpg"
+    attach_file("project[photos]", file_path)
+    select Category.first.name, from: "project[categories][]"
+    click_button "Update"
+
+    assert page.has_content?("Updated Water Project for our town")
   end
 
   test "a borrower can edit an project" do
