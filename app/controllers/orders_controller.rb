@@ -22,16 +22,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    binding.pry
     pending_loans = PendingLoan.new(session[:pending_loan])
     total_cost = 0
-    pending_loans.projects.each do |project, loan_amount|
+    pending_loans.projects.each do |project, _loan_amount|
       total_cost += project.price * loan_amount
     end
     @order = Order.create(
       user_id: session[:user_id].to_i,
       total_cost: total_cost,
-      status: 'completed'
+      status: "completed"
       )
     pending_loans.projects.each do |project, loan_amount|
       Loan.create(

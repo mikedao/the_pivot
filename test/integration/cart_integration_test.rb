@@ -113,7 +113,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend")
     end
     click_link_or_button("Empty Cart")
-    
+
     within("#flash_notice") do
       assert page.has_content?("Pending Loans Removed")
     end
@@ -131,7 +131,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button(project.title)
 
-    assert_equal tenant_project_path(slug: project.tenant.organization, id: project.id), current_path
+    assert_equal tenant_project_path(slug: project.tenant.organization,
+                                     id: project.id), current_path
   end
 
   test "an authenticated user can add default amount to their cart" do
@@ -180,7 +181,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     skip
     project = create(:project)
     user = create(:user)
-  
+        
     visit "/#{project.tenant.organization}"
     within(".row") do
       click_link_or_button("Lend")

@@ -5,7 +5,7 @@ class PendingLoansController < ApplicationController
     redirect_to pending_loan_path
   end
 
-  def show 
+  def show
     @pending_loans = {}
     if session[:pending_loan]
       session[:pending_loan].each do |project_id, loan_amount|
@@ -60,7 +60,8 @@ class PendingLoansController < ApplicationController
       (session[:pending_loan][params[:pending_loan][:project_id]].to_i +
       params[:pending_loan][:quantity].to_i).to_s
     else
-      session[:pending_loan][params[:pending_loan][:project_id]] = params[:pending_loan][:quantity].to_s
+      session[:pending_loan][params[:pending_loan][:project_id]] = 
+      params[:pending_loan][:quantity].to_s
     end
   end
 
