@@ -14,6 +14,17 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Platform Admin")
   end
 
+  test "an admin when logging in, is brought to the platformdashboard" do
+    create(:admin)
+
+    visit root_path
+    fill_in "session[username]", with: "admin"
+    fill_in "session[password]", with: "password"
+    click_link_or_button("Login")
+
+    assert_equal admin_dashboard_path, current_path
+  end
+
   test "an admin when logged in has an Admin Dashboard link" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
