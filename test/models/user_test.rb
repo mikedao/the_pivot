@@ -111,4 +111,10 @@ class UserTest < ActiveSupport::TestCase
     assert user.lender?
     refute user.borrower?
   end
+
+  test "it is not an admin" do
+    user = create(:user)
+
+    refute user.admin?
+  end
 end
