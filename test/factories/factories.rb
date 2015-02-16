@@ -18,8 +18,8 @@ FactoryGirl.define do
     last_name "Federer"
     password "password"
     sequence(:street) { |n| "412#{n} Tasty Animals Lane" }
-    city
-    email
+    city "new york"
+    email "test@test.com"
     state "NY"
     zipcode "10003"
     country "USA"
@@ -28,14 +28,14 @@ FactoryGirl.define do
     factory :user_as_tenant do
 
       before(:create) do |user|
-        user.tenant << create(:tenant)
+        user.tenant = create(:tenant)
       end
     end
   end
 
   factory :tenant do
     location "Shenzhen"
-    sequence(:organization) { |n| "Lucy's Farm#{n}" }
+    sequence(:organization) { |n| "lucy#{n}" }
   end
 
   factory :category do
@@ -47,7 +47,7 @@ FactoryGirl.define do
     status "completed"
 
     before(:create) do |order|
-      order.user = create_list(:user, 1, username: "PETA4Lyfe")
+      order.user = create(:user, username: "PETA4Lyfe")
     end
   end
 
@@ -63,7 +63,7 @@ FactoryGirl.define do
     end
 
     before(:create) do |project|
-      project.categories << create_list(:category, 1, name: "Civic")
+      project.categories << create(:category)
     end
   end
 
@@ -77,9 +77,12 @@ FactoryGirl.define do
     image_file_name "bridge_of_some_kind"
     image_content_type "something that needs to be built"
     image_file_size 3
+  end
 
-    before(:create) do |photo|
-      photo.project << create(:project)
+  factory :loan do
+    before(:create) do |loan|
+      loan.project = create(:project)
+      loan.order = create(:order)
     end
   end
 end
