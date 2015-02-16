@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :orders
+    match "/create_order", via: [:get], to: "orders#create"
   end
 
   scope ":slug", module: "tenants", as: "tenant" do
@@ -30,5 +31,4 @@ Rails.application.routes.draw do
     get "/dashboard" => "dashboard#show"
   end
 
-  match "/create_order", via: [:get], to: "orders#create"
 end
