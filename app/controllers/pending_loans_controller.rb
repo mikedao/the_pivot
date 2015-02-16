@@ -44,13 +44,17 @@ class PendingLoansController < ApplicationController
 
   private
 
+  def pending_loan_params
+    params.require(:pending_loan).permit(:project_id, :loan_amount)
+  end
+
   def update_cart
     if session[:pending_loan]
       update_existing_cart
     else
       session[:pending_loan] = {
-        params[:pending_loan][:project_id] =>
-         params[:pending_loan][:loan_amount]
+        pending_loan_params[:project_id] =>
+          pending_loan_params[:loan_amount]
       }
     end
   end
@@ -59,18 +63,18 @@ class PendingLoansController < ApplicationController
     if loan_is_already_pending
       update_specific_loan
     else
-      session[:pending_loan][params[:pending_loan][:project_id]] =
-      params[:pending_loan][:loan_amount].to_s
+      session[:pending_loan][pending_loan_params[:project_id]] =
+      pending_loan_params[:loan_amount].to_s
     end
   end
 
   def loan_is_already_pending
-    session[:pending_loan][params[:pending_loan][:project_id]]
+    session[:pending_loan][pending_loan_params[:project_id]]
   end
 
   def update_specific_loan
-    session[:pending_loan][params[:pending_loan][:project_id]] =
-    session[:pending_loan][params[:pending_loan][:project_id]]
+    session[:pending_loan][pending_loan_params[:project_id]] =
+    session[:pending_loan][pending_loan_params[:project_id]]
   end
 
   def pending_loans_exist?
@@ -82,6 +86,6 @@ class PendingLoansController < ApplicationController
   end
 
   def delete_specific_project_from_cart
-    session[:pending_loan].delete(params[:pending_loan][:project_id])
+    session[:pending_loan].delete(pending_loan_params[:project_id])
   end
 end

@@ -6,13 +6,13 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
-require 'capybara/rails'
-require 'mocha/mini_test'
-require 'minitest/pride'
-require 'factory_girl_rails'
-require 'support/factory_girl'
-require 'database_cleaner'
+require "rails/test_help"
+require "capybara/rails"
+require "mocha/mini_test"
+require "minitest/pride"
+require "factory_girl_rails"
+require "support/factory_girl"
+require "database_cleaner"
 
 DatabaseCleaner.strategy = :transaction
 
@@ -24,6 +24,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def setup
     DatabaseCleaner.start
+    FactoryGirl.reload
   end
 
   def teardown
@@ -42,5 +43,4 @@ class ActionDispatch::IntegrationTest
     reset_session!
     DatabaseCleaner.clean
   end
-
 end
