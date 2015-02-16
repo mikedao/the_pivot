@@ -3,6 +3,8 @@
   <h1><%= @tenant.organization %>'s Dashboard</h1>
 </div>
 
+<tr><td><%= link_to("New Project", new_project_path(tenant_id: @tenant.id)) %></td></tr>
+
 <div id="projects">
   <table class='table table-bordered'>
     <thead>
