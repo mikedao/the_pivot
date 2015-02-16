@@ -1,15 +1,15 @@
 # Users
 User.create!(
-  username:              "RMcDonald",
-  first_name:            "Ronald",
-  last_name:             "McDonald",
-  email:                 "ProFactoryFarms@gmail.com",
+  username:              "DCathy",
+  first_name:            "Dan",
+  last_name:             "Cathy",
+  email:                 "DanCathy@gmail.com",
   password:              "password",
   password_confirmation: "password",
   city:                  "Atlanta",
   state:                 "GA",
-  street:                "666 Mockingbird Lane",
-  zipcode:               50240,
+  street:                "5200 Buffington Road",
+  zipcode:               30349,
   country:               "USA",
   credit_card_info:      "1111222233334444"
 )
@@ -19,7 +19,7 @@ User.create!(
   first_name =              Faker::Name.first_name
   last_name =               Faker::Name.last_name
   country =                 Faker::Address.country
-  email =                   "ProFactoryFarms-#{n + 1}@gmail.com"
+  email =                   "FlowersNPuppies-#{n + 1}@gmail.com"
   password =                "password"
   credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
   street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
@@ -41,31 +41,29 @@ end
 
 puts "#{User.count} users created."
 
-ronald1 = User.find(1)
-ronald2 = User.find(2)
-ronald3 = User.find(3)
-ronald4 = User.find(4)
-
-# tenants
-bridge_builders = Tenant.create!(
-  location:              "East Timor represent",
-  organization:          "bridge-builders"
-)
+ronald1 = User.find(2)
+ronald2 = User.find(3)
+ronald3 = User.find(4)
+ronald4 = User.find(5)
 
 4.times do |n|
   location =              "East Timor represent#{n + 1}"
-  organization =          "Bridge Builders off the island#{n + 1}"
+  organization =          "Bridge Builders#{n + 1}"
   Tenant.create!(
     location:             location,
     organization:         organization
   )
 end
 
+bridge_builders1 = Tenant.find(1)
+bridge_builders2 = Tenant.find(2)
+bridge_builders3 = Tenant.find(3)
+
 # admin
 Admin.create!(
-        username: "Mugato4Eva",
+        username: "FlowersNPuppies",
         password: "password",
-        email:    "HanselIsSoHotRightNow@hotmail.com"
+        email:    "FlowersNPuppies.@gmail.com"
       )
 
 # categories
@@ -88,11 +86,11 @@ conflict_zone_category = Category.create!(
 # projects
 timmys_vaccines_nigeria = Project.create!(
                   title: "Timmy's vaccine shots",
-                  price: 5000,
+                  price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: bridge_builders.id
+                  tenant_id: bridge_builders1.id
                   )
 
 stevens_books_bangkok = Project.create!(
@@ -100,7 +98,8 @@ stevens_books_bangkok = Project.create!(
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
-                  categories: [startup_category]
+                  categories: [startup_category],
+                  tenant_id: bridge_builders1.id
                   )
 
 johns_waterworks_cotedivore = Project.create!(
@@ -108,7 +107,8 @@ johns_waterworks_cotedivore = Project.create!(
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
-                  categories: [public_category]
+                  categories: [public_category],
+                  tenant_id: bridge_builders2.id
                   )
 
 debeers_conflict_diamonds_ivorycoast = Project.create!(
@@ -116,7 +116,8 @@ debeers_conflict_diamonds_ivorycoast = Project.create!(
                   price: 16000,
                   description: "Conflict diamonds are forever" * 5,
                   retired: false,
-                  categories: [conflict_zone_category]
+                  categories: [conflict_zone_category],
+                  tenant_id: bridge_builders3.id
                   )
 
 # Orders with projects
