@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
         total_cost: total_cost,
         user_id: session[:user_id],
         status: "completed")
-    pending_loans.projects.each do |project, loan_amount|
+    pending_loans.projects.each do |project, _loan_amount|
       Loan.new(
         project_id: project.id,
         order_id: @order.id
