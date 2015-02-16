@@ -5,19 +5,38 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   include FactoryGirl::Syntax::Methods
 
   test "a guest user can view a home page" do
-    skip
+    category = create(:category)
+
     visit root_path
-    assert page.has_content?("Cinema Coffee")
+
+    assert page.has_content?(category.name)
   end
 
-  test "a guest user can see all projects" do
-    skip
-    ApplicationController.any_instance.stubs(:current_user).returns(user_user)
+  test "a guest user can see all projects for a category" do
+    user = create(:user)
+    project = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
     visit root_path
+    click_link_or_button(project.categories.first.name)
+
+    assert_equal category_path(id: project.categories.first.id), current_path
+    assert page.has_content?(project.title)
+    assert page.has_content?(project.categories.first.name)
+  end
+
+  test "an unauthorised user can view a single projects page" do
+
+    visit root_url
     click_link_or_button("Menu")
-    assert_equal projects_path, current_path
-    assert page.has_content?(project1.title)
-    assert page.has_content?(category1.name)
+    click_link_or_button("coffee")
+
+    within("#title") do
+      assert page.has_content?("coffee")
+    end
+
+    within("#description") do
+      assert page.has_content?("black nectar of the gods")
   end
 
   test "a guest user can browse projects by category" do
@@ -48,24 +67,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     visit projects_path
     refute page.has_content?("Create Category")
   end
-
-  test "an unauthorised user can view a single projects page" do
-    skip
-    Project.create(title: "coffee",
-                description: "black nectar of the gods",
-                price: 1200)
-
-    visit root_url
-    click_link_or_button("Menu")
-    click_link_or_button("coffee")
-
-    within("#title") do
-      assert page.has_content?("coffee")
-    end
-
-    within("#description") do
-      assert page.has_content?("black nectar of the gods")
-    end
 
     within("#price") do
       assert page.has_content?("$12.00")
