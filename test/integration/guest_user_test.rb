@@ -157,7 +157,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     tenant.projects << create(:project, price: 8900)
 
     visit '/'
-    click_link_or_button "Public Works1"
+    click_link_or_button "#{tenant.projects.first.categories.first.name}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -176,7 +176,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    click_link_or_button("Public Works1")
+    click_link_or_button("#{tenant.projects.first.categories.first.name}")
     within(".row") do
       click_link_or_button("Lend")
     end
