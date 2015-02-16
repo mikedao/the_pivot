@@ -13,7 +13,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    username "LambPETAsAreTasty"
+    sequence(:username) { |n| "LambPETAsAreTasty#{n}" }
     first_name
     last_name "Federer"
     password "password"
@@ -25,7 +25,7 @@ FactoryGirl.define do
     country "USA"
     sequence(:credit_card_info) { |n| "1111222#{n}2333#{n + 3}4444" }
 
-    factory :user_as_tenant do
+    factory :user_as_borrower do
 
       before(:create) do |user|
         user.tenant = create(:tenant)
@@ -69,9 +69,9 @@ FactoryGirl.define do
   end
 
   factory :admin do
-    username "JeffWan"
+    username "admin"
     password "password"
-    email "IEnjoyCagedEggs@gmail.com"
+    email "admin@admin.com"
   end
 
   factory :photo do

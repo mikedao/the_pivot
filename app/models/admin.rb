@@ -12,6 +12,10 @@ class Admin < ActiveRecord::Base
     email_checker(email)
   end
 
+  def admin?
+    true
+  end
+
   private
 
   def email_checker(email)

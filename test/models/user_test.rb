@@ -9,10 +9,10 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  test "user is valid even without username" do
+  test "user is not valid even without username" do
     user = build(:user, username: nil)
 
-    assert user.valid?
+    refute user.valid?
   end
 
   test "user is not valid without password" do

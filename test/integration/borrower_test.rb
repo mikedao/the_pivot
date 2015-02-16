@@ -11,25 +11,46 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   end
 
   test "a borrower can see all their projects" do
-    skip
-    borrower = create(:user)
-    tenant = create(:tenant)
+    borrower = create(:user_as_borrower)
+    tenant = borrower.tenant
     tenant.projects << create(:project)
-    borrower.tenant_id = tenant.id
     ApplicationController.any_instance.stubs(:current_user).returns(borrower)
 
     visit tenant_dashboard_path(slug: tenant.slug)
 
     tenant.projects.each do |project|
       assert page.has_content?(project.title)
-      assert page.has_content?("$8.01")
+      assert page.has_content?(project.formatted_dollar_amount)
     end
   end
 
   test "a borrower is redirected to their dashboard upon login" do
+    borrower = create(:user_as_borrower)
+
+    visit root_url
+    fill_in "session[username]", with: borrower.username
+    fill_in "session[password]", with: "password"
+    click_link_or_button "Login"
+
+    assert_equal tenant_dashboard_path(slug: borrower.tenant.slug), current_path
   end
 
   test "a borrower can create an project" do
+    category = create(:category)
+    borrower = create(:user_as_borrower)
+    ApplicationController.any_instance.stubs(:current_user).returns(borrower)
+    visit tenant_dashboard_path(slug: borrower.tenant.slug)
+
+    click_link_or_button("New Project")
+    fill_in "project[title]", with: "New Water Project for our town"
+    fill_in "project[price]", with: 40004
+    fill_in "project[description]",  with: "a" * 150
+    file_path = Rails.root + "app/assets/images/froth.jpg"
+    attach_file("project[photos]", file_path)
+    select category.name, from: "project[categories][]"
+    click_button "Create Project"
+
+    assert page.has_content?("New Water Project for our town")
   end
 
   test "a borrower can update an project" do
