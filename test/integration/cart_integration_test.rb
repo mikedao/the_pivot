@@ -194,7 +194,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     skip
     project = create(:project)
     user = create(:user)
-        
+    
     visit "/#{project.tenant.organization}"
     within(".row") do
       click_link_or_button("Lend")
