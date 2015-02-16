@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(session_password)
       session[:user_id] = user.id
       flash[:notice] = "Welcome back, #{user.username}"
-      redirect_to root_path
+      redirect_lender_or_borrower(user)
     else
       invalid_login
     end
@@ -49,11 +49,11 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:password)[:password]
   end
 
-  def is_an_admin?
-    Admin.find_by(session_username)
-  end
-
-  def is_a_user?
-    User.find_by(session_username)
+  def redirect_lender_or_borrower(user)
+    if user.lender?
+      redirect_to root_url
+    else
+      redirect_to tenant_dashboard_path(slug: user.tenant.slug)
+    end
   end
 end

@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-
+  include ActionView::Helpers::NumberHelper
   scope :active, -> {where(retired:false)}
 
   has_many :projects_categories
