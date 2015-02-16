@@ -14,8 +14,8 @@ FactoryGirl.define do
     last_name "Federer"
     password "password"
     sequence(:street) { |n| "412#{n} Tasty Animals Lane" }
-    city
-    email
+    city "new york"
+    email "test@test.com"
     state "NY"
     zipcode "10003"
     country "USA"
@@ -31,7 +31,7 @@ FactoryGirl.define do
 
   factory :tenant do
     location "Shenzhen"
-    organization "lucy"
+    sequence(:organization) { |n| "lucy#{n}" }
   end
 
   factory :category do
@@ -39,19 +39,19 @@ FactoryGirl.define do
   end
 
   factory :order do
-    total_cost 8900
+    total_cost 5000
     status "completed"
 
     before(:create) do |order|
-      order.user = create_list(:user, 1, username: "PETA4Lyfe")
+      order.user = create(:user, username: "PETA4Lyfe")
     end
   end
 
   factory :project do
     sequence(:title) { |n| "espresso#{n}" }
-    price 800
+    price 2500
     description "We produce only the finest blood diamonds in Sierra Leone.
-                Diamond are forever."
+                Diamond are forever." * 2
     retired false
     repayment_rate 3
 
@@ -60,7 +60,7 @@ FactoryGirl.define do
     end
 
     before(:create) do |project|
-      project.categories << create_list(:category, 1, name: "Civic")
+      project.categories << create(:category)
     end
   end
 
@@ -74,9 +74,12 @@ FactoryGirl.define do
     image_file_name "bridge_of_some_kind"
     image_content_type "something that needs to be built"
     image_file_size 3
+  end
 
-    before(:create) do |photo|
-      photo.project << create(:project)
+  factory :loan do
+    before(:create) do |loan|
+      loan.project = create(:project)
+      loan.order = create(:order)
     end
   end
 end

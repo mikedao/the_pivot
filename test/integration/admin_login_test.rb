@@ -10,8 +10,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                         password: "password",
                         first_name: "John",
                         last_name: "Doe",
-                        email: "example@example.com",
-                        role: 1)
+                        email: "example@example.com"
+                       )
     @category1 = Category.create(name: "Hot Beverages")
     @category2 = Category.create(name: "cold beverages")
     @project1 = category1.projects.create(title: "espresso",
@@ -42,8 +42,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                          password: "password",
                          first_name: "Johnn",
                          last_name: "Does",
-                         email: "example@example.com",
-                         role: 1)
+                         email: "example@example.com"
+                         )
     assert_equal 1, User.all.count
   end
 
@@ -151,8 +151,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                              password: "password",
                              first_name: "John",
                              last_name: "Doe",
-                             email: "unique@yahoo.com",
-                             role: 0)
+                             email: "unique@yahoo.com"
+                             )
     @order = Order.create(total_cost: 100,
                           user_id: @non_admin.id,
                           status: "completed")
@@ -176,8 +176,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
                              password: "password",
                              first_name: "John",
                              last_name: "Doe",
-                             email: "unique@yahoo.com",
-                             role: 0)
+                             email: "unique@yahoo.com"
+                             )
     @order = Order.create(total_cost: 100,
                           user_id: @non_admin.id,
                           status: "ordered")
@@ -233,7 +233,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
   test "an admin updates an order status through admin dashboard and
         the order has a changed status" do
-    admin = create(:user, role: 1)
+    admin = create(:user)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
     order = create(:order, status: "paid")
     orig_status = order.status

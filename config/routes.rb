@@ -6,17 +6,16 @@ Rails.application.routes.draw do
 
   resources :tenants, only: [:new, :create]
   resources :categories, only: [:show, :index]
-  resources :projects
-  get "cart_projects/create"
+  # resources :projects
 
-  get "choose"      => "static_pages#choose"
-  post "/carts", to: "carts#create", as: "carts"
-  get "/cart", to: "carts#showcart", as: "showcart"
-  post "/cart", to: "carts#checkout_cart", as: "checkout_cart"
-  delete "/cart", to: "carts#delete_project", as: "cart"
-  put "/cart", to: "carts#update_project_quantity",
-               as: "update_project_quantity"
-
+  get "/choose", to: "static_pages#choose"
+  post "/pending_loans", to: "pending_loans#create"
+  delete "/pending_loans", to: "pending_loans#destroy"
+  get "/pending_loan", to: "pending_loans#show"
+  delete "/pending_loan", to: "pending_loans#delete_pending_loan",
+                          as: "delete_pending_loan"
+  post "/pending_loan", to: "pending_loans#checkout_pending_loans",
+                        as: "checkout_pending_loans"
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
   end

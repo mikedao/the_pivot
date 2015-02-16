@@ -7,7 +7,7 @@ class TenantTest < ActiveSupport::TestCase
     assert tenant.valid?
   end
 
-  test "tenant is not valid even without an orgnization" do
+  test "tenant is not valid without an orgnization" do
     tenant = build(:tenant, organization: nil)
 
     assert tenant.invalid?
@@ -23,5 +23,23 @@ class TenantTest < ActiveSupport::TestCase
     tenant = create(:tenant)
 
     assert_equal tenant.organization.parameterize, tenant.slug
+  end
+
+  test "tenant is not valid with a too long or short organization" do
+    invalid_tenants = [build(:tenant, organization: "a" * 3),
+                       build(:tenant, organization: "a" * 256)]
+
+    invalid_tenants.each do |tenant|
+      assert tenant.invalid?
+    end
+  end
+
+  test "tenant is not valid with a too long or short location" do
+    invalid_tenants = [build(:tenant, location: "a" * 5),
+                       build(:tenant, location: "a" * 256)]
+
+    invalid_tenants.each do |tenant|
+      assert tenant.invalid?
+    end
   end
 end
