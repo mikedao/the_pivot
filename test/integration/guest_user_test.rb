@@ -28,14 +28,21 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "an unauthorised user can view a single projects page" do
     user = create(:user)
     project = create(:project)
+    project.photos << create(:photo)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
     click_link_or_button(project.categories.first.name)
     click_link_or_button(project.title)
 
-    assert_equal category_path(id: project.categories.first.id), current_path
+    assert_equal tenant_project_path(slug: project.tenant.organization, id: project.id),
+      current_path
+    assert page.has_content?(project.tenant.organization)
+    assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
+    # assert page.has_content?(project.photos.first)
+    assert page.has_content?(project.description)
+    assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)
   end
 
@@ -66,11 +73,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user_user)
     visit projects_path
     refute page.has_content?("Create Category")
-  end
-
-    within("#price") do
-      assert page.has_content?("$12.00")
-    end
   end
 
   test "an unauthorised user can view a tenant's page which only shows their
