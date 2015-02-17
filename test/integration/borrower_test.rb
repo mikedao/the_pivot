@@ -61,7 +61,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     visit tenant_dashboard_path(slug: borrower.tenant.slug)
 
     click_link_or_button("Edit")
-    assert_equal edit_project_path(id: tenant.projects.last.id), current_path
+    assert_equal edit_tenant_project_path(slug: tenant.slug, id: tenant.projects.last.id), current_path
     fill_in "project[title]", with: "Updated Water Project for our town"
     fill_in "project[price]", with: 40004
     fill_in "project[description]",  with: "a" * 150
