@@ -14,32 +14,30 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorized user can add an project to the cart" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-    visit "/projects/#{project.id}"
+    tenant = create(:tenant)
+    tenant.projects << create(:project)
+    visit "/#{tenant.organization}"
 
-    click_link_or_button("Add to Cart")
+    within(".row") do
+      click_link_or_button("Lend")
+    end
 
     within("#flash_notice") do
-      assert page.has_content?("Added to Cart")
+      assert page.has_content?("Added to Pending Loans")
     end
   end
 
   test "an unauthorized user with projects in their cart can view their cart" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-    visit "/projects/#{project.id}"
+    tenant = create(:tenant)
+    tenant.projects << create(:project)
 
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
+    visit "/#{tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
 
     within("#pending_loans") do
-      assert page.has_content?("coffee")
-      assert page.has_content?("1")
+      assert page.has_content?(tenant.projects.first.title)
     end
   end
 
@@ -64,150 +62,96 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal pending_loan_path, current_path
   end
 
-  test "an unauthorized user can add up to 10 of the project at one time" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
+  test "a user can delete an project from their cart" do
+    project = create(:project)
 
-    visit "/projects/#{project.id}"
-    select "10", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
-
-    within("#pending_loans") do
-      assert page.has_content?("coffee")
-      assert page.has_content?("10")
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
     end
-  end
+    click_link_or_button("Delete")
 
-  test "an unauthorized user can add more of the same project" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-
-    visit "/projects/#{project.id}"
-    select "10", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
-    visit "/projects/#{project.id}"
-    select "1", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
-
-    within("#pending_loans") do
-      assert page.has_content?("coffee")
-      assert page.has_content?("11")
+    within("#flash_notice") do
+      assert page.has_content?("Project removed from cart")
     end
+
+    refute page.has_content?(project.title)
+    assert_equal pending_loan_path, current_path
   end
 
   test "an unauthorized user can add different projects to the cart and
         show the correct price" do
-    skip
-    coffee = Project.create(title: "coffee",
-                            description: "black nectar of the gods",
-                            price: 1200)
-    aeropress = Project.create(title: "aeropress",
-                               description: "light coffee",
-                               price: 1300)
-    visit "/projects/#{coffee.id}"
+    project1 = create(:project)
+    project2 = create(:project)
 
-    select "1", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
-    visit "/projects/#{aeropress.id}"
-    select "2", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
+    visit "/#{project1.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    visit "/#{project2.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
 
     within("#pending_loans") do
-      assert page.has_content?("coffee")
-      assert page.has_content?("1")
-      assert page.has_content?("$12.00")
-      assert page.has_content?("aeropress")
-      assert page.has_content?("2")
-      assert page.has_content?("$26.00")
+      assert page.has_content?(project1.title)
+      assert page.has_content?(project1.price)
+      assert page.has_content?(project2.title)
+      assert page.has_content?(project2.price)
     end
   end
 
   test "an unauthorized user cannot checkout until logged in" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-    visit "/projects/#{project.id}"
+    project = create(:project)
 
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
     click_link_or_button("Checkout")
-
     within("#flash_alert") do
-      assert page.has_content?("You must login to checkout")
-    end
-    assert_equal showcart_path, current_path
-  end
-
-  test "a user can edit the quantity of an project in their cart" do
-    skip
-    coffee = Project.create(title: "coffee",
-                            description: "black nectar of the gods",
-                            price: 1200)
-    aeropress = Project.create(title: "aeropress",
-                               description: "light stuff",
-                               price: 1300)
-    visit "/projects/#{coffee.id}"
-    click_link_or_button("Add to Cart")
-    visit "/projects/#{aeropress.id}"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
-
-    within("#project_#{coffee.id}") do
-      select "7", from: "update_project_amount[loan_amount]"
-      click_link_or_button("Update Quantity")
-
+      assert page.has_content?("You Must Login to Lend Money")
     end
 
-    within("#flash_notice") do
-      assert page.has_content?("Project quantity updated")
-    end
-    assert page.has_content?("coffee")
-    within("#quantity_#{coffee.id}") do
-      assert page.has_content?("7")
-    end
-    assert page.has_content?("aeropress")
-    assert_equal showcart_path, current_path
+    assert_equal pending_loan_path, current_path
   end
 
   test "a user can empty their cart" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-    visit "/projects/#{project.id}"
+    project1 = create(:project)
+    project2 = create(:project)
 
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
+    visit "/#{project1.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    visit "/#{project2.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
     click_link_or_button("Empty Cart")
 
-    assert page.has_content?("Your Cart Is Empty")
-    assert_equal showcart_path, current_path
+    within("#flash_notice") do
+      assert page.has_content?("Pending Loans Removed")
+    end
+    refute page.has_content?(project1.title)
+    refute page.has_content?(project2.title)
+    assert_equal pending_loan_path, current_path
   end
 
   test "project titles on cart page are links" do
-    skip
-    project = Project.create(title: "coffee",
-                             description: "black nectar of the gods",
-                             price: 1200)
-    visit "/projects/#{project.id}"
-    click_link_or_button("Add to Cart")
-    click_link_or_button("Cart")
+    project = create(:project)
 
-    click_link_or_button("coffee")
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    click_link_or_button(project.title)
 
-    assert_equal project_path(project.id), current_path
+    assert_equal tenant_project_path(slug: project.tenant.organization,
+                                     id: project.id), current_path
   end
 
-  test "an authenticated user can add default amount to their cart" do
-    skip
+  test "an authenticated user can add a project to their cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
@@ -222,12 +166,11 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("13000")
+      assert page.has_content?(tenant.projects.first.price)
     end
   end
 
-  test "authed user can select a diff amt for a loan add it to their cart" do
-    skip
+  test "an authed user can select a diff amt for a loan add it to their cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
@@ -246,42 +189,45 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     within("#pending_loans") do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("50")
+      assert page.has_content?(tenant.projects.first.price)
     end
+  end
+
+  test "an unauthenticated user that clicks 'Checkout' is prompted
+    to login or create an account" do
+    project = create(:project)
+
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    click_link_or_button "Checkout"
+
+    assert page.has_content?("You Must Login to Lend Money")
   end
 
   test "a user can checkout once logged in" do
     skip
-    project = Project.create(
-      title: "coffee",
-      description: "black nectar of the gods",
-      price: 1200
-      )
-    user = User.create(
-      username: "user123",
-      password: "password123",
-      first_name: "first",
-      last_name: "last",
-      email: "user123@example.com"
-      )
-    visit "/projects/#{project.id}"
-    select "2", from: "cart[quantity]"
-    click_link_or_button("Add to Cart")
+    project = create(:project)
+    user = create(:user)
+
+    visit "/#{project.tenant.organization}"
+    within(".row") do
+      click_link_or_button("Lend")
+    end
     fill_in "session[username]", with: user.username
     fill_in "session[password]", with: user.password
     click_link_or_button("Login")
     click_link_or_button("Cart")
-
     click_link_or_button("Checkout")
 
     assert_equal user_order_path(user_id: user.id,
                                  id: user.orders.first.id), current_path
-    assert page.has_content?("$24.00")
-    assert page.has_content?("coffee")
+    assert page.has_content?(project.price)
+    assert page.has_content?(project.title)
   end
 
   test "an authenticated user can delete a pending loan from their cart" do
-    skip
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
@@ -296,7 +242,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
     within("#pending_loans") do
       refute page.has_content?(tenant.projects.first.title)
-      refute page.has_content?("25")
+      refute page.has_content?(tenant.projects.first.price)
     end
   end
 end
