@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PlatformAdminTest < ActionDispatch::IntegrationTest
   test "registered admin can create category" do
@@ -17,5 +17,4 @@ class PlatformAdminTest < ActionDispatch::IntegrationTest
     visit projects_path
     refute page.has_content?("Create Category")
   end
-
 end

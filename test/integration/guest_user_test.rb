@@ -35,19 +35,21 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button(project.categories.first.name)
     click_link_or_button(project.title)
 
-    assert_equal tenant_project_path(slug: project.tenant.organization, id: project.id),
-      current_path
+    assert_equal tenant_project_path(
+      slug: project.tenant.organization,
+      id: project.id
+    ), current_path
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
-    # assert page.has_content?(project.photos.first)
+    # assert page.has_content?(project.photos.first.url)
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)
   end
 
-  test "an unauthorised user can view a tenant projects page which only shows their
-    products" do
+  test "an unauthorised user can view a tenant projects page which only
+    shows their products" do
     user = create(:user)
     project1 = create(:project)
     project2 = create(:project)
@@ -75,7 +77,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "a unauthorized user cannot see another user's loan page" do
     loan1 = create(:loan)
     loan2 = create(:loan)
-    ApplicationController.any_instance.stubs(:current_user).returns(loan1.order.user)
+    ApplicationController.any_instance.stubs(:current_user).
+      returns(loan1.order.user)
 
     visit "/users/#{loan2.order.user.id}/orders/"
 
@@ -123,6 +126,5 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "after an unauthorized user adds items and clicks checkout and logs in,
   the pending_loans still retains the items" do
     skip
-
   end
 end
