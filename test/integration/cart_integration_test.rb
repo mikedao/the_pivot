@@ -121,7 +121,6 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can empty their cart" do
-    skip
     project1 = create(:project)
     project2 = create(:project)
 
