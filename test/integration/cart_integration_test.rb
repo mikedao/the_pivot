@@ -170,7 +170,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an authed user can select a diff amt for a loan add it to their cart" do
+  test "an authed user can a loan with a different amount from the default
+        amount provided by the :project factory add it to their cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
