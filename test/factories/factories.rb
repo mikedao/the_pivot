@@ -43,11 +43,11 @@ FactoryGirl.define do
   end
 
   factory :order do
-    total_cost 8900
+    sequence(:total_cost) { |n| 10000 + n * 100 }
     status "completed"
 
     before(:create) do |order|
-      order.user = create(:user, username: "PETA4Lyfe")
+      order.user = create(:user)
     end
   end
 
