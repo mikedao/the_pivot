@@ -21,7 +21,7 @@ class Project < ActiveRecord::Base
                     }
   validates :categories, presence: true
 
-  before_save :add_default_photo
+  before_create :add_default_photo
 
   def formatted_dollar_amount
     number_to_currency(price / 100.00)

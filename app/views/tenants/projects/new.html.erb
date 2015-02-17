@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="project">
+      <h4 class="form-title">New Project</h4>
+      <%= bootstrap_form_for(@project, style: :inline, url: tenant_projects_path, html: {multipart: true}) do |f| %>
+      <%= f.text_field :title %>
+      <%= f.text_field :price %>
+      <%= f.text_field :description %>
+      <%= f.label :photo, 'Attach a Photo' %><br />
+      <%= f.file_field :photos %>
+      <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
+      <%= f.submit "Create Project" %>
+      <% end %>
+    </div>
+  </div>
+</div>
