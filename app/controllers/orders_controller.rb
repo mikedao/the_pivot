@@ -28,9 +28,9 @@ class OrdersController < ApplicationController
       total_cost += project.price * loan_amount
     end
     @order = Order.create(
-        total_cost: total_cost,
-        user_id: session[:user_id],
-        status: "completed")
+      total_cost: total_cost,
+      user_id: session[:user_id],
+      status: "completed")
     pending_loans.projects.each do |project, _loan_amount|
       Loan.new(
         project_id: project.id,
