@@ -33,10 +33,8 @@ ActiveRecord::Schema.define(version: 20150215214656) do
   create_table "loans", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "order_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "quantity"
-    t.integer  "line_item_cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "orders", force: :cascade do |t|
