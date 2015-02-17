@@ -22,26 +22,29 @@ class OrdersController < ApplicationController
   end
 
   def create
-    cart = Cart.new(session[:cart])
+    pending_loans = PendingLoan.new(session[:pending_loan])
     total_cost = 0
-    cart.projects.each do |project, quantity|
-      total_cost += project.price * quantity.to_i
+    pending_loans.projects.each do |project, loan_amount|
+      total_cost += project.price * loan_amount
     end
     @order = Order.create(
-      user_id: session[:user_id],
       total_cost: total_cost,
-      status: 'ordered'
-      )
-    cart.projects.each do |project, quantity|
-      Loan.create(
+      user_id: session[:user_id],
+      status: "completed")
+    pending_loans.projects.each do |project, _loan_amount|
+      Loan.new(
         project_id: project.id,
-        order_id: @order.id,
-        quantity: quantity,
-        line_project_cost: project.price * quantity.to_i
+        order_id: @order.id
         )
     end
-    session.delete(:cart)
+    session.delete(:pending_loan)
     redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
+  end
+
+  def update_project_quantity
+    session[:cart][params[:update_project_quantity][:project_id]] =
+      params[:update_project_quantity][:quantity]
+    flash[:notice] = "Project quantity updated"
   end
 
   private
