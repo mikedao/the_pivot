@@ -61,10 +61,10 @@ bridge_builders3 = Tenant.find(3)
 
 # admin
 Admin.create!(
-        username: "FlowersNPuppies",
-        password: "password",
-        email:    "FlowersNPuppies.@gmail.com"
-      )
+  username: "admin",
+  password: "password",
+  email: "admin@admin.com"
+)
 
 # categories
 people_category = Category.create!(

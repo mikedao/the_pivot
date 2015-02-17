@@ -68,9 +68,9 @@ FactoryGirl.define do
   end
 
   factory :admin do
-    username "JeffWan"
+    username "admin"
     password "password"
-    email "IEnjoyCagedEggs@gmail.com"
+    email "admin@admin.com"
   end
 
   factory :photo do
