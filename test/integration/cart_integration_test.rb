@@ -44,7 +44,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "an authenticated user can delete an item from the cart" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
-      returns(authenticated_user)
+                                       returns(authenticated_user)
     project = create(:project)
 
     visit "/"
