@@ -14,15 +14,6 @@ class PendingLoansController < ApplicationController
     end
   end
 
-  def checkout_pending_loans
-    if current_user.nil?
-      flash[:alert] = "You must login to checkout"
-      redirect_to pending_loan_path
-    else
-      redirect_to user_create_order_path(user_id: current_user.id)
-    end
-  end
-
   def delete_pending_loan
     delete_specific_project_from_cart
     flash[:notice] = "Project removed from cart"
@@ -32,7 +23,32 @@ class PendingLoansController < ApplicationController
   def destroy
     session.delete(:pending_loan) if session[:pending_loan]
     flash[:notice] = "Pending Loans Removed"
+    if pending_loans_exist?
+      session[:pending_loan].each do |project_id, loan_amount|
+        @pending_loans[Project.find(project_id.to_i)] = loan_amount
+      end
+    else
+      @pending_loans
+    end
+  end
+
+  def update
+    if params[:pending_loan].nil?
+      delete_all_projects_from_cart
+    else
+      delete_specific_project_from_cart
+      flash[:notice] = "Project removed from cart"
+    end
     redirect_to pending_loan_path
+  end
+
+  def checkout_pending_loans
+    if current_user.nil?
+      flash[:alert] = "You Must Login to Lend Money"
+      redirect_to pending_loan_path
+    else
+      redirect_to create_order_path
+    end
   end
 
   def update_project_amount
@@ -44,29 +60,48 @@ class PendingLoansController < ApplicationController
 
   private
 
+  def pending_loan_params
+    params.require(:pending_loan).permit(:project_id, :loan_amount)
+  end
+
   def update_cart
     if session[:pending_loan]
       update_existing_cart
     else
       session[:pending_loan] = {
-        params[:pending_loan][:project_id] =>
-         params[:pending_loan][:loan_amount]
+        pending_loan_params[:project_id] =>
+          pending_loan_params[:loan_amount]
       }
     end
   end
 
   def update_existing_cart
-    if session[:pending_loan][params[:pending_loan][:project_id]]
-      session[:pending_loan][params[:pending_loan][:project_id]] =
-      (session[:pending_loan][params[:pending_loan][:project_id]].to_i +
-      params[:pending_loan][:quantity].to_i).to_s
+    if loan_is_already_pending
+      update_specific_loan
     else
-      session[:pending_loan][params[:pending_loan][:project_id]] =
-      params[:pending_loan][:quantity].to_s
+      session[:pending_loan][pending_loan_params[:project_id]] =
+      pending_loan_params[:loan_amount].to_s
     end
   end
 
+  def loan_is_already_pending
+    session[:pending_loan][pending_loan_params[:project_id]]
+  end
+
+  def update_specific_loan
+    session[:pending_loan][pending_loan_params[:project_id]] =
+    session[:pending_loan][pending_loan_params[:project_id]]
+  end
+
+  def pending_loans_exist?
+    session[:pending_loan] != nil
+  end
+
+  def delete_all_projects_from_cart
+    session.delete(:pending_cart)
+  end
+
   def delete_specific_project_from_cart
-    session[:pending_loan].delete(params[:pending_loan][:project_id])
+    session[:pending_loan].delete(pending_loan_params[:project_id])
   end
 end

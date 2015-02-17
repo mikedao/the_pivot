@@ -9,13 +9,17 @@ Rails.application.routes.draw do
   # resources :projects
 
   get "/choose", to: "static_pages#choose"
-  post "/pending_loans", to: "pending_loans#create"
-  delete "/pending_loans", to: "pending_loans#destroy"
-  get "/pending_loan", to: "pending_loans#show"
-  delete "/pending_loan", to: "pending_loans#delete_pending_loan",
-                          as: "delete_pending_loan"
-  post "/pending_loan", to: "pending_loans#checkout_pending_loans",
-                        as: "checkout_pending_loans"
+
+  resource :pending_loan, only: [:show, :create, :destroy, :update]
+  # post "/pending_loans", to: "pending_loans#create"
+  # delete "/pending_loans", to: "pending_loans#destroy"
+  # get "/pending_loan", to: "pending_loans#show"
+  # delete "/pending_loan", to: "pending_loans#delete_pending_loan",
+  #                         as: "delete_pending_loan"
+
+  post "/pending_loans", to: "pending_loans#checkout_pending_loans",
+                         as: "checkout_pending_loans"
+
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
   end

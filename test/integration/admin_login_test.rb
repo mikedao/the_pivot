@@ -3,30 +3,44 @@ require "test_helper"
 class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  attr_reader :user, :project1, :project2, :category1, :category2
+  test "an admin can log in and get to the dashboard" do
+    create(:admin)
 
-  def setup
-    @user = User.create(username: "user",
-                        password: "password",
-                        first_name: "John",
-                        last_name: "Doe",
-                        email: "example@example.com"
-                       )
-    @category1 = Category.create(name: "Hot Beverages")
-    @category2 = Category.create(name: "cold beverages")
-    @project1 = category1.projects.create(title: "espresso",
-                                          description: "this is black gold",
-                                          price: 30000)
-    @project2 = category2.projects.create(title: "cold pressed coffee",
-                                          price: 8000,
-                                          description: "hipster nonsense",
-                                          price: 20000)
+    visit root_path
+    fill_in "session[username]", with: "admin"
+    fill_in "session[password]", with: "password"
+    click_link_or_button("Login")
+
+    assert page.has_content?("Platform Admin")
   end
 
-  test "an admin user can view home page" do
-    skip
+  test "an admin when logging in, is brought to the platformdashboard" do
+    create(:admin)
+
     visit root_path
-    assert page.has_content?("Cinema Coffee")
+    fill_in "session[username]", with: "admin"
+    fill_in "session[password]", with: "password"
+    click_link_or_button("Login")
+
+    assert_equal admin_dashboard_path, current_path
+  end
+
+  test "an admin when logged in has an Admin Dashboard link" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+
+    assert page.has_content?("Admin Dashboard")
+  end
+
+  test "an admin has a greeting on the nav bar" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+
+    assert page.has_content?("Welcome, admin")
   end
 
   test "an admin user can see all projects" do
@@ -37,17 +51,6 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert_equal projects_path, current_path
     assert page.has_content?(project1.title)
     assert page.has_content?(category1.name)
-  end
-
-  test "an admin user has a unique email" do
-    skip
-    @user1 = User.create(username: "userd",
-                         password: "password",
-                         first_name: "Johnn",
-                         last_name: "Does",
-                         email: "example@example.com"
-                         )
-    assert_equal 1, User.all.count
   end
 
   test "registered admin can see create category on menu page" do

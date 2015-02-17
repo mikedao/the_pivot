@@ -21,7 +21,7 @@
           <td id=<%= "quantity_#{project.id}" %>><%= loan_amount %></td>
           <td>
             <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-              <input name="_method" type="hidden" value="delete" />
+              <input name="_method" type="hidden" value="patch" />
               <%= f.hidden_field :project_id, :value => project.id %>
               <%= f.submit 'Delete', class: "btn btn-default btn-delete-cart-project" %>
             <% end %>
@@ -35,7 +35,7 @@
     <%= f.submit 'Checkout', class: 'btn btn-default' %>
   <% end %>
 
-  <%= form_for :pending_loan, url: pending_loans_path do |f| %>
+  <%= form_for :cart, url: pending_loan_path do |f| %>
     <input name="_method" type="hidden" value="delete" />
     <%= f.submit 'Empty Cart', class: 'btn btn-default' %>
   <% end %>

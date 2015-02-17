@@ -14,7 +14,8 @@
     <% else %>
       <%= menu_item "Lend", root_path %>
     <% end %>
-    <%= menu_item "Cart", pending_loan_path %>
+    <%= menu_item "Pending Loans", pending_loan_path %>
+    <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
     <% if current_user.nil? %>
     	<%= menu_item "Signup", choose_path %>
       <%= menu_item do %>
@@ -25,7 +26,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= menu_item "Welcome, #{current_user.first_name}" %>
+      <%= menu_item "Welcome, #{current_user.username}" %>
       <%= menu_item "Logout", logout_path, method: :delete %>
     <% end %>
   <% end %>

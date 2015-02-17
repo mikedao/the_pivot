@@ -7,7 +7,7 @@
 <div id="price"><%= number_to_currency @project.price / 100 %></div>
 
 <% unless @project.retired %>
-  <%= form_for :cart, url: pending_loans_path do |f| %>
+  <%= form_for :cart, url: pending_loan_path do |f| %>
     <%= f.hidden_field :project_id, value: @project.id %>
     <%= f.select :quantity, options_for_select((1..10))%>
     <%= f.submit 'Lend', class: "btn btn-default add-cart"%>

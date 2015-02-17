@@ -9,7 +9,8 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
 
   test "a cart starts empty" do
     visit "/"
-    click_link_or_button("Cart")
+
+    click_link_or_button("Pending Loans")
 
     within("#pending_loans") do
       assert page.has_content?("You Have No Pending Loans")
@@ -40,10 +41,29 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     within("#pending_loans") do
-      assert page.has_content?("espresso")
-      assert page.has_content?("1")
+      assert page.has_content?(tenant.projects.first.title)
+    end
+  end
+
+  test "an authenticated user can delete an item from the cart" do
+    authenticated_user = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).
+                                       returns(authenticated_user)
+    project = create(:project)
+
+    visit "/"
+    click_link_or_button(project.categories.first.name)
+    first(".row").click_button("Lend")
+
+    within("#pending_loans") do
+      click_link_or_button("Delete")
+    end
+    within("#flash_notice") do
+      assert page.has_content?("Project removed from cart")
     end
 
+    refute page.has_content?(project.title)
+    assert_equal pending_loan_path, current_path
   end
 
   test "an unauthorized user can add different projects to the cart and
@@ -77,7 +97,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button("Checkout")
     within("#flash_alert") do
-      assert page.has_content?("You must login to checkout")
+      assert page.has_content?("You Must Login to Lend Money")
     end
 
     assert_equal pending_loan_path, current_path
@@ -101,6 +121,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can empty their cart" do
+    skip
     project1 = create(:project)
     project2 = create(:project)
 
@@ -187,7 +208,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button "Checkout"
 
-    assert page.has_content?("You must login to checkout")
+    assert page.has_content?("You Must Login to Lend Money")
   end
 
   test "a user can checkout once logged in" do
