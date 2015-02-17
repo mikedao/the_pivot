@@ -4,7 +4,7 @@
   <div class="row">
     <% @tenant.projects.each do |project| %>
       <div class="box col-lg-3">
-        <h4 class="project-title"> <%= link_to("#{project.title}", project_path(tenant: @tenant.slug, id: project.id))%></h4>
+        <h4 class="project-title"> <%= link_to("#{project.title}", tenant_project_path(slug: @tenant.slug, id: project.id))%></h4>
         <div class="thumbnail">
           <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
         </div>
@@ -12,7 +12,7 @@
         <% project.categories.each do |category| %>
           <div class="project-category"><%= category.name %></div>
         <% end %>
-        <%= form_for :pending_loan, url: pending_loans_path do |f| %>
+        <%= form_for :pending_loan, url: pending_loan_path do |f| %>
           <%= f.hidden_field :project_id, value: project.id %>
           <%= f.hidden_field :loan_amount, value: project.price %>
           <%= f.submit 'Lend', class: "btn btn-default" %>

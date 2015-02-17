@@ -73,9 +73,6 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Updated Water Project for our town")
   end
 
-  test "a borrower can edit an project" do
-  end
-
   test "a borrower can only see their own projects on the dashboard" do
   end
 

@@ -18,15 +18,30 @@ class Tenants::ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(project_params)
-    add_category(params[:project][:categories])
-    redirect_to projects_path
+    @project = Project.create!(title: project_params[:title],
+                               description: project_params[:description],
+                               price: project_params[:price],
+                               tenant_id: current_user.tenant_id,
+                               categories: new_categories)
+    redirect_to tenant_dashboard_path
   end
 
   def update
     @project = Project.find(params[:id])
-    @project.update(project_params)
-    redirect_to admin_projects_path
+    @project.update_attributes!(title: project_params[:title],
+                                description: project_params[:description],
+                                price: project_params[:price],
+                                tenant_id: current_user.tenant_id,
+                                categories: new_categories)
+    redirect_to tenant_dashboard_path
+  end
+
+  def new
+    @project = Project.new
+  end
+
+  def edit
+    @project = Project.find(params[:id])
   end
 
   private
@@ -34,6 +49,19 @@ class Tenants::ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title, :price, :description,
                                     :retired, :tenant_id, :repayment_begin,
-                                    :repayment_rate)
+                                    :repayment_rate, categories: [])
+  end
+
+  def new_category_ids
+    cats = params.require(:project).permit(categories: [])
+    cats[:categories].shift
+    cats[:categories]
+  end
+
+  def new_categories
+    categories = new_category_ids.map do |category|
+      Category.find(category)
+    end
+    categories
   end
 end
