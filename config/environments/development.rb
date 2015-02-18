@@ -15,7 +15,7 @@ Rails.application.configure do
     :port      => 25, # ports 587 and 2525 are also supported with STARTTLS
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => "michael.dao@gmail.com",
-    :password  => "gwRv-jS-BGbpv6fhhhgn0Q", # SMTP password is any valid API key
+    :password  => ENV["PIVOT_MANDRILL"], # smtp password is any valid api key
     :authentication => 'login' # Mandrill supports 'plain' or 'login'
   }
   # Print deprecation notices to the Rails logger.
