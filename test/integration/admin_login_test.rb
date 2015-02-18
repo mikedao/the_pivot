@@ -14,7 +14,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Platform Admin")
   end
 
-  test "an admin when logging in, is brought to the platformdashboard" do
+  test "an admin when logging in, is brought to the platform dashboard" do
     create(:admin)
 
     visit root_path
@@ -53,38 +53,40 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(category1.name)
   end
 
-  test "registered admin can see create category on menu page" do
-    skip
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
+  test "an admin can create a category" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
     visit root_path
     click_link_or_button("Admin Dashboard")
-    assert admin_dashboard_path, current_path
-    within ("#admin_header") do
-      assert page.has_content?("Admin Dashboard")
-    end
+    click_link_or_button("Categories")
+    fill_in "categories[name]", with: "Blah"
+    click_link_or_button("Add Category")
+
+    assert page.has_content?("Blah")
+  end
+
+  test "a category with the same name cannot be created" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+    visit root_path
+    click_link_or_button("Admin Dashboard")
+    click_link_or_button("Categories")
+    fill_in "categories[name]", with: "Blah"
+    click_link_or_button("Add Category")
+    fill_in "categories[name]", with: "Blah"
+    click_link_or_button("Add Category")
+
+    assert page.has_content?("Please Try Again")
   end
 
   test "registered admin can go to the admin categories page" do
-    skip
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
     visit root_path
     click_link_or_button("Admin Dashboard")
-    assert admin_dashboard_path, current_path
+    click_link_or_button("Categories")
 
-    click_link_or_button("Category")
-    assert admin_categories_path, current_path
-    within ("#categories_header") do
-      assert page.has_content?("Categories")
-    end
-  end
-
-  test "registered admin can create a category" do
-    skip
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
-    visit admin_categories_path
-    fill_in "categories[name]", with: "Brew"
-    click_button "Add Category"
-    assert page.has_content?("Brew")
+    assert_equal admin_categories_path, current_path
   end
 
   test "registed admin can create a new project" do
