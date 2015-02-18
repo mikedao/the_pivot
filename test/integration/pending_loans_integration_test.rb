@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CartIntegrationTest < ActionDispatch::IntegrationTest
+class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "a cart starts empty" do
@@ -16,7 +16,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "an unauthorized user can add an project to the cart" do
     tenant = create(:tenant)
     tenant.projects << create(:project)
-    visit "/#{tenant.organization}"
+    visit "/#{tenant.slug}"
 
     within(".row") do
       click_link_or_button("Lend")
@@ -31,7 +31,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     tenant = create(:tenant)
     tenant.projects << create(:project)
 
-    visit "/#{tenant.organization}"
+    visit "/#{tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -65,7 +65,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "a user can delete an project from their cart" do
     project = create(:project)
 
-    visit "/#{project.tenant.organization}"
+    visit "/#{project.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -84,11 +84,11 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     project1 = create(:project)
     project2 = create(:project)
 
-    visit "/#{project1.tenant.organization}"
+    visit "/#{project1.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
-    visit "/#{project2.tenant.organization}"
+    visit "/#{project2.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -104,7 +104,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "an unauthorized user cannot checkout until logged in" do
     project = create(:project)
 
-    visit "/#{project.tenant.organization}"
+    visit "/#{project.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -120,11 +120,11 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     project1 = create(:project)
     project2 = create(:project)
 
-    visit "/#{project1.tenant.organization}"
+    visit "/#{project1.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
-    visit "/#{project2.tenant.organization}"
+    visit "/#{project2.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -141,13 +141,13 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
   test "project titles on cart page are links" do
     project = create(:project)
 
-    visit "/#{project.tenant.organization}"
+    visit "/#{project.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
     click_link_or_button(project.title)
 
-    assert_equal tenant_project_path(slug: project.tenant.organization,
+    assert_equal tenant_project_path(slug: project.tenant.slug,
                                      id: project.id), current_path
   end
 
@@ -158,7 +158,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     tenant = create(:tenant)
     tenant.projects << create(:project)
 
-    visit "/#{tenant.organization}"
+    visit "/#{tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -178,7 +178,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     tenant = create(:tenant)
     tenant.projects << create(:project, price: 5000)
 
-    visit "/#{tenant.organization}"
+    visit "/#{tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -198,7 +198,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     to login or create an account" do
     project = create(:project)
 
-    visit "/#{project.tenant.organization}"
+    visit "/#{project.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -212,7 +212,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     project = create(:project)
     user = create(:user)
 
-    visit "/#{project.tenant.organization}"
+    visit "/#{project.tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -235,7 +235,7 @@ class CartIntegrationTest < ActionDispatch::IntegrationTest
     tenant = create(:tenant)
     tenant.projects << create(:project)
 
-    visit "/#{tenant.organization}"
+    visit "/#{tenant.slug}"
     within(".row") do
       click_link_or_button("Lend")
     end
