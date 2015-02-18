@@ -17,7 +17,7 @@
       <% @pending_loans.each do |project, loan_amount| %>
         <tr id=<%= "project_#{project.id}" %>>
           <td><%= project.tenant.organization %></td>
-          <td><%= link_to project.title, project_path(project) %></td>
+          <td><%= link_to project.title, tenant_project_path(slug: project.tenant.slug, id: project.id) %></td>
           <td id=<%= "quantity_#{project.id}" %>><%= loan_amount %></td>
           <td>
             <%= form_for :pending_loan, url: pending_loan_path do |f| %>

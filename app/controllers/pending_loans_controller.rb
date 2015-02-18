@@ -35,6 +35,12 @@ class PendingLoansController < ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:pending_loan) if session[:pending_loan]
+    flash[:notice] = "Pending Loans Removed"
+    redirect_to pending_loan_path
+  end
+
   def update_project_amount
     session[:pending_loan][params[:update_pending_loan_amount][:project_id]] =
        params[:update_pending_loan_amount][:loan_amount]
