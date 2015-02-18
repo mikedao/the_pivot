@@ -74,9 +74,7 @@ FactoryGirl.define do
   end
 
   factory :photo do
-    image_file_name "bridge_of_some_kind"
-    image_content_type "something that needs to be built"
-    image_file_size 3
+    image File.new("#{Rails.root}/app/assets/images/test_photo.jpg")
   end
 
   factory :loan do
