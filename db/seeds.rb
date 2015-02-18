@@ -22,6 +22,7 @@
     credit_card_info:       credit_card_info
   )
 end
+lender = Lender.find(1)
 
 # tenants
 10.times do |n|
@@ -41,21 +42,21 @@ Admin.create!(
 )
 
 # borrowers
-User.create!(
-username:              "borrower",
-first_name:            "Jorge",
-last_name:             "Telez",
-email:                 "example@example.com",
-password:              "password",
-password_confirmation: "password",
-city:                  "Atlanta",
-state:                 "GA",
-street:                "5200 Buffington Road",
-zipcode:               30349,
-country:               "USA",
-credit_card_info:      "1111222233334444",
-tenant_id:             Tenant.find(1)
-)
+borrower = User.create!(
+                        username:              "borrower",
+                        first_name:            "Jorge",
+                        last_name:             "Telez",
+                        email:                 "example@example.com",
+                        password:              "password",
+                        password_confirmation: "password",
+                        city:                  "Atlanta",
+                        state:                 "GA",
+                        street:                "5200 Buffington Road",
+                        zipcode:               30349,
+                        country:               "USA",
+                        credit_card_info:      "1111222233334444",
+                        tenant_id:             Tenant.find(1)
+                        )
 
 Tenant.all.each do |tenant|
   2.times do |n|
@@ -72,7 +73,7 @@ Tenant.all.each do |tenant|
     zipcode:               30349,
     country:               "USA",
     credit_card_info:      "1111222233334444",
-    tenant_id:             Tenant.find(1)
+    tenant_id:             tenant.id
     )
   end
 end
@@ -99,65 +100,81 @@ name: "Animals"
 )
 
 # projects
-Tenant.all.each do |tenant|
+20.times do |n|
   Project.create!(
-                  title: "Timmy's vaccine shots_#{tenant_id}",
+                  title: "Timmy's vaccine shots_#{n}",
                   price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: tenant.id
+                  tenant_id: Tenant.first.id
                   )
 
   Project.create!(
-                  title: "Steven's school books_#{tenant_id}",
+                  title: "Steven's school books_#{n}",
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
                   categories: [startup_category, conflict_zone_category],
-                  tenant_id: tenant.id
+                  tenant_id: Tenant.second.id
                   )
 
   Project.create!(
-                  title: "John's water supply for village_#{tenant_id}",
+                  title: "John's water supply for village_#{n}",
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
                   categories: [public_category],
-                  tenant_id: tenant.id
+                  tenant_id: Tenant.third.id
                   )
 
   Project.create!(
-                  title: "De Beers",
+                  title: "De Beers_#{n}",
                   price: 16000,
-                  description: "Conflict diamonds are forever_#{tenant_id}" * 5,
+                  description: "Conflict diamonds are forever" * 5,
                   retired: false,
-                  categories: [conflict_zone_category],
-                  tenant_id: tenant.id
+                  categories: [conflict_zone_category, env_category],
+                  tenant_id: Tenant.fourth.id
                   )
+
+  Tenant.all[4..9].each do |tenant|
+    Project.create!(
+                    title: "Pandas need Bamboo_#{tenant.id}_#{n}",
+                    price: 16000,
+                    description: "Conflict diamonds are forever" * 5,
+                    retired: false,
+                    categories: [conflict_zone_category, env_category],
+                    tenant_id: tenant.id
+                    )
+  end
 end
 
 # Orders with projects
-timmys_vaccines_nigeria.orders.create!(
-                  total_cost: timmys_vaccines_nigeria.price,
-                  user_id:    ronald1.id,
+project1 = Project.find(1)
+project2 = Project.find(2)
+project3 = Project.find(3)
+project4 = Project.find(4)
+
+project1.orders.create!(
+                  total_cost: project1.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
 
-stevens_books_bangkok.orders.create!(
-                  total_cost: stevens_books_bangkok.price,
-                  user_id:    ronald2.id,
+project2.orders.create!(
+                  total_cost: project2.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
 
-johns_waterworks_cotedivore.orders.create!(
-                  total_cost: johns_waterworks_cotedivore.price,
-                  user_id:    ronald3.id,
+project3.orders.create!(
+                  total_cost: project3.price,
+                  user_id:    lender.id,
                   status:     "completed"
                   )
 
-debeers_conflict_diamonds_ivorycoast.orders.create!(
-                  total_cost: debeers_conflict_diamonds_ivorycoast.price,
-                  user_id:    ronald4.id,
+project4.orders.create!(
+                  total_cost: project4.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
