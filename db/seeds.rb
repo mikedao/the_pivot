@@ -1,21 +1,5 @@
-# Users
-User.create!(
-  username:              "DCathy",
-  first_name:            "Dan",
-  last_name:             "Cathy",
-  email:                 "DanCathy@gmail.com",
-  password:              "password",
-  password_confirmation: "password",
-  city:                  "Atlanta",
-  state:                 "GA",
-  street:                "5200 Buffington Road",
-  zipcode:               30349,
-  country:               "USA",
-  credit_card_info:      "1111222233334444"
-)
-
-5.times do |n|
-  username =                Faker::Internet.user_name
+# lenders
+100.times do |n|
   first_name =              Faker::Name.first_name
   last_name =               Faker::Name.last_name
   country =                 Faker::Address.country
@@ -24,7 +8,7 @@ User.create!(
   credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
   street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
   User.create!(
-    username:               username,
+    username:               "lender#{n}",
     email:                  email,
     password:               password,
     password_confirmation:  password,
@@ -39,14 +23,8 @@ User.create!(
   )
 end
 
-puts "#{User.count} users created."
-
-ronald1 = User.find(2)
-ronald2 = User.find(3)
-ronald3 = User.find(4)
-ronald4 = User.find(5)
-
-4.times do |n|
+# tenants
+10.times do |n|
   location =              "East Timor represent#{n + 1}"
   organization =          "Bridge Builders#{n + 1}"
   Tenant.create!(
@@ -55,10 +33,6 @@ ronald4 = User.find(5)
   )
 end
 
-bridge_builders1 = Tenant.find(1)
-bridge_builders2 = Tenant.find(2)
-bridge_builders3 = Tenant.find(3)
-
 # admin
 Admin.create!(
   username: "admin",
@@ -66,13 +40,50 @@ Admin.create!(
   email: "admin@admin.com"
 )
 
+# borrowers
+User.create!(
+username:              "borrower",
+first_name:            "Jorge",
+last_name:             "Telez",
+email:                 "example@example.com",
+password:              "password",
+password_confirmation: "password",
+city:                  "Atlanta",
+state:                 "GA",
+street:                "5200 Buffington Road",
+zipcode:               30349,
+country:               "USA",
+credit_card_info:      "1111222233334444",
+tenant_id:             Tenant.find(1)
+)
+
+Tenant.all.each do |tenant|
+  2.times do |n|
+    User.create!(
+    username:              "borrower_#{tenant_id}_#{n}",
+    first_name:            "Jorge",
+    last_name:             "Telez",
+    email:                 "example@example.com",
+    password:              "password",
+    password_confirmation: "password",
+    city:                  "Atlanta",
+    state:                 "GA",
+    street:                "5200 Buffington Road",
+    zipcode:               30349,
+    country:               "USA",
+    credit_card_info:      "1111222233334444",
+    tenant_id:             Tenant.find(1)
+    )
+  end
+end
+
 # categories
 people_category = Category.create!(
   name: "People"
 )
 
-public_category = Category.create!(
-  name: "Public"
+env_category = Category.create!(
+  name: "Environment"
 )
 
 startup_category = Category.create!(
@@ -83,42 +94,48 @@ conflict_zone_category = Category.create!(
   name: "Conflict Zones"
 )
 
+animals_category = Category.create!(
+name: "Animals"
+)
+
 # projects
-timmys_vaccines_nigeria = Project.create!(
-                  title: "Timmy's vaccine shots",
+Tenant.all.each do |tenant|
+  Project.create!(
+                  title: "Timmy's vaccine shots_#{tenant_id}",
                   price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: bridge_builders1.id
+                  tenant_id: tenant.id
                   )
 
-stevens_books_bangkok = Project.create!(
-                  title: "Steven's school books",
+  Project.create!(
+                  title: "Steven's school books_#{tenant_id}",
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
-                  categories: [startup_category],
-                  tenant_id: bridge_builders1.id
+                  categories: [startup_category, conflict_zone_category],
+                  tenant_id: tenant.id
                   )
 
-johns_waterworks_cotedivore = Project.create!(
-                  title: "John's water supply for village",
+  Project.create!(
+                  title: "John's water supply for village_#{tenant_id}",
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
                   categories: [public_category],
-                  tenant_id: bridge_builders2.id
+                  tenant_id: tenant.id
                   )
 
-debeers_conflict_diamonds_ivorycoast = Project.create!(
+  Project.create!(
                   title: "De Beers",
                   price: 16000,
-                  description: "Conflict diamonds are forever" * 5,
+                  description: "Conflict diamonds are forever_#{tenant_id}" * 5,
                   retired: false,
                   categories: [conflict_zone_category],
-                  tenant_id: bridge_builders3.id
+                  tenant_id: tenant.id
                   )
+end
 
 # Orders with projects
 timmys_vaccines_nigeria.orders.create!(
