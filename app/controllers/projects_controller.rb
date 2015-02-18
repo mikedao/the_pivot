@@ -1,11 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.all
-    @categories = Category.all
-  end
-
-  def show
-    @project = Project.find_by(id: params[:id])
+    @projects = Project.all.reject(&:retired)
     @categories = Category.all
   end
 end

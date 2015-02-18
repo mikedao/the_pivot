@@ -12,6 +12,22 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(category.name)
   end
 
+  test "a guest user can see all the categories for active projects" do
+    projects = []
+    4.times { |x| projects << create(:project) }
+    retired_project = create(:project, retired: true)
+    visit root_path
+
+    categories = projects.map do |project|
+      project.categories
+    end
+    categories = categories.flatten
+    categories.each do |category|
+      assert page.has_content?(category.name)
+    end
+    refute page.has_content?(retired_project.categories.first.name)
+  end
+
   test "a guest user can see all projects for a category" do
     user = create(:user)
     project = create(:project)
