@@ -52,13 +52,11 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button(project.title)
 
     assert_equal tenant_project_path(
-      slug: project.tenant.organization,
-      id: project.id
-    ), current_path
+      slug: project.tenant.slug,
+      id: project.id), current_path
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
-    # assert page.has_content?(project.photos.first.url)
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)
@@ -76,7 +74,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
-      slug: project1.tenant.organization,
+      slug: project1.tenant.slug,
       id: project1.id
     ), current_path
     refute page.has_content?(project2.tenant.organization)
