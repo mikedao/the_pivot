@@ -1,15 +1,17 @@
 <div id="categories_header">
   <h1>Categories</h1>
 </div>
-
 <%= render "shared/category_row" %>
+<% @categories.each do |category| %>
+  <p><%= category.name %></p>
+<% end %>
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2">
     <div class="category">
       <h4 class="form-title"> Create New Category </h4>
-      <%= bootstrap_form_for(:categories, style: :inline, url: categories_path) do |f| %>
-      <%= f.text_field :name %>
-      <%= f.submit "Add Category" %>
+      <%= form_for(:categories, placeholder: "category",  url: admin_categories_path) do |f| %>
+        <%= f.text_field :name %>
+        <p><%= f.submit "Add Category" %></p>
       <% end %>
     </div>
   </div>
