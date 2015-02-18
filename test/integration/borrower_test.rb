@@ -67,7 +67,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     fill_in "project[title]", with: "Updated Water Project for our town"
     fill_in "project[price]", with: 40004
     fill_in "project[description]", with: "a" * 150
-    file_path = Rails.root + "app/assets/images/froth.jpg"
+    file_path = Rails.root + "app/assets/images/test_photo.jpg"
     attach_file("project[photos]", file_path)
     select Category.first.name, from: "project[categories][]"
     click_button "Update"

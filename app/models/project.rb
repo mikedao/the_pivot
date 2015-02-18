@@ -30,8 +30,8 @@ class Project < ActiveRecord::Base
   private
 
   # def add_default_photo
-  #   default_photo = Photo.create(image_file_name: "beans",
-  #                                image_content_type: ".jpg",
+  #   default_photo = Photo.create(image_file_name: "johns_waterworks",
+  #                                image_content_type: "jpg",
   #                                image_file_size: 300)
   #   self.photos = [default_photo] unless photos.count > 0
   # end

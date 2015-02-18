@@ -44,7 +44,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "an unauthorised user can view a tenant projects page" do
     user = create(:user)
     project = create(:project)
-    project.photos << create(:photo)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
@@ -57,7 +56,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
-    assert page.has_content?(project.photos.first.url)
+    assert page.has_content?(project.photos.first.image)
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)

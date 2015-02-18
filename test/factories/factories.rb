@@ -65,6 +65,10 @@ FactoryGirl.define do
     before(:create) do |project|
       project.categories << create(:category)
     end
+
+    before(:create) do |project|
+      project.photos << create(:photo)
+    end
   end
 
   factory :admin do
