@@ -35,6 +35,18 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "an authenticated user does not see the 'Login' or 'Sign Up' 
+  options in the _navbar" do
+    authenticated_user = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).
+      returns(authenticated_user)
+
+    assert page.has_content?("Logout")
+    assert page.has_content?("Profile")
+    refute page.has_content?("Signup")
+    refute page.has_content?("Login")
+  end
+
   test "a logged in user cannot go to admin dashboard" do
     user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
