@@ -5,11 +5,27 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   include FactoryGirl::Syntax::Methods
 
   test "a guest user can view a home page" do
-    category = create(:category)
+    project = create(:project)
 
     visit root_path
 
-    assert page.has_content?(category.name)
+    assert page.has_content?(project.categories.first.name)
+  end
+
+  test "a guest user can see all the categories for active projects" do
+    projects = []
+    4.times { |x| projects << create(:project) }
+    retired_project = create(:project, retired: true)
+    visit root_path
+
+    categories = projects.map do |project|
+      project.categories
+    end
+    categories = categories.flatten
+    categories.each do |category|
+      assert page.has_content?(category.name)
+    end
+    refute page.has_content?(retired_project.categories.first.name)
   end
 
   test "a guest user can see all projects for a category" do
@@ -36,13 +52,11 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button(project.title)
 
     assert_equal tenant_project_path(
-      slug: project.tenant.organization,
-      id: project.id
-    ), current_path
+      slug: project.tenant.slug,
+      id: project.id), current_path
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
-    # assert page.has_content?(project.photos.first.url)
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)
@@ -60,7 +74,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
-      slug: project1.tenant.organization,
+      slug: project1.tenant.slug,
       id: project1.id
     ), current_path
     refute page.has_content?(project2.tenant.organization)
