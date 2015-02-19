@@ -11,7 +11,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     fill_in "session[password]", with: "password"
     click_link_or_button("Login")
 
-    assert page.has_content?("Platform Admin")
+    assert page.has_content?("Logout")
+    refute page.has_content?("Login")
   end
 
   test "an admin when logging in, is brought to the platform dashboard" do
@@ -32,6 +33,17 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     visit root_path
 
     assert page.has_content?("Admin Dashboard")
+  end
+
+  test "an admin can see all tenants" do 
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+    click_link_or_button("Admin Dashboard")
+    click_link_or_button("All Borrowers")
+    
+    assert_equal admin_tenants_path, current_path
   end
 
   test "an admin user can see all projects" do
