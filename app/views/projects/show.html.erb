@@ -4,6 +4,9 @@
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
 <div id="price"><%= number_to_currency @project.price / 100 %></div>
+<div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %>
+<div id="requested-by">Requested by: <%= @project.requested_by %>
+<div id="repayment-begins">Repayment begins: <%= @project.repayment-begins %>
 
 <% unless @project.retired %>
   <%= form_for :cart, url: carts_path do |f| %>

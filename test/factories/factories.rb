@@ -56,7 +56,8 @@ FactoryGirl.define do
     description "Conflict Diamonds are Forever. We artificially created demand
                 for conflict diamonds through brilliant advertising campaigns."
     retired false
-    repayment_rate 3
+    repayment_rate 26
+    requested_by Date.new(2017, 1, 1)
 
     before(:create) do |project|
       project.tenant = create(:tenant)
