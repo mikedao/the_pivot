@@ -69,17 +69,43 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
-    first(".category-name").
-      click_link_or_button("#{project1.categories.first.name}")
+    click_link_or_button("#{project1.categories.first.name}")
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
       slug: project1.tenant.slug,
       id: project1.id
     ), current_path
+    project1.categories.each do |category|
+      assert page.has_link?(category.name)
+    end
     refute page.has_content?(project2.tenant.organization)
     refute page.has_content?(project2.title)
     refute page.has_content?(project2.categories.first.name)
+  end
+
+  test "a user can view a tenant page" do
+    user = create(:user)
+    project1 = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit tenant_path(slug: project1.tenant.slug)
+
+    project1.categories.each do |category|
+      assert page.has_link?(category.name)
+    end
+  end
+
+  test "a user can go back to the projects page from the tenant page" do
+    user = create(:user)
+    project1 = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit tenant_path(slug: project1.tenant.slug)
+    first(".project-category").
+      click_link_or_button(project1.categories.first.name)
+
+    assert_equal projects_path, current_path
   end
 
   test "will be redirected to home page if tenant does not exist" do
