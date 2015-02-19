@@ -31,8 +31,12 @@
     <% end %>
   </table>
 
-  <%= form_for :cart, url: checkout_pending_loans_path do |f| %>
-    <%= f.submit 'Checkout', class: 'btn btn-default' %>
+  <% if current_user %>
+    <%= form_for :cart, url: user_orders_path(user_id: current_user.id) do |f| %>
+      <%= f.submit 'Checkout', class: 'btn btn-default' %>
+    <% end %>
+  <% else %>
+    You Must Login or Signup to Lend Money
   <% end %>
 
   <%= form_for :cart, url: pending_loan_path do |f| %>
