@@ -1,6 +1,6 @@
 # Users
 User.create!(
-  username:              "DCathy",
+  username:              "lender",
   first_name:            "Dan",
   last_name:             "Cathy",
   email:                 "DanCathy@gmail.com",
@@ -13,6 +13,10 @@ User.create!(
   country:               "USA",
   credit_card_info:      "1111222233334444"
 )
+
+
+
+
 
 5.times do |n|
   username =                Faker::Internet.user_name
@@ -59,6 +63,20 @@ bridge_builders1 = Tenant.find(1)
 bridge_builders2 = Tenant.find(2)
 bridge_builders3 = Tenant.find(3)
 
+Tenant.find(1).users.create!(
+  username:               "borrower",
+  first_name:             "first",
+  last_name:              "last",
+  email:                  "borrower@borrower.com",
+  password:               "password",
+  password_confirmation:  "password",
+  city:                   "Denver",
+  state:                  "CO",
+  street:                 "1510 Blake Street",
+  zipcode:                80202,
+  country:                "USA",
+  credit_card_info:       "11112222333334444"
+)
 # admin
 Admin.create!(
   username: "admin",
