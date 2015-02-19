@@ -34,15 +34,6 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Admin Dashboard")
   end
 
-  test "an admin has a greeting on the nav bar" do
-    admin = create(:admin)
-    ApplicationController.any_instance.stubs(:current_user).returns(admin)
-
-    visit root_path
-
-    assert page.has_content?("Welcome, admin")
-  end
-
   test "an admin user can see all projects" do
     skip
     ApplicationController.any_instance.stubs(:current_user).returns(user)
