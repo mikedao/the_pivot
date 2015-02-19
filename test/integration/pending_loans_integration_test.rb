@@ -48,8 +48,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     project = create(:project)
 
     visit "/"
-    first(".category-name").
-      click_link_or_button("#{project.categories.first.name}")
+    click_link_or_button(project.categories.first.name)
     first(".row").click_button("Lend")
 
     within("#pending_loans") do
