@@ -10,5 +10,5 @@ class Photo < ActiveRecord::Base
                     default_url: "/images/:styles/beans.png"
 
   validates_attachment_content_type :image,
-                                    content_type: ['image/jpg', 'image/jpeg', 'image/png']
+                    content_type: ['image/jpg', 'image/jpeg', 'image/png']
 end
