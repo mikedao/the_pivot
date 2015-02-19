@@ -9,7 +9,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    assert page.has_content?(project.categories.first.name)
+    assert page.has_link?(project.categories.first.name)
   end
 
   test "a guest user can see all the categories for active projects" do
@@ -34,7 +34,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
-    click_link_or_button(project.categories.first.name)
+    first(".category-name").
+      click_link_or_button("#{project.categories.first.name}")
 
     assert_equal category_path(id: project.categories.first.id), current_path
     assert page.has_content?(project.title)
@@ -48,7 +49,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
-    click_link_or_button(project.categories.first.name)
+    first(".category-name").
+      click_link_or_button("#{project.categories.first.name}")
     click_link_or_button(project.title)
 
     assert_equal tenant_project_path(
@@ -62,15 +64,15 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.categories.first.name)
   end
 
-  test "an unauthorised user can view a tenant projects page which only
-    shows their products" do
+  test "a guest user can view a tenant projects page" do
     user = create(:user)
     project1 = create(:project)
     project2 = create(:project)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
-    click_link_or_button(project1.categories.first.name)
+    first(".category-name").
+      click_link_or_button("#{project1.categories.first.name}")
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
@@ -106,7 +108,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     tenant.projects << create(:project, price: 8900)
 
     visit root_path
-    click_link_or_button "#{tenant.projects.first.categories.first.name}"
+    first(".category-name").
+      click_link_or_button("#{tenant.projects.first.categories.first.name}")
     within(".row") do
       click_link_or_button("Lend")
     end
@@ -125,7 +128,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    click_link_or_button("#{tenant.projects.first.categories.first.name}")
+    first(".category-name").
+      click_link_or_button("#{tenant.projects.first.categories.first.name}")
     within(".row") do
       click_link_or_button("Lend")
     end
