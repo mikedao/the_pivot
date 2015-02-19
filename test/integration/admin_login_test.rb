@@ -35,7 +35,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Admin Dashboard")
   end
 
-  test "an admin can see all tenants" do 
+  test "an admin can see all tenants" do
     admin = create(:admin)
     tenant = create(:tenant)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
