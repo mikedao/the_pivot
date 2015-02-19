@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   def new
+    if params[:message]
+      flash[:notice] = params[:message]
+    end
   end
 
   def create
