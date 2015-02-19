@@ -25,8 +25,8 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= menu_item "Welcome, #{current_user.username}" %>
       <%= menu_item "Logout", logout_path, method: :delete %>
+      <%= menu_item "Profile", user_path(current_user) %>
     <% end %>
   <% end %>
 <% end %>
