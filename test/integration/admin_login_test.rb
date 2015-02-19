@@ -37,6 +37,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
   test "an admin can see all tenants" do 
     admin = create(:admin)
+    tenant = create(:tenant)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit root_path
@@ -44,6 +45,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button("All Borrowers")
     
     assert_equal admin_tenants_path, current_path
+    assert page.has_content?(tenant.organization)
   end
 
   test "an admin user can see all projects" do
