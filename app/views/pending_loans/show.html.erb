@@ -33,10 +33,10 @@
 
   <% if current_user %>
     <%= form_for :cart, url: user_orders_path(user_id: current_user.id) do |f| %>
-      <%= f.submit 'Checkout', class: 'btn btn-default' %>
+      <%= f.submit "Checkout", class: "btn btn-default" %>
     <% end %>
   <% else %>
-    You Must Login or Signup to Lend Money
+    <%= link_to "Checkout", new_user_path(message: "You Must Signup or Login to Lend Money"), class: "btn btn-default" %>
   <% end %>
 
   <%= form_for :cart, url: pending_loan_path do |f| %>

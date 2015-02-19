@@ -24,12 +24,10 @@ class OrdersController < ApplicationController
   def create
     pending_loans = PendingLoan.new(session[:pending_loan])
     if pending_loans.valid?
-      @order = pending_loans.checkout!(session[:user_id])
-      session.delete(:pending_loan)
-      flash[:notice] = "You have successfully completed your loans."
-      redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
+      complete_loan(pending_loans)
     else
-      flash[:alert] = "You have no pending loans. Please select a loan to checkout."
+      flash[:alert] = "You have no pending loans. " +
+        "Please select a loan to checkout."
       redirect_to projects_path
     end
   end
@@ -38,5 +36,14 @@ class OrdersController < ApplicationController
 
   def order_owner_or_admin?
     current_user && (current_user.id == @order.user_id || current_user.admin?)
+  end
+
+  private
+
+  def complete_loan(pending_loans)
+    @order = pending_loans.checkout!(session[:user_id])
+    session.delete(:pending_loan)
+    flash[:notice] = "You have successfully completed your loans."
+    redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 end

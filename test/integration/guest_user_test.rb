@@ -144,21 +144,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an unauthorized user can add projects to pending_loans but cannot
-  checkout page logging in" do
-    tenant = create(:tenant)
-    tenant.projects << create(:project, price: 8900)
-    visit root_path
-
-    click_link_or_button("#{tenant.projects.first.categories.first.name}")
-    within(".row") do
-      click_link_or_button("Lend")
-    end
-
-    assert page.has_content?("You Must Login or Signup to Lend Money")
-    assert_equal "/pending_loan", current_path
-  end
-
   test "after an unauthorized user adds items and clicks checkout and logs in,
   the pending_loans still retains the items" do
     user = create(:user)
@@ -177,7 +162,11 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     end
 
     assert page.has_content?("You have successfully completed your loans.")
-    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id), current_path
-    #assert other shit
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
+      current_path
+    assert page.has_content?(user.orders.first.total_cost / 100)
+    assert page.has_content?(user.orders.first.status)
+    assert page.has_content?(project.title)
+    assert page.has_content?(project.price / 100)
   end
 end

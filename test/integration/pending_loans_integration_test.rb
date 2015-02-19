@@ -108,9 +108,10 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     within(".row") do
       click_link_or_button("Lend")
     end
+    click_link_or_button("Checkout")
 
-    assert page.has_content?("You Must Login or Signup to Lend Money")
-    assert_equal pending_loan_path, current_path
+    assert page.has_content?("You Must Signup or Login to Lend Money")
+    assert_equal new_user_path, current_path
   end
 
   test "a user can empty their cart" do
