@@ -34,6 +34,12 @@ Admin.create!(
   email: "admin@admin.com"
 )
 
+Admin.create!(
+username: "admin1",
+password: "password",
+email: "admin1@admin.com"
+)
+
 # borrowers
 borrower = User.create!(
                         username:              "borrower",
