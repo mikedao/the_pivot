@@ -35,7 +35,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an authenticated user does not see the 'Login' or 'Signup' 
+  test "an authenticated user does not see the 'Login' or 'Signup'
   options in the _navbar" do
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
