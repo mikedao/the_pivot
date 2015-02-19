@@ -14,9 +14,8 @@ class TenantsController < ApplicationController
       redirect_to new_tenant_path
     else
       tenant = Tenant.new(org_params)
-      if tenant.valid?
-        tenant.save
-        @current_user.tenant_id = tenant.id
+      if tenant.save
+        current_user.update_attribute(:tenant_id, tenant.id)
         redirect_to root_path
         flash[:notice] = "Organization Created."
       else

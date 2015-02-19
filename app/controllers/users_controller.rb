@@ -39,7 +39,6 @@ class UsersController < ApplicationController
   def create_user(user)
     user.save
     session[:user_id] = user.id
-    puts "AM I A TENANT? #{tenant?}"
     send_welcome_email(user)
     flash[:notice] = "Thank you for creating an account."
     if tenant?
@@ -55,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def tenant?
-    params[:signup][:tenant] == 1
+    params[:signup][:tenant] == "1"
   end
 
   def user_params
