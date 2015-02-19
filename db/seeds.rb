@@ -1,41 +1,41 @@
 # Users
 User.create!(
-  username:              "DCathy",
-  first_name:            "Dan",
-  last_name:             "Cathy",
-  email:                 "DanCathy@gmail.com",
-  password:              "password",
+  username: "lender",
+  first_name: "Dan",
+  last_name: "Cathy",
+  email: "DanCathy@gmail.com",
+  password: "password",
   password_confirmation: "password",
-  city:                  "Atlanta",
-  state:                 "GA",
-  street:                "5200 Buffington Road",
-  zipcode:               30349,
-  country:               "USA",
-  credit_card_info:      "1111222233334444"
+  city: "Atlanta",
+  state: "GA",
+  street: "5200 Buffington Road",
+  zipcode: 30349,
+  country: "USA",
+  credit_card_info: "1111222233334444"
 )
 
 5.times do |n|
-  username =                Faker::Internet.user_name
-  first_name =              Faker::Name.first_name
-  last_name =               Faker::Name.last_name
-  country =                 Faker::Address.country
-  email =                   "FlowersNPuppies-#{n + 1}@gmail.com"
-  password =                "password"
-  credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
-  street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
+  username = Faker::Internet.user_name
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  country = Faker::Address.country
+  email = "FlowersNPuppies-#{n + 1}@gmail.com"
+  password = "password"
+  credit_card_info = "11112222333#{n + 1}44#{n + 2}4"
+  street = "6#{n + 1}#{n + 2} Mockingbird Lane"
   User.create!(
-    username:               username,
-    email:                  email,
-    password:               password,
+    username: username,
+    email: email,
+    password: password,
     password_confirmation:  password,
-    first_name:             first_name,
-    last_name:              last_name,
-    city:                   "Atlanta",
-    state:                  "GA",
-    zipcode:                50240,
-    street:                 street,
-    country:                country,
-    credit_card_info:       credit_card_info
+    first_name: first_name,
+    last_name: last_name,
+    city: "Atlanta",
+    state: "GA",
+    zipcode: 50240,
+    street: street,
+    country: country,
+    credit_card_info: credit_card_info
   )
 end
 
@@ -48,8 +48,8 @@ ronald4 = User.find(5)
 
 #tenants
 4.times do |n|
-  location =              "East Timor represent#{n + 1}"
-  organization =          "Bridge Builders#{n + 1}"
+  location = "East Timor represent#{n + 1}"
+  organization = "Bridge Builders#{n + 1}"
   Tenant.create!(
     location:             location,
     organization:         organization
@@ -60,23 +60,20 @@ bridge_builders1 = Tenant.find(1)
 bridge_builders2 = Tenant.find(2)
 bridge_builders3 = Tenant.find(3)
 
-# user as a tenant
-tenant_user = User.create!(
-  :username => "Jwan622",
-  :first_name => "Jeff",
-  :last_name => "Wan",
-  :password => "password",
-  :email => "Jwan622@gmail.com",
-  :street => "31 Hillwood Court",
-  :city => "Staten Island",
-  :state => "NY",
-  :zipcode => 10305,
-  :country => "USA"
+Tenant.find(1).users.create!(
+  username: "borrower",
+  first_name: "first",
+  last_name: "last",
+  email: "borrower@borrower.com",
+  password: "password",
+  password_confirmation: "password",
+  city: "Denver",
+  state: "CO",
+  street: "1510 Blake Street",
+  zipcode: 80202,
+  country: "USA",
+  credit_card_info: "11112222333334444"
 )
-tenant_user.tenant = Tenant.create!(
-  :location => "Shanghai",
-  :organization => "Shanghai Water Filterers"
-  )
 
 # admin
 Admin.create!(

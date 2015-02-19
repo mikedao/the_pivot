@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1><%= @project.tenant.organization %></h1>
 
 <h2>
@@ -8,6 +9,8 @@
 </h2>
 
 <div id="title"><h1><%= @project.title %></h1></div>
+
+
 <%= render "shared/back_button" %>
 <%= div_for(@project, class: "photo") do %>
   <%= image_tag @project.photos.first.image.url %>
@@ -24,3 +27,9 @@
     <%= f.submit 'Add to Cart', class: "btn btn-default add-cart"%>
   <% end %>
 <% end %>
+<h4><%= @project.tenant.organization %>, <%= @project.tenant.location %></h4>
+<h4><% @project.categories.each do |category| %>
+  <div class="project-category">
+    <%= link_to "#{category.name}", projects_path %>
+  </div>
+<% end %></h4>
