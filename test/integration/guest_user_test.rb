@@ -28,7 +28,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     refute page.has_content?(retired_project.categories.first.name)
   end
 
-  test "a guest user can see all projects for a category" do
+  test "a guest user can see all projects for a specific category after clicking
+  that category on the home page" do
     user = create(:user)
     project = create(:project)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
@@ -119,7 +120,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorized user can add projects to pending_loans but cannot
-  checkout page logging in" do
+  checkout" do
     tenant = create(:tenant)
     tenant.projects << create(:project, price: 8900)
 
