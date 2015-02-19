@@ -22,20 +22,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if current_user.nil?
-      flash[:alert] = "You Must Login or Signup to Lend Money"
-      redirect_to pending_loan_path
-    else
-      pending_loans = PendingLoan.new(session[:pending_loan])
-      if pending_loans.valid?
-        @order = pending_loans.checkout!(session[:user_id])
-      else
-        flash[:alert] = "You have no pending loans. Please select a loan to checkout."
-        redirect_to projects_path
-      end
+    pending_loans = PendingLoan.new(session[:pending_loan])
+    if pending_loans.valid?
+      @order = pending_loans.checkout!(session[:user_id])
       session.delete(:pending_loan)
       flash[:notice] = "You have successfully completed your loans."
       redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
+    else
+      flash[:alert] = "You have no pending loans. Please select a loan to checkout."
+      redirect_to projects_path
     end
   end
 
