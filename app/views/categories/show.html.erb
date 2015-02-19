@@ -6,7 +6,7 @@
     <div class="box col-lg-3">
       <%= link_to("#{project.title}", tenant_project_path(slug: project.tenant.slug, id: project.id))%>
       <div class="thumbnail">
-        <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
+        <%= image_tag project.photos.first.image.url %>
       </div>
       <h5 class="project-desc"><%= project.description %></h5>
       <%= form_for :pending_loan, url: pending_loan_path do |f| %>

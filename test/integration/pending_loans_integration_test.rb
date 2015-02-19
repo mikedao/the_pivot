@@ -16,6 +16,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   test "an unauthorized user can add an project to the cart" do
     tenant = create(:tenant)
     tenant.projects << create(:project)
+
     visit "/#{tenant.slug}"
 
     within(".row") do
@@ -103,17 +104,15 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
   test "an unauthorized user cannot checkout until logged in" do
     project = create(:project)
-
     visit "/#{project.tenant.slug}"
+
     within(".row") do
       click_link_or_button("Lend")
     end
     click_link_or_button("Checkout")
-    within("#flash_alert") do
-      assert page.has_content?("You Must Login to Lend Money")
-    end
 
-    assert_equal pending_loan_path, current_path
+    assert page.has_content?("You Must Signup or Login to Lend Money")
+    assert_equal new_user_path, current_path
   end
 
   test "a user can empty their cart" do
@@ -192,19 +191,6 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
       assert page.has_content?(tenant.projects.first.title)
       assert page.has_content?(tenant.projects.first.price)
     end
-  end
-
-  test "an unauthenticated user that clicks 'Checkout' is prompted
-    to login or create an account" do
-    project = create(:project)
-
-    visit "/#{project.tenant.slug}"
-    within(".row") do
-      click_link_or_button("Lend")
-    end
-    click_link_or_button "Checkout"
-
-    assert page.has_content?("You Must Login to Lend Money")
   end
 
   test "a user can checkout once logged in" do
