@@ -46,7 +46,7 @@ ronald2 = User.find(3)
 ronald3 = User.find(4)
 ronald4 = User.find(5)
 
-#tenants
+# tenants
 4.times do |n|
   location = "East Timor represent#{n + 1}"
   organization = "Bridge Builders#{n + 1}"
@@ -88,7 +88,7 @@ people_category = Category.create!(
 )
 
 people_category.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/people_category.jpg" )
+  image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
 )
 
 public_category = Category.create!(
@@ -96,7 +96,7 @@ public_category = Category.create!(
 )
 
 public_category.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/public_category.png")
+  image: File.new("#{Rails.root}/app/assets/images/public_category.png")
 )
 
 startup_category = Category.create!(
@@ -104,7 +104,7 @@ startup_category = Category.create!(
 )
 
 startup_category.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/startup_category.jpg")
+  image: File.new("#{Rails.root}/app/assets/images/startup_category.jpg")
 )
 
 conflict_zone_category = Category.create!(
@@ -112,7 +112,7 @@ conflict_zone_category = Category.create!(
 )
 
 conflict_zone_category.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/conflict_zone.jpg")
+  image: File.new("#{Rails.root}/app/assets/images/conflict_zone.jpg")
 )
 
 # projects
@@ -126,7 +126,7 @@ timmys_vaccines_nigeria = Project.create!(
                   )
 
 timmys_vaccines_nigeria.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
+  image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
   )
 
 stevens_books_bangkok = Project.create!(
@@ -137,8 +137,9 @@ stevens_books_bangkok = Project.create!(
                   categories: [startup_category],
                   tenant_id: bridge_builders2.id
                   )
+
 stevens_books_bangkok.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/stevens_books.jpg" )
+  image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
   )
 
 johns_waterworks_cotedivore = Project.create!(
@@ -151,7 +152,7 @@ johns_waterworks_cotedivore = Project.create!(
                   )
 
 johns_waterworks_cotedivore.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/johns_waterworks.jpg")
+  image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
   )
 
 debeers_conflict_diamonds_ivorycoast = Project.create!(
@@ -164,7 +165,7 @@ debeers_conflict_diamonds_ivorycoast = Project.create!(
                   )
 
 debeers_conflict_diamonds_ivorycoast.photos << Photo.create!(
-  image: File.new( "#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
+  image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
   )
 
 # Orders with projects
