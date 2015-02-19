@@ -90,16 +90,32 @@ people_category = Category.create!(
   name: "People"
 )
 
+people_category.photos << Photo.create!(
+  image: File.new( "#{Rails.root}/app/assets/images/people_category.jpg" )
+)
+
 public_category = Category.create!(
   name: "Public"
+)
+
+public_category.photos << Photo.create!(
+  image: File.new( "#{Rails.root}/app/assets/images/public_category.png")
 )
 
 startup_category = Category.create!(
   name: "Startup"
 )
 
+startup_category.photos << Photo.create!(
+  image: File.new( "#{Rails.root}/app/assets/images/startup_category.jpg")
+)
+
 conflict_zone_category = Category.create!(
   name: "Conflict Zones"
+)
+
+conflict_zone_category.photos << Photo.create!(
+  image: File.new( "#{Rails.root}/app/assets/images/conflict_zone.jpg")
 )
 
 # projects

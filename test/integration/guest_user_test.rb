@@ -57,7 +57,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
-    assert page.has_content?(project.photos.first.image)
+    assert page.has_css?("div#project_#{project.id}")
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)

@@ -34,11 +34,15 @@ FactoryGirl.define do
 
   factory :tenant do
     location "Shenzhen"
-    sequence(:organization) { |n| "lucy's ##{n} farm" }
+    sequence(:organization) { |n| "lucy's #{n} farm" }
   end
 
   factory :category do
     sequence(:name) { |n| "Public Works#{n}" }
+    
+    before(:create) do |category|
+      category.photos << create(:photo)
+    end
   end
 
   factory :order do

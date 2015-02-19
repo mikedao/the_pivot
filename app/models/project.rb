@@ -21,18 +21,7 @@ class Project < ActiveRecord::Base
                     }
   validates :categories, presence: true
 
-  before_create :add_default_photo
-
   def formatted_dollar_amount
     number_to_currency(price / 100.00)
-  end
-
-  private
-
-  def add_default_photo
-    default_photo = Photo.create(image_file_name: "johns_waterworks",
-                                 image_content_type: "jpg",
-                                 image_file_size: 300)
-    self.photos = [default_photo] unless photos.count > 0
   end
 end
