@@ -30,7 +30,7 @@ gem 'bcrypt',                   '~> 3.1.7'
 
 # Use Unicorn as the app server
 gem 'unicorn',                  '~> 4.8.3'
-gem 'skylight',                 '~> 0.5.2'
+gem 'skylight',                 '~> 0.6.0'
 
 
 gem "twitter-bootstrap-rails",  '~> 3.2.0'
