@@ -1,2 +1,0 @@
-module Admin::TenantsControllerHelper
-end
