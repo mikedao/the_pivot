@@ -1,11 +1,6 @@
-<h1><%= @project.tenant.organization %></h1>
-<h2>
-  <%= @project.tenant.location %>
-  <% @project.categories.each do |category| %>
-    <%= "|#{category.name}" %>
-  <% end %>
-</h2>
 <div id="title"><h1><%= @project.title %></h1></div>
+
+
 <%= render "shared/back_button" %>
 
 <%= image_tag "#" %>
@@ -20,3 +15,9 @@
     <%= f.submit 'Add to Cart', class: "btn btn-default add-cart"%>
   <% end %>
 <% end %>
+<h4><%= @project.tenant.organization %>, <%= @project.tenant.location %></h4>
+<h4><% @project.categories.each do |category| %>
+  <div class="project-category">
+    <%= link_to "#{category.name}", projects_path %>
+  </div>
+<% end %></h4>
