@@ -16,6 +16,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   test "an unauthorized user can add an project to the cart" do
     tenant = create(:tenant)
     tenant.projects << create(:project)
+
     visit "/#{tenant.slug}"
 
     within(".row") do

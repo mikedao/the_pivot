@@ -78,7 +78,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "it has a photo by default" do
-    project = create(:project, categories: [create(:category)])
+    project = create(:project)
 
     assert_equal 1, project.photos.count
   end
