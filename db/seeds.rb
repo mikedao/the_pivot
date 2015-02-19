@@ -46,7 +46,7 @@ ronald2 = User.find(3)
 ronald3 = User.find(4)
 ronald4 = User.find(5)
 
-# tenants
+# 'tenants
 4.times do |n|
   location = "East Timor represent#{n + 1}"
   organization = "Bridge Builders#{n + 1}"
