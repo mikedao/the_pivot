@@ -4,18 +4,18 @@ class PendingLoan
   end
 
   def projects
-    output = {}
+    projects_and_loan_amounts = {}
     @pending_loan.each do |project_id, loan_amount|
-      output[Project.find(project_id)] = loan_amount.to_i
+      projects_and_loan_amounts[Project.find(project_id)] = loan_amount.to_i
     end
-    output
+    projects_and_loan_amounts
   end
 
   def calculate_total_cost
     projects.values.reduce(:+)
   end
 
-  def valid?
+  def present?
     !@pending_loan.empty?
   end
 

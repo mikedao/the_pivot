@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
 
   def create
     pending_loans = PendingLoan.new(session[:pending_loan])
-    if pending_loans.valid?
+    if pending_loans.present?
       complete_loan(pending_loans)
     else
       flash[:alert] = "You have no pending loans. " +

@@ -149,14 +149,15 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     user = create(:user)
     project = create(:project)
     visit root_path
-    fill_in "session[username]", with: user.username
-    fill_in "session[password]", with: user.password
-    click_link_or_button("Login")
-
     click_link_or_button("#{project.categories.first.name}")
     within(".row") do
       click_link_or_button("Lend")
     end
+    fill_in "session[username]", with: user.username
+    fill_in "session[password]", with: user.password
+    click_link_or_button("Login")
+    visit pending_loan_path
+
     within("#pending_loans") do
       click_button("Checkout")
     end

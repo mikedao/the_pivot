@@ -30,10 +30,10 @@ class PendingLoanTest < ActiveSupport::TestCase
     assert_equal project2.price, pending_loans.projects[project2]
   end
 
-  test "it knows when it's valid" do
+  test "it knows when it's present" do
     pending_loans = PendingLoan.new({})
 
-    refute pending_loans.valid?
+    refute pending_loans.present?
   end
 
   test "it can checkout" do
