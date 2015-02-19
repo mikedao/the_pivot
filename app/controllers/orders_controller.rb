@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
       complete_loan(pending_loans)
     else
       flash[:alert] = "You have no pending loans. " +
-        "Please select a loan to checkout."
+                      "Please select a loan to checkout."
       redirect_to projects_path
     end
   end

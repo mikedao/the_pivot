@@ -163,7 +163,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?("You have successfully completed your loans.")
     assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
-      current_path
+                 current_path
     assert page.has_content?(user.orders.first.total_cost / 100)
     assert page.has_content?(user.orders.first.status)
     assert page.has_content?(project.title)
