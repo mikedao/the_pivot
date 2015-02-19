@@ -43,7 +43,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     visit root_path
     click_link_or_button("Admin Dashboard")
     click_link_or_button("All Borrowers")
-    
+
     assert_equal admin_tenants_path, current_path
     assert page.has_content?(tenant.organization)
   end
