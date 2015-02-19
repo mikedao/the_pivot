@@ -15,9 +15,13 @@ class AuthenticatedLenderTest < ActionDispatch::IntegrationTest
 
   test "authed lender with pending loans is shown a call to action" do
     user = create(:user)
+    project = create(:project)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    #click lend somewhere
+    visit "/#{project.tenant.slug}"
 
+    within(".row") do
+      click_link_or_button("Lend")
+    end
     visit root_path
 
     assert page.has_content?("Help someone today and")
