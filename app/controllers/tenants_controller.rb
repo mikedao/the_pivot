@@ -13,19 +13,23 @@ class TenantsController < ApplicationController
       flash[:notice] = "Organization Already Exists"
       redirect_to new_tenant_path
     else
-      tenant = Tenant.new(org_params)
-      if tenant.save
-        current_user.update_attribute(:tenant_id, tenant.id)
-        redirect_to root_path
-        flash[:notice] = "Organization Created."
-      else
-        flash[:notice] = "Please try again."
-        redirect_to new_tenant_path
-      end
+      create_tenant
     end
   end
 
-  private
+private
+
+def create_tenant
+  tenant = Tenant.new(org_params)
+  if tenant.save
+    current_user.update_attribute(:tenant_id, tenant.id)
+    redirect_to root_path
+    flash[:notice] = "Organization Created."
+  else
+    flash[:notice] = "Please try again."
+    redirect_to new_tenant_path
+  end
+end
 
   def org_params
     params.require(:tenant_signup).permit(:location, :organization)
