@@ -46,7 +46,6 @@ ronald2 = User.find(3)
 ronald3 = User.find(4)
 ronald4 = User.find(5)
 
-
 #tenants
 4.times do |n|
   location =              "East Timor represent#{n + 1}"
@@ -61,23 +60,23 @@ bridge_builders1 = Tenant.find(1)
 bridge_builders2 = Tenant.find(2)
 bridge_builders3 = Tenant.find(3)
 
-
 # user as a tenant
 tenant_user = User.create!(
-             :username => "Jwan622",
-             :first_name => "Jeff",
-             :last_name => "Wan",
-             :password => "password",
-             :email => "Jwan622@gmail.com",
-             :street => "31 Hillwood Court",
-             :city => "Staten Island",
-             :state => "NY",
-             :zipcode => 10305,
-             :country => "USA"
-             )
-tenant_user.tenant = Tenant.create!(:location => "Shanghai",
-               :organization => "Shanghai Water Filterers"
-              )
+  :username => "Jwan622",
+  :first_name => "Jeff",
+  :last_name => "Wan",
+  :password => "password",
+  :email => "Jwan622@gmail.com",
+  :street => "31 Hillwood Court",
+  :city => "Staten Island",
+  :state => "NY",
+  :zipcode => 10305,
+  :country => "USA"
+)
+tenant_user.tenant = Tenant.create!(
+  :location => "Shanghai",
+  :organization => "Shanghai Water Filterers"
+  )
 
 # admin
 Admin.create!(
@@ -114,8 +113,8 @@ timmys_vaccines_nigeria = Project.create!(
                   )
 
 timmys_vaccines_nigeria.photos << Photo.create!(
-        image: File.new( "#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
-        )
+  image: File.new( "#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
+  )
 
 stevens_books_bangkok = Project.create!(
                   title: "Steven's school books",
@@ -126,8 +125,8 @@ stevens_books_bangkok = Project.create!(
                   tenant_id: bridge_builders2.id
                   )
 stevens_books_bangkok.photos << Photo.create!(
-          image: File.new( "#{Rails.root}/app/assets/images/stevens_books.jpg" )
-          )
+  image: File.new( "#{Rails.root}/app/assets/images/stevens_books.jpg" )
+  )
 
 johns_waterworks_cotedivore = Project.create!(
                   title: "John's water supply for village",
@@ -139,8 +138,8 @@ johns_waterworks_cotedivore = Project.create!(
                   )
 
 johns_waterworks_cotedivore.photos << Photo.create!(
-        image: File.new( "#{Rails.root}/app/assets/images/johns_waterworks.jpg")
-        )
+  image: File.new( "#{Rails.root}/app/assets/images/johns_waterworks.jpg")
+  )
 
 debeers_conflict_diamonds_ivorycoast = Project.create!(
                   title: "De Beers",
@@ -152,8 +151,8 @@ debeers_conflict_diamonds_ivorycoast = Project.create!(
                   )
 
 debeers_conflict_diamonds_ivorycoast.photos << Photo.create!(
-        image: File.new( "#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
-        )
+  image: File.new( "#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
+  )
 
 # Orders with projects
 timmys_vaccines_nigeria.orders.create!(
