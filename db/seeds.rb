@@ -1,28 +1,21 @@
 # lenders
 100.times do |n|
-  first_name =              Faker::Name.first_name
-  last_name =               Faker::Name.last_name
-  country =                 Faker::Address.country
-  email =                   "FlowersNPuppies-#{n + 1}@gmail.com"
-  password =                "password"
-  credit_card_info =        "11112222333#{n + 1}44#{n + 2}4"
-  street =                  "6#{n + 1}#{n + 2} Mockingbird Lane"
   User.create!(
-    username:               "lender#{n}",
-    email:                  email,
-    password:               password,
-    password_confirmation:  password,
-    first_name:             first_name,
-    last_name:              last_name,
+    username:               "lender#{n+1}",
+    email:                  "FlowersNPuppies-#{n + 1}@example.com",
+    password:               "password",
+    password_confirmation:  "password",
+    first_name:             Faker::Name.first_name,
+    last_name:              Faker::Name.last_name,
     city:                   "Atlanta",
     state:                  "GA",
     zipcode:                50240,
-    street:                 street,
-    country:                country,
-    credit_card_info:       credit_card_info
+    street:                 "6#{n + 1}#{n + 2} Mockingbird Lane",
+    country:                Faker::Address.country,
+    credit_card_info:       "11112222333#{n + 1}44#{n + 2}4"
   )
 end
-lender = Lender.find(1)
+lender = User.find_by(username: "lender0")
 
 # tenants
 10.times do |n|
@@ -45,8 +38,8 @@ Admin.create!(
 borrower = User.create!(
                         username:              "borrower",
                         first_name:            "Jorge",
-                        last_name:             "Telez",
-                        email:                 "example@example.com",
+                        last_name:             "Telez-Borrower",
+                        email:                 "example_borrower@example.com",
                         password:              "password",
                         password_confirmation: "password",
                         city:                  "Atlanta",
@@ -61,10 +54,10 @@ borrower = User.create!(
 Tenant.all.each do |tenant|
   2.times do |n|
     User.create!(
-    username:              "borrower_#{tenant_id}_#{n}",
+    username:              "borrower_#{tenant.id}_#{n}",
     first_name:            "Jorge",
     last_name:             "Telez",
-    email:                 "example@example.com",
+    email:                 "example_#{tenant.id}_#{n}@example.com",
     password:              "password",
     password_confirmation: "password",
     city:                  "Atlanta",
@@ -124,7 +117,7 @@ name: "Animals"
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
-                  categories: [public_category],
+                  categories: [animals_category],
                   tenant_id: Tenant.third.id
                   )
 
