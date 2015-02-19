@@ -5,4 +5,3 @@ class Admin::TenantsController < Admin::BaseController
   end
   
 end
-
