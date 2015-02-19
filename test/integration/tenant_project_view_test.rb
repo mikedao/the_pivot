@@ -48,7 +48,7 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
 
     visit tenant_project_path(slug: project.tenant.slug, id: project.id)
     first(".project-category").
-    click_link_or_button(project.categories.first.name)
+      click_link_or_button(project.categories.first.name)
 
     assert_equal projects_path, current_path
   end
