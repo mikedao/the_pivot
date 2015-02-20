@@ -44,12 +44,20 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
     send_welcome_email(user)
     flash[:notice] = "Thank you for creating an account."
-    redirect_to root_path
+    if borrower?
+      redirect_to new_tenant_path
+    else
+      redirect_to root_path
+    end
   end
 
   def send_welcome_email(user)
     UserMailer.welcome_borrower(user).deliver_now if user.borrower?
     UserMailer.welcome_lender(user).deliver_now if user.lender?
+  end
+
+  def borrower?
+    params[:signup][:tenant] == "1"
   end
 
   def user_params

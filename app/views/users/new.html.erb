@@ -13,6 +13,8 @@
     <%= f.password_field :password, :placeholder => 'password', class: "form-control" %><br>
     <%= f.password_field :password_confirmation, :placeholder => 'confirm password',  class: "form-control" %><br>
     <%= f.email_field :email, :placeholder => 'email', class: "form-control" %><br>
-  <%= f.submit 'Create Account' %>
+    <h3><%= f.label text = "I want to raise funds." %></br></h3>
+    <%= f.check_box :tenant, class: "form-control" %></br>
+    <p><%= f.submit 'Create Account' %></p>
   <% end %>
 </div>
