@@ -171,4 +171,19 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.title)
     assert page.has_content?(project.price / 100)
   end
+
+  test "while on project show page for a specific tenant, I can click the
+  tenant link to go to the tenant index page" do
+    borrower = create(:user_as_borrower)
+    borrower.tenant.projects << create_list(:project, 2)
+
+    visit tenant_project_path(slug: borrower, id: borrower.tenant.projects.first)
+    save_and_open_page
+
+    click_link_or_button(borrower.tenant.organization)
+
+    borrower.projects.each do |project|
+      assert page.has_css?("div.project_#{project.id}")
+    end
+  end
 end

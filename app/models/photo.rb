@@ -7,7 +7,7 @@ class Photo < ActiveRecord::Base
   validates :image_file_size, presence: true
 
   has_attached_file :image,
-                    styles: { medium: "300x300", thumb: "100x100" },
+                    styles: { medium: "400x200", thumb: "100x100" },
                     default_url: "/images/:styles/test_photo.jpg"
 
   validates_attachment_content_type :image,
