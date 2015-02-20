@@ -25,6 +25,6 @@ class AuthenticatedLenderTest < ActionDispatch::IntegrationTest
     visit root_path
 
     assert page.has_content?("Help someone today and")
-    assert page.has_content?("complete your loan")
+    assert page.has_link?("complete your loan")
   end
 end
