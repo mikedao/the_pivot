@@ -16,7 +16,7 @@ class PendingLoan
   end
 
   def present?
-    !@pending_loan.empty?
+    @pending_loan.present?
   end
 
   def checkout!(user_id)
