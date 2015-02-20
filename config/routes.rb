@@ -12,9 +12,6 @@ Rails.application.routes.draw do
 
   resource :pending_loan, except: [:index, :edit]
 
-  post "/pending_loans", to: "pending_loans#checkout_pending_loans",
-                         as: "checkout_pending_loans"
-
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
     resources :categories
