@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AuthenticatedLenderTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
