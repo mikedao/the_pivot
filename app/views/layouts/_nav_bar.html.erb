@@ -1,30 +1,26 @@
-
-  <%= nav_bar fixed: :top, responsive: true do %>
+<%= nav_bar fixed: :top, responsive: true do %>
   <%= menu_group do %>
     <a class="brand" href="/"><%= image_tag "logo5.png" %></a>
   <% end %>
   <%= menu_group do %>
-      <h3 id="store-name">Keevahh</h3>
+    <h3 id="store-name">Keevahh</h3>
   <% end %>
   <%= menu_group do %>
-    <%= menu_item "Home", root_path %>
-    <% if @tenant %>
-      <%= menu_item "Lend", categories_path(tenant: @tenant.organization) %>
-    <% else %>
-      <%= menu_item "Lend", root_path %>
-    <% end %>
-    <%= menu_item "Pending Loans", pending_loan_path %>
+    <%= menu_item "Lend", categories_path %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
+  <% end %>
+  <%= menu_group pull: :right do %>
     <% if current_user.nil? %>
     	<%= menu_item "Signup", new_user_path %>
       <%= menu_item do %>
         <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
-        <%= f.text_field :username, :placeholder => 'username' %>
-        <%= f.password_field :password, :placeholder => 'password' %>
-        <%= f.submit 'Login' %>
+          <%= f.text_field :username, :placeholder => 'username' %>
+          <%= f.password_field :password, :placeholder => 'password' %>
+          <%= f.submit 'Login' %>
         <% end %>
       <% end %>
     <% else %>
+      <%= menu_item "Loans", user_orders_path(user_id: current_user.id) %>
       <%= menu_item "Logout", logout_path, method: :delete %>
       <%= menu_item "Profile", user_path(current_user) %>
     <% end %>
