@@ -18,6 +18,3 @@
 
 # Ignore Simplecov coverage report
 coverage
-
-# Ignore public/system/photos
-/public/system/photos
