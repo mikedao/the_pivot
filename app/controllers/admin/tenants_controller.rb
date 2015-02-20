@@ -1,5 +1,5 @@
 class Admin::TenantsController < Admin::BaseController
   def index
-    @tenants = Tenant.all
+    @tenants = Tenant.select(:organization, :location, :slug).all
   end
 end
