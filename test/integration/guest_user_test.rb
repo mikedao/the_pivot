@@ -9,7 +9,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    assert page.has_content?(project.categories.first.name)
+    assert page.has_link?(project.categories.first.name)
   end
 
   test "a guest user can see all the categories for active projects" do
@@ -28,7 +28,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     refute page.has_content?(retired_project.categories.first.name)
   end
 
-  test "a guest user can see all projects for a category" do
+  test "a guest user can see all projects for a specific category after clicking
+  that category on the home page" do
     user = create(:user)
     project = create(:project)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
@@ -44,7 +45,6 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "an unauthorised user can view a tenant projects page" do
     user = create(:user)
     project = create(:project)
-    project.photos << create(:photo)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
@@ -57,29 +57,56 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.tenant.organization)
     assert page.has_content?(project.tenant.location)
     assert page.has_content?(project.title)
+    assert page.has_css?("div#project_#{project.id}")
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
     assert page.has_content?(project.categories.first.name)
   end
 
-  test "an unauthorised user can view a tenant projects page which only
-    shows their products" do
+  test "a user can view a tenant projects page" do
     user = create(:user)
     project1 = create(:project)
     project2 = create(:project)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
-    click_link_or_button(project1.categories.first.name)
+    click_link_or_button("#{project1.categories.first.name}")
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
       slug: project1.tenant.slug,
       id: project1.id
     ), current_path
+    project1.categories.each do |category|
+      assert page.has_link?(category.name)
+    end
     refute page.has_content?(project2.tenant.organization)
     refute page.has_content?(project2.title)
     refute page.has_content?(project2.categories.first.name)
+  end
+
+  test "a user can view a tenant page" do
+    user = create(:user)
+    project1 = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit tenant_path(slug: project1.tenant.slug)
+
+    project1.categories.each do |category|
+      assert page.has_link?(category.name)
+    end
+  end
+
+  test "a user can go back to the projects page from the tenant page" do
+    user = create(:user)
+    project1 = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit tenant_path(slug: project1.tenant.slug)
+    first(".project-category").
+      click_link_or_button(project1.categories.first.name)
+
+    assert_equal projects_path, current_path
   end
 
   test "will be redirected to home page if tenant does not exist" do
@@ -118,27 +145,30 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an unauthorized user can add projects to pending_loans but cannot
-  checkout page logging in" do
-    tenant = create(:tenant)
-    tenant.projects << create(:project, price: 8900)
-
+  test "after an unauthorized user adds items and clicks checkout and logs in,
+  the pending_loans still retains the items" do
+    user = create(:user)
+    project = create(:project)
     visit root_path
-
-    click_link_or_button("#{tenant.projects.first.categories.first.name}")
+    click_link_or_button("#{project.categories.first.name}")
     within(".row") do
       click_link_or_button("Lend")
     end
+    fill_in "session[username]", with: user.username
+    fill_in "session[password]", with: user.password
+    click_link_or_button("Login")
+    visit pending_loan_path
+
     within("#pending_loans") do
       click_button("Checkout")
     end
 
-    assert page.has_content?("You Must Login to Lend Money")
-    assert_equal "/pending_loan", current_path
-  end
-
-  test "after an unauthorized user adds items and clicks checkout and logs in,
-  the pending_loans still retains the items" do
-    skip
+    assert page.has_content?("You have successfully completed your loans.")
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
+                 current_path
+    assert page.has_content?(user.orders.first.total_cost / 100)
+    assert page.has_content?(user.orders.first.status)
+    assert page.has_content?(project.title)
+    assert page.has_content?(project.price / 100)
   end
 end

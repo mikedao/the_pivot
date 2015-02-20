@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.all
+    @projects = Project.all.reject(&:retired)
+    @categories = @projects.map(&:categories).flatten.uniq
   end
 
   def show

@@ -10,6 +10,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :sendmail
+
   config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",
     :port      => 25, # ports 587 and 2525 are also supported with STARTTLS
@@ -18,6 +19,7 @@ Rails.application.configure do
     :password  => ENV["PIVOT_MANDRILL"], # smtp password is any valid api key
     :authentication => 'login' # Mandrill supports 'plain' or 'login'
   }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

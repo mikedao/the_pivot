@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   def new
+    if params[:message]
+      flash[:notice] = params[:message]
+    end
   end
 
   def create
@@ -14,6 +17,10 @@ class UsersController < ApplicationController
         invalid_user
       end
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   private

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root "welcome#index"
+  root "categories#index"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
@@ -11,9 +11,6 @@ Rails.application.routes.draw do
   get "/choose", to: "static_pages#choose"
 
   resource :pending_loan, except: [:index, :edit]
-
-  post "/pending_loans", to: "pending_loans#checkout_pending_loans",
-                         as: "checkout_pending_loans"
 
   namespace :admin do
     get "/dashboard", to: "base#dashboard"

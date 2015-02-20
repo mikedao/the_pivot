@@ -13,7 +13,7 @@
     street:                 "6#{n + 1}#{n + 2} Mockingbird Lane",
     country:                Faker::Address.country,
     credit_card_info:       "11112222333#{n + 1}44#{n + 2}4"
-  )
+    )
 end
 lender = User.find_by(username: "lender0")
 
@@ -82,25 +82,44 @@ people_category = Category.create!(
   name: "People"
 )
 
+people_category.photos << Photo.create!(
+image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
+)
+
 env_category = Category.create!(
   name: "Environment"
+
+env_category.photos << Photo.create!(
+  image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
+)
+
+public_category = Category.create!(
+  name: "Public"
+)
+
+public_category.photos << Photo.create!(
+  image: File.new("#{Rails.root}/app/assets/images/public_category.png")
 )
 
 startup_category = Category.create!(
   name: "Startup"
 )
 
+startup_category.photos << Photo.create!(
+  image: File.new("#{Rails.root}/app/assets/images/startup_category.jpg")
+)
+
 conflict_zone_category = Category.create!(
   name: "Conflict Zones"
 )
 
-animals_category = Category.create!(
-name: "Animals"
+conflict_zone_category.photos << Photo.create!(
+  image: File.new("#{Rails.root}/app/assets/images/conflict_zone.jpg")
 )
 
 # projects
 20.times do |n|
-  Project.create!(
+  project = Project.create!(
                   title: "Timmy's vaccine shots_#{n}",
                   price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
@@ -108,8 +127,11 @@ name: "Animals"
                   categories: [people_category],
                   tenant_id: Tenant.first.id
                   )
+  project.photos << Photo.create!(
+                  image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
+                  )
 
-  Project.create!(
+  project1.Project.create!(
                   title: "Steven's school books_#{n}",
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
@@ -117,17 +139,23 @@ name: "Animals"
                   categories: [startup_category, conflict_zone_category],
                   tenant_id: Tenant.second.id
                   )
+  project1.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
+    )
 
-  Project.create!(
+  project2 = Project.create!(
                   title: "John's water supply for village_#{n}",
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
-                  categories: [animals_category],
+                  categories: [public_category],
                   tenant_id: Tenant.third.id
                   )
+  project3.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
+    )
 
-  Project.create!(
+  project4 = Project.create!(
                   title: "De Beers_#{n}",
                   price: 16000,
                   description: "Conflict diamonds are forever" * 5,
@@ -135,6 +163,9 @@ name: "Animals"
                   categories: [conflict_zone_category, env_category],
                   tenant_id: Tenant.fourth.id
                   )
+  project4.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
+    )
 
   Tenant.all[4..9].each do |tenant|
     Project.create!(
@@ -145,6 +176,9 @@ name: "Animals"
                     categories: [conflict_zone_category, env_category],
                     tenant_id: tenant.id
                     )
+    project5.photos << Photo.create!(
+      image: File.new("#{Rails.root}/app/assets/images/panda.jpg")
+      )
   end
 end
 

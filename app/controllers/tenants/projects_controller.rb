@@ -6,7 +6,7 @@ class Tenants::ProjectsController < ApplicationController
     redirect_to root_path if @tenant.nil?
 
     if params[:category_name] == "Shop All" || params[:category_name].nil?
-      @projects = Project.active
+      @projects = Project.includes(:photos).active
     else
       @projects = Category.find_by(name: params[:category_name]).projects
     end
