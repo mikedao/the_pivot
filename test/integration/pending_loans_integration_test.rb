@@ -3,16 +3,6 @@ require "test_helper"
 class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "a cart starts empty" do
-    visit "/"
-
-    click_link_or_button("Pending Loans")
-
-    within("#pending_loans") do
-      assert page.has_content?("You Have No Pending Loans")
-    end
-  end
-
   test "an unauthorized user can add an project to the cart" do
     tenant = create(:tenant)
     tenant.projects << create(:project)
