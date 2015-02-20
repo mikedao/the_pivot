@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to login_path if current_user.nil?
   end
+
+  def pending_loans
+    PendingLoan.new(session[:pending_loan])
+  end
+  helper_method :pending_loans
 end
