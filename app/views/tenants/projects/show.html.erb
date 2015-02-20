@@ -6,13 +6,32 @@
   <%= image_tag @project.photos.first.image.url(:medium) %>
 <% end %>
 
+<div id="history">
+  <table class='table table-bordered'>
+    <thead>
+      <tr>
+        <th data-field="Price"> Price </th>
+        <th data-field="Repayment Rate">Repayment Rate</th>
+        <th data-field='Requested By'>Requested By</th>
+        <th data-field="Repayment Begin"> Repayment begin</th>
+      </tr>
+    </thead>
+      <tr>
+        <td> <%= number_to_currency @project.price / 100 %></td>
+        <td> <%= @project.repayment_rate %></td>
+        <td> <%= @project.requested_by %></td>
+        <td> <%= @project.repayment_begin %></td>
+      </tr>
+  </table>
+</div>
+
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
 <div id="price"><%= number_to_currency @project.price / 100 %></div>
 <div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %></div>
 <div id="requested-by">Requested by: <%= @project.requested_by %></div>
-<div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %>
-</div>
+<div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %> </div>
+
 <div id="lend-form">
   <% unless @project.retired %>
     <%= form_for :pending_loan, url: pending_loan_path do |f| %>
@@ -22,7 +41,12 @@
     <% end %>
   <% end %>
 </div>
-<h4> <%= link_to "#{project.tenant.organization}",  %> <%= @project.tenant.location %></h4>
+
+<div class="links">
+  <h4> <%= link_to "#{@project.tenant.organization}", tenant_projects_path(@project.tenant.slug) %> |
+  <%= link_to "#{@project.tenant.location}", projects_path(category: @project.categories) %></h4>
+</div>
+
 <h4><% @project.categories.each do |category| %>
   <div class="project-category">
     <%= link_to "#{category.name}", projects_path %>

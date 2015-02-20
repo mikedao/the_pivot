@@ -152,10 +152,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit tenant_project_path(slug: borrower, id: borrower.tenant.projects.first)
     save_and_open_page
-
     click_link_or_button(borrower.tenant.organization)
 
-    borrower.projects.each do |project|
+    borrower.tenant.projects.each do |project|
       assert page.has_css?("div.project_#{project.id}")
     end
   end
