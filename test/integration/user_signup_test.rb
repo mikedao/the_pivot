@@ -122,7 +122,6 @@ class CreateAUserTest < ActionDispatch::IntegrationTest
     fill_in "signup[email]", with: "test@test.com"
     click_link_or_button "Create Account"
 
-
     assert_equal new_user_path, current_path
     assert page.has_content?("Account Already Exists")
   end
