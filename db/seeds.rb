@@ -51,8 +51,10 @@ ronald4 = User.find(5)
   location = "East Timor represent#{n + 1}"
   organization = "Bridge Builders#{n + 1}"
   Tenant.create!(
-    location:             location,
-    organization:         organization
+    location:     location,
+    organization: organization,
+    status:       true,
+    approval:     true
   )
 end
 
