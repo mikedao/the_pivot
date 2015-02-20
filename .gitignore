@@ -20,4 +20,5 @@
 coverage
 
 # Ignore precompiled assets in public folder
-/public/assets
+/public/assets/*
+/public/system/*
