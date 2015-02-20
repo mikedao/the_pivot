@@ -26,15 +26,6 @@ class PendingLoansController < ApplicationController
     redirect_to pending_loan_path
   end
 
-  def checkout_pending_loans
-    if current_user.nil?
-      flash[:alert] = "You Must Login to Lend Money"
-      redirect_to pending_loan_path
-    else
-      redirect_to create_order_path
-    end
-  end
-
   def destroy
     session.delete(:pending_loan) if session[:pending_loan]
     flash[:notice] = "Pending Loans Removed"

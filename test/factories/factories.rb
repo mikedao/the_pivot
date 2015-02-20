@@ -34,11 +34,15 @@ FactoryGirl.define do
 
   factory :tenant do
     location "Shenzhen"
-    sequence(:organization) { |n| "lucy's ##{n} farm" }
+    sequence(:organization) { |n| "lucy's #{n} farm" }
   end
 
   factory :category do
     sequence(:name) { |n| "Public Works#{n}" }
+    
+    before(:create) do |category|
+      category.photos << create(:photo)
+    end
   end
 
   factory :order do
@@ -56,7 +60,8 @@ FactoryGirl.define do
     description "Conflict Diamonds are Forever. We artificially created demand
                 for conflict diamonds through brilliant advertising campaigns."
     retired false
-    repayment_rate 3
+    repayment_rate 26
+    requested_by Date.new(2017, 1, 1)
 
     before(:create) do |project|
       project.tenant = create(:tenant)
@@ -64,6 +69,10 @@ FactoryGirl.define do
 
     before(:create) do |project|
       project.categories << create(:category)
+    end
+
+    before(:create) do |project|
+      project.photos << create(:photo)
     end
   end
 
@@ -74,9 +83,7 @@ FactoryGirl.define do
   end
 
   factory :photo do
-    image_file_name "bridge_of_some_kind"
-    image_content_type "something that needs to be built"
-    image_file_size 3
+    image File.new("#{Rails.root}/app/assets/images/test_photo.jpg")
   end
 
   factory :loan do

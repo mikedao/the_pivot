@@ -78,8 +78,27 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "it has a photo by default" do
-    project = create(:project, categories: [create(:category)])
+    project = create(:project)
 
     assert_equal 1, project.photos.count
+  end
+
+  test "it has a requested_by date" do
+    project = build(:project, requested_by: nil)
+
+    assert project.invalid?
+  end
+
+  test "it has a default repayment rate of 26%" do
+    project = create(:project)
+
+    assert_equal 26, project.repayment_rate
+  end
+
+  test "it has a default repayment begins date 90 days after requested
+        by date" do
+    project = create(:project)
+
+    assert_equal project.requested_by + 90, project.repayment_begin
   end
 end
