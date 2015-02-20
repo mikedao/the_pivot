@@ -54,14 +54,14 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     visit root_path
     click_link_or_button("Admin Dashboard")
 
-    within ("#navbar") do
+    within (".navbar") do
       click_link_or_button("All Borrowers")
     end
 
     assert_equal admin_tenants_path, current_path
     assert page.has_content?("#{tenant2.organization}")
     assert page.has_content?("#{tenant1.slug}")
-  end 
+  end
 
   test "an admin user can see all projects" do
     skip
