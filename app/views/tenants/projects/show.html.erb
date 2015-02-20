@@ -1,7 +1,5 @@
 <div id="title"><h1><%= @project.title %></h1></div>
 
-<%= render "shared/back_button" %>
-
 <%= div_for(@project, class: "photo") do %>
   <%= image_tag @project.photos.first.image.url(:medium) %>
 <% end %>

@@ -10,9 +10,10 @@
 </head>
 <body>
   <div class="main-body container">
-    <div id="navbar">
-      <%= render "layouts/nav_bar" %>
-    </div>
+    <%= render "layouts/nav_bar" %>
+    <% if pending_loans.present? %>
+      <div id="complete-your-loan">Help someone today and <%= link_to "complete your loan", pending_loan_path %>.</div>
+    <% end %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>
