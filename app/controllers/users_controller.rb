@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
     send_welcome_email(user)
     flash[:notice] = "Thank you for creating an account."
-    if tenant?
+    if borrower?
       redirect_to new_tenant_path
     else
       redirect_to root_path
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     UserMailer.welcome_lender(user).deliver_now if user.lender?
   end
 
-  def tenant?
+  def borrower?
     params[:signup][:tenant] == "1"
   end
 
