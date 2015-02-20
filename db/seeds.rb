@@ -88,6 +88,7 @@ image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
 
 env_category = Category.create!(
   name: "Environment"
+)
 
 env_category.photos << Photo.create!(
   image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
@@ -119,7 +120,7 @@ conflict_zone_category.photos << Photo.create!(
 
 # projects
 20.times do |n|
-  project = Project.create!(
+  project1 = Project.create!(
                   title: "Timmy's vaccine shots_#{n}",
                   price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
@@ -127,11 +128,11 @@ conflict_zone_category.photos << Photo.create!(
                   categories: [people_category],
                   tenant_id: Tenant.first.id
                   )
-  project.photos << Photo.create!(
+  project1.photos << Photo.create!(
                   image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
                   )
 
-  project1.Project.create!(
+  project2 = Project.create!(
                   title: "Steven's school books_#{n}",
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
@@ -139,11 +140,11 @@ conflict_zone_category.photos << Photo.create!(
                   categories: [startup_category, conflict_zone_category],
                   tenant_id: Tenant.second.id
                   )
-  project1.photos << Photo.create!(
+  project2.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
     )
 
-  project2 = Project.create!(
+  project3 = Project.create!(
                   title: "John's water supply for village_#{n}",
                   price: 9000,
                   description: "We need water for our village of people." * 3,
@@ -168,7 +169,7 @@ conflict_zone_category.photos << Photo.create!(
     )
 
   Tenant.all[4..9].each do |tenant|
-    Project.create!(
+    project5 = Project.create!(
                     title: "Pandas need Bamboo_#{tenant.id}_#{n}",
                     price: 16000,
                     description: "Conflict diamonds are forever" * 5,
