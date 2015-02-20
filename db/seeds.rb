@@ -1,21 +1,21 @@
 # lenders
 100.times do |n|
   User.create!(
-    username:               "lender#{n+1}",
-    email:                  "FlowersNPuppies-#{n + 1}@example.com",
-    password:               "password",
-    password_confirmation:  "password",
-    first_name:             Faker::Name.first_name,
-    last_name:              Faker::Name.last_name,
-    city:                   "Atlanta",
-    state:                  "GA",
-    zipcode:                50240,
-    street:                 "6#{n + 1}#{n + 2} Mockingbird Lane",
-    country:                Faker::Address.country,
-    credit_card_info:       "11112222333#{n + 1}44#{n + 2}4"
+    username:              "lender#{n + 1}",
+    email:                 "FlowersNPuppies-#{n + 1}@example.com",
+    password:              "password",
+    password_confirmation: "password",
+    first_name:            Faker::Name.first_name,
+    last_name:             Faker::Name.last_name,
+    city:                  "Atlanta",
+    state:                 "GA",
+    zipcode:               50240,
+    street:                "6#{n + 1}#{n + 2} Mockingbird Lane",
+    country:               Faker::Address.country,
+    credit_card_info:      "11112222333#{n + 1}44#{n + 2}4"
     )
 end
-lender = User.find_by(username: "lender0")
+lender = User.find_by(username: "lender1")
 
 # tenants
 10.times do |n|
@@ -41,21 +41,21 @@ email: "admin1@admin.com"
 )
 
 # borrowers
-borrower = User.create!(
-                        username:              "borrower",
-                        first_name:            "Jorge",
-                        last_name:             "Telez-Borrower",
-                        email:                 "example_borrower@example.com",
-                        password:              "password",
-                        password_confirmation: "password",
-                        city:                  "Atlanta",
-                        state:                 "GA",
-                        street:                "5200 Buffington Road",
-                        zipcode:               30349,
-                        country:               "USA",
-                        credit_card_info:      "1111222233334444",
-                        tenant_id:             Tenant.find(1)
-                        )
+User.create!(
+              username:              "borrower",
+              first_name:            "Jorge",
+              last_name:             "Telez-Borrower",
+              email:                 "example_borrower@example.com",
+              password:              "password",
+              password_confirmation: "password",
+              city:                  "Atlanta",
+              state:                 "GA",
+              street:                "5200 Buffington Road",
+              zipcode:               30349,
+              country:               "USA",
+              credit_card_info:      "1111222233334444",
+              tenant_id:             Tenant.find(1)
+              )
 
 Tenant.all.each do |tenant|
   2.times do |n|
@@ -129,8 +129,8 @@ conflict_zone_category.photos << Photo.create!(
                   tenant_id: Tenant.first.id
                   )
   project1.photos << Photo.create!(
-                  image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
-                  )
+    image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
+    )
 
   project2 = Project.create!(
                   title: "Steven's school books_#{n}",
