@@ -1,0 +1,21 @@
+<div id="tenants_header">
+  <h1>Tenants</h1>
+</div>
+
+<table style="width:100%">
+  <tr>
+    <th>Organization</th>
+    <th>Location</th>
+    <th>Slug</th>
+  </tr>
+
+  <% @tenants.each do |tenant| %>
+    <tr>
+      <td><%= tenant.organization %></td>
+      <td><%= tenant.location %></td>
+      <td><%= tenant.slug %></td>
+    </tr>
+  <% end %>
+</table>
+
+
