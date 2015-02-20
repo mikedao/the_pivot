@@ -9,7 +9,6 @@
 
 <div id="title"><h1><%= @project.title %></h1></div>
 
-
 <%= render "shared/back_button" %>
 <%= div_for(@project, class: "photo") do %>
   <%= image_tag @project.photos.first.image.url %>
@@ -18,14 +17,19 @@
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
 <div id="price"><%= number_to_currency @project.price / 100 %></div>
-
-<% unless @project.retired %>
-  <%= form_for :cart, url: pending_loan_path do |f| %>
+<div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %></div>
+<div id="requested-by">Requested by: <%= @project.requested_by %></div>
+<div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %>
+</div>
+<div id="lend-form">
+  <% unless @project.retired %>
+    <%= form_for :pending_loan, url: pending_loan_path do |f| %>
     <%= f.hidden_field :project_id, value: @project.id %>
-    <%= f.select :quantity, options_for_select((1..10))%>
-    <%= f.submit 'Add to Cart', class: "btn btn-default add-cart"%>
+    <%= f.hidden_field :loan_amount, value: @project.price %>
+    <%= f.submit 'Lend', class: "btn btn-default" %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 <h4><%= @project.tenant.organization %>, <%= @project.tenant.location %></h4>
 <h4><% @project.categories.each do |category| %>
   <div class="project-category">
