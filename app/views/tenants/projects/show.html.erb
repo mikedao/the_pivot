@@ -22,7 +22,7 @@
     <% end %>
   <% end %>
 </div>
-<h4><%= @project.tenant.organization %>, <%= @project.tenant.location %></h4>
+<h4> <%= link_to "#{project.tenant.organization}",  %> <%= @project.tenant.location %></h4>
 <h4><% @project.categories.each do |category| %>
   <div class="project-category">
     <%= link_to "#{category.name}", projects_path %>
