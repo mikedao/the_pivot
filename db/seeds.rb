@@ -1,55 +1,26 @@
-# Users
-User.create!(
-  username: "lender",
-  first_name: "Dan",
-  last_name: "Cathy",
-  email: "DanCathy@gmail.com",
-  password: "password",
-  password_confirmation: "password",
-  city: "Atlanta",
-  state: "GA",
-  street: "5200 Buffington Road",
-  zipcode: 30349,
-  country: "USA",
-  credit_card_info: "1111222233334444"
-)
-
-5.times do |n|
-  username = Faker::Internet.user_name
-  first_name = Faker::Name.first_name
-  last_name = Faker::Name.last_name
-  country = Faker::Address.country
-  email = "FlowersNPuppies-#{n + 1}@gmail.com"
-  password = "password"
-  credit_card_info = "11112222333#{n + 1}44#{n + 2}4"
-  street = "6#{n + 1}#{n + 2} Mockingbird Lane"
+# lenders
+100.times do |n|
   User.create!(
-    username: username,
-    email: email,
-    password: password,
-    password_confirmation:  password,
-    first_name: first_name,
-    last_name: last_name,
-    city: "Atlanta",
-    state: "GA",
-    zipcode: 50240,
-    street: street,
-    country: country,
-    credit_card_info: credit_card_info
-  )
+    username:              "lender#{n + 1}",
+    email:                 "FlowersNPuppies-#{n + 1}@example.com",
+    password:              "password",
+    password_confirmation: "password",
+    first_name:            Faker::Name.first_name,
+    last_name:             Faker::Name.last_name,
+    city:                  "Atlanta",
+    state:                 "GA",
+    zipcode:               50240,
+    street:                "6#{n + 1}#{n + 2} Mockingbird Lane",
+    country:               Faker::Address.country,
+    credit_card_info:      "11112222333#{n + 1}44#{n + 2}4"
+    )
 end
+lender = User.find_by(username: "lender1")
 
-puts "#{User.count} users created."
-
-ronald1 = User.find(2)
-ronald2 = User.find(3)
-ronald3 = User.find(4)
-ronald4 = User.find(5)
-
-# 'tenants
-4.times do |n|
-  location = "East Timor represent#{n + 1}"
-  organization = "Bridge Builders#{n + 1}"
+# tenants
+10.times do |n|
+  location =              "East Timor represent#{n + 1}"
+  organization =          "Bridge Builders#{n + 1}"
   Tenant.create!(
     location:     location,
     organization: organization,
@@ -58,25 +29,6 @@ ronald4 = User.find(5)
   )
 end
 
-bridge_builders1 = Tenant.find(1)
-bridge_builders2 = Tenant.find(2)
-bridge_builders3 = Tenant.find(3)
-
-Tenant.find(1).users.create!(
-  username: "borrower",
-  first_name: "first",
-  last_name: "last",
-  email: "borrower@borrower.com",
-  password: "password",
-  password_confirmation: "password",
-  city: "Denver",
-  state: "CO",
-  street: "1510 Blake Street",
-  zipcode: 80202,
-  country: "USA",
-  credit_card_info: "11112222333334444"
-)
-
 # admin
 Admin.create!(
   username: "admin",
@@ -84,12 +36,63 @@ Admin.create!(
   email: "admin@admin.com"
 )
 
+Admin.create!(
+username: "admin1",
+password: "password",
+email: "admin1@admin.com"
+)
+
+# borrowers
+User.create!(
+              username:              "borrower",
+              first_name:            "Jorge",
+              last_name:             "Telez-Borrower",
+              email:                 "example_borrower@example.com",
+              password:              "password",
+              password_confirmation: "password",
+              city:                  "Atlanta",
+              state:                 "GA",
+              street:                "5200 Buffington Road",
+              zipcode:               30349,
+              country:               "USA",
+              credit_card_info:      "1111222233334444",
+              tenant_id:             1
+              )
+
+Tenant.all.each do |tenant|
+  2.times do |n|
+    User.create!(
+    username:              "borrower_#{tenant.id}_#{n}",
+    first_name:            "Jorge",
+    last_name:             "Telez",
+    email:                 "example_#{tenant.id}_#{n}@example.com",
+    password:              "password",
+    password_confirmation: "password",
+    city:                  "Atlanta",
+    state:                 "GA",
+    street:                "5200 Buffington Road",
+    zipcode:               30349,
+    country:               "USA",
+    credit_card_info:      "1111222233334444",
+    tenant_id:             tenant.id
+    )
+  end
+end
+
 # categories
 people_category = Category.create!(
   name: "People"
 )
 
 people_category.photos << Photo.create!(
+image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
+)
+
+env_category = Category.create!(
+  name: "Environment"
+)
+
+env_category.photos << Photo.create!(
   image: File.new("#{Rails.root}/app/assets/images/people_category.jpg")
 )
 
@@ -118,79 +121,96 @@ conflict_zone_category.photos << Photo.create!(
 )
 
 # projects
-timmys_vaccines_nigeria = Project.create!(
-                  title: "Timmy's vaccine shots",
+20.times do |n|
+  project1 = Project.create!(
+                  title: "Timmy's vaccine shots_#{n}",
                   price: 50000,
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: bridge_builders1.id
+                  tenant_id: Tenant.first.id
                   )
+  project1.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
+    )
 
-timmys_vaccines_nigeria.photos << Photo.create!(
-  image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
-  )
-
-stevens_books_bangkok = Project.create!(
-                  title: "Steven's school books",
+  project2 = Project.create!(
+                  title: "Steven's school books_#{n}",
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
-                  categories: [startup_category],
-                  tenant_id: bridge_builders2.id
+                  categories: [startup_category, conflict_zone_category],
+                  tenant_id: Tenant.second.id
                   )
+  project2.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
+    )
 
-stevens_books_bangkok.photos << Photo.create!(
-  image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
-  )
-
-johns_waterworks_cotedivore = Project.create!(
-                  title: "John's water supply for village",
+  project3 = Project.create!(
+                  title: "John's water supply for village_#{n}",
                   price: 9000,
                   description: "We need water for our village of people." * 3,
                   retired: false,
                   categories: [public_category],
-                  tenant_id: bridge_builders2.id
+                  tenant_id: Tenant.third.id
                   )
+  project3.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
+    )
 
-johns_waterworks_cotedivore.photos << Photo.create!(
-  image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
-  )
-
-debeers_conflict_diamonds_ivorycoast = Project.create!(
-                  title: "De Beers",
+  project4 = Project.create!(
+                  title: "De Beers_#{n}",
                   price: 16000,
                   description: "Conflict diamonds are forever" * 5,
                   retired: false,
-                  categories: [conflict_zone_category],
-                  tenant_id: bridge_builders3.id
+                  categories: [conflict_zone_category, env_category],
+                  tenant_id: Tenant.fourth.id
                   )
+  project4.photos << Photo.create!(
+    image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
+    )
 
-debeers_conflict_diamonds_ivorycoast.photos << Photo.create!(
-  image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
-  )
+  Tenant.all[4..9].each do |tenant|
+    project5 = Project.create!(
+                    title: "Pandas need Bamboo_#{tenant.id}_#{n}",
+                    price: 16000,
+                    description: "Conflict diamonds are forever" * 5,
+                    retired: false,
+                    categories: [conflict_zone_category, env_category],
+                    tenant_id: tenant.id
+                    )
+    project5.photos << Photo.create!(
+      image: File.new("#{Rails.root}/app/assets/images/panda.jpg")
+      )
+  end
+end
 
 # Orders with projects
-timmys_vaccines_nigeria.orders.create!(
-                  total_cost: timmys_vaccines_nigeria.price,
-                  user_id:    ronald1.id,
+project1 = Project.find(1)
+project2 = Project.find(2)
+project3 = Project.find(3)
+project4 = Project.find(4)
+
+project1.orders.create!(
+                  total_cost: project1.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
 
-stevens_books_bangkok.orders.create!(
-                  total_cost: stevens_books_bangkok.price,
-                  user_id:    ronald2.id,
+project2.orders.create!(
+                  total_cost: project2.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
 
-johns_waterworks_cotedivore.orders.create!(
-                  total_cost: johns_waterworks_cotedivore.price,
-                  user_id:    ronald3.id,
+project3.orders.create!(
+                  total_cost: project3.price,
+                  user_id:    lender.id,
                   status:     "completed"
                   )
 
-debeers_conflict_diamonds_ivorycoast.orders.create!(
-                  total_cost: debeers_conflict_diamonds_ivorycoast.price,
-                  user_id:    ronald4.id,
+project4.orders.create!(
+                  total_cost: project4.price,
+                  user_id:    lender.id,
                   status:     "ordered"
                   )
