@@ -1,8 +1,15 @@
 <div id="title">
-  <h1>Donate Today!</h1>
+  <button class="btn btn-primary">Filter Projects</button>
+  <h1>Explore Your Lending Options</h1>
 
-  <%= render 'shared/category_row' %>
   <div class="row">
+    <div id="project-filters" class="hidden-filters">
+      Categories
+      <% @categories.each do |category| %>
+        <%= check_box :category, category.name %> <%= category.name %><br/>
+      <% end %><br/>
+    </div>
+
     <% @projects.each do |project| %>
     <div class="box col-lg-3">
       <h4 class="project-title"> <%= link_to("#{project.title}", project_path(id: project.id))%></h4>
