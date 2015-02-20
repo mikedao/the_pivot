@@ -10,7 +10,9 @@
 </head>
 <body>
   <div class="main-body container">
-    <%= render "layouts/nav_bar" %>
+    <div id="navbar">
+      <%= render "layouts/nav_bar" %>
+    </div>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>
