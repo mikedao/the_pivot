@@ -147,15 +147,23 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "while on project show page for a specific tenant, I can click the
   tenant link to go to the tenant index page" do
-    borrower = create(:user_as_borrower)
-    borrower.tenant.projects << create_list(:project, 2)
+    project = create(:project)
+    project.tenant.projects << Project.create!(
+      title: "Lucy's factory farm",
+      price: 20000,
+      description: "We raise cheap meat for restaurants across America. We
+                    cows, cheap, goats, and chickens. We also sell eggs and milk
+                    and various dairy products for restaurants as well.",
+      retired: false,
+      categories: [create(:category)],
+      photos: [create(:photo)]
+      )
 
-    visit tenant_project_path(slug: borrower, id: borrower.tenant.projects.first)
-    save_and_open_page
-    click_link_or_button(borrower.tenant.organization)
+    visit tenant_project_path(slug: project.tenant.slug, id: project.tenant.projects.first.id)
+    click_link_or_button(project.tenant.organization)
 
-    borrower.tenant.projects.each do |project|
-      assert page.has_css?("div.project_#{project.id}")
+    project.tenant.projects.each do |project|
+      assert page.has_css?("div#project_#{project.id}")
     end
   end
 end
