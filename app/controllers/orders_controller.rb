@@ -22,31 +22,28 @@ class OrdersController < ApplicationController
   end
 
   def create
-    cart = Cart.new(session[:cart])
-    total_cost = 0
-    cart.projects.each do |project, quantity|
-      total_cost += project.price * quantity.to_i
+    pending_loans = PendingLoan.new(session[:pending_loan])
+    if pending_loans.present?
+      complete_loan(pending_loans)
+    else
+      flash[:alert] = "You have no pending loans. " +
+                      "Please select a loan to checkout."
+      redirect_to projects_path
     end
-    @order = Order.create(
-      user_id: session[:user_id],
-      total_cost: total_cost,
-      status: 'ordered'
-      )
-    cart.projects.each do |project, quantity|
-      Loan.create(
-        project_id: project.id,
-        order_id: @order.id,
-        quantity: quantity,
-        line_project_cost: project.price * quantity.to_i
-        )
-    end
-    session.delete(:cart)
-    redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 
   private
 
   def order_owner_or_admin?
     current_user && (current_user.id == @order.user_id || current_user.admin?)
+  end
+
+  private
+
+  def complete_loan(pending_loans)
+    @order = pending_loans.checkout!(session[:user_id])
+    session.delete(:pending_loan)
+    flash[:notice] = "You have successfully completed your loans."
+    redirect_to user_order_path(user_id: session[:user_id], id: @order.id)
   end
 end

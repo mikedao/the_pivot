@@ -1,6 +1,6 @@
 <div id="title"><h1><%= @project.title %></h1></div>
 <%= render "shared/back_button" %>
-<%= image_tag '#' %>
+<%= image_tag project.image.url %>
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
 <div id="price"><%= number_to_currency @project.price / 100 %></div>
