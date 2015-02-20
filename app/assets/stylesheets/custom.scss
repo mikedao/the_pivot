@@ -152,3 +152,7 @@ td {
   width: 100%;
   @include box-sizing;
 }
+
+th {
+  text-align: center;
+}
