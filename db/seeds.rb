@@ -54,7 +54,7 @@ User.create!(
               zipcode:               30349,
               country:               "USA",
               credit_card_info:      "1111222233334444",
-              tenant_id:             Tenant.find(1)
+              tenant_id:             1
               )
 
 Tenant.all.each do |tenant|

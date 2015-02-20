@@ -8,6 +8,7 @@
   <%= menu_group do %>
     <%= menu_item "Lend", categories_path %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
+    <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
   <% end %>
   <%= menu_group pull: :right do %>
     <% if current_user.nil? %>
@@ -22,7 +23,9 @@
     <% else %>
       <%= menu_item "Loans", user_orders_path(user_id: current_user.id) %>
       <%= menu_item "Logout", logout_path, method: :delete %>
-      <%= menu_item "Profile", user_path(current_user) %>
+      <% unless current_user.admin? %>
+        <%= menu_item "Profile", user_path(current_user) %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
