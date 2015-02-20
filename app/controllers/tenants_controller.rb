@@ -1,6 +1,6 @@
 class TenantsController < ApplicationController
   def index
-    @tenants = Tenant.all
+    @tenants = Tenant.all.where(active: true).where(approved: true)
   end
 
   def show

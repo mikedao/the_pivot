@@ -24,8 +24,8 @@ lender = User.find_by(username: "lender1")
   Tenant.create!(
     location:     location,
     organization: organization,
-    status:       true,
-    approval:     true
+    active:       true,
+    approved:     true
   )
 end
 

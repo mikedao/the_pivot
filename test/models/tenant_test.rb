@@ -42,4 +42,17 @@ class TenantTest < ActiveSupport::TestCase
       assert tenant.invalid?
     end
   end
+
+  test "tenant is not active by default" do
+    tenant = create(:tenant)
+
+    refute tenant.active?
+  end
+
+  test "tenant is not approved by default" do
+    tenant = create(:tenant)
+
+    refute tenant.approved?
+  end
+
 end
