@@ -1,5 +1,4 @@
-
-  <%= nav_bar fixed: :top, responsive: true do %>
+<%= nav_bar fixed: :top, responsive: true do %>
   <%= menu_group do %>
     <a class="brand" href="/"><%= image_tag "logo5.png" %></a>
   <% end %>
@@ -15,6 +14,7 @@
     <% end %>
     <%= menu_item "Pending Loans", pending_loan_path %>
     <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
+    <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
     <% if current_user.nil? %>
     	<%= menu_item "Signup", new_user_path %>
       <%= menu_item do %>
@@ -26,7 +26,9 @@
       <% end %>
     <% else %>
       <%= menu_item "Logout", logout_path, method: :delete %>
-      <%= menu_item "Profile", user_path(current_user) %>
+      <% unless current_user.admin? %>
+        <%= menu_item "Profile", user_path(current_user) %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

@@ -35,18 +35,33 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Admin Dashboard")
   end
 
-  test "an admin can see all tenants" do
+  test "an admin does not see a 'Profile' button in their navbar" do
     admin = create(:admin)
-    tenant = create(:tenant)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+
+    refute page.has_content?("Profile")
+  end
+
+  test "an admin has an 'All Borrowers' link in their navbar that
+  links to a table of all borrowers" do
+    admin = create(:admin)
+    tenant1 = create(:tenant)
+    tenant2 = create(:tenant)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit root_path
     click_link_or_button("Admin Dashboard")
-    click_link_or_button("All Borrowers")
+
+    within ("#navbar") do
+      click_link_or_button("All Borrowers")
+    end
 
     assert_equal admin_tenants_path, current_path
-    assert page.has_content?(tenant.organization)
-  end
+    assert page.has_content?("#{tenant2.organization}")
+    assert page.has_content?("#{tenant1.slug}")
+  end 
 
   test "an admin user can see all projects" do
     skip
