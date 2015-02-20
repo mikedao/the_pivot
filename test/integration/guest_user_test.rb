@@ -42,32 +42,9 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.categories.first.name)
   end
 
-  test "an unauthorised user can view a tenant projects page" do
-    user = create(:user)
-    project = create(:project)
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
-
-    visit root_path
-    click_link_or_button(project.categories.first.name)
-    click_link_or_button(project.title)
-
-    assert_equal tenant_project_path(
-      slug: project.tenant.slug,
-      id: project.id), current_path
-    assert page.has_content?(project.tenant.organization)
-    assert page.has_content?(project.tenant.location)
-    assert page.has_content?(project.title)
-    assert page.has_css?("div#project_#{project.id}")
-    assert page.has_content?(project.description)
-    assert page.has_content?(project.price / 100)
-    assert page.has_content?(project.categories.first.name)
-  end
-
-  test "a user can view a tenant projects page" do
-    user = create(:user)
+  test "a guest user can view a tenant projects page" do
     project1 = create(:project)
     project2 = create(:project)
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
     click_link_or_button("#{project1.categories.first.name}")
@@ -85,10 +62,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     refute page.has_content?(project2.categories.first.name)
   end
 
-  test "a user can view a tenant page" do
-    user = create(:user)
+  test "a guest user can view a tenant page" do
     project1 = create(:project)
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit tenant_path(slug: project1.tenant.slug)
 
@@ -98,9 +73,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can go back to the projects page from the tenant page" do
-    user = create(:user)
     project1 = create(:project)
-    ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit tenant_path(slug: project1.tenant.slug)
     first(".project-category").
@@ -109,7 +82,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert_equal projects_path, current_path
   end
 
-  test "will be redirected to home page if tenant does not exist" do
+  test "user will be redirected to home page if tenant does not exist" do
     visit tenant_path(slug: "made-up-shop")
 
     assert_equal "/", current_path
