@@ -24,7 +24,12 @@ class Tenants::ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.update_attributes!(new_params)
+    @project.update_attributes(new_params)
+    if @project.valid?
+      flash[:notice] = "#{@project.title} Updated"
+    else
+      flash[:errors] = "Invalid Attributes"
+    end
     redirect_to tenant_dashboard_path
   end
 
@@ -40,6 +45,7 @@ class Tenants::ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :price, :description,
+                                    :requested_by,
                                     :retired, :tenant_id, :repayment_begin,
                                     :repayment_rate, categories: [])
   end
@@ -57,6 +63,7 @@ class Tenants::ProjectsController < ApplicationController
   end
 
   def new_params
+
     new_param = project_params
     new_param[:categories] = new_categories
     new_param[:tenant_id] = current_user.tenant.id
