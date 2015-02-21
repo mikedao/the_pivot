@@ -54,5 +54,4 @@ class TenantTest < ActiveSupport::TestCase
 
     refute tenant.approved?
   end
-
 end

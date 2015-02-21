@@ -24,5 +24,3 @@ class TenantViewTest < ActionDispatch::IntegrationTest
     refute page.has_content?("farm")
   end
 end
-
-
