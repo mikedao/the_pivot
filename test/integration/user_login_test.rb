@@ -98,16 +98,28 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   pending loans" do
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
-    visit projects_path
-    click_link_or_button("Lend")
-    register_user(user)
 
-    assert pending_loan_path, current_path
-    assert page.has_content?("Welcome Back #{user.username}")
+    visit category_path(project.categories.first.id)
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    log_in_user(user)
+
+    assert_equal pending_loan_path, current_path
+    assert page.has_content?("Welcome back, #{user.username}")
   end
 
   test "when an unauthenticated user selects a loan and logs in from pending
   loans, he gets redirected back to pending loans with the item in his cart." do
-    skip
+  user = create(:user)
+  project = create(:project, title: "A Water Purifier")
+
+  visit category_path(project.categories.first.id)
+  within(".row") do
+    click_link_or_button("Lend")
+  end
+  log_in_user(user)
+
+  assert page.has_content?("A Water Purifier")
   end
 end

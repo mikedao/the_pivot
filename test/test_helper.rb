@@ -21,7 +21,6 @@ DatabaseCleaner.strategy = :transaction
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
-  include TestHelperMethods
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
