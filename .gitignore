@@ -19,5 +19,6 @@
 # Ignore Simplecov coverage report
 coverage
 
-# Ignore precompiled assets
-/public/assets
+# Ignore precompiled assets in public folder
+/public/assets/*
+/public/system/*

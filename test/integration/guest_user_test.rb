@@ -2,7 +2,6 @@ require "test_helper"
 
 class GuestUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  include FactoryGirl::Syntax::Methods
 
   test "a guest user can view a home page" do
     project = create(:project)
@@ -143,5 +142,27 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?(user.orders.first.status)
     assert page.has_content?(project.title)
     assert page.has_content?(project.price / 100)
+  end
+
+  test "while on project show page for a specific tenant, I can click the
+  tenant link to go to the tenant index page" do
+    project = create(:project)
+    project.tenant.projects << Project.create!(
+      title: "Lucy's factory farm",
+      price: 20000,
+      description: "We raise cheap meat for restaurants across America. We
+                    cows, cheap, goats, and chickens. We also sell eggs and milk
+                    and various dairy products for restaurants as well.",
+      retired: false,
+      categories: [create(:category)],
+      photos: [create(:photo)]
+      )
+
+    visit tenant_project_path(slug: project.tenant.slug, id: project.tenant.projects.first.id)
+    click_link_or_button(project.tenant.organization)
+
+    project.tenant.projects.each do |project|
+      assert page.has_css?("div#project_#{project.id}")
+    end
   end
 end
