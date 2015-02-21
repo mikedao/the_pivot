@@ -128,7 +128,10 @@ conflict_zone_category.photos << Photo.create!(
                   description: "These are malaria shots for little Timmy." * 3,
                   retired: false,
                   categories: [people_category],
-                  tenant_id: Tenant.first.id
+                  tenant_id: Tenant.first.id,
+                  repayment_rate: 28,
+                  requested_by: 2015 - 1 - 1,
+                  repayment_begin: 2015 - 3 - 30
                   )
   project1.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
@@ -140,7 +143,10 @@ conflict_zone_category.photos << Photo.create!(
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
                   categories: [startup_category, conflict_zone_category],
-                  tenant_id: Tenant.second.id
+                  tenant_id: Tenant.second.id,
+                  repayment_rate: 28,
+                  requested_by: 2015 - 1 - 1,
+                  repayment_begin: 2015 - 3 - 30
                   )
   project2.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
@@ -152,7 +158,10 @@ conflict_zone_category.photos << Photo.create!(
                   description: "We need water for our village of people." * 3,
                   retired: false,
                   categories: [public_category],
-                  tenant_id: Tenant.third.id
+                  tenant_id: Tenant.third.id,
+                  repayment_rate: 28,
+                  requested_by: 2015 - 1 - 1,
+                  repayment_begin: 2015 - 3 - 30
                   )
   project3.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
@@ -164,7 +173,10 @@ conflict_zone_category.photos << Photo.create!(
                   description: "Conflict diamonds are forever" * 5,
                   retired: false,
                   categories: [conflict_zone_category, env_category],
-                  tenant_id: Tenant.fourth.id
+                  tenant_id: Tenant.fourth.id,
+                  repayment_rate: 28,
+                  requested_by: 2015 - 1 - 1,
+                  repayment_begin: 2015 - 3 - 30
                   )
   project4.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
@@ -177,7 +189,10 @@ conflict_zone_category.photos << Photo.create!(
                     description: "Conflict diamonds are forever" * 5,
                     retired: false,
                     categories: [conflict_zone_category, env_category],
-                    tenant_id: tenant.id
+                    tenant_id: tenant.id,
+                    repayment_rate: 28,
+                    requested_by: 2015 - 1 - 1,
+                    repayment_begin: 2015 - 3 - 30
                     )
     project5.photos << Photo.create!(
       image: File.new("#{Rails.root}/app/assets/images/panda.jpg")
