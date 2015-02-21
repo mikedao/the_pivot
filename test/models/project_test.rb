@@ -101,4 +101,12 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert_equal project.requested_by + 90, project.repayment_begin
   end
+
+  test "the default repayment rate is updated when the requested
+        by date is changed" do
+    project = create(:project)
+    project.update_attributes(requested_by: Date.new(2030, 1, 1))
+
+    assert_equal project.requested_by + 90, project.repayment_begin
+  end
 end

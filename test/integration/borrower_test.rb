@@ -45,6 +45,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     fill_in "project[title]", with: "New Water Project for our town"
     fill_in "project[price]", with: 40004
     fill_in "project[description]",  with: "a" * 150
+    fill_in "project[requested_by]", with: Date.new(2020, 12, 1)
     file_path = Rails.root + "app/assets/images/test_photo.jpg"
     attach_file("project[photos]", file_path)
     select category.name, from: "project[categories][]"
@@ -67,12 +68,15 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     fill_in "project[title]", with: "Updated Water Project for our town"
     fill_in "project[price]", with: 40004
     fill_in "project[description]", with: "a" * 150
+    fill_in "project[requested_by]", with: "01/12/2025"
     file_path = Rails.root + "app/assets/images/test_photo.jpg"
     attach_file("project[photos]", file_path)
     select Category.first.name, from: "project[categories][]"
     click_button "Update"
 
     assert page.has_content?("Updated Water Project for our town")
+    assert page.has_content?("$400.04")
+    assert page.has_content?("Dec 1, 2025")
   end
 
   test "a borrower can only see their own projects on the dashboard" do
