@@ -13,6 +13,7 @@ require "minitest/pride"
 require "factory_girl_rails"
 require "support/factory_girl"
 require "database_cleaner"
+require "date"
 
 DatabaseCleaner.strategy = :transaction
 
