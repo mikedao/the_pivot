@@ -7,6 +7,10 @@ module SessionsHelper
 
   # Stores the URL trying to be accessed.
   def store_location
-    session[:forwarding_url] = request.referer if request.post?
+    if request.post? && request.referer =~ /users\/new/
+      session[:forwarding_url] = pending_loan_path
+    else
+      session[:forwarding_url] = request.referer if request.post?
+    end
   end
 end

@@ -120,6 +120,23 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     end
     log_in_user(user)
 
-    assert page.has_content?("A Water Purifier")
+    assert page.has_content?(project.title)
+  end
+
+  test "when an unauthenticated user selects a loan and tries to checkout and
+  logs in from the signup page, he gets redirected back to pending_loan_show and
+  not the signup page" do
+    user = create(:user)
+    project = create(:project, title: "A Water Purifier")
+
+    visit category_path(project.categories.first.id)
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    click_link_or_button("Checkout")
+    log_in_user(user)
+
+    assert page.has_content?(project.title)
+    refute page.has_content?("Signup Page")
   end
 end
