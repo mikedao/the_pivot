@@ -155,7 +155,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
                     and various dairy products for restaurants as well.",
       retired: false,
       categories: [create(:category)],
-      photos: [create(:photo)]
+      photos: [create(:photo)],
+      requested_by: Date.new(2015,1,1)
       )
 
     visit tenant_project_path(slug: project.tenant.slug, id: project.tenant.projects.first.id)
