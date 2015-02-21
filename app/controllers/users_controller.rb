@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def new
+    store_location
     if params[:message]
       flash[:notice] = params[:message]
     end
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
     if borrower?
       redirect_to new_tenant_path
     else
-      redirect_to root_path
+      redirect_back_or(root_path)
     end
   end
 

@@ -139,4 +139,30 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert page.has_content?(project.title)
     refute page.has_content?("Signup Page")
   end
+
+  test "when a new user selects a loan and tries to checkout and signups, he
+  gets redirected back to the pending_loan_show page" do
+    project = create(:project, title: "A Water Purifier")
+
+    visit category_path(project.categories.first.id)
+    within(".row") do
+      click_link_or_button("Lend")
+    end
+    click_link_or_button("Checkout")
+    fill_in "signup[username]",               with: "Jwan622"
+    fill_in "signup[first_name]",             with: "Jeff"
+    fill_in "signup[last_name]",              with: "Wan"
+    fill_in "signup[street]",                 with: "31 Hillwood Court"
+    fill_in "signup[city]",                   with: "New York City"
+    fill_in "signup[state]",                  with: "NY"
+    fill_in "signup[zipcode]",                with: "10305"
+    fill_in "signup[country]",                with: "USA"
+    fill_in "signup[password]",               with: "password"
+    fill_in "signup[password_confirmation]",  with: "password"
+    fill_in "signup[email]",                  with: "Jwan6221@yahoo.com"
+    click_link_or_button "Create Account"
+    
+    assert page.has_content?(project.title)
+    refute page.has_content?("Signup Page")
+  end
 end

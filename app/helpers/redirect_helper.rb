@@ -1,4 +1,4 @@
-module SessionsHelper
+module RedirectHelper
   # Redirects to stored location (or to the default).
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)
@@ -10,7 +10,7 @@ module SessionsHelper
     if request.post? && request.referer =~ /users\/new/
       session[:forwarding_url] = pending_loan_path
     else
-      session[:forwarding_url] = request.referer if request.post?
+      session[:forwarding_url] = request.referer
     end
   end
 end
