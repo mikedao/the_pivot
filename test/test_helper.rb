@@ -3,6 +3,8 @@ SimpleCov.start do
   add_filter "/factories/"
 end
 
+Dir[Rails.root.join("test/support/**/*.rb")].each {|f| require f}
+
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
@@ -18,6 +20,7 @@ DatabaseCleaner.strategy = :transaction
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+  include TestHelperMethods
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
@@ -34,6 +37,7 @@ end
 
 class ActionDispatch::IntegrationTest
   include FactoryGirl::Syntax::Methods
+  include TestHelperMethods
 
   def setup
     DatabaseCleaner.start
