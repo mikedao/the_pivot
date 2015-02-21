@@ -161,7 +161,8 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     fill_in "signup[password_confirmation]",  with: "password"
     fill_in "signup[email]",                  with: "Jwan6221@yahoo.com"
     click_link_or_button "Create Account"
-    
+
+    assert_equal pending_loan_path, current_path
     assert page.has_content?(project.title)
     refute page.has_content?("Signup Page")
   end
