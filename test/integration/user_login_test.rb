@@ -120,6 +120,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     end
     log_in_user(user)
 
+    assert_equal pending_loan_path, current_path
     assert page.has_content?(project.title)
   end
 
@@ -136,6 +137,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     click_link_or_button("Checkout")
     log_in_user(user)
 
+    assert_equal pending_loan_path, current_path
     assert page.has_content?(project.title)
     refute page.has_content?("Signup Page")
   end
