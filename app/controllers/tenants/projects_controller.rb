@@ -24,8 +24,7 @@ class Tenants::ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.update_attributes(new_params)
-    if @project.valid?
+    if @project.update_attributes(new_params)
       flash[:notice] = "#{@project.title} Updated"
     else
       flash[:errors] = "Invalid Attributes"
@@ -63,7 +62,6 @@ class Tenants::ProjectsController < ApplicationController
   end
 
   def new_params
-
     new_param = project_params
     new_param[:categories] = new_categories
     new_param[:tenant_id] = current_user.tenant.id
