@@ -2,7 +2,6 @@ require "test_helper"
 
 class GuestUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  include FactoryGirl::Syntax::Methods
 
   test "a guest user can view a home page" do
     project = create(:project)
