@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
   validates :categories, presence: true
 
   before_create :add_default_repayment_rate
-  before_create :add_default_repayment_begin
+  before_save :add_default_repayment_begin
 
   def formatted_dollar_amount
     number_to_currency(price / 100.00)
@@ -35,7 +35,6 @@ class Project < ActiveRecord::Base
   end
 
   def add_default_repayment_begin
-    self.requested_by = Date.new(2020, 12, 12)
     self.repayment_begin = requested_by + 90
   end
 end
