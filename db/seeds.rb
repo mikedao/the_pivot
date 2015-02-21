@@ -22,8 +22,10 @@ lender = User.find_by(username: "lender1")
   location =              "East Timor represent#{n + 1}"
   organization =          "Bridge Builders#{n + 1}"
   Tenant.create!(
-    location:             location,
-    organization:         organization
+    location:     location,
+    organization: organization,
+    active:       true,
+    approved:     true
   )
 end
 
