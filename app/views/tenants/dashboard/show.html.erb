@@ -2,27 +2,34 @@
   <h1><%= @tenant.organization %>'s Dashboard</h1>
 </div>
 
-<tr><td><%= link_to("New Project", new_tenant_project_path) %></td></tr>
+<div class="btn btn-default">
+  <%= link_to("New Project", new_tenant_project_path(slug: @tenant.slug)) %>
+</div>
 
 <div id="projects">
   <table class='table table-bordered'>
     <thead>
       <tr class="warning">
-        <th data-field='Project'> Project </th>
+        <th data-field='Project'> Project</th>
+        <th data-fiedl="description">Description</th>
         <th data-field='Price'>Total Cost</th>
-        <th data-field='retired'>Status</th>
-        <th data-field='time'>Status As Of</th>
+        <th data-field="requested-by">Requested By</th>
+        <th data-field='time'>Last Updated</th>
         <th data-field='time'>Submitted At</th>
+        <th action-field="edit">Edit</th>
+        <th data-field='retired'>Retired?</th>
       </tr>
     </thead>
     <% @tenant.projects.each do |project| %>
       <tr>
         <td><%= link_to("#{project.title}", tenant_project_path(slug: @tenant.slug, id: project.id)) %></td>
+        <td><%= project.description %>
         <td><%= project.formatted_dollar_amount %></td>
+        <td><%= project.requested_by.strftime("%b %e, %Y") %>
+        <td><%= project.updated_at.strftime("%b %e, %Y, %I:%M") %></td>
+        <td><%= project.created_at.strftime("%b %e, %Y, %I:%M") %></td>
+        <td class="btn btn-default"><%= link_to("Edit", edit_tenant_project_path(id: project.id, tenant_id: @tenant.id)) %></td>
         <td><%= project.retired %></td>
-        <td><%= project.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
-        <td><%= project.created_at.strftime("%b %d, %Y, %I:%M") %></td>
-        <td><%= link_to("Edit", edit_tenant_project_path(id: project.id, tenant_id: @tenant.id)) %><td>
       </tr>
     <% end %>
   </table>
