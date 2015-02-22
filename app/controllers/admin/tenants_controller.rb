@@ -1,6 +1,7 @@
 class Admin::TenantsController < Admin::BaseController
   def index
-    @tenants = Tenant.select(:organization, :location, :slug, :id).all
+    @tenants = Tenant.select(:organization, :location, :slug, :id).all.
+     order(:id)
   end
 
   def edit
@@ -8,16 +9,17 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   def update
-    old_tenant = Tenant.find(tenant_id)
-    puts "Tenant_id: #{tenant_id}"
-    puts "Active? #{active?}"
-    puts "Approved? #{approved?}"
-    puts "Organization #{params_org}"
-    puts "Location: #{params_loc}"
 
     tenant = Tenant.find(tenant_id)
+    old_approved_status = tenant.approved
     tenant.update(organization: params_org, location: params_loc,
-                  active: active?
+                  active: active?, approved: approved?)
+    puts "old approved status: #{old_approved_status}"
+
+    if old_approved_status == false && tenant.approved == true
+      puts "THERE WAS A CHANGE"
+    end
+    redirect_to admin_tenants_path
   end
 
   private
