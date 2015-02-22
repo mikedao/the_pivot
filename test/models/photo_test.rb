@@ -32,7 +32,6 @@ class PhotoTest < ActiveSupport::TestCase
   end
 
   test "photo is not valid with non-standard content types" do
-    skip
     photo = build(:photo, image_content_type: ".bob")
 
     assert photo.invalid?
