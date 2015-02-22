@@ -76,6 +76,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   test "an admin can create a category" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
     visit root_path
     click_link_or_button("Admin Dashboard")
     click_link_or_button("Categories")
@@ -83,6 +84,22 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     click_link_or_button("Add Category")
 
     assert page.has_content?("Blah")
+  end
+
+  test "when an admin goes to the page of a category that has no 
+  associated projects they see a message that tells them
+  there are no projects associated with this category" do 
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+    click_link_or_button("Admin Dashboard")
+    click_link_or_button("Categories")
+    fill_in "categories[name]", with: "Blah"
+    click_link_or_button("Add Category")
+    click_link_or_button("Blah")
+
+    assert page.has_content?("There are no projects for this category")
   end
 
   test "a category with the same name cannot be created" do
@@ -102,6 +119,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
   test "registered admin can go to the admin categories page" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
     visit root_path
     click_link_or_button("Admin Dashboard")
     click_link_or_button("Categories")
