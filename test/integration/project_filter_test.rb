@@ -17,4 +17,16 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
       assert page.has_content?(project.tenant.location)
     end
   end
+
+  test "a user sees only the category of project selected when
+    coming from root path" do
+    project1 = create(:project)
+    project2 = create(:project)
+    visit root_path
+
+    click_link_or_button(project1.categories.first.name)
+
+    assert page.has_content?(project1.title)
+    refute page.has_content?(project2.title)
+  end
 end
