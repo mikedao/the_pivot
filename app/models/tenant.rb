@@ -11,4 +11,16 @@ class Tenant < ActiveRecord::Base
   def create_slug
     self.slug = organization.parameterize
   end
+
+  def self.unapproved
+    Tenant.where(approved: false)
+  end
+
+  def self.inactive
+    Tenant.where(active: false)
+  end
+
+  def self.actives
+    Tenant.where(active: true)
+  end
 end
