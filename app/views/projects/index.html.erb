@@ -6,12 +6,16 @@
     <div id="project-filters" class="hidden-filters">
       <p> Categories </p>
       <% @categories.each do |category| %>
-        <%= check_box :category, category.name %> <%= category.name %><br/>
+        <% if params[:category] == category.name.parameterize %>
+          <%= check_box :category, category.name.parameterize, {checked: true} %> <%= category.name %><br/>
+        <% else %>
+          <%= check_box :category, category.name.parameterize %> <%= category.name %><br/>
+        <% end %>
       <% end %>
       <br/>
 
       <p> Location </p>
-      <% @locations.eac:h do |location| %>
+      <% @locations.each do |location| %>
         <%= check_box :location, location %> <%= location %> </br>
       <% end %>
       </br>
@@ -24,13 +28,7 @@
     </div>
 
     <% @projects.each do |project| %>
-    <div class="box col-lg-3">
-      <h4 class="project-title"> <%= link_to("#{project.title}", project_path(id: project.id))%></h4>
-      <div class="thumbnail">
-        <%= image_tag project.photos.first.image.url %>
-      </div>
-      <h5 class="project-desc"><%= project.description %></h5>
-    </div>
+      <%= render partial: "shared/project", locals: {project: project} %>
     <% end %>
   </div>
 </div>

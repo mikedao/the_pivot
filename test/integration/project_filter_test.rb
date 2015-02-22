@@ -22,11 +22,14 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     coming from root path" do
     project1 = create(:project)
     project2 = create(:project)
+    project1_category = project1.categories.first.name
+    project2_category = project2.categories.first.name
     visit root_path
 
     click_link_or_button(project1.categories.first.name)
 
-    assert page.has_content?(project1.title)
-    refute page.has_content?(project2.title)
+    assert_equal projects_path, current_path
+    assert find("#category_#{project1_category.parameterize}").checked?
+    refute find("#category_#{project2_category.parameterize}").checked?
   end
 end
