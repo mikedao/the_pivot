@@ -4,8 +4,8 @@ class CategoryIndexTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include FactoryGirl::Syntax::Methods
 
-  test "Categories index page does not display a category 
-  that has no associated projects" do 
+  test "Categories index page does not display a category
+  that has no associated projects" do
   	category = create(:category)
 
   	visit root_path
@@ -13,7 +13,7 @@ class CategoryIndexTest < ActionDispatch::IntegrationTest
   	refute page.has_content?(category.name)
   end
 
-  test "Categories index page does display a category that 
+  test "Categories index page does display a category that
   has an associated project" do
   	# the factory for project automatically creates an associated 
   	# category
@@ -24,5 +24,4 @@ class CategoryIndexTest < ActionDispatch::IntegrationTest
 
   	assert page.has_content?(category.name)
   end
-
 end

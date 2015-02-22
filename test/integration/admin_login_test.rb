@@ -86,9 +86,9 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Blah")
   end
 
-  test "when an admin goes to the page of a category that has no 
+  test "when an admin goes to the page of a category that has no
   associated projects they see a message that tells them
-  there are no projects associated with this category" do 
+  there are no projects associated with this category" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
