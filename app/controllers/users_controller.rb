@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def new
     store_location
     if params[:message]
-      flash[:notice] = params[:message]
+      flash[:alert] = params[:message]
     end
   end
 

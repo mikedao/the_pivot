@@ -51,16 +51,23 @@ h3 {
 #flash_error {
   text-align: center;
   color: red;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 1em;
 }
 
 #flash_alert {
   color:red;
   text-align: center;
+  font-size: 18px;
+  margin-top: 1em;
 }
 
 #flash_notice {
   text-align: center;
   color:green;
+  font-size: 18px;
+  margin-top: 1em;
 }
 
 .category-row {
@@ -134,9 +141,32 @@ a {
   margin-bottom: 54px;
 }
 
+// tables
 td {
   background-color: rgba(255, 255, 255, .5);
 }
+
+th {
+  text-align: center;
+}
+
+// complete loan message
+#complete-loan {
+  font-size: 20px;
+  text-decoration-color: red;
+  text-decoration: underline;
+  display: inline-block;
+}
+
+#help-someone {
+  font-size: 16px;
+  text-align: center;
+  margin: auto;
+  width: 800px;
+  padding: 0.7em;
+}
+
+
 
 // variables, mixins
 @mixin box-sizing {
@@ -151,12 +181,4 @@ td {
   margin-top: 45px;
   width: 100%;
   @include box-sizing;
-}
-
-#complete-your-loan {
-  text-align: center;
-}
-
-th {
-  text-align: center;
 }
