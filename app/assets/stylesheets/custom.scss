@@ -141,8 +141,21 @@ a {
   margin-bottom: 54px;
 }
 
+// tables
 td {
   background-color: rgba(255, 255, 255, .5);
+}
+
+th {
+  text-align: center;
+}
+
+// complete loan message
+#complete-loan {
+  font-size: 20px;
+  text-decoration-color: red;
+  text-decoration: underline;
+  display: inline-block;
 }
 
 #help-someone {
@@ -153,12 +166,7 @@ td {
   padding: 0.7em;
 }
 
-#complete-loan {
-  font-size: 20px;
-  text-decoration-color: red;
-  text-decoration: underline;
-  display: inline-block;
-}
+
 
 // variables, mixins
 @mixin box-sizing {
@@ -173,9 +181,4 @@ td {
   margin-top: 45px;
   width: 100%;
   @include box-sizing;
-}
-
-
-th {
-  text-align: center;
 }
