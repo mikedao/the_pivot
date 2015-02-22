@@ -2,9 +2,9 @@ class Admin::TenantsController < Admin::BaseController
   def index
     if !Tenant.unapproved.empty?
       @unapproved = Tenant.unapproved.select(:organization,
-                                           :location,
-                                           :slug,
-                                           :id).all.order(:id)
+                                             :location,
+                                             :slug,
+                                             :id).all.order(:id)
     else
       @unapproved = nil
     end
@@ -20,13 +20,12 @@ class Admin::TenantsController < Admin::BaseController
 
     if !Tenant.actives.empty?
       @actives = Tenant.actives.select(:organization,
-                                                     :location,
-                                                     :slug,
-                                                     :id).all.order(:id)
+                                       :location,
+                                       :slug,
+                                       :id).all.order(:id)
     else
       @actives = nil
     end
-
   end
 
   def edit
@@ -56,5 +55,4 @@ class Admin::TenantsController < Admin::BaseController
   def params_update
     params.require(:tenant).permit(:organization, :location, :active, :approved)
   end
-
 end

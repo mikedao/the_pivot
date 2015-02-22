@@ -121,4 +121,3 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     end
   end
 end
-

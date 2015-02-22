@@ -17,12 +17,10 @@ class Tenant < ActiveRecord::Base
   end
 
   def self.inactive
-    Tenant.where(active:  false)
+    Tenant.where(active: false)
   end
 
   def self.actives
     Tenant.where(active: true)
   end
-
-
 end
