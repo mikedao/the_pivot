@@ -87,6 +87,7 @@ FactoryGirl.define do
   end
 
   factory :loan do
+    amount 2500
     before(:create) do |loan|
       loan.project = create(:project)
       loan.order = create(:order)
