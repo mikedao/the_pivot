@@ -201,31 +201,13 @@ conflict_zone_category.photos << Photo.create!(
 end
 
 # Orders with projects
-project1 = Project.find(1)
-project2 = Project.find(2)
-project3 = Project.find(3)
-project4 = Project.find(4)
-
-project1.orders.create!(
-                  total_cost: project1.price,
-                  user_id:    lender.id,
-                  status:     "ordered"
-                  )
-
-project2.orders.create!(
-                  total_cost: project2.price,
-                  user_id:    lender.id,
-                  status:     "ordered"
-                  )
-
-project3.orders.create!(
-                  total_cost: project3.price,
-                  user_id:    lender.id,
-                  status:     "completed"
-                  )
-
-project4.orders.create!(
-                  total_cost: project4.price,
-                  user_id:    lender.id,
-                  status:     "ordered"
-                  )
+4.times do |x|
+  project = Project.find(x + 1)
+  order =  Order.create!(
+                        user_id: lender.id,
+                        status:  "ordered",
+                        loans:   []
+                        )
+  loan = Loan.create!(project_id: project.id, amount: 2500, order_id: order.id)
+  order.loans << loan
+end

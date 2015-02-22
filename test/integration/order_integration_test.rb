@@ -2,12 +2,11 @@ require "test_helper"
 
 class OrderIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  attr_reader :user, :order, :project
+  attr_reader :user, :project
 
   def setup
     @user = create(:user)
     @project = create(:project)
-    @order = project.orders.create(total_cost: 1000, user_id: user.id)
     visit root_url
   end
 
