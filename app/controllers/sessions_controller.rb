@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
     if Admin.find_by(session_username)
       authenticate_admin(Admin.find_by(session_username))
     else
+      store_location
       authenticate_user(User.find_by(session_username))
     end
   end
@@ -51,7 +52,7 @@ class SessionsController < ApplicationController
 
   def redirect_lender_or_borrower(user)
     if user.lender?
-      redirect_to root_url
+      redirect_back_or(root_path)
     else
       redirect_to tenant_dashboard_path(slug: user.tenant.slug)
     end

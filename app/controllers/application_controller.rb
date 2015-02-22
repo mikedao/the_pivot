@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include RedirectHelper
   protect_from_forgery with: :exception
 
   private
