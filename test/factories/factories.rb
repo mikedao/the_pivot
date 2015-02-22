@@ -48,11 +48,16 @@ FactoryGirl.define do
   end
 
   factory :order do
-    sequence(:total_cost) { |n| 10000 + n * 100 }
     status "completed"
 
     before(:create) do |order|
       order.user = create(:user)
+    end
+
+    factory :order_with_loan do
+      before(:create) do |order|
+        order.loans << create(:loan)
+      end
     end
   end
 
@@ -89,6 +94,7 @@ FactoryGirl.define do
   end
 
   factory :loan do
+    amount 2500
     before(:create) do |loan|
       loan.project = create(:project)
       loan.order = create(:order)

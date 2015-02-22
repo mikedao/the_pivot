@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222005456) do
+ActiveRecord::Schema.define(version: 20150222155109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150222005456) do
     t.integer  "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "amount"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150222005456) do
     t.date     "requested_by"
     t.integer  "repayment_rate"
     t.date     "repayment_begin"
+    t.integer  "amount_needed"
   end
 
   add_index "projects", ["tenant_id"], name: "index_projects_on_tenant_id", using: :btree
