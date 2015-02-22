@@ -17,12 +17,11 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   test "authed lender can see previous order on their Loans page" do
     skip
     user = create(:user)
-    project = create(:project)
+    create(:project)
     order = create(:order_with_loan)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
-    save_and_open_page
 
     within("#history") do
       assert page.has_content?(order.id)
@@ -49,8 +48,9 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     skip
     user = create(:user)
     project = create(:project)
-    order = project.orders.create(total_cost: 1000, user_id: user.id,
-                                 status: "Completed")
+    order = project.orders.create(total_cost: 1000,
+                                  user_id: user.id,
+                                  status: "Completed")
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
