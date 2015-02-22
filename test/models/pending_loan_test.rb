@@ -12,7 +12,7 @@ class PendingLoanTest < ActiveSupport::TestCase
     manually_calculated_total_cost = project1.price + project2.price
 
     assert_equal manually_calculated_total_cost,
-                 pending_loans.calculate_total_cost
+                 pending_loans.pending_total
   end
 
   test "it can return the projects and their associated loan amount" do

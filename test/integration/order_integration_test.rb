@@ -31,8 +31,7 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   test "authed lender on Loans page can see link to individual loans" do
     user = create(:user)
     project = create(:project)
-    order = project.orders.create(total_cost: 1000, user_id: user.id,
-                                 status: "Completed")
+    order = project.orders.create(:order)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
