@@ -138,8 +138,49 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit admin_tenants_path
-    click_link_or_button(tenant.organization)
+    within("#unapproved") do
+      click_link_or_button(tenant.organization)
+    end
 
     assert tenant_dashboard_path(slug: tenant.slug), current_path
+  end
+
+  test "the tenants admin dashboard page has links in unapproved to tenant
+  dashboard" do
+    admin = create(:admin)
+    tenant = create(:tenant)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_tenants_path
+
+    within("#unapproved") do
+      assert page.has_link?(tenant.organization)
+    end
+  end
+
+  test "the tenants admin dashboard page has links in inactive to tenant
+  dashboard" do
+    admin = create(:admin)
+    tenant = create(:tenant)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_tenants_path
+
+    within("#inactive") do
+      assert page.has_link?(tenant.organization)
+    end
+  end
+
+  test "the tenants admin dashboard page has links in active to tenant
+  dashboard" do
+    admin = create(:admin)
+    tenant = create(:tenant, approved: true, active: true)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_tenants_path
+
+    within("#active") do
+      assert page.has_link?(tenant.organization)
+    end
   end
 end

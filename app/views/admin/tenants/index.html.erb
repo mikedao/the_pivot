@@ -12,7 +12,8 @@
     <% if @tenants[0] %>
       <% @tenants[0].each do |tenant| %>
         <tr>
-          <td><%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %></td>
+          <td><%= link_to tenant.organization,
+            tenant_dashboard_path(slug: tenant.slug) %></td>
           <td><%= tenant.location %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
@@ -33,7 +34,8 @@
     <% if @tenants[1] %>
       <% @tenants[1].each do |tenant| %>
         <tr>
-          <td><%= tenant.organization %></td>
+          <td><%= link_to tenant.organization,
+            tenant_dashboard_path(slug: tenant.slug) %></td>
           <td><%= tenant.location %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
@@ -54,7 +56,8 @@
     <% if @tenants[2] %>
       <% @tenants[2].each do |tenant| %>
         <tr>
-          <td><%= tenant.organization %></td>
+          <td><%= link_to tenant.organization,
+            tenant_dashboard_path(slug: tenant.slug) %></td>
           <td><%= tenant.location %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
