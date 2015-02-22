@@ -36,7 +36,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     visit root_path
     click_link_or_button(project.categories.first.name)
 
-    assert_equal category_path(id: project.categories.first.id), current_path
+    assert_equal projects_path, current_path
     assert page.has_content?(project.title)
     assert page.has_content?(project.categories.first.name)
   end
