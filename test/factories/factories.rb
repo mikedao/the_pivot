@@ -39,7 +39,7 @@ FactoryGirl.define do
 
   factory :category do
     sequence(:name) { |n| "Public Works#{n}" }
-    
+
     before(:create) do |category|
       category.photos << create(:photo)
     end
