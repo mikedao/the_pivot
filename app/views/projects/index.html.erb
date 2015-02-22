@@ -1,13 +1,26 @@
 <div id="title">
-  <button class="btn btn-primary">Filter Projects</button>
   <h1>Explore Your Lending Options</h1>
 
   <div class="row">
+  <button class="btn btn-primary">Filter Projects</button> </br>
     <div id="project-filters" class="hidden-filters">
-      Categories
+      <p> Categories </p>
       <% @categories.each do |category| %>
         <%= check_box :category, category.name %> <%= category.name %><br/>
-      <% end %><br/>
+      <% end %>
+      <br/>
+
+      <p> Location </p>
+      <% @locations.each do |location| %>
+        <%= check_box :location, location %> <%= location %> </br>
+      <% end %>
+      </br>
+
+      <p> Price Range </p>
+        <%= check_box :price, 0-100 %> <%= "0-100" %> </br>
+        <%= check_box :price, 100-500 %> <%= "100-500" %> </br>
+        <%= check_box :price, 500 %> <%= "500+" %> </br>
+
     </div>
 
     <% @projects.each do |project| %>
