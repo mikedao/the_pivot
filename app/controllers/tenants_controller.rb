@@ -9,6 +9,9 @@ class TenantsController < ApplicationController
   def new
   end
 
+  def edit
+  end
+
   def create
     if Tenant.find_by(org_check)
       flash[:notice] = "Organization Already Exists"
