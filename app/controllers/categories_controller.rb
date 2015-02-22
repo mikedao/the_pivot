@@ -4,8 +4,4 @@ class CategoriesController < ApplicationController
     @categories = @projects.map(&:categories).flatten.uniq
   end
 
-  def show
-    @category = Category.find_by(id: params[:id])
-    @projects = @category.projects
-  end
 end

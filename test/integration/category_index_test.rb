@@ -15,8 +15,6 @@ class CategoryIndexTest < ActionDispatch::IntegrationTest
 
   test "Categories index page does display a category that
   has an associated project" do
-    # the factory for project automatically creates an associated 
-    # category
     project = create(:project)
     category = project.categories.first
 
