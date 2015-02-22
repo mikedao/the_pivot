@@ -109,4 +109,24 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert_equal project.requested_by + 90, project.repayment_begin
   end
+
+  test "it can have multiple loans" do
+    project = create(:project)
+    2.times { project.loans << create(:loan) }
+
+    assert_equal 2, project.loans.count
+  end
+
+  test "it can be partially funded" do
+    project = create(:project, amount_needed: 3000)
+
+    assert project.valid?
+  end
+
+  test "the amount needed is the total amount minus the loan amounts" do
+    project = create(:project, price: 5000)
+    3.times { project.loans << create(:loan, amount: 1000) }
+
+    assert_equal 2000, project.amount_needed
+  end
 end
