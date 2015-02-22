@@ -9,7 +9,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
     visit admin_dashboard_path
 
-    assert page.has_content?("Tenants")
+    assert page.has_link?("Tenants")
   end
 
   test "an admin clicking on the tenants link is brought to the tenants
@@ -86,7 +86,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "an admin can approve and active a tenant and it moves accordingly" do
+  test "an admin can approve and active a tenant, and it moves accordingly" do
     admin = create(:admin)
     tenant = create(:tenant)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
@@ -119,5 +119,27 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     within("#active") do
       assert page.has_content?(tenant.organization)
     end
+  end
+
+  test "the tenants admin dashboard page has a link to the tenant dashboard" do
+    admin = create(:admin)
+    tenant = create(:tenant)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_tenants_path
+
+    assert page.has_link?(tenant.organization)
+  end
+
+  test "on the tenant admin dashboard, the organization name links to its
+  dashboard" do
+    admin = create(:admin)
+    tenant = create(:tenant)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_tenants_path
+    click_link_or_button(tenant.organization)
+
+    assert tenant_dashboard_path(slug: tenant.slug), current_path
   end
 end

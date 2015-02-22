@@ -1,31 +1,6 @@
 class Admin::TenantsController < Admin::BaseController
   def index
-    if !Tenant.unapproved.empty?
-      @unapproved = Tenant.unapproved.select(:organization,
-                                             :location,
-                                             :slug,
-                                             :id).all.order(:id)
-    else
-      @unapproved = nil
-    end
-
-    if !Tenant.inactive.empty?
-      @inactive = Tenant.inactive.select(:organization,
-                                         :location,
-                                         :slug,
-                                         :id).all.order(:id)
-    else
-      @inactive = nil
-    end
-
-    if !Tenant.actives.empty?
-      @actives = Tenant.actives.select(:organization,
-                                       :location,
-                                       :slug,
-                                       :id).all.order(:id)
-    else
-      @actives = nil
-    end
+    @tenants = filtered_tenants
   end
 
   def edit
@@ -54,5 +29,33 @@ class Admin::TenantsController < Admin::BaseController
 
   def params_update
     params.require(:tenant).permit(:organization, :location, :active, :approved)
+  end
+
+  def filtered_tenants
+    result = []
+    if Tenant.unapproved.present?
+      result << Tenant.unapproved.select(:organization,
+                                         :location,
+                                         :slug,
+                                         :id).all.order(:id)
+    else
+      result << nil
+    end
+    if Tenant.inactive.present?
+      result << Tenant.inactive.select(:organization,
+                                       :location,
+                                       :slug,
+                                       :id).all.order(:id)
+    else
+      result << nil
+    end
+    if Tenant.actives.present?
+      result << Tenant.actives.select(:organization,
+                                      :location,
+                                      :slug,
+                                      :id).all.order(:id)
+    else
+      result << nil
+    end
   end
 end

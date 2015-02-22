@@ -1,21 +1,19 @@
 <div id="tenants_header">
-  <h1>Tenants</h1>
+  <h1>Borrowers</h1>
 </div>
 <div id="unapproved">
-  <h2>Unapproved Tenants</h2>
+  <h2>Unapproved Borrowers</h2>
   <table style="width:100%">
     <tr>
       <th>Organization</th>
       <th>Location</th>
-      <th>Slug</th>
     </tr>
 
-    <% if @unapproved %>
-      <% @unapproved.each do |tenant| %>
+    <% if @tenants[0] %>
+      <% @tenants[0].each do |tenant| %>
         <tr>
-          <td><%= tenant.organization %></td>
+          <td><%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %></td>
           <td><%= tenant.location %></td>
-          <td><%= tenant.slug %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
       <% end %>
@@ -25,20 +23,18 @@
   </table>
 </div>
 <div id="inactive">
-  <h2>Inactive Tenants</h2>
+  <h2>Inactive Borrowers</h2>
   <table style="width:100%">
     <tr>
       <th>Organization</th>
       <th>Location</th>
-      <th>Slug</th>
     </tr>
 
-    <% if @inactive %>
-      <% @inactive.each do |tenant| %>
+    <% if @tenants[1] %>
+      <% @tenants[1].each do |tenant| %>
         <tr>
           <td><%= tenant.organization %></td>
           <td><%= tenant.location %></td>
-          <td><%= tenant.slug %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
       <% end %>
@@ -48,20 +44,18 @@
   </table>
 </div>
 <div id="active">
-  <h2>Active Tenants</h2>
+  <h2>Active Borrowers</h2>
   <table style="width:100%">
     <tr>
       <th>Organization</th>
       <th>Location</th>
-      <th>Slug</th>
     </tr>
 
-    <% if @actives %>
-      <% @actives.each do |tenant| %>
+    <% if @tenants[2] %>
+      <% @tenants[2].each do |tenant| %>
         <tr>
           <td><%= tenant.organization %></td>
           <td><%= tenant.location %></td>
-          <td><%= tenant.slug %></td>
           <td><%= link_to "EDIT", edit_admin_tenant_path(tenant.id) %></td>
         </tr>
       <% end %>
