@@ -11,22 +11,24 @@ class PendingLoan
     projects_and_loan_amounts
   end
 
-  def calculate_total_cost
-    projects.values.reduce(:+)
-  end
-
   def present?
     @pending_loan.present?
+  end
+
+  def pending_total
+    @pending_loan.values.inject(0) do |sum, loan_amount|
+      sum + loan_amount.to_i
+    end
   end
 
   def checkout!(user_id)
     order = Order.create(
       user_id: user_id.to_i,
-      total_cost: calculate_total_cost,
       status: "ordered"
     )
     projects.keys.each do |project|
       Loan.create(
+        amount: 2500,
         project_id: project.id,
         order_id: order.id
       )
