@@ -60,7 +60,6 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
     assert_equal admin_tenants_path, current_path
     assert page.has_content?("#{tenant2.organization}")
-    assert page.has_content?("#{tenant1.slug}")
   end
 
   test "an admin user can see all projects" do

@@ -35,6 +35,8 @@ FactoryGirl.define do
   factory :tenant do
     location "Shenzhen"
     sequence(:organization) { |n| "lucy's #{n} farm" }
+    active false
+    approved false
   end
 
   factory :category do

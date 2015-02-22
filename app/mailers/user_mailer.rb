@@ -17,4 +17,10 @@ class UserMailer < ApplicationMailer
       mail to: admin.email, subject: "Pending Borrower"
     end
   end
+
+  def approved_borrower(user, tenant)
+    @user = user
+    @tenant = tenant
+    mail to: @user.email, subject: "Your Organization has been approved!"
+  end
 end
