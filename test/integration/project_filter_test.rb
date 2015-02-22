@@ -9,7 +9,7 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     click_link_or_button("Filter Projects")
 
     assert_equal projects_path, current_path
-    within("#project-filters") do
+    within("#filters") do
       assert page.has_content?(project.categories.first.name)
       assert page.has_content?("$0 - $100")
       assert page.has_content?("$100 - $500")
@@ -31,5 +31,7 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     assert_equal projects_path, current_path
     assert find("#category_#{project1_category.parameterize}").checked?
     refute find("#category_#{project2_category.parameterize}").checked?
+    assert page.has_content?(project1.title)
+    refute page.has_content?(project2.title)
   end
 end

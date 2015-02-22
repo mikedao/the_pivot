@@ -1,0 +1,23 @@
+<div id="filters" class="hidden-filters">
+  <p> Categories </p>
+  <% @categories.each do |category| %>
+    <% if params[:category] == category.name.parameterize %>
+      <%= check_box :category, category.name.parameterize, {checked: true} %> <%= category.name %><br/>
+    <% else %>
+      <%= check_box :category, category.name.parameterize %> <%= category.name %><br/>
+    <% end %>
+  <% end %>
+  <br/>
+
+  <p> Location </p>
+  <% @locations.each do |location| %>
+    <%= check_box :location, location %> <%= location %> </br>
+  <% end %>
+  </br>
+
+  <p> Price Range </p>
+  <%= check_box :price, 0-100 %> <%= "$0 - $100" %> </br>
+  <%= check_box :price, 100-500 %> <%= "$100 - $500" %> </br>
+  <%= check_box :price, 500 %> <%= "$500+" %> </br>
+</div>
+
