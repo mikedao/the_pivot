@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root "categories#index"
   post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy", as: "logout"
+  get "/logout", to: "sessions#destroy", as: "logout"
 
   resources :tenants, only: [:new, :create, :index]
   resources :categories, only: [:show, :index]
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get "/dashboard", to: "base#dashboard"
     resources :categories
     resources :tenants, only: [:index, :edit, :update]
+    resources :projects, only: [:index, :edit]
   end
 
   resources :users do

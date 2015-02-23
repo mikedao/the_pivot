@@ -9,7 +9,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
 
     visit admin_dashboard_path
 
-    assert page.has_link?("Tenants")
+    assert page.has_link?("Borrowers")
   end
 
   test "an admin clicking on the tenants link is brought to the tenants
@@ -18,7 +18,7 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit admin_dashboard_path
-    click_link_or_button("Tenants")
+    click_link_or_button("Borrowers")
 
     assert_equal admin_tenants_path, current_path
   end
