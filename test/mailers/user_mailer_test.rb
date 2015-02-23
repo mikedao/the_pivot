@@ -38,4 +38,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ["michael.dao@gmail.com"], mail.from
     assert_match "Pending", mail.body.encoded
   end
+
+  test "Tenant approval email is valid" do
+    create(:admin)
+    tenant = create(:tenant)
+    tenant.users << create(:user)
+    user = tenant.users.first
+
+    mail = UserMailer.approved_borrower(user, tenant)
+
+    assert_equal "Your Organization has been approved!", mail.subject
+    assert_equal [user.email], mail.to
+    assert_equal ["michael.dao@gmail.com"], mail.from
+    assert_match "Congratulations", mail.body.encoded
+  end
 end

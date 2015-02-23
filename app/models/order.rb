@@ -1,17 +1,10 @@
 class Order < ActiveRecord::Base
   belongs_to :user
 
-  has_many :loans
+  has_many :loans, after_add: :calculate_new_order_total
   has_many :projects, through: :loans
-
-  validates :total_cost, allow_blank: false,
-                         numericality:
-                         {
-                           only_integer: true,
-                           greater_than: 0,
-                           less_than: 1000000
-                         }
   validates :user_id, presence: true
+  before_create :calculate_order_total
 
   def self.complete
     all.select { |order| order.status == 'completed'}
@@ -27,5 +20,19 @@ class Order < ActiveRecord::Base
 
   def self.ordered
     all.select { |order| order.status == 'ordered'}
+  end
+
+  private
+
+  def calculate_new_order_total(_loan)
+    calculate_order_total
+  end
+
+  def calculate_order_total
+    if loans.present?
+      self.total_cost = loans.map(&:amount).reduce(:+)
+    else
+      self.total_cost = 0
+    end
   end
 end

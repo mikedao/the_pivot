@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root "categories#index"
   post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy", as: "logout"
+  get "/logout", to: "sessions#destroy", as: "logout"
 
   resources :tenants, only: [:new, :create, :index]
   resources :categories, only: [:show, :index]
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
     resources :categories
-    resources :tenants, only: [:index]
+    resources :tenants, only: [:index, :edit, :update]
   end
 
   resources :users do

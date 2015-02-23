@@ -9,6 +9,9 @@ class TenantsController < ApplicationController
   def new
   end
 
+  def edit
+  end
+
   def create
     if Tenant.find_by(org_check)
       flash[:notice] = "Organization Already Exists"
@@ -22,6 +25,8 @@ class TenantsController < ApplicationController
 
   def create_tenant
     tenant = Tenant.new(org_params)
+    tenant.active = false
+    tenant.approved = false
     if tenant.save
       current_user.update_attribute(:tenant_id, tenant.id)
       redirect_to root_path
