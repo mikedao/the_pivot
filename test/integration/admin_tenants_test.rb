@@ -3,22 +3,22 @@ require "test_helper"
 class AdminUserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "an admin sees a tenants link on the dashboard" do
+  test "an admin sees a borrowers link in the dashboard" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit admin_dashboard_path
 
-    assert page.has_link?("Tenants")
+    assert page.has_link?("All Borrowers")
   end
 
-  test "an admin clicking on the tenants link is brought to the tenants
+  test "an admin clicking on the borrowers link is brought to the tenants
   dashboard" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit admin_dashboard_path
-    click_link_or_button("Tenants")
+    click_link_or_button("All Borrowers")
 
     assert_equal admin_tenants_path, current_path
   end

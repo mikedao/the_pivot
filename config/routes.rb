@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy", as: "logout"
 
   resources :tenants, only: [:new, :create, :index]
-  resources :categories, only: [:show, :index]
+  resources :categories
   resources :projects
 
   get "/choose", to: "static_pages#choose"
