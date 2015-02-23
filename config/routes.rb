@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get "/dashboard", to: "base#dashboard"
     resources :categories
     resources :tenants, only: [:index, :edit, :update]
+    resources :projects, only: [:index, :edit]
   end
 
   resources :users do
