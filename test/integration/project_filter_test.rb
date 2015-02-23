@@ -26,6 +26,7 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     visit root_path
 
     click_link_or_button(project1.categories.first.name)
+    save_and_open_page
 
     assert_equal projects_path, current_path
     assert find("#category_#{project1_category.parameterize}").checked?

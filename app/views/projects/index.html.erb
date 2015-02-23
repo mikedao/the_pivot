@@ -1,25 +1,10 @@
-<script charset="utf-8">
-  $.getJSON("/projects.json", function(data) {
-    projects_and_categories = data;
-    projects_and_categories.forEach(function(element) {
-      $("#projects").append(
-        "<div>" + element[0].title + "</div>"
-      )
-    });
-  });
-</script>
-
 <div id="title">
   <h1>Explore Your Lending Options</h1>
 
   <div class="row">
     <button class="btn btn-primary" id="filter_projects">Filter Projects</button> </br>
     <%= render partial: "shared/project_filters" %>
-
     <div id="projects"></div>
-   <!--  @projects.each do |project|
-            render partial: "shared/project", locals: {project: project}
-     end -->
   </div>
 </div>
 
@@ -30,49 +15,61 @@
 </script>
 
 <script charset="utf-8">
-  var cleanFilters = function(filters) {
-    var cleanedFilters = [];
-    filters.forEach(function(element) {
-      cleanedFilters.push(element.match(/\[(.*?)\]/)[1]);
-    });
-    return cleanedFilters;
-  }
-
-  var filterProjects = function(projs_cats, filters) {
-    var cleanedFilters = cleanFilters(filters);
-    var filteredProjects = [];
-    projs_cats.forEach(function(proj_and_cat) {
-      cleanedFilters.forEach(function(filter) {
-        if (proj_and_cat[1].indexOf(filter) > -1) {
-          if (filteredProjects.indexOf(proj_and_cat[0] < 0)) {
-            filteredProjects.push(proj_and_cat[0]);
-          }
-        }
+  $(document).ready(function() {
+    var cleanFilters = function(filters) {
+      var cleanedFilters = [];
+      filters.forEach(function(element) {
+        cleanedFilters.push(element.match(/\[(.*?)\]/)[1]);
       });
-    });
-    return filteredProjects;
-  }
+      return cleanedFilters;
+    }
 
-  var renderProjects = function(filteredProjects) {
-    $("#projects").empty();
-    appendProjects(filteredProjects);
-  };
+    var appendProjects = function(projects) {
+      projects.forEach(function(element) {
+        $("#projects").append(
+          "<div>" + element.title + "</div>"
+        )
+      });
+    };
 
-  var appendProjects = function(projects) {
-    projects.forEach(function(element) {
-      $("#projects").append(
-        "<div>" + element.title + "</div>"
-      )
-    });
-  };
+    var renderProjects = function(filteredProjects) {
+      $("#projects").empty();
+      appendProjects(filteredProjects);
+    };
 
-  $(":checkbox").on("click", function() {
-    var filters = [];
-    $("input:checked").each(function(index) {
-      filters.push(this.name);
+    var filterProjects = function(projs_cats, filters) {
+      var filteredProjects = [];
+      projs_cats.forEach(function(proj_and_cat) {
+        filters.forEach(function(filter) {
+          if (proj_and_cat[1].indexOf(filter) > -1) {
+            if (filteredProjects.indexOf(proj_and_cat[0] < 0)) {
+              filteredProjects.push(proj_and_cat[0]);
+            }
+          }
+        });
+      });
+      return filteredProjects;
+    }
+
+    $.getJSON("/projects.json", function(data) {
+      projects_and_categories = data;
+      console.log(projects_and_categories);
+      var initial_category_selected = window.location.href.slice(window.location.href.indexOf('=') + 1);
+      var initial_categories = [];
+      initial_categories.push(initial_category_selected);
+      var filteredProjects = filterProjects(projects_and_categories, initial_categories);
+      renderProjects(filteredProjects);
     });
-    var filteredProjects = filterProjects(projects_and_categories, filters)
-    renderProjects(filteredProjects);
+
+    $(":checkbox").on("click", function() {
+      var filters = [];
+      $("input:checked").each(function(index) {
+        filters.push(this.name);
+      });
+      var cleanedFilters = cleanFilters(filters);
+      var filteredProjects = filterProjects(projects_and_categories, cleanedFilters)
+      renderProjects(filteredProjects);
+    });
   });
 </script>
 
