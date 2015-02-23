@@ -1,5 +1,5 @@
 <div id="projects_header">
-  <h1> Menu Projects </h1>
+  <h1> Projects </h1>
 </div>
 
 <div class="row">
@@ -19,42 +19,20 @@
   </div>
 </div>
 
-<div class="row">
-  <% @projects.each do |project| %>
-  <div class="box col-lg-3">
-    <h4 class="project-title"> <%= link_to("#{project.title}", project_path(project))%></h4>
-    <div class="thumbnail">
-      <%= image_tag project.image.url %>
-    </div>
-    <h5 class="project-desc"><%= project.description %></h5>
-    <%= "<h5>Retired</h5>" if project.retired %>
+<div id="all_projects">
+  <h2>All Projects</h2>
+  <table style="width:95%">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Edit</th>
+    </tr>
 
-    <table>
-      <thead>
-      <th>
-        <div class="project_edit">
-        <a class="btn btn-default", style=inline, href=<%=edit_admin_project_path(project)%>>
-          <i class="fa fa-pencil-square-o"></i>Edit</a>
-      </div>
-    </th>
-    <th>
-      <div class="project_delete">
-        <a class="btn btn-default", style=inline, href=<%=admin_project_path(project)%> >
-          <i class="fa fa-trash-o"></i>Delete</a>
-      </div>
-    </div>
-  </th>
-  <th>
-    <div class="retire-btn">
-      <%= form_for :retire, url: admin_project_path(project), method: "put" do |f| %>
-      <div id="true"><%= f.select "status_#{project.id}", options_for_select([['true'], ['false']])%></div>
-      <%= f.submit 'Retire', class: "btn btn-default btn-update-quantity" %>
-      <% end %>
-    </div>
-  </th>
-  </thead>
-</table>
-    </div>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.title %></td>
+        <td><%= project.description %></td>
+      </tr>
     <% end %>
-  </div>
+  </table>
 </div>
