@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   def create
     if Admin.find_by(session_username)
       authenticate_admin(Admin.find_by(session_username))
