@@ -14,7 +14,6 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
       assert page.has_content?("$0 - $100")
       assert page.has_content?("$100 - $500")
       assert page.has_content?("$500+")
-      assert page.has_content?(project.tenant.location)
     end
   end
 

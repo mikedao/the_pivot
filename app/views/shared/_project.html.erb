@@ -1,14 +1,12 @@
-<%= tag("div", :data => {:category => project.categories.first.name, :location => project.tenant.location, :price_range => project.price }) %>
-  <div class="box col-lg-3">
-    <%= link_to("#{project.title}", tenant_project_path(slug: project.tenant.slug, id: project.id))%>
-    <div class="thumbnail">
-      <%= image_tag project.photos.first.image.url %>
-    </div>
-    <h5 class="project-desc"><%= project.description %></h5>
-    <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-      <%= f.hidden_field :project_id, value: project.id %>
-      <%= f.hidden_field :loan_amount, value: project.price %>
-      <%= f.submit 'Lend', class: "btn btn-default" %>
-    <% end %>
+<div class="box col-lg-3">
+  <%= link_to("#{project.title}", tenant_project_path(slug: project.tenant.slug, id: project.id))%>
+  <div class="thumbnail">
+    <%= image_tag project.photos.first.image.url %>
   </div>
+  <h5 class="project-desc"><%= project.description %></h5>
+  <%= form_for :pending_loan, url: pending_loan_path do |f| %>
+    <%= f.hidden_field :project_id, value: project.id %>
+    <%= f.hidden_field :loan_amount, value: project.price %>
+    <%= f.submit 'Lend', class: "btn btn-default" %>
+  <% end %>
 </div>

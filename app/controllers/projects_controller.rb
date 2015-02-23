@@ -2,13 +2,13 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.includes(:categories).active
     @categories = Category.select(:name).all
-    @locations = @projects.map do |project|
-      project.tenant.location
-    end.uniq
 
-    if request.xhr? # XMLHttpRequest
+    if request.xhr?
       @all_projects = @projects.map do |project|
-        [project, project.categories]
+        project_categories = project.categories.map do |category|
+          category.name.downcase
+        end
+        [project, project_categories]
       end
       render json: @all_projects
     end
