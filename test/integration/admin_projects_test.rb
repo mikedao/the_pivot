@@ -32,5 +32,4 @@ class AdminProjectsTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?(project.title)
   end
-
 end

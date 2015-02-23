@@ -3,6 +3,4 @@ class Admin::ProjectsController < Admin::BaseController
     @project = Project.new
     @projects = Project.all
   end
-
 end
-
