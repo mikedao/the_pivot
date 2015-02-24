@@ -34,6 +34,7 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated"
       redirect_to user_path(@user)
     else
+      flash[:error] = "Invalid Profile Edit. Try Again"
       render "edit"
     end
   end

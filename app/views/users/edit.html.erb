@@ -1,41 +1,45 @@
 <% provide(:title, "Edit User") %>
-<div class="form-title"> <h2> Update Your Profile <%= @user.full_name %></h2></div></br>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
+      <div class="form-title"> <h2> Update Your Profile </br> <%= @user.full_name %></h2></div></br>
+
+      <%= f.label :username %>
+      <%= f.text_field :username, class: 'form-control' %></br>
+
       <%= f.label :first_name %>
-      <%= f.text_field :first_name, class: 'form-control' %>
+      <%= f.text_field :first_name, class: 'form-control' %></br>
 
       <%= f.label :last_name %>
-      <%= f.text_field :last_name, class: 'form-control' %>
+      <%= f.text_field :last_name, class: 'form-control' %></br>
 
       <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email, class: 'form-control' %></br>
 
       <%= f.label :credit_card_info %>
-      <%= f.text_field :credit_card_info, class: 'form-control' %>
+      <%= f.text_field :credit_card_info, class: 'form-control' %></br>
 
       <%= f.label :street %>
-      <%= f.text_field :street, class: 'form-control' %>
+      <%= f.text_field :street, class: 'form-control' %></br>
 
       <%= f.label :city %>
-      <%= f.text_field :city, class: 'form-control' %>
+      <%= f.text_field :city, class: 'form-control' %></br>
 
       <%= f.label :state %>
-      <%= f.text_field :state, class: 'form-control' %>
+      <%= f.text_field :state, class: 'form-control' %></br>
 
       <%= f.label :country %>
-      <%= f.text_field :country, class: 'form-control' %>
+      <%= f.text_field :country, class: 'form-control' %></br>
 
       <%= f.label :zipcode %>
-      <%= f.text_field :zipcode, class: 'form-control' %>
+      <%= f.text_field :zipcode, class: 'form-control' %></br>
 
       <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.password_field :password, class: 'form-control' %></br>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %></br>
 
       <%= f.hidden_field :id %>
 
