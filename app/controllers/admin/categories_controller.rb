@@ -1,7 +1,7 @@
 class Admin::CategoriesController < Admin::BaseController
 
   def index
-    @categories = Category.all
+    @categories = Category.paginate(page: params[:page]).all
   end
 
   def create

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.includes(:categories).active
+    @projects = Project.paginate(page: params[:page], :per_page => 1).includes(:categories).active
     @categories = Category.all
   end
 end
