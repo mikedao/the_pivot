@@ -58,9 +58,14 @@ group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console',            '~> 2.0'
 
+  # Better errors gem
+  gem 'better_errors',          '~> 2.1.1'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring',                 '~> 1.2.0'
   gem 'capybara',               '~> 2.4.4'
   gem 'mocha',                  '~> 1.1.0'
   gem 'launchy',                '~> 2.4.3'
+  gem "capybara-webkit"
+  gem 'capybara_minitest_spec'
+  gem 'selenium-webdriver'
 end

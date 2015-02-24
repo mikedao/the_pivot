@@ -4,22 +4,23 @@
 
 <h1><%= "Order #{@order.id}" %></h1>
 <h3><%= "#{@order.user.full_name}"%><br><%= "#{@order.user.email}" %></h3>
-
+<h2>Order Status: <%= @order.status %></h2>
 <div id="history">
-  <table class='table table-bordered'>
+  <table class="table table-bordered">
     <thead>
       <tr>
-        <th data-field='Order Number'> Project </th>
-        <th data-field="Price">Price</th>
-        <th data-field='Order Status'>Order Status</th>
+        <th data-field="project"> Project </th>
+        <th data-field="project-location">Location</th>
+        <th data-field="project-price">Loan Amount</th>
       </tr>
     </thead>
     <% @order.loans.each do |loan| %>
       <tr>
         <td><%= link_to loan.project.title, project_path(loan.project) %></td>
-        <td><%= number_to_currency loan.project.price / 100 %></td>
-        <td><%= @order.status %></td>
+        <td><%= loan.project.tenant.location %></td>
+        <td><%= number_to_currency loan.amount / 100.00 %></td>
       </tr>
     <% end %>
+    <tr><h2>Order Total: <%= number_to_currency @order.final_total / 100.00 %></h2><tr>
   </table>
 </div>

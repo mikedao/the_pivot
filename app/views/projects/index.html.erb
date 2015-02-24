@@ -25,18 +25,20 @@
     }
 
     var appendProjects = function(projects) {
-      projects.forEach(function(element) {
+      projects.forEach(function(project) {
         $("#projects").append(
-          "<div>" + element.title + "</div>"
+          "<div><a href='/" + project.organization + "/projects/" + project.id + "'>" + project.title + "</a></div>"
         )
       });
     };
 
     var renderProjects = function(filteredProjects) {
       $("#projects").empty();
+      console.log(filteredProjects);
       appendProjects(filteredProjects);
     };
 
+<<<<<<< HEAD
     var filterProjects = function(projects, checkedFilters) {
       filterProjectByCategory(projects, checkedFilters)
       filterProjectByPrice
@@ -57,22 +59,46 @@
       // });
       var filteredProjects = projects.filter(function(project) {
         // return true if any of the projects categories match the filter
+=======
+    var filterProjectsByCategory = function(projects, checkedFilters) {
+      return projects.filter(function(project) {
+>>>>>>> e52edd60c7cf2aaaf728dd510da0db100fe68fde
         return project.categories.some(function(category) {
           return checkedFilters.indexOf(category) > -1;
         });
       });
+<<<<<<< HEAD
       // return filteredProjects;
     }
+=======
+    };
 
+    var filterProjects = function(projects, checkedFilters) {
+      projectsFilteredByCategory = filterProjectsByCategory(projects, checkedFilters);
+      //return filterProjectsByPrice(projectsFilteredByCategory, checkedFilters);
+      return projectsFilteredByCategory;
+    };
+>>>>>>> e52edd60c7cf2aaaf728dd510da0db100fe68fde
+
+    var all_projects;
     $.getJSON("/projects.json", function(data) {
+<<<<<<< HEAD
       projects = data;
       console.log(projects);
+=======
+      all_projects= data;
+      console.log(all_projects);
+>>>>>>> e52edd60c7cf2aaaf728dd510da0db100fe68fde
       var initial_category_selected = window.location.href.slice(window.location.href.indexOf('=') + 1);
       //window.location.search gives us query parameters. so that's sick
       var initial_categories = [];
       initial_categories.push(initial_category_selected);
+<<<<<<< HEAD
       var filteredProjects = filterProjects(projects, initial_categories);
 
+=======
+      var filteredProjects = filterProjects(all_projects, initial_categories);
+>>>>>>> e52edd60c7cf2aaaf728dd510da0db100fe68fde
       renderProjects(filteredProjects);
     });
 
@@ -82,7 +108,7 @@
         filters.push(this.name);
       });
       var cleanedFilters = cleanFilters(filters);
-      var filteredProjects = filterProjects(projects_and_categories, cleanedFilters)
+      var filteredProjects = filterProjects(all_projects, cleanedFilters)
       renderProjects(filteredProjects);
     });
   });

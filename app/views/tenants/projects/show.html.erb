@@ -5,17 +5,17 @@
 <% end %>
 
 <div id="history">
-  <table class='table table-bordered'>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th data-field="Price"> Price </th>
         <th data-field="Repayment Rate">Repayment Rate</th>
-        <th data-field='Requested By'>Requested By</th>
+        <th data-field="Requested By">Requested By</th>
         <th data-field="Repayment Begin"> Repayment begin</th>
       </tr>
     </thead>
       <tr>
-        <td> <%= number_to_currency @project.price / 100 %></td>
+        <td> <%= number_to_currency @project.price / 100.00 %></td>
         <td> <%= @project.repayment_rate %></td>
         <td> <%= @project.requested_by %></td>
         <td> <%= @project.repayment_begin %></td>
@@ -25,7 +25,7 @@
 
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
-<div id="price"><%= number_to_currency @project.price / 100 %></div>
+<div id="price"><%= number_to_currency @project.price / 100.00 %></div>
 <div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %></div>
 <div id="requested-by">Requested by: <%= @project.requested_by %></div>
 <div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %> </div>
@@ -34,8 +34,8 @@
   <% unless @project.retired %>
     <%= form_for :pending_loan, url: pending_loan_path do |f| %>
     <%= f.hidden_field :project_id, value: @project.id %>
-    <%= f.hidden_field :loan_amount, value: @project.price %>
-    <%= f.submit 'Lend', class: "btn btn-default" %>
+    <%= f.hidden_field :loan_amount, value: 2500 %>
+    <%= f.submit "Lend $25", class: "btn btn-default" %>
     <% end %>
   <% end %>
 </div>

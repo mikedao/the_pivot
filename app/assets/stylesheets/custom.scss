@@ -36,7 +36,6 @@ h3 {
 
 #signup {
   text-align: center;
-
 }
 
 .project-title {
@@ -47,7 +46,8 @@ h3 {
 .project-desc {
   min-height: 50px;
 }
-
+/*
+<<<<<<< HEAD
 #flash_error {
   text-align: center;
   color: red;
@@ -70,6 +70,9 @@ h3 {
   margin-top: 1em;
 }
 
+=======
+>>>>>>> master
+*/
 .category-row {
   text-align: center;
   margin-bottom: 50px;
@@ -135,13 +138,19 @@ a {
 
 #store-name {
   color: #504d4f;
+  float: left;
+  font-size: 1.6em;
+  margin: auto;
 }
 
 .retire-btn {
   margin-bottom: 54px;
 }
 
-// tables
+#complete-your-loan {
+  text-align: center;
+}
+
 td {
   background-color: rgba(255, 255, 255, .5);
 }
@@ -166,7 +175,35 @@ th {
   padding: 0.7em;
 }
 
+// flash alerts
+#flash_error {
+  color: #ff0000;
+  text-align: center;
+}
 
+#flash_alert {
+  color: #ff0000;
+  text-align: center;
+}
+
+#flash_notice {
+  color: #008000;
+  text-align: center;
+}
+
+// profile page css
+#profile-title {
+  text-shadow: 0 2px 3px #666;
+}
+
+#profile-data {
+  background-color: #e3e3e3;
+  border: 2px solid #6699ff;
+  border-radius: 20px;
+  margin-bottom: 2px;
+  min-height: 20px;
+  padding: 50px;
+}
 
 // variables, mixins
 @mixin box-sizing {
@@ -186,4 +223,8 @@ th {
   margin-top: 45px;
   width: 100%;
   @include box-sizing;
+}
+
+th {
+  text-align: center;
 }

@@ -10,7 +10,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     visit "/#{tenant.slug}"
 
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#flash_notice") do
@@ -24,7 +24,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#pending_loans") do
@@ -40,7 +40,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/"
     click_link_or_button(project.categories.first.name)
-    first(".row").click_button("Lend")
+    first(".row").click_button("Lend $25")
 
     within("#pending_loans") do
       click_link_or_button("Delete")
@@ -58,7 +58,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Delete")
 
@@ -77,19 +77,62 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project1.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     visit "/#{project2.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#pending_loans") do
       assert page.has_content?(project1.title)
-      assert page.has_content?(project1.price)
+      assert page.has_content?("$25.00")
       assert page.has_content?(project2.title)
-      assert page.has_content?(project2.price)
     end
+  end
+
+  test "a user can see the pending total cost of their cart" do
+    3.times do
+      project = create(:project)
+      visit "/#{project.tenant.slug}"
+      click_link_or_button("Lend $25")
+    end
+
+    assert page.has_content?("Order total: $75.00")
+  end
+
+  test "a user can change the loan amount for a project in their cart" do
+    create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    click_link_or_button("Change amount")
+    fill_in "pending_loan[loan_dollar_amount]", with: 35
+    click_link_or_button("Change amount")
+    assert page.has_content?("Order total: $35.00")
+  end
+
+  test "a user will be alerted when the loan amount is not valid" do
+    project = create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    click_link_or_button("Change amount")
+    fill_in "pending_loan[loan_dollar_amount]", with: -35
+    click_link_or_button("Change amount")
+    assert page.has_content?("Order total: $25.00")
+    assert page.has_content?("Please enter a valid amount between $10 &
+     $#{project.current_amount_needed / 100}")
+  end
+
+  test "a user will see how much funding is needed for each project" do
+    project = create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    assert page.has_content?("Funds needed")
+    assert page.has_content?("$#{project.current_amount_needed / 100.00}")
+    assert page.has_content?("Your loan")
   end
 
   test "an unauthorized user cannot checkout until logged in" do
@@ -97,12 +140,20 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     visit "/#{project.tenant.slug}"
 
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Checkout")
 
     assert page.has_content?("You Must Signup or Login to Lend Money")
     assert_equal new_user_path, current_path
+  end
+
+  test "an user with no loans will not see checkout and empty cart buttons" do
+    project = create(:project)
+    visit "/pending_loan"
+
+    refute page.has_content?("Checkout")
+    refute page.has_content?("Empty Cart")
   end
 
   test "a user can empty their cart" do
@@ -111,11 +162,11 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project1.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     visit "/#{project2.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Empty Cart")
 
@@ -132,7 +183,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button(project.title)
 
@@ -149,13 +200,13 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?(tenant.projects.first.price)
+      assert page.has_content?("$25.00")
     end
   end
 
@@ -169,7 +220,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     assert_equal "/pending_loan", current_path
@@ -179,28 +230,26 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     within("#pending_loans") do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?(tenant.projects.first.price)
+      assert page.has_content?("$25.00")
     end
   end
 
   test "a user can checkout once logged in" do
-    skip
     project = create(:project)
     user = create(:user)
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     fill_in "session[username]", with: user.username
     fill_in "session[password]", with: user.password
     click_link_or_button("Login")
-    click_link_or_button("Cart")
     click_link_or_button("Checkout")
 
-    assert_equal user_order_path(user_id: user.id,
-                                 id: user.orders.first.id), current_path
-    assert page.has_content?(project.price)
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
+                 current_path
+    assert page.has_content?("$25.00")
     assert page.has_content?(project.title)
   end
 
@@ -213,7 +262,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Delete")
 

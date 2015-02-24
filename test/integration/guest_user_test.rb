@@ -45,8 +45,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     project1 = create(:project)
     project2 = create(:project)
 
-    visit root_path
-    click_link_or_button("#{project1.categories.first.name}")
+    visit projects_path
     click_link_or_button(project1.title)
 
     assert_equal tenant_project_path(
@@ -104,16 +103,16 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     tenant = create(:tenant)
     tenant.projects << create(:project, price: 8900)
 
-    visit root_path
-    click_link_or_button "#{tenant.projects.first.categories.first.name}"
-    within(".row") do
-      click_link_or_button("Lend")
+    visit projects_path
+    click_link_or_button "#{tenant.projects.first.title}"
+    within("#lend-form") do
+      click_link_or_button("Lend $25")
     end
 
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?("#{tenant.projects.first.price}")
+      assert page.has_content?("$25.00")
     end
   end
 
@@ -121,10 +120,10 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   the pending_loans still retains the items" do
     user = create(:user)
     project = create(:project)
-    visit root_path
-    click_link_or_button("#{project.categories.first.name}")
-    within(".row") do
-      click_link_or_button("Lend")
+    visit projects_path
+    click_link_or_button(project.title)
+    within("#lend-form") do
+      click_link_or_button("Lend $25")
     end
     fill_in "session[username]", with: user.username
     fill_in "session[password]", with: user.password
@@ -138,10 +137,10 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     assert page.has_content?("You have successfully completed your loans.")
     assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
                  current_path
-    assert page.has_content?(user.orders.first.total_cost / 100)
+    assert page.has_content?(user.orders.first.final_total / 100)
     assert page.has_content?(user.orders.first.status)
     assert page.has_content?(project.title)
-    assert page.has_content?(project.price / 100)
+    assert page.has_content?("25.00")
   end
 
   test "while on project show page for a specific tenant, I can click the

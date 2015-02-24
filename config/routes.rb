@@ -11,11 +11,14 @@ Rails.application.routes.draw do
   get "/choose", to: "static_pages#choose"
 
   resource :pending_loan, except: [:index, :edit]
+  post :delete_pending_loan, to: "pending_loans#delete_one"
+  post :update_loan_amount, to: "pending_loans#update"
 
   namespace :admin do
     get "/dashboard", to: "base#dashboard"
     resources :categories
     resources :tenants, only: [:index, :edit, :update]
+    resources :projects, only: [:index, :edit]
   end
 
   resources :users do
