@@ -15,10 +15,8 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "authed lender can see previous order on their Loans page" do
-    skip
-    user = create(:user)
-    create(:project)
     order = create(:order_with_loan)
+    user = order.user
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
@@ -29,13 +27,8 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "authed lender on Loans page can see link to individual loans" do
-    skip
-    user = create(:user)
-    project = create(:project)
-    order = create(order)
-    project.orders << order
-    order.user_id = user.id
-    order.save
+    order = create(:order_with_loan)
+    user = order.user
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
@@ -45,12 +38,8 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "authed lender can go to specific orders from order history" do
-    skip
-    user = create(:user)
-    project = create(:project)
-    order = project.orders.create(total_cost: 1000,
-                                  user_id: user.id,
-                                  status: "Completed")
+    order = create(:order_with_loan)
+    user = order.user
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_orders_path(user)
@@ -59,5 +48,20 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     assert user_order_path(user, order), current_path
+  end
+
+  test "an authed lender can see loan details on each order page" do
+    order = create(:order_with_loan)
+    user = order.user
+    order.loans << create(:loan, amount: 3500)
+    loan1 = order.loans.first
+    loan2 = order.loans.second
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit user_order_path(user, order)
+    assert page.has_content?(order.total_cost / 100)
+    assert page.has_content?(loan1.amount / 100)
+    assert page.has_content?(loan1.project.tenant.location)
+    assert page.has_content?(loan2.amount / 100)
   end
 end

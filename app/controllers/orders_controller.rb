@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def index
     if current_user && current_user.id == params[:user_id].to_i
-      @user = User.find(params[:user_id])
+      @user = User.find(order_params[:user_id])
       render :index
     else
       redirect_to root_path
@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.find(order_params[:id])
     if order_owner_or_admin?
       @order
     else
@@ -34,11 +34,13 @@ class OrdersController < ApplicationController
 
   private
 
+  def order_params
+    params.permit(:id, :user_id)
+  end
+
   def order_owner_or_admin?
     current_user && (current_user.id == @order.user_id || current_user.admin?)
   end
-
-  private
 
   def complete_loan(pending_loans)
     @order = pending_loans.checkout!(session[:user_id])
