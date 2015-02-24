@@ -3,23 +3,24 @@ require "test_helper"
 class UsersEditTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "unsuccessful edit" do
+  test "an unauthorized user when they unsuccessfully edit their profiel gets
+  returned back to the profile edit view with an error" do
     user = create(:user)
     get edit_user_path(user)
-    assert_template 'users/edit'
+    assert_template "users/edit"
     patch user_path(user), user: { username: "",
                                    email: "foo@invalid",
                                    password: "foo",
                                    password_confirmation: "bar" }
     refute flash.empty?
-    assert_template 'users/edit'
+    assert_template "users/edit"
   end
 
-  test "successful edit" do
+  test "an authorized borrower or lender can successfully edit their profile" do
     user = create(:user)
 
     get edit_user_path(user)
-    assert_template 'users/edit'
+    assert_template "users/edit"
     username = "Jwan622"
     first_name = "Jeffrey"
     last_name = "Jeffrey"
@@ -32,7 +33,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     patch user_path(user), { user: { username: username,
                                      first_name: first_name,
                                      last_name: last_name,
-                                     email:   email,
+                                     email: email,
                                      city: city,
                                      state: state,
                                      zipcode: zipcode,
@@ -45,7 +46,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     user.reload
 
     assert_not flash.empty?
-    assert_equal user.username,  username
+    assert_equal user.username, username
     assert_equal user.email, email
   end
 end
