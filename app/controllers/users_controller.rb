@@ -6,14 +6,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def show
-    @user = User.find(params[:id])
-  end
-
   def create
     if User.find_by(new_email)
       duplicate_email
@@ -26,6 +18,14 @@ class UsersController < ApplicationController
         invalid_user
       end
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def update

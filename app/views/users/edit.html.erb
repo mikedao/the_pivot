@@ -3,7 +3,6 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
-      render
       <div class="form-title"> <h2> Update Your Profile </br> <%= @user.full_name %></h2></div></br>
 
       <%= f.label :username %>
@@ -42,7 +41,7 @@
 
       <%= f.label :credit_card_info, "Credit card info (not required)" %>
       <%= f.text_field :credit_card_info, class: 'form-control' %></br>
-      
+
       <%= f.hidden_field :id %>
 
       <%= f.submit "Save changes", class: "btn btn-primary" %>
