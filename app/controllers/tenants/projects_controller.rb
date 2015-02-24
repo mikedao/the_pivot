@@ -76,7 +76,11 @@ class Tenants::ProjectsController < ApplicationController
     if current_user.nil?
       new_param[:tenant_id] = @project.tenant.id
     else
-      new_param[:tenant_id] = current_user.tenant_id
+      if current_user.admin?
+        new_param[:tenant_id] = @project.tenant.id
+      else
+        new_param[:tenant_id] = current_user.tenant_id
+      end
     end
     new_param
   end
