@@ -34,11 +34,10 @@ class Tenants::ProjectsController < ApplicationController
     else
       if new_params[:categories].empty?
         flash[:errors] = "Please select one or more categories"
-        redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
       else
         flash[:errors] = "Invalid Attributes"
-        redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
       end
+        redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
     end
   end
 
