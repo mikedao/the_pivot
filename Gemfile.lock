@@ -54,6 +54,12 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.4.1)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
+    capybara_minitest_spec (1.0.5)
+      capybara (>= 2)
+      minitest (>= 4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.5)
@@ -235,6 +241,8 @@ DEPENDENCIES
   byebug (~> 3.5.1)
   cancancan (~> 1.10)
   capybara (~> 2.4.4)
+  capybara-webkit
+  capybara_minitest_spec
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.4.0)
   factory_girl_rails (~> 4.0)

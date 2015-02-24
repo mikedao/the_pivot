@@ -34,30 +34,46 @@
 
     var renderProjects = function(filteredProjects) {
       $("#projects").empty();
+      console.log(filteredProjects);
       appendProjects(filteredProjects);
     };
 
-    var filterProjects = function(projects, filters) {
+/*    var filterProjects = function(projects, filters) {
       var filteredProjects = [];
       projects.forEach(function(project) {
         filters.forEach(function(filter) {
           if (project.categories.indexOf(filter) > -1) {
-            if (filteredProjects.indexOf(project) < 0) {
-              filteredProjects.push(project);
-            }
+            filteredProjects.push(project);
+            return;
           }
         });
       });
       return filteredProjects;
     }
+*/
 
+    var filterProjectsByCategory = function(projects, checkedFilters) {
+      return projects.filter(function(project) {
+        return project.categories.some(function(category) {
+          return checkedFilters.indexOf(category) > -1;
+        });
+      });
+    };
+
+    var filterProjects = function(projects, checkedFilters) {
+      projectsFilteredByCategory = filterProjectsByCategory(projects, checkedFilters);
+      //return filterProjectsByPrice(projectsFilteredByCategory, checkedFilters);
+      return projectsFilteredByCategory;
+    };
+
+    var all_projects;
     $.getJSON("/projects.json", function(data) {
-      projects_and_categories = data;
-      console.log(projects_and_categories);
+      all_projects= data;
+      console.log(all_projects);
       var initial_category_selected = window.location.href.slice(window.location.href.indexOf('=') + 1);
       var initial_categories = [];
       initial_categories.push(initial_category_selected);
-      var filteredProjects = filterProjects(projects_and_categories, initial_categories);
+      var filteredProjects = filterProjects(all_projects, initial_categories);
       renderProjects(filteredProjects);
     });
 
@@ -67,7 +83,7 @@
         filters.push(this.name);
       });
       var cleanedFilters = cleanFilters(filters);
-      var filteredProjects = filterProjects(projects_and_categories, cleanedFilters)
+      var filteredProjects = filterProjects(all_projects, cleanedFilters)
       renderProjects(filteredProjects);
     });
   });

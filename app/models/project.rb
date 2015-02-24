@@ -40,7 +40,11 @@ class Project < ActiveRecord::Base
   def as_json(s)
     {
       title: title,
-      categories: downcase_categories
+      description: description,
+      price: price,
+      categories: downcase_categories,
+      id: id,
+      organization: tenant.slug
     }
   end
 

@@ -64,4 +64,5 @@ group :development, :test do
   gem 'mocha',                  '~> 1.1.0'
   gem 'launchy',                '~> 2.4.3'
   gem "capybara-webkit"
+  gem 'capybara_minitest_spec'
 end

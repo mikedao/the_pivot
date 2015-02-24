@@ -19,6 +19,12 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
 
   test "a user sees only the category of project selected when
     coming from root path" do
+
+    #Capybara.default_driver = :webkit
+   # Capybara.current_driver = :webkit
+   # page.driver.block_unknown_urls
+    #page.driver.allow_url("maxcdn.bootstrapcdn.com")
+
     project1 = create(:project)
     project2 = create(:project)
     project1_category = project1.categories.first.name
@@ -26,7 +32,6 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     visit root_path
 
     click_link_or_button(project1.categories.first.name)
-    save_and_open_page
 
     assert_equal projects_path, current_path
     assert find("#category_#{project1_category.parameterize}").checked?
