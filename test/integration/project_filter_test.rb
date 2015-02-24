@@ -21,7 +21,7 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     coming from root path" do
 
     #Capybara.default_driver = :webkit
-   # Capybara.current_driver = :webkit
+    Capybara.current_driver = :selenium
    # page.driver.block_unknown_urls
     #page.driver.allow_url("maxcdn.bootstrapcdn.com")
 
