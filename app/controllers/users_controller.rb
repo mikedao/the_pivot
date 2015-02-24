@@ -20,8 +20,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def show
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(update_params)
+      flash[:success] = "Profile updated"
+      redirect_to user_path(@user)
+    else
+      flash.now[:error] = "Invalid Profile Edit. Try Again"
+      render "edit"
+    end
   end
 
   private
@@ -62,7 +77,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:signup).permit(:username,
+    params.require(:signup).permit(:id,
+                                   :username,
                                    :password,
                                    :password_confirmation,
                                    :first_name,
@@ -74,5 +90,21 @@ class UsersController < ApplicationController
                                    :country,
                                    :email
                                   )
+  end
+
+  def update_params
+    params.require(:user).permit(:id,
+                                 :username,
+                                 :password,
+                                 :password_confirmation,
+                                 :first_name,
+                                 :last_name,
+                                 :street,
+                                 :city,
+                                 :state,
+                                 :zipcode,
+                                 :country,
+                                 :email
+                                 )
   end
 end

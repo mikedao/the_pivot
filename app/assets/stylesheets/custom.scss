@@ -36,7 +36,6 @@ h3 {
 
 #signup {
   text-align: center;
-
 }
 
 .project-title {
@@ -46,21 +45,6 @@ h3 {
 
 .project-desc {
   min-height: 50px;
-}
-
-#flash_error {
-  text-align: center;
-  color: red;
-}
-
-#flash_alert {
-  color:red;
-  text-align: center;
-}
-
-#flash_notice {
-  text-align: center;
-  color:green;
 }
 
 .category-row {
@@ -128,14 +112,51 @@ a {
 
 #store-name {
   color: #504d4f;
+  float: left;
+  font-size: 1.6em;
+  margin: auto;
 }
 
 .retire-btn {
   margin-bottom: 54px;
 }
 
+#complete-your-loan {
+  text-align: center;
+}
+
 td {
   background-color: rgba(255, 255, 255, .5);
+}
+
+// flash alerts
+#flash_error {
+  color: #ff0000;
+  text-align: center;
+}
+
+#flash_alert {
+  color: #ff0000;
+  text-align: center;
+}
+
+#flash_notice {
+  color: #008000;
+  text-align: center;
+}
+
+// profile page css
+#profile-title {
+  text-shadow: 0 2px 3px #666;
+}
+
+#profile-data {
+  background-color: #e3e3e3;
+  border: 2px solid #6699ff;
+  border-radius: 20px;
+  margin-bottom: 2px;
+  min-height: 20px;
+  padding: 50px;
 }
 
 // variables, mixins
@@ -151,10 +172,6 @@ td {
   margin-top: 45px;
   width: 100%;
   @include box-sizing;
-}
-
-#complete-your-loan {
-  text-align: center;
 }
 
 th {
