@@ -5,12 +5,12 @@
 <% end %>
 
 <div id="history">
-  <table class='table table-bordered'>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th data-field="Price"> Price </th>
         <th data-field="Repayment Rate">Repayment Rate</th>
-        <th data-field='Requested By'>Requested By</th>
+        <th data-field="Requested By">Requested By</th>
         <th data-field="Repayment Begin"> Repayment begin</th>
       </tr>
     </thead>
@@ -34,8 +34,8 @@
   <% unless @project.retired %>
     <%= form_for :pending_loan, url: pending_loan_path do |f| %>
     <%= f.hidden_field :project_id, value: @project.id %>
-    <%= f.hidden_field :loan_amount, value: @project.price %>
-    <%= f.submit 'Lend', class: "btn btn-default" %>
+    <%= f.hidden_field :loan_amount, value: 2500 %>
+    <%= f.submit "Lend $25", class: "btn btn-default" %>
     <% end %>
   <% end %>
 </div>

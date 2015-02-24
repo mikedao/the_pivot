@@ -20,7 +20,7 @@ class AuthenticatedLenderTest < ActionDispatch::IntegrationTest
     visit "/#{project.tenant.slug}"
 
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     visit root_path
 
