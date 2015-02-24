@@ -102,7 +102,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can change the loan amount for a project in their cart" do
-    project = create(:project)
+    create(:project)
     visit projects_path
     first(".row").click_button("Lend $25")
 
@@ -121,9 +121,19 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     fill_in "pending_loan[loan_dollar_amount]", with: -35
     click_link_or_button("Change amount")
     assert page.has_content?("Order total: $25.00")
-    assert page.has_content?("Please enter a valid amount between $10 & $500")
+    assert page.has_content?("Please enter a valid amount between $10 &
+     $#{project.current_amount_needed / 100}")
   end
 
+  test "a user will see how much funding is needed for each project" do
+    project = create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    assert page.has_content?("Funds needed")
+    assert page.has_content?("$#{project.current_amount_needed / 100.00}")
+    assert page.has_content?("Your loan")
+  end
 
   test "an unauthorized user cannot checkout until logged in" do
     project = create(:project)
@@ -136,6 +146,14 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?("You Must Signup or Login to Lend Money")
     assert_equal new_user_path, current_path
+  end
+
+  test "an user with no loans will not see checkout and empty cart buttons" do
+    project = create(:project)
+    visit "/pending_loan"
+
+    refute page.has_content?("Checkout")
+    refute page.has_content?("Empty Cart")
   end
 
   test "a user can empty their cart" do
