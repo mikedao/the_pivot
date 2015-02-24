@@ -15,7 +15,7 @@
       <tr>
       <tr>
         <td><%= link_to("Order #{order.id}", user_order_path(@user, order)) %></td>
-        <td><%= number_to_currency order.total_cost/100 %></td>
+        <td><%= number_to_currency order.total_cost/100.00 %></td>
         <td><%= order.status %></td>
         <td><%= order.updated_at.strftime("%b %d, %Y, %I:%M") %></td>
         <td><%= order.created_at.strftime("%b %d, %Y, %I:%M") %></td>

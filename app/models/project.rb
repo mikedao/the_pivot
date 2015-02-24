@@ -36,7 +36,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  # move this logic
   def as_json(s)
     {
       title: title,
@@ -46,6 +45,14 @@ class Project < ActiveRecord::Base
       id: id,
       organization: tenant.slug
     }
+  end
+
+  def current_amount_needed
+    if loans.present?
+      price - loans.map(&:amount).reduce(:+)
+    else
+      price
+    end
   end
 
   private

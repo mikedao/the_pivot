@@ -26,10 +26,19 @@ class Tenants::ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     if @project.update_attributes(new_params)
       flash[:notice] = "#{@project.title} Updated"
+      if session[:admin]
+        redirect_to admin_projects_path
+      else
+        redirect_to tenant_dashboard_path
+      end
     else
-      flash[:errors] = "Invalid Attributes"
+      if new_params[:categories].empty?
+        flash[:errors] = "Please select one or more categories"
+      else
+        flash[:errors] = "Invalid Attributes"
+      end
+      redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
     end
-    redirect_to tenant_dashboard_path
   end
 
   def new
@@ -64,7 +73,11 @@ class Tenants::ProjectsController < ApplicationController
   def new_params
     new_param = project_params
     new_param[:categories] = new_categories
-    new_param[:tenant_id] = current_user.tenant.id
+    if current_user.nil?
+      new_param[:tenant_id] = @project.tenant.id
+    else
+      new_param[:tenant_id] = current_user.tenant_id
+    end
     new_param
   end
 end

@@ -1,36 +1,17 @@
 <div id="projects_header">
   <h1> Projects </h1>
 </div>
-
-<div class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <div class="project">
-      <h4 class="form-title"> Create New Project </h4>
-        <%= bootstrap_form_for(@project, style: :inline, url: projects_path, html: {multipart: true}) do |f| %>
-          <%= f.text_field :title %>
-          <%= f.text_field :price %>
-          <%= f.text_field :description %>
-          <%= f.label :image, 'Attach an Image' %><br />
-          <%= f.file_field :image %>
-          <%= f.collection_select(:categories, Category.all, :id, :name, {}, {:multiple => true}) %>
-          <%= f.submit "Create Project" %>
-        <% end %>
-    </div>
-  </div>
-</div>
-
 <div id="all_projects">
   <h2>All Projects</h2>
   <table style="width:95%">
     <tr>
       <th>Title</th>
       <th>Description</th>
-      <th>Edit</th>
     </tr>
 
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.title %></td>
+        <td><%= link_to project.title, edit_tenant_project_path(project, slug: project.tenant.id) %></td>
         <td><%= project.description %></td>
       </tr>
     <% end %>
