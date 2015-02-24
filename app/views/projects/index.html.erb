@@ -37,27 +37,42 @@
       appendProjects(filteredProjects);
     };
 
-    var filterProjects = function(projs_cats, filters) {
-      var filteredProjects = [];
-      projs_cats.forEach(function(proj_and_cat) {
-        filters.forEach(function(filter) {
-          if (proj_and_cat[1].indexOf(filter) > -1) {
-            if (filteredProjects.indexOf(proj_and_cat[0] < 0)) {
-              filteredProjects.push(proj_and_cat[0]);
-            }
-          }
+    var filterProjects = function(projects, checkedFilters) {
+      filterProjectByCategory()
+      filterProjectBy
+
+      // var filteredProjects = [];
+      // Array.prototype.filter
+      projects.filter(function(project) {
+        // return true here if the projects should be included
+      })
+      // projects.forEach(function(project) {
+      //   checkedFilters.forEach(function(filter) {
+      //     if (project.categories.indexOf(filter) > -1) {
+      //       if (filteredProjects.indexOf(project < 0)) {
+      //         filteredProjects.push(project);
+      //       }
+      //     }
+      //   });
+      // });
+      var filteredProjects = projects.filter(function(project) {
+        // return true if any of the projects categories match the filter
+        return project.categories.some(function(category) {
+          return checkedFilters.indexOf(category) < -1;
         });
       });
-      return filteredProjects;
+      // return filteredProjects;
     }
 
     $.getJSON("/projects.json", function(data) {
-      projects_and_categories = data;
-      console.log(projects_and_categories);
+      projects = data;
+      console.log(projects);
       var initial_category_selected = window.location.href.slice(window.location.href.indexOf('=') + 1);
+      //window.location.search gives us query parameters. so that's sick
       var initial_categories = [];
       initial_categories.push(initial_category_selected);
-      var filteredProjects = filterProjects(projects_and_categories, initial_categories);
+      var filteredProjects = filterProjects(projects, initial_categories);
+
       renderProjects(filteredProjects);
     });
 
@@ -72,4 +87,3 @@
     });
   });
 </script>
-

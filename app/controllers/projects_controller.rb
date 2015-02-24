@@ -5,11 +5,11 @@ class ProjectsController < ApplicationController
 
     if request.xhr?
       @all_projects = @projects.map do |project|
-        project_categories = project.categories.map do |category|
-          category.name.downcase
-        end
-        [project, project_categories]
+        project_hash = project.attributes
+        project_hash["categories"] = project.categories.map(&:attributes)
+        project_hash
       end
+
       render json: @all_projects
     end
   end
