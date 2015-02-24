@@ -32,4 +32,28 @@ class AdminProjectsTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?(project.title)
   end
+
+  test "an admin in the projects dashboard has a link to the edit project
+  page" do
+    admin = create(:admin)
+    project = create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_projects_path
+
+    assert page.has_link?(project.title)
+  end
+
+  test "an admin can click on a project in the dashboard and goes to the edit
+  project page" do
+    admin = create(:admin)
+    project = create(:project, tenant_id: 1)
+    tenant = create(:tenant, id: 1)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit admin_projects_path
+    click_link_or_button(project.title)
+
+    assert edit_tenant_project_path(project, slug: tenant.slug)
+  end
 end
