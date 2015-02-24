@@ -10,7 +10,6 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal user.id, order.user_id
   end
 
-
   test "an order is not valid without all attributes" do
     order1 = build(:order, total_cost: nil)
     order2 = build(:order, user_id: nil)
@@ -37,5 +36,28 @@ class OrderTest < ActiveSupport::TestCase
     3.times { order.loans << create(:loan, amount: 1500) }
 
     assert_equal 4500, order.total_cost
+  end
+
+  test "an order's total cost is updated when add'l loans are added" do
+    order = create(:order)
+    3.times { order.loans << create(:loan, amount: 1500) }
+    initial_total = order.total_cost
+
+    order.loans << create(:loan, amount: 2000)
+
+    assert_equal initial_total + 2000, order.total_cost
+  end
+
+  test "orders can be selected by status" do
+    4.times { create(:order, status: "cancelled") }
+    3.times { create(:order, status: "completed") }
+    8.times { create(:order, status: "paid") }
+    5.times { create(:order, status: "ordered") }
+
+    assert_equal 4, Order.cancelled.count
+    assert_equal 3, Order.complete.count
+    assert_equal 8, Order.paid.count
+    assert_equal 5, Order.ordered.count
+    assert_equal 20, Order.count
   end
 end
