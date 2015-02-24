@@ -1,4 +1,6 @@
 class PendingLoan
+  include ActionView::Helpers::NumberHelper
+
   def initialize(pending_loan)
     @pending_loan = pending_loan
   end
@@ -19,6 +21,10 @@ class PendingLoan
     @pending_loan.values.inject(0) do |sum, loan_amount|
       sum + loan_amount.to_i
     end
+  end
+
+  def formatted_pending_total
+    number_to_currency(pending_total / 100)
   end
 
   def checkout!(user_id)

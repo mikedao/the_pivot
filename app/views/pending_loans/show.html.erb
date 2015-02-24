@@ -4,9 +4,9 @@
   <table class="table table-bordered">
     <thead>
       <tr class="warning">
-        <th data-field="Organization Name">Organization Name</th>
-        <th data-field="Purpose">Purpose</th>
-        <th data-field="Amount">Amount</th>
+        <th data-field="organization-name">Organization</th>
+        <th data-field="project-title">Project</th>
+        <th data-field="loan-amount">Amount</th>
         <th></th>
       </tr>
     </thead>
@@ -17,7 +17,7 @@
         <tr id=<%= "project_#{project.id}" %>>
           <td><%= project.tenant.organization %></td>
           <td><%= link_to project.title, tenant_project_path(slug: project.tenant.slug, id: project.id) %></td>
-          <td id=<%= "quantity_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100 %></td>
+          <td id=<%= "amount_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100 %></td>
           <td>
             <%= form_for :pending_loan, url: pending_loan_path do |f| %>
               <input name="_method" type="hidden" value="patch" />
@@ -27,6 +27,7 @@
           </td>
         </tr>
       <% end %>
+      <h3>Order total: <%= pending_loans.formatted_pending_total %><h3>
     <% end %>
   </table>
 

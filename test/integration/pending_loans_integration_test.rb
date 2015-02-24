@@ -91,6 +91,26 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "a user can see the pending total cost of their cart" do
+    3.times do
+      project = create(:project)
+      visit "/#{project.tenant.slug}"
+      click_link_or_button("Lend $25")
+    end
+
+    assert page.has_content?("Order total: $75.00")
+  end
+
+  test "a user can change the loan amount for a project in their cart" do
+    project = create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+    click_link_or_button("Checkout")
+
+
+
+  end
+
   test "an unauthorized user cannot checkout until logged in" do
     project = create(:project)
     visit "/#{project.tenant.slug}"
@@ -183,7 +203,6 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can checkout once logged in" do
-    skip
     project = create(:project)
     user = create(:user)
 
@@ -194,12 +213,11 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     fill_in "session[username]", with: user.username
     fill_in "session[password]", with: user.password
     click_link_or_button("Login")
-    click_link_or_button("Cart")
     click_link_or_button("Checkout")
 
-    assert_equal user_order_path(user_id: user.id,
-                                 id: user.orders.first.id), current_path
-    assert page.has_content?(project.price)
+    assert_equal user_order_path(user_id: user.id, id: user.orders.first.id),
+                 current_path
+    assert page.has_content?("$25.00")
     assert page.has_content?(project.title)
   end
 
