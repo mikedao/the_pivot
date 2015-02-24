@@ -53,8 +53,8 @@ class UsersController < ApplicationController
   end
 
   def send_welcome_email(user)
-    UserMailer.welcome_borrower(user).deliver_now if user.borrower?
-    UserMailer.welcome_lender(user).deliver_now if user.lender?
+    UserMailer.welcome_borrower(user).deliver_later if user.borrower?
+    UserMailer.welcome_lender(user).deliver_later if user.lender?
   end
 
   def borrower?

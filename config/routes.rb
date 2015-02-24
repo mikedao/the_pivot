@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
+  mount Sidekiq::Web => '/sidekiq'
 
   root "categories#index"
   post "/login", to: "sessions#create"
@@ -30,4 +34,5 @@ Rails.application.routes.draw do
   end
 
   match "/create_order", via: [:get], to: "orders#create"
+
 end
