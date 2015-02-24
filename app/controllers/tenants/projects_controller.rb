@@ -37,7 +37,7 @@ class Tenants::ProjectsController < ApplicationController
       else
         flash[:errors] = "Invalid Attributes"
       end
-        redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
+      redirect_to edit_tenant_project_path(@project, slug: @project.tenant.id)
     end
   end
 
