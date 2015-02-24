@@ -17,12 +17,9 @@ class PendingLoansController < ApplicationController
   end
 
   def update
-    if params[:pending_loan].nil?
-      delete_all_projects_from_cart
-    else
-      delete_specific_project_from_cart
-      flash[:notice] = "Project removed from cart"
-    end
+    session[:pending_loan][params[:pending_loan][:project_id]] =
+    params[:pending_loan][:loan_dollar_amount].to_f * 100
+    flash[:notice] = "Project loan amount updated"
     redirect_to pending_loan_path
   end
 
@@ -32,10 +29,13 @@ class PendingLoansController < ApplicationController
     redirect_to pending_loan_path
   end
 
-  def update_project_amount
-    session[:pending_loan][params[:update_pending_loan_amount][:project_id]] =
-       params[:update_pending_loan_amount][:loan_amount]
-    flash[:notice] = "Project loan amount updated"
+  def delete_one
+    if params[:pending_loan].nil?
+      delete_all_projects_from_cart
+    else
+      delete_specific_project_from_cart
+      flash[:notice] = "Project removed from cart"
+    end
     redirect_to pending_loan_path
   end
 
@@ -66,11 +66,6 @@ class PendingLoansController < ApplicationController
   end
 
   def loan_is_already_pending
-    session[:pending_loan][pending_loan_params[:project_id]]
-  end
-
-  def update_specific_loan
-    session[:pending_loan][pending_loan_params[:project_id]] =
     session[:pending_loan][pending_loan_params[:project_id]]
   end
 

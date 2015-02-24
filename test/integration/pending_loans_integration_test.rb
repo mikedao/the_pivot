@@ -105,10 +105,11 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     project = create(:project)
     visit projects_path
     first(".row").click_button("Lend $25")
-    click_link_or_button("Checkout")
 
-
-
+    click_link_or_button("Change amount")
+    fill_in "pending_loan[loan_dollar_amount]", with: 35
+    click_link_or_button("Change amount")
+    assert page.has_content?("Order total: $35.00")
   end
 
   test "an unauthorized user cannot checkout until logged in" do

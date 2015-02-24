@@ -17,10 +17,18 @@
         <tr id=<%= "project_#{project.id}" %>>
           <td><%= project.tenant.organization %></td>
           <td><%= link_to project.title, tenant_project_path(slug: project.tenant.slug, id: project.id) %></td>
-          <td id=<%= "amount_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100 %></td>
+          <td id=<%= "amount_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100.00 %></td>
           <td>
-            <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-              <input name="_method" type="hidden" value="patch" />
+            <%= form_for :pending_loan, url: update_loan_amount_path do |f| %>
+              <input name="_method" type="hidden" />
+              <%= f.text_field :loan_dollar_amount, class: 'form-control' %>
+              <%= f.hidden_field :project_id, :value => project.id %>
+              <%= f.submit "Change amount", class: "btn btn-default" %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_for :pending_loan, url: delete_pending_loan_path do |f| %>
+              <input name="_method" type="hidden" value="delete_one" />
               <%= f.hidden_field :project_id, :value => project.id %>
               <%= f.submit "Delete", class: "btn btn-default btn-delete-cart-project" %>
             <% end %>

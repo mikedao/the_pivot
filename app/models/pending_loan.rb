@@ -24,7 +24,7 @@ class PendingLoan
   end
 
   def formatted_pending_total
-    number_to_currency(pending_total / 100)
+    number_to_currency(pending_total / 100.00)
   end
 
   def checkout!(user_id)
