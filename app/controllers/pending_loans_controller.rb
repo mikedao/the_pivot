@@ -17,9 +17,13 @@ class PendingLoansController < ApplicationController
   end
 
   def update
-    session[:pending_loan][params[:pending_loan][:project_id]] =
-    params[:pending_loan][:loan_dollar_amount].to_f * 100
-    flash[:notice] = "Project loan amount updated"
+    if valid_loan_amount
+      session[:pending_loan][params[:pending_loan][:project_id]] =
+      params[:pending_loan][:loan_dollar_amount].to_f * 100
+      flash[:notice] = "Project loan amount updated"
+    else
+      flash[:notice] = "Please enter a valid amount between $10 & $500"
+    end
     redirect_to pending_loan_path
   end
 
@@ -79,5 +83,10 @@ class PendingLoansController < ApplicationController
 
   def delete_specific_project_from_cart
     session[:pending_loan].delete(pending_loan_params[:project_id])
+  end
+
+  def valid_loan_amount
+    amount = params[:pending_loan][:loan_dollar_amount].to_f
+    amount > 10 && amount < 500
   end
 end

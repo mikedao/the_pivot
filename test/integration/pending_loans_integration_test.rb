@@ -112,6 +112,19 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Order total: $35.00")
   end
 
+  test "a user will be alerted when the loan amount is not valid" do
+    project = create(:project)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    click_link_or_button("Change amount")
+    fill_in "pending_loan[loan_dollar_amount]", with: -35
+    click_link_or_button("Change amount")
+    assert page.has_content?("Order total: $25.00")
+    assert page.has_content?("Please enter a valid amount between $10 & $500")
+  end
+
+
   test "an unauthorized user cannot checkout until logged in" do
     project = create(:project)
     visit "/#{project.tenant.slug}"
