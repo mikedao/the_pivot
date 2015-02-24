@@ -74,7 +74,11 @@ class Tenants::ProjectsController < ApplicationController
   def new_params
     new_param = project_params
     new_param[:categories] = new_categories
-    new_param[:tenant_id] = @project.tenant.id
+    if current_user.nil?
+      new_param[:tenant_id] = @project.tenant.id
+    else
+      new_param[:tenant_id] = current_user.tenant_id
+    end
     new_param
   end
 end
