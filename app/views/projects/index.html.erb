@@ -7,11 +7,17 @@
   <div class="row">
     <% @projects.each do |project| %>
     <div class="box col-lg-3">
-      <h4 class="project-title"> <%= link_to("#{project.title}", project_path(id: project.id))%></h4>
+      <h4 class="project-title"> <%= link_to("#{project.title}",
+        tenant_project_path(slug: project.tenant.slug, id: project.id))%></h4>
       <div class="thumbnail">
         <%= image_tag project.photos.first.image.url %>
       </div>
       <h5 class="project-desc"><%= project.description %></h5>
+      <%= form_for :pending_loan, url: pending_loan_path do |f| %>
+      <%= f.hidden_field :project_id, value: project.id %>
+      <%= f.hidden_field :loan_amount, value: 2500 %>
+      <%= f.submit "Lend $25", class: "btn btn-default" %>
+      <% end %>
     </div>
     <% end %>
   </div>

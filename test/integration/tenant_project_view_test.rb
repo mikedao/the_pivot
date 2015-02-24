@@ -40,7 +40,7 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
 
     visit tenant_project_path(slug: project.tenant.slug, id: project.id)
 
-    assert page.has_button?("Lend")
+    assert page.has_button?("Lend $25")
   end
 
   test "a user can go back to the projects page from the tenant project page" do
@@ -60,12 +60,12 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
 
     visit tenant_project_path(slug: tenant_slug, id: project.id)
     within("#lend-form") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#pending_loans") do
       assert page.has_content?(project.title)
-      assert page.has_content?(project.price)
+      assert page.has_content?("$25.00")
     end
   end
 end
