@@ -30,6 +30,20 @@ class Project < ActiveRecord::Base
     number_to_currency(price / 100.00)
   end
 
+  def downcase_categories
+    categories.map do |category|
+      category.name.downcase
+    end
+  end
+
+  # move this logic
+  def as_json(s)
+    {
+      title: title,
+      categories: downcase_categories
+    }
+  end
+
   private
 
   def add_default_repayment_rate

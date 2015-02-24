@@ -47,4 +47,6 @@ class ActionDispatch::IntegrationTest
     reset_session!
     DatabaseCleaner.clean
   end
+
+  Capybara.javascript_driver = :webkit
 end

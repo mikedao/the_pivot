@@ -37,13 +37,13 @@
       appendProjects(filteredProjects);
     };
 
-    var filterProjects = function(projs_cats, filters) {
+    var filterProjects = function(projects, filters) {
       var filteredProjects = [];
-      projs_cats.forEach(function(proj_and_cat) {
+      projects.forEach(function(project) {
         filters.forEach(function(filter) {
-          if (proj_and_cat[1].indexOf(filter) > -1) {
-            if (filteredProjects.indexOf(proj_and_cat[0] < 0)) {
-              filteredProjects.push(proj_and_cat[0]);
+          if (project.categories.indexOf(filter) > -1) {
+            if (filteredProjects.indexOf(project) < 0) {
+              filteredProjects.push(project);
             }
           }
         });

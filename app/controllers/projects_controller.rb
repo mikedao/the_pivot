@@ -4,13 +4,7 @@ class ProjectsController < ApplicationController
     @categories = Category.select(:name).all
 
     if request.xhr?
-      @all_projects = @projects.map do |project|
-        project_categories = project.categories.map do |category|
-          category.name.downcase
-        end
-        [project, project_categories]
-      end
-      render json: @all_projects
+      render json: @projects
     end
   end
 end
