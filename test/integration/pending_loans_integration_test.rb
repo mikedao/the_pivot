@@ -125,6 +125,15 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
      $#{project.current_amount_needed / 100}")
   end
 
+  test "a user cannot add more than the value of the project" do
+    project = create(:project)
+    project.loans << create(:loan, amount: project.price - 800)
+    visit projects_path
+    first(".row").click_button("Lend $25")
+
+    assert page.has_content?("Order total: $8.00")
+  end
+
   test "a user will see how much funding is needed for each project" do
     project = create(:project)
     visit projects_path

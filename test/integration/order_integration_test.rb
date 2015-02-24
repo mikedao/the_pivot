@@ -59,9 +59,24 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit user_order_path(user, order)
-    assert page.has_content?(order.total_cost / 100)
+    assert page.has_content?(order.final_total / 100)
     assert page.has_content?(loan1.amount / 100)
     assert page.has_content?(loan1.project.tenant.location)
     assert page.has_content?(loan2.amount / 100)
+  end
+
+  test "an authed lender can click to go to each project page from the order
+        page" do
+    order = create(:order_with_loan)
+    user = order.user
+    project = order.projects.first
+
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit user_order_path(user, order)
+    click_link_or_button(project.title)
+
+    assert_equal tenant_project_path(slug: project.tenant.slug, id: project.id),
+                 current_path
   end
 end
