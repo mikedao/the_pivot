@@ -11,17 +11,13 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     assert_equal projects_path, current_path
     within("#filters") do
       assert page.has_content?(project.categories.first.name)
-      assert page.has_content?("$0 - $100")
-      assert page.has_content?("$100 - $500")
-      assert page.has_content?("$500+")
     end
   end
 
   test "a user sees only the category of project selected when
     coming from root path" do
-
+    skip
     #Capybara.default_driver = :webkit
-    Capybara.current_driver = :selenium
    # page.driver.block_unknown_urls
     #page.driver.allow_url("maxcdn.bootstrapcdn.com")
 
@@ -31,7 +27,8 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
     project2_category = project2.categories.first.name
     visit root_path
 
-    click_link_or_button(project1.categories.first.name)
+    binding.pry
+    click_link_or_button(project1_category)
 
     assert_equal projects_path, current_path
     assert find("#category_#{project1_category.parameterize}").checked?
