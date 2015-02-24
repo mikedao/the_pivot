@@ -1,5 +1,8 @@
-<div id="profile-data">
-  <div id="profile-title"><h1><%= current_user.username %>'s Profile</h1></div></br>
+<div id="project-title">
+  <h1><%= current_user.username %>'s Profile</h1>
+</div>
+
+<div id="profile-data" class="col-md-4">
   <div id="name">Fullname: <%= current_user.full_name %></div></br>
   <div id="email">Email: <%= current_user.email %></div></br>
   <div id="credit-card">Credit Card Info: <%= current_user.credit_card_info %></div></br>
