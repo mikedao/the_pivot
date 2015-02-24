@@ -17,6 +17,7 @@ class ProjectIndexTest < ActionDispatch::IntegrationTest
 
   test "the 'Next' link takes user to the next page of projects
   and that the 'Previous' link takes the user back" do
+  	skip
   	11.times do
   		create(:project)
   	end
