@@ -1,10 +1,15 @@
-<div id="username"><h1><%= current_user.username %></h1></div>
-<div id="name"><%= current_user.first_name %> <%= current_user.last_name %></div>
-<div id="email"><%= current_user.email %></div>
-<div id="credit-card"><%= current_user.credit_card_info %></div>
-<div id="street"><%= current_user.street %></div>
-<div id="city"><%= current_user.city %></div>
-<div id="state"><%= current_user.state %></div>
-<div id="zipcode"><%= current_user.zipcode %></div>
-<div id="country"><%= current_user.country %></div>
+<div id="project-title">
+  <h1><%= current_user.username %>'s Profile</h1>
+</div>
 
+<div id="profile-data" class="col-md-4">
+  <div id="name">Fullname: <%= current_user.full_name %></div></br>
+  <div id="email">Email: <%= current_user.email %></div></br>
+  <div id="credit-card">Credit Card Info: <%= current_user.credit_card_info %></div></br>
+  <div id="street">Street: <%= current_user.street %></div></br>
+  <div id="city">City: <%= current_user.city %></div></br>
+  <div id="state">State: <%= current_user.state %></div></br>
+  <div id="zipcode">Zip:<%= current_user.zipcode %></div></br>
+  <div id="country">Country: <%= current_user.country %></div></br>
+  <%= link_to "Edit Profile", edit_user_path, class: "btn btn-small btn-success" %></br>
+</div>
