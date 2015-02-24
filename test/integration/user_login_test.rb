@@ -81,9 +81,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
 
-    visit category_path(project.categories.first.id)
+    visit projects_path
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     log_in_user(user)
 
@@ -96,9 +96,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
 
-    visit category_path(project.categories.first.id)
+    visit projects_path
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     log_in_user(user)
 
@@ -112,9 +112,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
 
-    visit category_path(project.categories.first.id)
+    visit projects_path
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Checkout")
     log_in_user(user)
@@ -128,9 +128,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   gets redirected back to the pending_loan_show page" do
     project = create(:project, title: "A Water Purifier")
 
-    visit category_path(project.categories.first.id)
+    visit projects_path
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Checkout")
     fill_in "signup[username]",               with: "Jwan622"
