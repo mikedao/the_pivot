@@ -127,8 +127,8 @@ a {
 
 #store-name {
   color: #504d4f;
+  float: left;
   font-size: 1.6em;
-  float:left;
   margin: auto;
 }
 
@@ -141,19 +141,19 @@ a {
 }
 
 #profile-title {
-  text-shadow: 0px 2px 3px #666;
+  text-shadow: 0 2px 3px #666;
 }
 
 #profile-data {
-  min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
   background-color: #e3e3e3;
   border: 1px solid #e3e3e3;
+  border-color: #d7d7d7;
   border-radius: 4px;
-  border-color:#d7d7d7;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  min-height: 20px;
+  padding: 19px;
 }
 
 td {
