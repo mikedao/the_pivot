@@ -38,8 +38,8 @@
     };
 
     var filterProjects = function(projects, checkedFilters) {
-      filterProjectByCategory()
-      filterProjectBy
+      filterProjectByCategory(projects, checkedFilters)
+      filterProjectByPrice
 
       // var filteredProjects = [];
       // Array.prototype.filter
@@ -58,7 +58,7 @@
       var filteredProjects = projects.filter(function(project) {
         // return true if any of the projects categories match the filter
         return project.categories.some(function(category) {
-          return checkedFilters.indexOf(category) < -1;
+          return checkedFilters.indexOf(category) > -1;
         });
       });
       // return filteredProjects;
