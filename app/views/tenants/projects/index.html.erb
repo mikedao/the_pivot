@@ -1,3 +1,5 @@
+<%= will_paginate %>
+
 <div id="title">
   <h1><%= @tenant.organization.upcase %></h1>
 
@@ -6,9 +8,9 @@
       <div class="box col-lg-3">
         <h4 class="project-title"> <%= link_to("#{project.title}", tenant_project_path(slug: @tenant.slug, id: project.id))%></h4>
 
-        <%= div_for(project, class: "photo") do %>
+        <div class="thumbnail">
           <%= image_tag project.photos.first.image.url %>
-        <% end %>
+        </div>
 
         <h5 class="project-desc"><%= project.description %></h5>
         <% project.categories.each do |category| %>
@@ -23,3 +25,5 @@
     <% end %>
   </div>
 </div>
+
+<%= will_paginate %>
