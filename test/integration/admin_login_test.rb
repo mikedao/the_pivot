@@ -26,6 +26,15 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     assert_equal admin_dashboard_path, current_path
   end
 
+  test "a logged in admin does not have a lend button in the nav bar" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+    refute page.has_link?("Lend")
+    refute page.has_link?("Keevahh")
+  end
+
   test "an admin when logged in has an Admin Dashboard link" do
     admin = create(:admin)
     ApplicationController.any_instance.stubs(:current_user).returns(admin)

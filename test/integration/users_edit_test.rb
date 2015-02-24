@@ -3,7 +3,7 @@ require "test_helper"
 class UsersEditTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "an unauthorized user when they unsuccessfully edit their profiel gets
+  test "an unauthorized user when they unsuccessfully edit their profile gets
   returned back to the profile edit view with an error" do
     user = create(:user)
     get edit_user_path(user)
