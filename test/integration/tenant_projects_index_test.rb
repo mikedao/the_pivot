@@ -4,9 +4,18 @@ class TenantProjectsIndexTest < ActionDispatch::IntegrationTest
 	include Capybara::DSL
 	include FactoryGirl::Syntax::Methods
 
-	authenticated_user = create(:user)
-    ApplicationController.any_instance.stubs(:current_user).
-      returns(authenticated_user)
-    tenant = create(:tenant)
-    tenant.projects << create(:project)
+	test "pagination renders on the page" do 
+		authenticated_user = create(:user)
+	    ApplicationController.any_instance.stubs(:current_user).
+	      returns(authenticated_user)
+	    tenant = create(:tenant)
+	    15.times do
+	    	tenant.projects << create(:project)
+	    end
+
+	    visit tenant_projects_path(slug: tenant.slug)
+
+	    assert page.has_content?("Previous")
+		assert page.has_content?("Next")
+	end
 end
