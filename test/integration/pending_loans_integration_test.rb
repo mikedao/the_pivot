@@ -10,7 +10,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     visit "/#{tenant.slug}"
 
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#flash_notice") do
@@ -24,7 +24,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#pending_loans") do
@@ -40,7 +40,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/"
     click_link_or_button(project.categories.first.name)
-    first(".row").click_button("Lend")
+    first(".row").click_button("Lend $25")
 
     within("#pending_loans") do
       click_link_or_button("Delete")
@@ -58,7 +58,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Delete")
 
@@ -77,18 +77,17 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project1.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     visit "/#{project2.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     within("#pending_loans") do
       assert page.has_content?(project1.title)
-      assert page.has_content?(project1.price)
+      assert page.has_content?("$25.00")
       assert page.has_content?(project2.title)
-      assert page.has_content?(project2.price)
     end
   end
 
@@ -97,7 +96,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     visit "/#{project.tenant.slug}"
 
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Checkout")
 
@@ -111,11 +110,11 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project1.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     visit "/#{project2.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Empty Cart")
 
@@ -132,7 +131,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button(project.title)
 
@@ -149,13 +148,13 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     assert_equal "/pending_loan", current_path
     within("#pending_loans") do
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?(tenant.projects.first.price)
+      assert page.has_content?("$25.00")
     end
   end
 
@@ -169,7 +168,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
 
     assert_equal "/pending_loan", current_path
@@ -179,7 +178,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     within("#pending_loans") do
       assert page.has_content?(tenant.organization)
       assert page.has_content?(tenant.projects.first.title)
-      assert page.has_content?(tenant.projects.first.price)
+      assert page.has_content?("$25.00")
     end
   end
 
@@ -190,7 +189,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{project.tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     fill_in "session[username]", with: user.username
     fill_in "session[password]", with: user.password
@@ -213,7 +212,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
     visit "/#{tenant.slug}"
     within(".row") do
-      click_link_or_button("Lend")
+      click_link_or_button("Lend $25")
     end
     click_link_or_button("Delete")
 
