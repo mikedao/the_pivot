@@ -17,8 +17,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
   test "successful edit" do
     user = create(:user)
+
     get edit_user_path(user)
     assert_template 'users/edit'
+    username = "Jwan622"
     first_name  = "Jeffrey"
     last_name  = "Jeffrey"
     email  = "Jwan622@yahoo.com"
@@ -28,17 +30,23 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     street = "31 Hillwood Court"
     country = "USA"
     credit_card_info = 4141414141414141
-    patch user_path(user), { user: { name:  name,
+    patch user_path(user), { user: { username: username,
+                                   first_name: first_name,
+                                   last_name: last_name,
                                    email:   email,
-                                   password:              "",
-                                   password_confirmation: ""
+                                   city: city,
+                                   state: state,
+                                   zipcode: zipcode,
+                                   street: street,
+                                   credit_card_info: credit_card_info,
+                                   password:              "Ilikematzoh",
+                                   password_confirmation: "Ilikematzoh"
                                    }
                            }
+    user.reload
+
     assert_not flash.empty?
-    assert page.has_content?("Invalid Profile Edit. Try Again")
-    assert_redirected_to @user
-    @user.reload
-    assert_equal @user.name,  name
-    assert_equal @user.email, email
+    assert_equal user.username,  username
+    assert_equal user.email, email
   end
 end
