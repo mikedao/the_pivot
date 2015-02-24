@@ -18,9 +18,9 @@
       <tr>
         <td><%= link_to loan.project.title, project_path(loan.project) %></td>
         <td><%= loan.project.tenant.location %></td>
-        <td><%= number_to_currency loan.amount / 100 %></td>
+        <td><%= number_to_currency loan.amount / 100.00 %></td>
       </tr>
     <% end %>
-    <tr><h2>Order Total: <%= number_to_currency @order.final_total / 100 %></h2><tr>
+    <tr><h2>Order Total: <%= number_to_currency @order.final_total / 100.00 %></h2><tr>
   </table>
 </div>

@@ -15,7 +15,7 @@
       </tr>
     </thead>
       <tr>
-        <td> <%= number_to_currency @project.price / 100 %></td>
+        <td> <%= number_to_currency @project.price / 100.00 %></td>
         <td> <%= @project.repayment_rate %></td>
         <td> <%= @project.requested_by %></td>
         <td> <%= @project.repayment_begin %></td>
@@ -25,7 +25,7 @@
 
 <h2><%= "RETIRED ITEM" if @project.retired %></h2>
 <div id="description"><%= @project.description %></div>
-<div id="price"><%= number_to_currency @project.price / 100 %></div>
+<div id="price"><%= number_to_currency @project.price / 100.00 %></div>
 <div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %></div>
 <div id="requested-by">Requested by: <%= @project.requested_by %></div>
 <div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %> </div>

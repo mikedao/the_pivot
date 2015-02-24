@@ -4,9 +4,10 @@
   <table class="table table-bordered">
     <thead>
       <tr class="warning">
-        <th data-field="Organization Name">Organization Name</th>
-        <th data-field="Purpose">Purpose</th>
-        <th data-field="Amount">Amount</th>
+        <th data-field="organization-name">Organization</th>
+        <th data-field="project-title">Project</th>
+        <th data-field="funds-needed">Funds needed</th>
+        <th data-field="loan-amount">Your loan</th>
         <th></th>
       </tr>
     </thead>
@@ -17,29 +18,40 @@
         <tr id=<%= "project_#{project.id}" %>>
           <td><%= project.tenant.organization %></td>
           <td><%= link_to project.title, tenant_project_path(slug: project.tenant.slug, id: project.id) %></td>
-          <td id=<%= "quantity_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100 %></td>
+          <td id=<%= "funds_needed_#{project.id}" %>><%= number_to_currency project.current_amount_needed / 100.00 %></td>
+          <td id=<%= "amount_#{project.id}" %>><%= number_to_currency loan_amount.to_i / 100.00 %></td>
           <td>
-            <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-              <input name="_method" type="hidden" value="patch" />
+            <%= form_for :pending_loan, url: update_loan_amount_path do |f| %>
+              <input name="_method" type="hidden" />
+              <%= f.text_field :loan_dollar_amount, class: 'form-control' %>
+              <%= f.hidden_field :project_id, :value => project.id %>
+              <%= f.submit "Change amount", class: "btn btn-default" %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_for :pending_loan, url: delete_pending_loan_path do |f| %>
+              <input name="_method" type="hidden" value="delete_one" />
               <%= f.hidden_field :project_id, :value => project.id %>
               <%= f.submit "Delete", class: "btn btn-default btn-delete-cart-project" %>
             <% end %>
           </td>
         </tr>
       <% end %>
+      <h3>Order total: <%= pending_loans.formatted_pending_total %><h3>
+      <% if current_user %>
+        <%= form_for :cart, url: user_orders_path(user_id: current_user.id) do |f| %>
+          <%= f.submit "Checkout", class: "btn btn-default" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Checkout", new_user_path(message: "You Must Signup or Login to Lend Money"), class: "btn btn-default" %>
+      <% end %>
+
+      <%= form_for :cart, url: pending_loan_path do |f| %>
+        <input name="_method" type="hidden" value="delete" />
+        <%= f.submit "Empty Cart", class: "btn btn-default" %>
+      <% end %>
     <% end %>
   </table>
 
-  <% if current_user %>
-    <%= form_for :cart, url: user_orders_path(user_id: current_user.id) do |f| %>
-      <%= f.submit "Checkout", class: "btn btn-default" %>
-    <% end %>
-  <% else %>
-    <%= link_to "Checkout", new_user_path(message: "You Must Signup or Login to Lend Money"), class: "btn btn-default" %>
-  <% end %>
 
-  <%= form_for :cart, url: pending_loan_path do |f| %>
-    <input name="_method" type="hidden" value="delete" />
-    <%= f.submit "Empty Cart", class: "btn btn-default" %>
-  <% end %>
 </div>
