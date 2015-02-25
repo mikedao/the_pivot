@@ -112,14 +112,6 @@ startup_category.photos << Photo.create!(
   image: File.new("#{Rails.root}/app/assets/images/startup_category.jpg")
 )
 
-conflict_zone_category = Category.create!(
-  name: "Conflict Zones"
-)
-
-conflict_zone_category.photos << Photo.create!(
-  image: File.new("#{Rails.root}/app/assets/images/conflict_zone.jpg")
-)
-
 # projects
 20.times do |n|
   project1 = Project.create!(
@@ -143,15 +135,15 @@ conflict_zone_category.photos << Photo.create!(
                   price: 4000,
                   description: "How can I teach deez kiiiids?" * 5,
                   retired: false,
-                  categories: [startup_category, conflict_zone_category],
+                  categories: [startup_category],
                   tenant_id: Tenant.second.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
                   repayment_begin: Date.new(2015, 3, 30),
-                  image_url: "https://s3.amazonaws.com/keevahh/stevens_books.jpg"
+                  image_url: "https://s3.amazonaws.com/keevahh/school_children.jpg"
                   )
   project2.photos << Photo.create!(
-    image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
+    image: File.new("#{Rails.root}/app/assets/images/school_children.jpg")
     )
 
   project3 = Project.create!(
@@ -164,10 +156,10 @@ conflict_zone_category.photos << Photo.create!(
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
                   repayment_begin: Date.new(2015, 3, 30),
-                  image_url: "https://s3.amazonaws.com/keevahh/johns_waterworks.jpg"
+                  image_url: "https://s3.amazonaws.com/keevahh/water_tower.jpg"
                   )
   project3.photos << Photo.create!(
-    image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
+    image: File.new("#{Rails.root}/app/assets/images/water_tower.jpg")
     )
 
   project4 = Project.create!(
@@ -175,15 +167,15 @@ conflict_zone_category.photos << Photo.create!(
                   price: 16000,
                   description: "Conflict diamonds are forever" * 5,
                   retired: false,
-                  categories: [conflict_zone_category, env_category],
+                  categories: [env_category],
                   tenant_id: Tenant.fourth.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
                   repayment_begin: Date.new(2015, 3, 30),
-                  image_url: "https://s3.amazonaws.com/keevahh/debeers_diamonds.jpg"
+                  image_url: "https://s3.amazonaws.com/keevahh/environment.jpg"
                   )
   project4.photos << Photo.create!(
-    image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
+    image: File.new("#{Rails.root}/app/assets/images/environment.jpg")
     )
 
   Tenant.all[4..9].each do |tenant|
@@ -192,15 +184,15 @@ conflict_zone_category.photos << Photo.create!(
                     price: 16000,
                     description: "Conflict diamonds are forever" * 5,
                     retired: false,
-                    categories: [conflict_zone_category, env_category],
+                    categories: [env_category],
                     tenant_id: tenant.id,
                     repayment_rate: 28,
                     requested_by: Date.new(2015, 1, 1),
                     repayment_begin: Date.new(2015, 3, 30),
-                    image_url: "https://s3.amazonaws.com/keevahh/panda.jpg"
+                    image_url: "https://s3.amazonaws.com/keevahh/debeers_diamonds.jpg"
                     )
     project5.photos << Photo.create!(
-      image: File.new("#{Rails.root}/app/assets/images/panda.jpg")
+      image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
       )
   end
 end
