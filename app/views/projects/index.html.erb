@@ -28,7 +28,8 @@
       projects.forEach(function(project) {
         $("#projects").append(
           "<div><a href='/" + project.organization + "/projects/" + project.id + "'>" + project.title + "</a></div>" +
-          "<img src='" + project.image_url + "'>"
+          "<a href='/" + project.organization + "/projects/" + project.id + "'><img src='" + project.image_url +
+           "' width='250px' height='auto'></a>" + "<div class='project-desc'>" + project.description + "</div>"
         )
       });
     };

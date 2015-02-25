@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
       categories: downcase_categories,
       id: id,
       organization: tenant.slug,
-      image_url: photos.first.image.url
+      image_url: image_url
     }
   end
 

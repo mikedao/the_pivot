@@ -18,7 +18,6 @@ class Tenants::ProjectsController < ApplicationController
   end
 
   def create
-    require 'pry' ; binding.pry
     @project = Project.create!(new_params)
     redirect_to tenant_dashboard_path
   end
