@@ -51,7 +51,7 @@ class PendingLoansController < ApplicationController
 
   def update_cart
     if session[:pending_loan]
-       update_existing_cart
+      update_existing_cart
     else
       session[:pending_loan] = {
         pending_loan_params[:project_id] => pending_loan_params[:loan_amount]

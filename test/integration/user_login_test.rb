@@ -81,7 +81,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
     project.tenant.update_attributes(active: true, approved: true)
-    
+
     visit projects_path
     within(".row") do
       click_link_or_button("Lend $25")

@@ -4,7 +4,7 @@ class PendingLoan
   def initialize(pending_loan)
     @pending_loan = pending_loan
   end
-  
+
   def present?
     @pending_loan.present?
   end

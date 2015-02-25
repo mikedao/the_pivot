@@ -69,7 +69,6 @@ class ProjectTest < ActiveSupport::TestCase
     refute project2.valid?
   end
 
-
   test "it must have at least one category" do
     project = build(:project, categories: [])
     assert project.invalid?
