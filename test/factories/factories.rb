@@ -37,6 +37,11 @@ FactoryGirl.define do
     sequence(:organization) { |n| "lucy's #{n} farm" }
     active false
     approved false
+
+    factory :tenant_visible do
+      active true
+      approved true
+    end
   end
 
   factory :category do
@@ -71,7 +76,7 @@ FactoryGirl.define do
     requested_by Date.new(2017, 1, 1)
 
     before(:create) do |project|
-      project.tenant = create(:tenant)
+      project.tenant = create(:tenant_visible)
     end
 
     before(:create) do |project|
