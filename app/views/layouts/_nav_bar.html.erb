@@ -1,15 +1,8 @@
 <%= nav_bar fixed: :top, responsive: true do %>
-  <%= menu_group do %>
-    <a class="brand" href="/"><%= image_tag "logo5.png", size: "55x55" %></a>
-  <% end %>
-
+<a class="brand" href="/"><%= image_tag "logo5.png", size: "55x55" %></a>
   <div id="nav-row">
-    <%= menu_group do %>
-      <div id="store-name">
-          <%= link_to "Keevahh", root_path if !(current_user && current_user.admin?) %>
-          <%= "Keevahh" if (current_user && current_user.admin?) %>
-      </div>
-
+    <%= menu_group inline: true do %>
+      <%= menu_item "Keevahh", root_path, id: "store-name" %>
       <%= menu_item "Lend", projects_path if !(current_user && current_user.admin?) %>
       <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
       <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
