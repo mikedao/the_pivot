@@ -13,7 +13,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend $25")
     end
 
-    within("#flash_notice") do
+    within("#flash-notice") do
       assert page.has_content?("Added to Pending Loans")
     end
   end
@@ -180,7 +180,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button("Empty Cart")
 
-    within("#flash_notice") do
+    within("#flash-notice") do
       assert page.has_content?("Pending Loans Removed")
     end
     refute page.has_content?(project1.title)
