@@ -35,7 +35,7 @@
         "' width='250px' height='auto'></a>" + "<div class='project-desc'>" + project.description + "</div>" +
         '<form action="/pending_loan" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden"' +
         'value="&#x2713;" /><input type="hidden" name="authenticity_token" value="' + auth_token + '" />' +
-        '<input value="1" type="hidden" name="pending_loan[project_id]" id="pending_loan_' + project.id + '" />' +
+        '<input value="' + project.id + '" type="hidden" name="pending_loan[project_id]" id="pending_loan_' + project.id + '" />' +
         '<input value="2500" type="hidden" name="pending_loan[loan_amount]" id="pending_loan_loan_amount" />' +
         '<input type="submit" name="commit" value="Lend $25" class="btn btn-default" /></form></div>'
       )

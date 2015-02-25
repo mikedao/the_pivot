@@ -58,7 +58,6 @@ class Tenants::ProjectsController < ApplicationController
                                     :requested_by,
                                     :retired, :tenant_id, :repayment_begin,
                                     :repayment_rate, categories: [])
-                                    # photos: {image: [:image_file_name, :image_content_type]}
   end
 
   def new_category_ids

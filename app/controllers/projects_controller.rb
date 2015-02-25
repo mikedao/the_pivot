@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
     @categories = Category.select(:name).all
 
     if request.xhr?
-      require 'pry' ; binding.pry
       render json: @projects
     end
   end
