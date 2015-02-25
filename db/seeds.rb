@@ -131,7 +131,8 @@ conflict_zone_category.photos << Photo.create!(
                   tenant_id: Tenant.first.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
-                  repayment_begin: Date.new(2015, 3, 30)
+                  repayment_begin: Date.new(2015, 3, 30),
+                  image_url: "https://s3.amazonaws.com/keevahh/timmys_vaccines.jpg"
                   )
   project1.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/timmys_vaccines.jpg")
@@ -146,7 +147,8 @@ conflict_zone_category.photos << Photo.create!(
                   tenant_id: Tenant.second.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
-                  repayment_begin: Date.new(2015, 3, 30)
+                  repayment_begin: Date.new(2015, 3, 30),
+                  image_url: "https://s3.amazonaws.com/keevahh/stevens_books.jpg"
                   )
   project2.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
@@ -161,7 +163,8 @@ conflict_zone_category.photos << Photo.create!(
                   tenant_id: Tenant.third.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
-                  repayment_begin: Date.new(2015, 3, 30)
+                  repayment_begin: Date.new(2015, 3, 30),
+                  image_url: "https://s3.amazonaws.com/keevahh/johns_waterworks.jpg"
                   )
   project3.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/johns_waterworks.jpg")
@@ -176,7 +179,8 @@ conflict_zone_category.photos << Photo.create!(
                   tenant_id: Tenant.fourth.id,
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
-                  repayment_begin: Date.new(2015, 3, 30)
+                  repayment_begin: Date.new(2015, 3, 30),
+                  image_url: "https://s3.amazonaws.com/keevahh/debeers_diamonds.jpg"
                   )
   project4.photos << Photo.create!(
     image: File.new("#{Rails.root}/app/assets/images/debeers_diamonds.jpg")
@@ -192,7 +196,8 @@ conflict_zone_category.photos << Photo.create!(
                     tenant_id: tenant.id,
                     repayment_rate: 28,
                     requested_by: Date.new(2015, 1, 1),
-                    repayment_begin: Date.new(2015, 3, 30)
+                    repayment_begin: Date.new(2015, 3, 30),
+                    image_url: "https://s3.amazonaws.com/keevahh/panda.jpg"
                     )
     project5.photos << Photo.create!(
       image: File.new("#{Rails.root}/app/assets/images/panda.jpg")

@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = all_projects.select do |project|
-      project.tenant.visible_to_lenders == true &&
-      project.current_amount_needed > 0
+    @projects = Project.includes(:categories, :tenant).active
+    @categories = Category.select(:name).all
+
+    if request.xhr?
+      render json: @projects
     end
-    @categories = Category.all
   end
 
   private

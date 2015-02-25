@@ -17,7 +17,7 @@
   <table class='table table-bordered'>
     <%= render 'shared/order_table_header' %>
       <% Order.ordered.each do |order| %>
-      <%= render partial: "shared/status_table", :locals => {order: order}%>
+        <%= render partial: "shared/status_table", :locals => {order: order}%>
       <% end %>
   </table>
   </div>
