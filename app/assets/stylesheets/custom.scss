@@ -157,6 +157,17 @@ th {
   text-align: center;
 }
 
+// about page
+
+.about {
+  background-color: #e3e3e3;
+  border: 2px solid #6699ff;
+  border-radius: 20px;
+  margin-bottom: 2px;
+  min-height: 20px;
+  padding: 50px;
+}
+
 // footer
 footer {
   background-color: #bcdefa;
@@ -184,6 +195,7 @@ footer small {
 
 footer ul {
   float: right;
+  text-decoration: underline;
 }
 
 footer ul li {
