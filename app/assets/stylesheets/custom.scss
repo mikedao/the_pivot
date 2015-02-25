@@ -47,6 +47,28 @@ h3 {
   min-height: 50px;
 }
 
+#flash-error {
+  color: #ff0000;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 1em;
+  text-align: center;
+}
+
+#flash-alert {
+  color: #ff0000;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 1em;
+}
+
+#flash-notice {
+  text-align: center;
+  color: #008000;
+  font-size: 18px;
+  margin-top: 1em;
+}
+
 .category-row {
   text-align: center;
   margin-bottom: 50px;
@@ -129,20 +151,24 @@ td {
   background-color: rgba(255, 255, 255, .5);
 }
 
-// flash alerts
-#flash_error {
-  color: #ff0000;
+th {
   text-align: center;
 }
 
-#flash_alert {
-  color: #ff0000;
-  text-align: center;
+// complete loan message
+#complete-loan {
+  display: inline-block;
+  font-size: 20px;
+  text-decoration-color: #ff0000;
+  text-decoration: underline;
 }
 
-#flash_notice {
-  color: #008000;
+#help-someone {
+  font-size: 16px;
   text-align: center;
+  margin: auto;
+  width: 800px;
+  padding: 0.7em;
 }
 
 // profile page css
@@ -162,6 +188,11 @@ td {
 // variables, mixins
 @mixin box-sizing {
   box-sizing: border-box;
+}
+
+// project filters
+.hidden-filters {
+  display: none;
 }
 
 // miscellaneous

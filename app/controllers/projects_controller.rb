@@ -4,13 +4,17 @@ class ProjectsController < ApplicationController
       project.tenant.visible_to_lenders == true &&
       project.current_amount_needed > 0
     end
-    @projects = @projects.paginate(page: params[:page], per_page: 10)
-    @categories = Category.all
+
+    @categories = Category.select(:name).all
+
+    if request.xhr?
+      render json: @projects
+    end
   end
 
   private
 
   def all_projects
-    Project.includes(:categories).active.joins(:tenant)
+    Project.includes(:categories).active.includes(:tenant)
   end
 end

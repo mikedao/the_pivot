@@ -45,6 +45,8 @@ gem 'paperclip',                '~> 4.2.1'
 gem 'faker',                    '~> 1.4.2'
 gem 'will_paginate',            '~> 3.0.7'
 gem 'bootstrap-will_paginate',  '~> 0.0.10'
+gem 'aws-sdk'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -67,4 +69,5 @@ group :development, :test do
   gem 'capybara',               '~> 2.4.4'
   gem 'mocha',                  '~> 1.1.0'
   gem 'launchy',                '~> 2.4.3'
+  gem 'capybara_minitest_spec'
 end

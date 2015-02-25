@@ -7,18 +7,16 @@
         <h4 class="project-title"> <%= link_to("#{project.title}", tenant_project_path(slug: @tenant.slug, id: project.id))%></h4>
 
         <%= div_for(project, class: "photo") do %>
-          <%= image_tag project.photos.first.image.url %>
+          <%= image_tag project.image_url, width: "250px", height: "auto" %>
         <% end %>
 
         <h5 class="project-desc"><%= project.description %></h5>
         <% project.categories.each do |category| %>
           <div class="project-category"><%= link_to("#{category.name}", projects_path) %></div>
         <% end %>
-        <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-          <%= f.hidden_field :project_id, value: project.id %>
-          <%= f.hidden_field :loan_amount, value: 2500 %>
-          <%= f.submit "Lend $25", class: "btn btn-default" %>
-        <% end %>
+
+        <%= render 'shared/lend_button', project: project %>
+        
       </div>
     <% end %>
   </div>

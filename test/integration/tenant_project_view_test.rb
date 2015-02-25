@@ -59,7 +59,7 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
     tenant_slug = project.tenant.slug
 
     visit tenant_project_path(slug: tenant_slug, id: project.id)
-    within("#lend-form") do
+    within(".lend-button") do
       click_link_or_button("Lend $25")
     end
 

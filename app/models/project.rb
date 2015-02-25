@@ -28,12 +28,34 @@ class Project < ActiveRecord::Base
     number_to_currency(price / 100.00)
   end
 
+  def downcase_categories
+    categories.map do |category|
+      category.name.downcase
+    end
+  end
+
+  def as_json(s)
+    {
+      title: title,
+      description: description,
+      price: price,
+      categories: downcase_categories,
+      id: id,
+      organization: tenant.slug,
+      image_url: image_url
+    }
+  end
+
   def current_amount_needed
     if loans.present?
       price - loans.map(&:amount).reduce(:+)
     else
       price
     end
+  end
+
+  def visible
+    !retired && current_amount_needed > 0
   end
 
   private

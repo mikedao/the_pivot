@@ -1,12 +1,12 @@
 require "test_helper"
 
-class OrderIntegrationTest < ActionDispatch::IntegrationTest
+class LendTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "authenticated lender can make a default loan of $25" do
     user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project)
 
     visit "/#{tenant.slug}"
