@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root "projects#index"
+  root "categories#index"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy", as: "logout"
 

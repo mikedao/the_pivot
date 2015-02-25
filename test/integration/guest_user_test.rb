@@ -177,11 +177,10 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     project3 = create(:project)
     project4 = create(:project)
 
-    project.tenant.update_attributes(approved: true)
-    project2.tenant.update_attributes(active: true)
-    project3.tenant.update_attributes(active: true, approved: true)
+    project.tenant.update_attributes(approved: false)
+    project2.tenant.update_attributes(active: false)
+    project3.tenant.update_attributes(active: false, approved: false)
     project3.loans << create(:loan, amount: project3.price)
-    project4.tenant.update_attributes(active: true, approved: true)
     visit projects_path
 
     refute page.has_content?(project.title)
