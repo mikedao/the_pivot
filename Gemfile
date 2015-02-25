@@ -68,5 +68,5 @@ group :development, :test do
   gem 'launchy',                '~> 2.4.3'
   gem 'capybara_minitest_spec'
   # gem 'selenium-webdriver', '2.44.0'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
 end
