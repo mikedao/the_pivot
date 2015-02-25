@@ -16,7 +16,8 @@
     </thead>
     <% @order.loans.each do |loan| %>
       <tr>
-        <td><%= link_to loan.project.title, project_path(loan.project) %></td>
+        <td><%= link_to loan.project.title,
+          tenant_project_path(slug: loan.project.tenant.slug, id: loan.project.id) %></td>
         <td><%= loan.project.tenant.location %></td>
         <td><%= number_to_currency loan.amount / 100.00 %></td>
       </tr>

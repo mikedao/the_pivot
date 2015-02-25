@@ -1,5 +1,4 @@
 class Tenants::ProjectsController < ApplicationController
-  include ProjectsHelper
 
   def index
     @tenant = Tenant.find_by(slug: params[:slug])

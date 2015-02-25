@@ -7,4 +7,10 @@ class ProjectsController < ApplicationController
       render json: @projects
     end
   end
+
+  private
+
+  def all_projects
+    Project.includes(:categories).active.joins(:tenant)
+  end
 end
