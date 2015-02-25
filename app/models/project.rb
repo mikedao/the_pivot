@@ -5,8 +5,7 @@ class Project < ActiveRecord::Base
   has_many :projects_categories
   has_many :categories, through: :projects_categories
   has_many :photos
-  has_many :loans, after_add: :calculate_amount_needed,
-                   before_add: :check_amount_needed
+  has_many :loans
   has_many :orders, through: :loans
   belongs_to :tenant
 
@@ -17,14 +16,13 @@ class Project < ActiveRecord::Base
                     numericality:
                     {
                       only_integer: true,
-                      greater_than: 999,
+                      greater_than: 2499,
                       less_than: 100000
                     }
   validates :categories, presence: true
 
   before_create :add_default_repayment_rate
   before_save :add_default_repayment_begin
-  before_create :add_default_amount_needed
 
   def formatted_dollar_amount
     number_to_currency(price / 100.00)
@@ -48,19 +46,19 @@ class Project < ActiveRecord::Base
     self.repayment_begin = requested_by + 90
   end
 
-  def add_default_amount_needed
-    self.amount_needed = price
-  end
-
-  def calculate_amount_needed(_loan)
-    self.amount_needed = price - loans.map(&:amount).reduce(:+)
-  end
-
-  def check_amount_needed(loan)
-    if loans.present?
-      calculate_amount_needed(loan)
-    else
-      add_default_amount_needed
-    end
-  end
+  # def add_default_amount_needed
+  #   self.amount_needed = price
+  # end
+  #
+  # def calculate_amount_needed(_loan)
+  #   self.amount_needed = price - loans.map(&:amount).reduce(:+)
+  # end
+  #
+  # def check_amount_needed(loan)
+  #   if loans.present?
+  #     calculate_amount_needed(loan)
+  #   else
+  #     add_default_amount_needed
+  #   end
+  # end
 end

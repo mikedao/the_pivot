@@ -4,15 +4,7 @@ class PendingLoan
   def initialize(pending_loan)
     @pending_loan = pending_loan
   end
-
-  def projects
-    projects_and_loan_amounts = {}
-    @pending_loan.each do |project_id, loan_amount|
-      projects_and_loan_amounts[Project.find(project_id)] = loan_amount.to_i
-    end
-    projects_and_loan_amounts
-  end
-
+  
   def present?
     @pending_loan.present?
   end
@@ -32,10 +24,10 @@ class PendingLoan
       user_id: user_id.to_i,
       status: "ordered"
     )
-    projects.keys.each do |project|
+    @pending_loan.each do |project_id, loan_amount|
       Loan.create(
-        amount: 2500,
-        project_id: project.id,
+        amount: loan_amount,
+        project_id: project_id,
         order_id: order.id
       )
     end

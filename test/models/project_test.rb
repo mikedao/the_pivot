@@ -61,6 +61,15 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
+  test "it has a minimum price of $25" do
+    project1 = create(:project, price: 2500)
+    project2 = build(:project, price: 2499)
+
+    assert project1.valid?
+    refute project2.valid?
+  end
+
+
   test "it must have at least one category" do
     project = build(:project, categories: [])
     assert project.invalid?
@@ -127,6 +136,6 @@ class ProjectTest < ActiveSupport::TestCase
     project = create(:project, price: 5000)
     3.times { project.loans << create(:loan, amount: 1000) }
 
-    assert_equal 2000, project.amount_needed
+    assert_equal 2000, project.current_amount_needed
   end
 end

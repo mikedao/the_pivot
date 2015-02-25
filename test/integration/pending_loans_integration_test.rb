@@ -98,7 +98,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend $25")
     end
 
-    assert page.has_content?("Order total: $75.00")
+    assert page.has_content?("Order Total: $75.00")
   end
 
   test "a user can change the loan amount for a project in their cart" do
@@ -109,7 +109,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     click_link_or_button("Change amount")
     fill_in "pending_loan[loan_dollar_amount]", with: 35
     click_link_or_button("Change amount")
-    assert page.has_content?("Order total: $35.00")
+    assert page.has_content?("Order Total: $35.00")
   end
 
   test "a user will be alerted when the loan amount is not valid" do
@@ -120,18 +120,25 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     click_link_or_button("Change amount")
     fill_in "pending_loan[loan_dollar_amount]", with: -35
     click_link_or_button("Change amount")
-    assert page.has_content?("Order total: $25.00")
+    assert page.has_content?("Order Total: $25.00")
     assert page.has_content?("Please enter a valid amount between $10 &
      $#{project.current_amount_needed / 100}")
   end
 
   test "a user cannot add more than the value of the project" do
-    project = create(:project)
-    project.loans << create(:loan, amount: project.price - 800)
-    visit projects_path
-    first(".row").click_button("Lend $25")
+    user = create(:user)
+    loan = create(:loan)
+    loan.update_attributes(amount: loan.project.price - 800)
 
-    assert page.has_content?("Order total: $8.00")
+    visit projects_path
+    first(".row").click_button("Lend $8")
+    fill_in "session[username]", with: user.username
+    fill_in "session[password]", with: user.password
+    click_link_or_button("Login")
+
+    assert page.has_content?("Order Total: $8.00")
+    click_link_or_button("Checkout")
+    assert page.has_content?("Order Total: $8.00")
   end
 
   test "a user will see how much funding is needed for each project" do
