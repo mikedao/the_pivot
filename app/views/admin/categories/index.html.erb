@@ -1,7 +1,6 @@
 <div id="categories_header">
   <h1>Categories</h1>
 </div>
-<%= render "shared/category_row" %>
 <% @categories.each do |category| %>
   <p><%= category.name %></p>
 <% end %>
