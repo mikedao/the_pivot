@@ -43,6 +43,8 @@ gem "less-rails",               '~> 2.6.0'
 gem "rails_12factor",           '~> 0.0.3'
 gem 'paperclip',                '~> 4.2.1'
 gem 'faker',                    '~> 1.4.2'
+gem 'will_paginate',            '~> 3.0.6'
+gem 'bootstrap-will_paginate',  '~> 0.0.10'
 gem 'aws-sdk'
 
 # Use Capistrano for deployment
