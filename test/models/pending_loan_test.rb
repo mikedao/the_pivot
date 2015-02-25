@@ -15,21 +15,6 @@ class PendingLoanTest < ActiveSupport::TestCase
                  pending_loans.pending_total
   end
 
-  test "it can return the projects and their associated loan amount" do
-    project1 = create(:project)
-    project2 = create(:project)
-    pending_loans_in_session = {
-      project1.id.to_s => project1.price.to_s,
-      project2.id.to_s => project2.price.to_s
-    }
-    pending_loans = PendingLoan.new(pending_loans_in_session)
-
-    assert_includes pending_loans.projects, project1
-    assert_includes pending_loans.projects, project2
-    assert_equal project1.price, pending_loans.projects[project1]
-    assert_equal project2.price, pending_loans.projects[project2]
-  end
-
   test "it knows when it's present" do
     pending_loans = PendingLoan.new({})
 
