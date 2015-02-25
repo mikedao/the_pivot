@@ -24,15 +24,13 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
 
     visit tenant_project_path(slug: project.tenant.slug, id: project.id)
 
-    assert page.has_content?(project.tenant.organization)
-    assert page.has_content?(project.tenant.location)
+    assert page.has_link?("Other Projects at this Location")
     assert page.has_content?(project.title)
     assert page.has_content?(project.description)
     assert page.has_content?(project.price / 100)
-    assert page.has_content?(project.categories.first.name)
-    assert page.has_content?("Repayment Rate: #{project.repayment_rate}")
-    assert page.has_content?("Requested by: #{project.requested_by}")
-    assert page.has_content?("Repayment begins: #{project.repayment_begin}")
+    assert page.has_content?(project.repayment_rate)
+    assert page.has_content?(project.requested_by)
+    assert page.has_content?(project.repayment_begin)
   end
 
   test "The tenant project page has a lend button" do
@@ -41,16 +39,6 @@ class TenantProjectViewTest < ActionDispatch::IntegrationTest
     visit tenant_project_path(slug: project.tenant.slug, id: project.id)
 
     assert page.has_button?("Lend $25")
-  end
-
-  test "a user can go back to the projects page from the tenant project page" do
-    project = create(:project)
-
-    visit tenant_project_path(slug: project.tenant.slug, id: project.id)
-    first(".project-category").
-      click_link_or_button(project.categories.first.name)
-
-    assert_equal projects_path, current_path
   end
 
   test "a guest user can add projects to pending_loans and see the
