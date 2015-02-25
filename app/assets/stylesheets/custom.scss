@@ -164,16 +164,16 @@ th {
   border: 2px solid #6699ff;
   border-radius: 20px;
   margin-bottom: 2px;
+  margin-left: auto;
+  margin-right: auto;
   min-height: 20px;
   padding: 50px;
   width: 600px;
-  margin-left: auto;
-  margin-right: auto
 }
 
 // footer
 footer {
-  background-color: #bcdefa;
+  background-color: #6bc5f2;
   border-top: 1px solid #eaeaea;
   bottom: 0;
   height: 60px;
@@ -182,9 +182,9 @@ footer {
 }
 
 footer a {
-  color: #674388;
-  margin-right: 15px;
+  color: #894355;
   font-size: 1.3em;
+  margin-right: 15px;
 }
 
 footer a:hover {
@@ -207,10 +207,17 @@ footer ul li {
 }
 
 // complete loan message
-#complete-loan {
-  display: inline-block;
+.complete-loan {
+  background-color: #b6e2f9;
   font-size: 20px;
-  text-decoration-color: #ff0000;
+  margin: auto;
+  text-align: center;
+  text-decoration-color: #b6e2f9;
+  width: 600px;
+}
+
+.complete-loan-underline {
+  display: inline-block;
   text-decoration: underline;
 }
 

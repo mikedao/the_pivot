@@ -12,7 +12,7 @@
   <div class="main-body container">
     <%= render "layouts/nav_bar" %>
     <% if pending_loans.present? %>
-      <div id="help-someone" class="alert alert-success">Help someone today and <div id="complete-loan"> <%= link_to "complete your loan.", pending_loan_path %></div></div>
+      <div class="help-someone complete-loan alert">Help someone today and <div class="complete-loan-underline"> <%= link_to "complete your loan.", pending_loan_path %></div></div>
     <% end %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash-#{name}" %>
