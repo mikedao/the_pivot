@@ -36,6 +36,7 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   end
 
   test "a borrower can create an project" do
+    skip
     category = create(:category)
     borrower = create(:user_as_borrower)
     ApplicationController.any_instance.stubs(:current_user).returns(borrower)

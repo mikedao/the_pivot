@@ -43,6 +43,7 @@ gem "less-rails",               '~> 2.6.0'
 gem "rails_12factor",           '~> 0.0.3'
 gem 'paperclip',                '~> 4.2.1'
 gem 'faker',                    '~> 1.4.2'
+gem 'aws-sdk'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -65,4 +66,5 @@ group :development, :test do
   gem 'capybara',               '~> 2.4.4'
   gem 'mocha',                  '~> 1.1.0'
   gem 'launchy',                '~> 2.4.3'
+  gem 'capybara_minitest_spec'
 end

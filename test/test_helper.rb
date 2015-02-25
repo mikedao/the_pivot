@@ -47,4 +47,5 @@ class ActionDispatch::IntegrationTest
     reset_session!
     DatabaseCleaner.clean
   end
+
 end

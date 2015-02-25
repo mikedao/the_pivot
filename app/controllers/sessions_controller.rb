@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def invalid_login
-    flash[:errors] = "Invalid Login"
+    flash[:error] = "Invalid Login"
     redirect_to root_path
   end
 

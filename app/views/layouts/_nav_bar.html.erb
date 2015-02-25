@@ -6,11 +6,11 @@
   <div id="nav-row">
     <%= menu_group do %>
       <div id="store-name">
-          <%= link_to "Keevahh", projects_path if !(current_user && current_user.admin?) %>
+          <%= link_to "Keevahh", root_path if !(current_user && current_user.admin?) %>
           <%= "Keevahh" if (current_user && current_user.admin?) %>
       </div>
 
-      <%= menu_item "Lend", categories_path if !(current_user && current_user.admin?) %>
+      <%= menu_item "Lend", projects_path if !(current_user && current_user.admin?) %>
       <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
       <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
     <% end %>

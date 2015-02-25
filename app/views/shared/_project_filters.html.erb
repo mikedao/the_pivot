@@ -1,0 +1,12 @@
+<div id="filters" class="hidden-filters">
+  <p> Categories </p>
+  <% @categories.each do |category| %>
+    <% if params[:category] == category.name.parameterize %>
+      <%= check_box :category, category.name.parameterize, {checked: true} %> <%= category.name %><br/>
+    <% else %>
+      <%= check_box :category, category.name.parameterize %> <%= category.name %><br/>
+    <% end %>
+  <% end %>
+  <br/>
+</div>
+
