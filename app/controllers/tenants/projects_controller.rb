@@ -7,7 +7,7 @@ class Tenants::ProjectsController < ApplicationController
 
     if params[:category_name] == "Shop All" || params[:category_name].nil?
       @projects = Project.paginate(page: params[:page],
-                                   per_page: 10).
+                                  per_page: 10).
                                   includes(:photos).active
     else
       @projects = Category.find_by(name: params[:category_name]).projects
