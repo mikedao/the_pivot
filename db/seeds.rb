@@ -148,10 +148,10 @@ conflict_zone_category.photos << Photo.create!(
                   repayment_rate: 28,
                   requested_by: Date.new(2015, 1, 1),
                   repayment_begin: Date.new(2015, 3, 30),
-                  image_url: "https://s3.amazonaws.com/keevahh/stevens_books.jpg"
+                  image_url: "https://s3.amazonaws.com/keevahh/school_children.jpg"
                   )
   project2.photos << Photo.create!(
-    image: File.new("#{Rails.root}/app/assets/images/stevens_books.jpg" )
+    image: File.new("#{Rails.root}/app/assets/images/school_children.jpg" )
     )
 
   project3 = Project.create!(
