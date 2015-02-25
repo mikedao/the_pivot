@@ -5,10 +5,8 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy", as: "logout"
 
   resources :tenants, only: [:new, :create, :index]
+  resources :categories, only: [:show, :index]
   resources :projects
-  resources :categories, only: [:index]
-
-  get "/choose", to: "static_pages#choose"
 
   resource :pending_loan, except: [:index, :edit]
   post :delete_pending_loan, to: "pending_loans#delete_one"
