@@ -40,14 +40,12 @@ class ActionDispatch::IntegrationTest
   include TestHelperMethods
 
   def setup
-    #Capybara.current_driver = :webkit
     DatabaseCleaner.start
   end
 
   def teardown
     reset_session!
     DatabaseCleaner.clean
-    #Capybara.current_driver = nil
   end
 
 end

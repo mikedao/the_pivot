@@ -67,5 +67,6 @@ group :development, :test do
   gem 'mocha',                  '~> 1.1.0'
   gem 'launchy',                '~> 2.4.3'
   gem 'capybara_minitest_spec'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver', '2.44.0'
+  gem 'capybara-webkit'
 end
