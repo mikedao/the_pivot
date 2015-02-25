@@ -14,11 +14,9 @@
         <% project.categories.each do |category| %>
           <div class="project-category"><%= link_to("#{category.name}", projects_path) %></div>
         <% end %>
-        <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-          <%= f.hidden_field :project_id, value: project.id %>
-          <%= f.hidden_field :loan_amount, value: 2500 %>
-          <%= f.submit "Lend $25", class: "btn btn-default" %>
-        <% end %>
+
+        <%= render 'shared/lend_button', project: project %>
+        
       </div>
     <% end %>
   </div>
