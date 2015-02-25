@@ -43,7 +43,8 @@ class Project < ActiveRecord::Base
       price: price,
       categories: downcase_categories,
       id: id,
-      organization: tenant.slug
+      organization: tenant.slug,
+      image_url: photos.first.image.url
     }
   end
 

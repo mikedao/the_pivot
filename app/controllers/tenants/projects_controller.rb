@@ -18,6 +18,7 @@ class Tenants::ProjectsController < ApplicationController
   end
 
   def create
+    require 'pry' ; binding.pry
     @project = Project.create!(new_params)
     redirect_to tenant_dashboard_path
   end
@@ -54,7 +55,7 @@ class Tenants::ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title, :price, :description,
                                     :requested_by,
-                                    :retired, :tenant_id, :repayment_begin,
+                                    :retired, :tenant_id, :image, :repayment_begin,
                                     :repayment_rate, categories: [])
   end
 
