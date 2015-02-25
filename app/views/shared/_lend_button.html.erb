@@ -1,0 +1,10 @@
+<% if project.visible %>
+  <div class="lend-button">
+    <%= form_for :pending_loan, url: pending_loan_path do |f| %>
+      <%= f.hidden_field :project_id, value: project.id %>
+      <%= f.hidden_field :loan_amount,
+      value: [2500, project.current_amount_needed].min %>
+      <%= f.submit "Lend $#{[25, project.current_amount_needed / 100].min}", class: "btn btn-default" %>
+    <% end %>
+  </div>
+<% end %>

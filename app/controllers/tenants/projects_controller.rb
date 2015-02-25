@@ -1,7 +1,10 @@
 class Tenants::ProjectsController < ApplicationController
 
   def index
-    @tenant = Tenant.find_by(slug: params[:slug])
+    @tenant = Tenant.where(slug: params[:slug]).
+                     where(active: true).
+                     where(approved: true).first
+
     redirect_to root_path if @tenant.nil?
 
     if params[:category_name] == "Shop All" || params[:category_name].nil?
