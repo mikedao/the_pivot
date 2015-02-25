@@ -3,79 +3,84 @@
     <h1>Borrowers</h1>
   </div>
 </div>
-<div class="container">
-  <p class="lead">Unapproved Borrowers</p>
+<div id="unapproved">
+  <div class="container">
+    <p class="lead">Unapproved Borrowers</p>
 
-  <div class="col-md-12">
-    <table class="table table-bordered table-hover">
-      <th class="text-left">Organization</th>
-      <th class="text-left">Location</th>
-      <th class="text-center">Control</th>
-      <% if @tenants[0] %>
-        <% @tenants[0].each do |tenant| %>
-          <tr>
-            <td>
-              <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
-            </td>
-            <td>
-              <%= tenant.location %>
-            </td>
-            <td>
-              <%= button_to "Edit", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
-            </td>
-          </tr>
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover">
+        <th class="text-left">Organization</th>
+        <th class="text-left">Location</th>
+        <th class="text-center">Control</th>
+        <% if @tenants[0] %>
+          <% @tenants[0].each do |tenant| %>
+            <tr>
+              <td>
+                <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
+              </td>
+              <td>
+                <%= tenant.location %>
+              </td>
+              <td>
+                <%= button_to "EDIT", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </table>
+      </table>
+    </div>
   </div>
+</div>
+  <div id="inactive">
+    <p class="lead">Inactive Borrowers</p>
 
-  <p class="lead">Inactive Borrowers</p>
-
-  <div class="col-md-12">
-    <table class="table table-bordered table-hover">
-      <th class="text-left">Organization</th>
-      <th class="text-left">Location</th>
-      <th class="text-center">Control</th>
-      <% if @tenants[1] %>
-        <% @tenants[1].each do |tenant| %>
-          <tr>
-            <td>
-              <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
-            </td>
-            <td>
-              <%= tenant.location %>
-            </td>
-            <td>
-              <%= button_to "Edit", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
-            </td>
-          </tr>
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover">
+        <th class="text-left">Organization</th>
+        <th class="text-left">Location</th>
+        <th class="text-center">Control</th>
+        <% if @tenants[1] %>
+          <% @tenants[1].each do |tenant| %>
+            <tr>
+              <td>
+                <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
+              </td>
+              <td>
+                <%= tenant.location %>
+              </td>
+              <td>
+                <%= button_to "EDIT", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </table>
+      </table>
+    </div>
   </div>
+  <div id="active">
+    <p class="lead">Active Borrowers</p>
 
-  <p class="lead">Active Borrowers</p>
-
-  <div class="col-md-12">
-    <table class="table table-bordered table-hover">
-      <th class="text-left">Organization</th>
-      <th class="text-left">Location</th>
-      <th class="text-center">Control</th>
-      <% if @tenants[2] %>
-        <% @tenants[2].each do |tenant| %>
-          <tr>
-            <td>
-              <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
-            </td>
-            <td>
-              <%= tenant.location %>
-            </td>
-            <td>
-              <%= button_to "Edit", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
-            </td>
-          </tr>
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover">
+        <th class="text-left">Organization</th>
+        <th class="text-left">Location</th>
+        <th class="text-center">Control</th>
+        <% if @tenants[2] %>
+          <% @tenants[2].each do |tenant| %>
+            <tr>
+              <td>
+                <%= link_to tenant.organization, tenant_dashboard_path(slug: tenant.slug) %>
+              </td>
+              <td>
+                <%= tenant.location %>
+              </td>
+              <td>
+                <%= button_to "EDIT", edit_admin_tenant_path(tenant.id), class: 'btn btn-info btn-xs btn-block', method: :get %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </table>
+      </table>
+    </div>
   </div>
 </div>
