@@ -54,8 +54,9 @@ class Tenants::ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title, :price, :description,
                                     :requested_by,
-                                    :retired, :tenant_id, :image, :repayment_begin,
+                                    :retired, :tenant_id, :repayment_begin,
                                     :repayment_rate, categories: [])
+                                    # photos: {image: [:image_file_name, :image_content_type]}
   end
 
   def new_category_ids

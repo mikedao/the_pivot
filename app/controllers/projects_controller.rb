@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.includes(:categories).active
+    @projects = Project.includes(:categories, :tenant).active
     @categories = Category.select(:name).all
 
     if request.xhr?
