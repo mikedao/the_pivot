@@ -9,8 +9,8 @@
     <div class="category">
       <h4 class="form-title"> Create New Category </h4>
       <%= form_for(:categories, placeholder: "category",  url: admin_categories_path) do |f| %>
-        <%= f.text_field :name %>
-        <p><%= f.submit "Add Category" %></p>
+        <p><%= f.text_field :name, class: "form-control"  %></p>
+        <p class="text-center"><%= f.submit "Add Category", class: "btn btn-info" %></p>
       <% end %>
     </div>
   </div>
