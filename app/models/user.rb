@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  
   belongs_to :tenant
   has_many :orders
 

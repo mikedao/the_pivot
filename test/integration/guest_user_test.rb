@@ -167,7 +167,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
       )
 
     visit tenant_project_path(slug: project.tenant.slug, id: project.tenant.projects.first.id)
-    click_link_or_button(project.tenant.organization)
+    click_link_or_button("Other Projects from this Borrower")
 
     project.tenant.projects.each do |project|
       assert page.has_css?("div#project_#{project.id}")

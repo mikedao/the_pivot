@@ -1,44 +1,44 @@
 <div id="title"><h1><%= @project.title %></h1></div>
 
-<%= div_for(@project, class: "photo") do %>
-  <%= image_tag @project.image_url %>
-<% end %>
+<div class="row text-center">
+  <div class="col-md-4">
+    <%= div_for(@project, class: "photo") do %>
+      <%= image_tag @project.image_url %>
+    <% end %>
+  </div>
+  <div class="col-md-4 col-md-offset-3">
+    <table class="table table-bordered">
+      <tr>
+        <td>Amount Needed</td><td><%= number_to_currency @project.price / 100.00 %></td>
+      </tr>
+      <tr>
+        <td>Repayment Rate</td><td><%= @project.repayment_rate %> %</td>
+      </tr>
+      <tr>
+        <td>Requested By</td><td><%= @project.requested_by %> </td>
+      </tr>
+      <tr>
+        <td>Repayments Begin</td><td><%= @project.repayment_begin %> </td>
+      </tr>
+    </table>
+  <div class="row text-center">
+    <%= render 'shared/lend_button', project: @project %>
+  </div>
+  </div>
+</div>
 
-<div id="history">
+<div id="Project Information">
+
+  <h2><%= "RETIRED ITEM" if @project.retired %></h2>
   <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th data-field="Price"> Price </th>
-        <th data-field="Repayment Rate">Repayment Rate</th>
-        <th data-field="Requested By">Requested By</th>
-        <th data-field="Repayment Begin"> Repayment begin</th>
-      </tr>
-    </thead>
-      <tr>
-        <td> <%= number_to_currency @project.price / 100.00 %></td>
-        <td> <%= @project.repayment_rate %></td>
-        <td> <%= @project.requested_by %></td>
-        <td> <%= @project.repayment_begin %></td>
-      </tr>
+    <tr>
+      <td>Project Description</td><td><%=  @project.description %></td>
+    </tr>
+
   </table>
 </div>
-
-<h2><%= "RETIRED ITEM" if @project.retired %></h2>
-<div id="description"><%= @project.description %></div>
-<div id="price"><%= number_to_currency @project.price / 100.00 %></div>
-<div id="repayment-rate">Repayment Rate: <%= @project.repayment_rate %></div>
-<div id="requested-by">Requested by: <%= @project.requested_by %></div>
-<div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %> </div>
-
-<%= render 'shared/lend_button', project: @project %>
-
-<div class="links">
-  <h4> <%= link_to "#{@project.tenant.organization}", tenant_projects_path(@project.tenant.slug) %> |
-  <%= link_to "#{@project.tenant.location}", projects_path(category: @project.categories) %></h4>
+<div class="links text-center lead">
+  <h4> <%= link_to "Other Projects from this Borrower", tenant_projects_path(@project.tenant.slug) %> |
+    <%= link_to "Other Projects at this Location", projects_path(category: @project.categories) %></h4>
 </div>
 
-<h4><% @project.categories.each do |category| %>
-  <div class="project-category">
-    <%= link_to "#{category.name}", projects_path %>
-  </div>
-<% end %></h4>
