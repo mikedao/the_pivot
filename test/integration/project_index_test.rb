@@ -16,9 +16,9 @@ class ProjectIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "when user clicks on 'Next' button they are taken to
-	the next 10 projects in the index" do
+  the next 10 projects in the index" do
     15.times do
-	   create(:project)
+     create(:project)
     end
 
     visit projects_path
