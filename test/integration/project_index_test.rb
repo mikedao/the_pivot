@@ -39,5 +39,4 @@ class ProjectIndexTest < ActionDispatch::IntegrationTest
 
 		assert "/projects?page=1", current_path
 	end
-
 end
