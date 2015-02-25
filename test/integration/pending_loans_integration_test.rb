@@ -4,7 +4,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "an unauthorized user can add an project to the cart" do
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project)
 
     visit "/#{tenant.slug}"
@@ -19,7 +19,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorized user with projects in their cart can view their cart" do
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project)
 
     visit "/#{tenant.slug}"
@@ -40,13 +40,11 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
     project = create(:project)
-    project.tenant.update_attributes(active: true, approved: true)
 
-    visit "/"
-    click_link_or_button(project.categories.first.name)
-    require 'pry' ; binding.pry
-
-    first(".row").click_button("Lend $25")
+    visit "/#{project.tenant.slug}"
+    within(".row") do
+      click_link_or_button("Lend $25")
+    end
 
     within("#pending_loans") do
       click_link_or_button("Delete")
@@ -54,24 +52,6 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     within("#flash_notice") do
       assert page.has_content?("Project removed from cart")
     end
-
-    refute page.has_content?(project.title)
-    assert_equal pending_loan_path, current_path
-  end
-
-  test "a user can delete an project from their cart" do
-    project = create(:project)
-
-    visit "/#{project.tenant.slug}"
-    within(".row") do
-      click_link_or_button("Lend $25")
-    end
-    click_link_or_button("Delete")
-
-    within("#flash_notice") do
-      assert page.has_content?("Project removed from cart")
-    end
-
     refute page.has_content?(project.title)
     assert_equal pending_loan_path, current_path
   end
@@ -225,7 +205,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project)
 
     visit "/#{tenant.slug}"
@@ -245,7 +225,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project, price: 5000)
 
     visit "/#{tenant.slug}"
@@ -287,7 +267,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     authenticated_user = create(:user)
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
-    tenant = create(:tenant)
+    tenant = create(:tenant_visible)
     tenant.projects << create(:project)
 
     visit "/#{tenant.slug}"

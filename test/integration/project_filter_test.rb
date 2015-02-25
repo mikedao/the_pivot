@@ -17,17 +17,12 @@ class ProjectFilterTest < ActionDispatch::IntegrationTest
   test "a user sees only the category of project selected when
     coming from root path" do
     skip
-    #Capybara.default_driver = :webkit
-   # page.driver.block_unknown_urls
-    #page.driver.allow_url("maxcdn.bootstrapcdn.com")
-
     project1 = create(:project)
     project2 = create(:project)
     project1_category = project1.categories.first.name
     project2_category = project2.categories.first.name
     visit root_path
 
-    binding.pry
     click_link_or_button(project1_category)
 
     assert_equal projects_path, current_path

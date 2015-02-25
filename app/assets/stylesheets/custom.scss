@@ -47,24 +47,24 @@ h3 {
   min-height: 50px;
 }
 
-#flash_error {
-  text-align: center;
-  color: red;
+#flash-error {
+  color: #ff0000;
+  font-size: 18px;
   font-weight: bold;
-  font-size: 18px;
   margin-top: 1em;
+  text-align: center;
 }
 
-#flash_alert {
-  color:red;
+#flash-alert {
+  color: #ff0000;
   text-align: center;
   font-size: 18px;
   margin-top: 1em;
 }
 
-#flash_notice {
+#flash-notice {
   text-align: center;
-  color:green;
+  color: #008000;
   font-size: 18px;
   margin-top: 1em;
 }
@@ -157,10 +157,10 @@ th {
 
 // complete loan message
 #complete-loan {
-  font-size: 20px;
-  text-decoration-color: red;
-  text-decoration: underline;
   display: inline-block;
+  font-size: 20px;
+  text-decoration-color: #ff0000;
+  text-decoration: underline;
 }
 
 #help-someone {

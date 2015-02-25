@@ -54,6 +54,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def visible
+    !retired && current_amount_needed > 0
+  end
+
   private
 
   def add_default_repayment_rate
