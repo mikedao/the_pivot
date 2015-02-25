@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'static_pages/about'
+
   root "categories#index"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy", as: "logout"
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:show, :index]
   resources :projects
 
-  get "/choose", to: "static_pages#choose"
+  get "/about/", to: "static_pages#about", as: "about"
 
   resource :pending_loan, except: [:index, :edit]
   post :delete_pending_loan, to: "pending_loans#delete_one"
