@@ -80,7 +80,8 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   pending loans" do
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
-
+    project.tenant.update_attributes(active: true, approved: true)
+    
     visit projects_path
     within(".row") do
       click_link_or_button("Lend $25")
@@ -95,6 +96,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   loans, he gets redirected back to pending loans with the item in his cart." do
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
+    project.tenant.update_attributes(active: true, approved: true)
 
     visit projects_path
     within(".row") do
@@ -111,6 +113,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   not the signup page" do
     user = create(:user)
     project = create(:project, title: "A Water Purifier")
+    project.tenant.update_attributes(active: true, approved: true)
 
     visit projects_path
     within(".row") do
@@ -127,6 +130,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   test "when a new user selects a loan and tries to checkout and signups, he
   gets redirected back to the pending_loan_show page" do
     project = create(:project, title: "A Water Purifier")
+    project.tenant.update_attributes(active: true, approved: true)
 
     visit projects_path
     within(".row") do

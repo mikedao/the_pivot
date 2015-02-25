@@ -23,4 +23,8 @@ class Tenant < ActiveRecord::Base
   def self.actives
     Tenant.where(active: true)
   end
+
+  def visible_to_lenders
+    active && approved
+  end
 end

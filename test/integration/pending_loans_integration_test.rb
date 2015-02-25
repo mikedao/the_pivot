@@ -37,6 +37,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).
       returns(authenticated_user)
     project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
 
     visit "/"
     click_link_or_button(project.categories.first.name)
@@ -102,7 +103,8 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can change the loan amount for a project in their cart" do
-    create(:project)
+    project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
     visit projects_path
     first(".row").click_button("Lend $25")
 
@@ -114,6 +116,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
   test "a user will be alerted when the loan amount is not valid" do
     project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
     visit projects_path
     first(".row").click_button("Lend $25")
 
@@ -129,6 +132,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     user = create(:user)
     loan = create(:loan)
     loan.update_attributes(amount: loan.project.price - 800)
+    loan.project.tenant.update_attributes(active: true, approved: true)
 
     visit projects_path
     first(".row").click_button("Lend $8")
@@ -143,6 +147,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
 
   test "a user will see how much funding is needed for each project" do
     project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
     visit projects_path
     first(".row").click_button("Lend $25")
 

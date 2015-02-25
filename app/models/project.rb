@@ -45,20 +45,4 @@ class Project < ActiveRecord::Base
   def add_default_repayment_begin
     self.repayment_begin = requested_by + 90
   end
-
-  # def add_default_amount_needed
-  #   self.amount_needed = price
-  # end
-  #
-  # def calculate_amount_needed(_loan)
-  #   self.amount_needed = price - loans.map(&:amount).reduce(:+)
-  # end
-  #
-  # def check_amount_needed(loan)
-  #   if loans.present?
-  #     calculate_amount_needed(loan)
-  #   else
-  #     add_default_amount_needed
-  #   end
-  # end
 end
