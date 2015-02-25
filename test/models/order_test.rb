@@ -6,7 +6,7 @@ class OrderTest < ActiveSupport::TestCase
     user = order.user
 
     assert order.valid?
-    assert_equal 0, order.total_cost
+    assert_equal 0, order.final_total
     assert_equal user.id, order.user_id
   end
 
@@ -35,17 +35,17 @@ class OrderTest < ActiveSupport::TestCase
     order = create(:order)
     3.times { order.loans << create(:loan, amount: 1500) }
 
-    assert_equal 4500, order.total_cost
+    assert_equal 4500, order.final_total
   end
 
   test "an order's total cost is updated when add'l loans are added" do
     order = create(:order)
     3.times { order.loans << create(:loan, amount: 1500) }
-    initial_total = order.total_cost
+    initial_total = order.final_total
 
     order.loans << create(:loan, amount: 2000)
 
-    assert_equal initial_total + 2000, order.total_cost
+    assert_equal initial_total + 2000, order.final_total
   end
 
   test "orders can be selected by status" do

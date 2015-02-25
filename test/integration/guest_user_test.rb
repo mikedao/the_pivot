@@ -31,6 +31,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   that category on the home page" do
     user = create(:user)
     project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
     ApplicationController.any_instance.stubs(:current_user).returns(user)
 
     visit root_path
@@ -44,6 +45,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   test "a guest user can view a tenant projects page" do
     project1 = create(:project)
     project2 = create(:project)
+    project1.tenant.update_attributes(active: true, approved: true)
+    project2.tenant.update_attributes(active: true, approved: true)
 
     visit projects_path
     click_link_or_button(project1.title)
@@ -100,7 +103,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "an unauthorized user can add projects to pending_loans and see the
   projects on the pending_loans show page" do
-    tenant = create(:tenant)
+    tenant = create(:tenant, active: true, approved: true)
     tenant.projects << create(:project, price: 8900)
 
     visit projects_path
@@ -120,6 +123,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   the pending_loans still retains the items" do
     user = create(:user)
     project = create(:project)
+    project.tenant.update_attributes(active: true, approved: true)
     visit projects_path
     click_link_or_button(project.title)
     within("#lend-form") do
@@ -164,5 +168,25 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     project.tenant.projects.each do |project|
       assert page.has_css?("div#project_#{project.id}")
     end
+  end
+
+  test "a user cannot see fully funded projects or projects with inactive
+            or not approved tenants" do
+    project = create(:project)
+    project2 = create(:project)
+    project3 = create(:project)
+    project4 = create(:project)
+
+    project.tenant.update_attributes(approved: true)
+    project2.tenant.update_attributes(active: true)
+    project3.tenant.update_attributes(active: true, approved: true)
+    project3.loans << create(:loan, amount: project3.price)
+    project4.tenant.update_attributes(active: true, approved: true)
+    visit projects_path
+
+    refute page.has_content?(project.title)
+    refute page.has_content?(project2.title)
+    refute page.has_content?(project3.title)
+    assert page.has_content?(project4.title)
   end
 end
