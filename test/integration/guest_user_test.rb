@@ -108,7 +108,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
     visit projects_path
     click_link_or_button "#{tenant.projects.first.title}"
-    within("#lend-form") do
+    within(".lend-button") do
       click_link_or_button("Lend $25")
     end
 
@@ -126,7 +126,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
     project.tenant.update_attributes(active: true, approved: true)
     visit projects_path
     click_link_or_button(project.title)
-    within("#lend-form") do
+    within(".lend-button") do
       click_link_or_button("Lend $25")
     end
     fill_in "session[username]", with: user.username
