@@ -20,8 +20,7 @@ class PendingLoansController < ApplicationController
         pending_loan_params[:loan_dollar_amount].to_f * 100
       flash[:notice] = "Project loan amount updated"
     else
-      flash[:notice] = "Please enter a valid amount between $10
-                        & $#{pending_project_amount / 100}"
+      flash[:notice] = notice(pending_project_amount)
     end
     redirect_to pending_loan_path
   end
@@ -69,8 +68,21 @@ class PendingLoansController < ApplicationController
     session[:pending_loan].delete(pending_loan_params[:project_id])
   end
 
-  def valid_loan_amount(max_amount)
+  def valid_loan_amount(remaining_amount)
     amount = pending_loan_params[:loan_dollar_amount].to_f
-    amount > 10 && amount <= max_amount / 100.00
+    if remaining_amount < 1000
+      amount == remaining_amount / 100.00
+    else
+      amount >= 10 && amount <= remaining_amount / 100.00
+    end
+  end
+
+  def notice(remaining_amount)
+    if remaining_amount < 1000
+      "Please enter a valid amount of $#{remaining_amount / 100}"
+    else
+      "Please enter a valid amount between $10
+      & $#{remaining_amount / 100}"
+    end
   end
 end
