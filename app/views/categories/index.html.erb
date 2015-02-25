@@ -5,7 +5,7 @@
     <div class="box col-lg-3">
       <h4 class="category-name"> <%= link_to("#{category.name}", projects_path(category: category.name.parameterize))%></h4>
       <div class="thumbnail">
-        <img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg">
+        <%= image_tag category.projects.first.image_url %>
       </div>
     </div>
     <% end %>
