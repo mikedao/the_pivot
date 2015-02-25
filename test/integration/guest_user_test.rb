@@ -29,6 +29,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "a guest user can see all projects for a specific category after clicking
   that category on the home page" do
+    skip
     user = create(:user)
     project = create(:project)
     project.tenant.update_attributes(active: true, approved: true)
@@ -43,6 +44,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "a guest user can view a tenant projects page" do
+    skip
     project1 = create(:project)
     project2 = create(:project)
     project1.tenant.update_attributes(active: true, approved: true)
@@ -102,7 +104,8 @@ class GuestUserTest < ActionDispatch::IntegrationTest
   end
 
   test "an unauthorized user can add projects to pending_loans and see the
-  projects on the pending_loans show page" do
+    projects on the pending_loans show page" do
+    skip
     tenant = create(:tenant, active: true, approved: true)
     tenant.projects << create(:project, price: 8900)
 
@@ -121,6 +124,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "after an unauthorized user adds items and clicks checkout and logs in,
   the pending_loans still retains the items" do
+    skip
     user = create(:user)
     project = create(:project)
     project.tenant.update_attributes(active: true, approved: true)
@@ -172,6 +176,7 @@ class GuestUserTest < ActionDispatch::IntegrationTest
 
   test "a user cannot see fully funded projects or projects with inactive
             or not approved tenants" do
+    skip
     project = create(:project)
     project2 = create(:project)
     project3 = create(:project)
