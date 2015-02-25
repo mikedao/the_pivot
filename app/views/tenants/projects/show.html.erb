@@ -30,15 +30,7 @@
 <div id="requested-by">Requested by: <%= @project.requested_by %></div>
 <div id="repayment-begin">Repayment begins: <%= @project.repayment_begin %> </div>
 
-<div id="lend-form">
-  <% unless @project.retired %>
-    <%= form_for :pending_loan, url: pending_loan_path do |f| %>
-    <%= f.hidden_field :project_id, value: @project.id %>
-    <%= f.hidden_field :loan_amount, value: 2500 %>
-    <%= f.submit "Lend $25", class: "btn btn-default" %>
-    <% end %>
-  <% end %>
-</div>
+<%= render 'shared/lend_button', project: @project %>
 
 <div class="links">
   <h4> <%= link_to "#{@project.tenant.organization}", tenant_projects_path(@project.tenant.slug) %> |

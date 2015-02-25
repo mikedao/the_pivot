@@ -23,4 +23,11 @@ class TenantViewTest < ActionDispatch::IntegrationTest
 
     refute page.has_content?("farm")
   end
+
+  test "tenants that are not approved do not have a visible url" do
+    tenant = create(:tenant, active: true)
+    visit tenant_path(slug: tenant.slug)
+
+    assert_equal root_path, current_path
+  end
 end
