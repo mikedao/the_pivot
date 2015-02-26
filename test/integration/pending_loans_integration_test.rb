@@ -46,7 +46,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     within("#pending_loans") do
       click_link_or_button("Delete")
     end
-    within("#flash-notice") do
+    within(".flash-notice") do
       assert page.has_content?("Project removed from cart")
     end
     refute page.has_content?(project.title)
