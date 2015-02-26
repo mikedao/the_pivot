@@ -62,10 +62,10 @@ h3 {
 }
 
 .flash-notice {
-  text-align: center;
   color: #008000;
   font-size: 18px;
   margin-top: 1em;
+  text-align: center;
 }
 
 .flash-success {
@@ -228,8 +228,11 @@ footer {
   margin-top: 22px;
   padding: 6px;
   text-align: center;
-  text-decoration: underline;
   width: 100%;
+}
+
+#loan-underline {
+  text-decoration: underline;
 }
 
 // profile page css
