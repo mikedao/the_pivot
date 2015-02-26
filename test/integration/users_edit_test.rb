@@ -49,4 +49,16 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal user.username, username
     assert_equal user.email, email
   end
+
+  test "when a user tries to edit their profile and doesn't enter a password
+    he gets redirected back to the edit view with a password error message" do
+    user = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit edit_user_path(user)
+    click_button("Save changes")
+
+    assert page.has_content?("Update Your Profile")
+    assert page.has_content?("Password can't be blank")
+  end
 end
