@@ -180,7 +180,7 @@ startup_category.photos << Photo.create!(
 
   Tenant.all[4..9].each do |tenant|
     project5 = Project.create!(
-                    title: "Pandas need Bamboo_#{tenant.id}_#{n}",
+                    title: "Micro_Diamonds_#{tenant.id}_#{n}",
                     price: 16000,
                     description: "Conflict diamonds are forever" * 5,
                     retired: false,
