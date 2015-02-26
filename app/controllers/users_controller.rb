@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated"
       redirect_to user_path(@user)
     else
-      flash.now[:error] = "Invalid Profile Edit. Try Again"
+      flash.now[:error] = @user.errors.full_messages.first
       render "edit"
     end
   end
