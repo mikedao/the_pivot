@@ -1,7 +1,6 @@
 class PendingLoansController < ApplicationController
   def create
     update_cart
-#    flash[:notice] = "Added to Pending Loans"
     redirect_to pending_loan_path
   end
 
