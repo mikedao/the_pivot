@@ -21,7 +21,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     visit root_path
 
     click_link_or_button "Logout"
-    within("#flash-notice") do
+    within(".flash-notice") do
       assert page.has_content?("You have successfully logged out")
     end
   end

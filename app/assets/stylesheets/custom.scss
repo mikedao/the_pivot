@@ -46,7 +46,7 @@ h3 {
   min-height: 50px;
 }
 
-#flash-error {
+.flash-error {
   color: #ff0000;
   font-size: 18px;
   font-weight: bold;
@@ -54,14 +54,21 @@ h3 {
   text-align: center;
 }
 
-#flash-alert {
+.flash-alert {
   color: #ff0000;
   text-align: center;
   font-size: 18px;
   margin-top: 1em;
 }
 
-#flash-notice {
+.flash-notice {
+  color: #008000;
+  font-size: 18px;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.flash-success {
   text-align: center;
   color: #008000;
   font-size: 18px;
@@ -221,8 +228,11 @@ footer {
   margin-top: 22px;
   padding: 6px;
   text-align: center;
-  text-decoration: underline;
   width: 100%;
+}
+
+#loan-underline {
+  text-decoration: underline;
 }
 
 // profile page css
