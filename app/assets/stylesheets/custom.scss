@@ -177,21 +177,26 @@ footer {
   height: 60px;
   position: relative;
   width: 100%;
+
   a {
     color: #894355;
     font-size: 1.3em;
     margin-right: 15px;
     }
+
   &:hover {
     color: #222;
   }
+
   small {
     float: left;
     font-size: 0.9em;
   }
+
   ul {
     float: right;
     text-decoration: underline;
+
     li{
       float: left;
       margin-left: 15px;
