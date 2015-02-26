@@ -74,7 +74,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     fill_in "user[password]", with: "Ienjoykumquats"
     fill_in "user[password_confirmation]", with: "Ienjoykumquats"
     click_button("Save changes")
-    
+
     assert page.has_content?("Street can't be blank")
   end
 
