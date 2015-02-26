@@ -13,9 +13,7 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
       click_link_or_button("Lend $25")
     end
 
-    within("#flash-notice") do
-      assert page.has_content?("Added to Pending Loans")
-    end
+    assert page.has_content?(tenant.projects.first.title)
   end
 
   test "an unauthorized user with projects in their cart can view their cart" do
@@ -121,9 +119,6 @@ class PendingLoansIntegrationTest < ActionDispatch::IntegrationTest
     end
     click_link_or_button("Empty Cart")
 
-    within("#flash-notice") do
-      assert page.has_content?("Pending Loans Removed")
-    end
     refute page.has_content?(project1.title)
     refute page.has_content?(project2.title)
     assert_equal pending_loan_path, current_path
