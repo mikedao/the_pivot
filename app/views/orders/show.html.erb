@@ -2,11 +2,23 @@
   <%= flash[:alert] %>
 </div>
 
-<h1><%= "Order #{@order.id}" %></h1>
-<h3><%= "#{@order.user.full_name}"%><br><%= "#{@order.user.email}" %></h3>
-<h2>Order Status: <%= @order.status %></h2>
+<div>
+  <h1><%= "Order #{@order.id}" %></h1>
+</div>
+
+<div class="order-userinfo">
+  <h3><%= "#{@order.user.full_name}"%><br>
+  <%= "#{@order.user.email}" %></h3>
+</div>
+
+
 <div id="history">
   <table class="table table-bordered">
+    <div class="order-total">
+      Order Status: <%= @order.status %></br>
+      Order Total: <%= number_to_currency @order.final_total / 100.00 %>
+    </div>
+  </br>
     <thead>
       <tr>
         <th data-field="project"> Project </th>
@@ -22,6 +34,5 @@
         <td><%= number_to_currency loan.amount / 100.00 %></td>
       </tr>
     <% end %>
-    <tr><h2>Order Total: <%= number_to_currency @order.final_total / 100.00 %></h2><tr>
   </table>
 </div>
