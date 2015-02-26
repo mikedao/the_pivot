@@ -1,14 +1,12 @@
-
 body {
   // font-family: 'PT Mono', ;
-  // background: url(image-path("wood.jpg")) repeat;
-  // background-repeat: repeat;
-  color: #090909;
+  color: #093D5E;
 }
 
 .navbar {
-  background-color: #A33A1A;
-  color: #CAE2D2;
+  background-color: #093D5E;
+  color: white;
+  font-size: 1.2em;
 }
 h1 {
   font-weight: bold;
@@ -22,9 +20,9 @@ h1 {
 #title {
   width: 103%;
   font-weight: bold;
-  margin: 20px -15px;
-  background-color: #E2591E;
-  padding: 40px;
+  margin: 12px -15px;
+  background-color: #58B6E6;
+  padding: 10px;
 }
 
 h3 {
@@ -35,7 +33,7 @@ h3 {
 .main-body {
   margin-top: 60px;
   margin-bottom: 100px;
-  background-color: #CAE2D2;
+  background-color: #B6E2F9;
 }
 
 #signup {
@@ -125,6 +123,8 @@ h3 {
 
 .brand {
   margin-right: 10px;
+  padding-bottom: -10px;
+  margin-bottom: -10px;
 }
 
 a {
@@ -136,9 +136,9 @@ a {
 }
 
 #store-name {
-  color: #E69022;
-  float: right;
+  color: white;
   font-size: 1.6em;
+  margin-top: 10px;
 }
 
 .retire-btn {
@@ -175,7 +175,6 @@ th {
 
 // profile page css
 #profile-title {
-  text-shadow: 0 2px 3px #666;
 }
 
 #profile-data {
@@ -211,6 +210,15 @@ th {
   text-align: center;
 }
 
-div#nav-row {
-  color: #CAE2D2;
+li.active > a
+{
+  color: white;
+  text-decoration: none;
+  background-color: #093D5E !important;
+  outline: 0;
+}
+
+#lend-link, #signup, #loans, #logout, #profile {
+  color: white;
+  margin-top: 10px;
 }

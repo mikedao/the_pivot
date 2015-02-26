@@ -1,16 +1,16 @@
 <%= nav_bar fixed: :top, responsive: true do %>
-<a class="brand" href="/"><%= image_tag "logo5.png", size: "55x55" %></a>
   <div id="nav-row">
     <%= menu_group inline: true do %>
+      <%= menu_item image_tag('logo5.png', size: "45x45", id: "brand"), root_path  %></a>
       <%= menu_item "Keevahh", root_path, id: "store-name" %>
-      <%= menu_item "Lend", projects_path if !(current_user && current_user.admin?) %>
+      <%= menu_item "Lend", projects_path, id: "lend-link" if !(current_user && current_user.admin?) %>
       <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
       <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
     <% end %>
 
     <%= menu_group pull: :right do %>
       <% if current_user.nil? %>
-      	<%= menu_item "Signup", new_user_path %>
+      	<%= menu_item "Signup", new_user_path, id: "signup" %>
         <%= menu_item do %>
           <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
             <%= f.text_field :username, :placeholder => 'username' %>
@@ -19,10 +19,10 @@
           <% end %>
         <% end %>
       <% else %>
-        <%= menu_item "Loans", user_orders_path(user_id: current_user.id) %>
-        <%= menu_item "Logout", logout_path %>
+        <%= menu_item "Loans", user_orders_path(user_id: current_user.id), id: "loans" %>
+        <%= menu_item "Logout", logout_path, id: "logout" %>
         <% unless current_user.admin? %>
-          <%= menu_item "Profile", user_path(current_user) %>
+          <%= menu_item "Profile", user_path(current_user), id: "profile" %>
         <% end %>
       <% end %>
     <% end %>
