@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy", as: "logout"
 
-  resources :tenants, only: [:new, :create, :index]
+  resources :tenants, only: [:new, :create]
   resources :categories, only: [:show, :index]
-  resources :projects
+  resources :projects, except: [:new, :show]
 
   get "/about", to: "static_pages#about", as: "about"
 
-  resource :pending_loan, except: [:index, :edit]
+  resource :pending_loan, except: [:index, :edit, :new]
   post :delete_pending_loan, to: "pending_loans#delete_one"
   post :update_loan_amount, to: "pending_loans#update"
 

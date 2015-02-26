@@ -16,6 +16,10 @@ class Admin < ActiveRecord::Base
     true
   end
 
+  def borrower?
+    true
+  end
+
   private
 
   def email_checker(email)

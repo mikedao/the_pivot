@@ -78,8 +78,27 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   end
 
   test "a borrower can only see their own projects on the dashboard" do
+    borrower = create(:user_as_borrower)
+    borrower2 = create(:user_as_borrower)
+    tenant2 = borrower2.tenant
+    tenant2.projects << create(:project)
+    ApplicationController.any_instance.stubs(:current_user).returns(borrower)
+
+    visit tenant_dashboard_path(slug: borrower.tenant.slug)
+
+    refute page.has_content?("#{borrower2.tenant.organization}'s Dashboard")
+    assert_not_equal tenant_dashboard_path(slug: borrower2.tenant.slug), current_path
+    refute page.has_content?(tenant2.projects.first.title)
   end
 
   test "a borrower cannot see anyone else's dashboard" do
+    borrower = create(:user_as_borrower)
+    borrower2 = create(:user_as_borrower)
+    ApplicationController.any_instance.stubs(:current_user).returns(borrower)
+
+    visit tenant_dashboard_path(slug: borrower2.tenant.slug)
+
+    refute page.has_content?("#{borrower2.tenant.organization}'s Dashboard")
+    assert_not_equal tenant_dashboard_path(slug: borrower2.tenant.slug), current_path
   end
 end

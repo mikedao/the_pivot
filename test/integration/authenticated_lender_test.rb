@@ -27,4 +27,22 @@ class AuthenticatedLenderTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Help someone today and")
     assert page.has_link?("complete your loan")
   end
+
+  test "an unauthed lender cannot edit their profile" do
+    user = create(:user)
+
+    visit edit_user_path(user)
+
+    assert_not_equal current_path, edit_user_path(user)
+  end
+
+  test "a authed lender cannot edit another user's profile" do
+    user = create(:user)
+    user2 = create(:user)
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+
+    visit edit_user_path(user2)
+
+    assert_not_equal current_path, edit_user_path(user2)
+  end
 end

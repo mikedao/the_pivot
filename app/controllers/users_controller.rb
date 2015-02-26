@@ -21,14 +21,17 @@ class UsersController < ApplicationController
   end
 
   def edit
+    check_auth
     @user = User.find(params[:id])
   end
 
   def show
+    check_auth
     @user = User.find(params[:id])
   end
 
   def update
+    check_auth
     @user = User.find(params[:id])
     if @user.update_attributes(update_params)
       flash[:success] = "Profile updated"
@@ -74,6 +77,11 @@ class UsersController < ApplicationController
 
   def borrower?
     params[:signup][:tenant] == "1"
+  end
+
+  def check_auth
+    redirect_to root_path if current_user.nil? ||
+      current_user.id != params[:id].to_i
   end
 
   def user_params

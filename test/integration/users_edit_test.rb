@@ -3,22 +3,10 @@ require "test_helper"
 class UsersEditTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  test "an unauthorized user when they unsuccessfully edit their profile gets
-  returned back to the profile edit view with an error" do
-    user = create(:user)
-    get edit_user_path(user)
-    assert_template "users/edit"
-    patch user_path(user), user: { username: "",
-                                   email: "foo@invalid",
-                                   password: "foo",
-                                   password_confirmation: "bar" }
-    refute flash.empty?
-    assert_template "users/edit"
-  end
-
   test "an authorized borrower or lender can successfully edit their profile" do
     user = create(:user)
-
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    
     get edit_user_path(user)
     assert_template "users/edit"
     username = "Jwan622"
