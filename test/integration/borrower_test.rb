@@ -36,7 +36,6 @@ class BorrowerTest < ActionDispatch::IntegrationTest
   end
 
   test "a borrower can create an project" do
-    skip
     category = create(:category)
     borrower = create(:user_as_borrower)
     ApplicationController.any_instance.stubs(:current_user).returns(borrower)
@@ -47,8 +46,6 @@ class BorrowerTest < ActionDispatch::IntegrationTest
     fill_in "project[price]", with: 40004
     fill_in "project[description]",  with: "a" * 150
     fill_in "project[requested_by]", with: Date.new(2020, 12, 1)
-    file_path = Rails.root + "app/assets/images/test_photo.jpg"
-    attach_file("project[photos]", file_path)
     select category.name, from: "project[categories][]"
     click_button "Create Project"
 
