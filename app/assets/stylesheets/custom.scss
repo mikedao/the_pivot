@@ -17,7 +17,7 @@ h1 {
 #title {
   background-color: #58B6E6;
   font-weight: bold;
-  margin: 12px 0;
+  margin: 16px 0;
   padding: 10px;
   width: 100%;
 }
@@ -161,6 +161,28 @@ th {
   text-align: center;
 }
 
+// user order page
+.order-userinfo {
+  background-color: #e3e3e3;
+  border: 2px solid #6699ff;
+  border-radius: 20px;
+  margin: auto;
+  margin-bottom: 2px;
+  min-height: 20px;
+  padding: 6px;
+  width: 50%;
+}
+
+.order-total {
+  border: 2px solid #6699ff;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  width: 50%;
+}
+
 // about page
 .about {
   background-color: #e3e3e3;
@@ -236,9 +258,6 @@ footer {
 }
 
 // profile page css
-#profile-title {
-}
-
 #profile-data {
   background-color: #e3e3e3;
   border: 2px solid #6699ff;
