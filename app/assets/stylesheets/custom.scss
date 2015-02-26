@@ -218,7 +218,14 @@ li.active > a
   outline: 0;
 }
 
-#lend-link, #signup, #loans, #logout, #profile {
+#lend-link,
+#menu-signup,
+#loans,
+#logout,
+#profile,
+#admin-dashboard,
+#borrowers
+{
   color: white;
   margin-top: 10px;
 }

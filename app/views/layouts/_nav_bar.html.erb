@@ -4,13 +4,13 @@
       <%= menu_item image_tag('logo5.png', size: "45x45", id: "brand"), root_path  %></a>
       <%= menu_item "Keevahh", root_path, id: "store-name" %>
       <%= menu_item "Lend", projects_path, id: "lend-link" if !(current_user && current_user.admin?) %>
-      <%= menu_item "Admin Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
-      <%= menu_item "All Borrowers", admin_tenants_path if current_user && current_user.admin? %>
+      <%= menu_item "Admin Dashboard", admin_dashboard_path, id: "admin-dashboard" if current_user && current_user.admin? %>
+      <%= menu_item "All Borrowers", admin_tenants_path, id: "borrowers" if current_user && current_user.admin? %>
     <% end %>
 
     <%= menu_group pull: :right do %>
       <% if current_user.nil? %>
-      	<%= menu_item "Signup", new_user_path, id: "signup" %>
+      	<%= menu_item "Signup", new_user_path, id: "menu-signup" %>
         <%= menu_item do %>
           <%= form_for :session, url: login_path, :html => {class: 'navbar-form pull-right'} do |f| %>
             <%= f.text_field :username, :placeholder => 'username' %>
