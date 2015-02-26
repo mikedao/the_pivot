@@ -12,14 +12,18 @@
   <div class="main-body container">
     <%= render "layouts/nav_bar" %>
     <% if pending_loans.present? %>
-      <div id="help-someone" class="alert alert-success">Help someone today and <div id="complete-loan"> <%= link_to "complete your loan.", pending_loan_path %></div></div>
+      <div id="help-someone" class="alert alert-success">
+        Help someone today and
+          <%= link_to "complete your loan.", pending_loan_path, id:"complete-loan" %>
+      </div>
     <% end %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash-#{name}" %>
     <% end %>
 
-		<%= yield %>
+    <%= yield %>
+
     <%= debug(params) if Rails.env.development? %>
-	</div>
+  </div>
 </body>
 </html>
