@@ -1,10 +1,10 @@
 body {
-  // font-family: 'PT Mono', ;
   color: #093D5E;
+  background-color: #b6e2f9;
 }
 
 .navbar {
-  background-color: #093D5E;
+  background-color: #093d5e;
   color: white;
   font-size: 1.2em;
 }
@@ -14,15 +14,12 @@ h1 {
   margin-bottom: 40px;
 }
 
-.form-title {
-}
-
 #title {
-  width: 103%;
-  font-weight: bold;
-  margin: 12px -15px;
   background-color: #58B6E6;
+  font-weight: bold;
+  margin: 12px 0;
   padding: 10px;
+  width: 100%;
 }
 
 h3 {
@@ -33,7 +30,7 @@ h3 {
 .main-body {
   margin-top: 60px;
   margin-bottom: 100px;
-  background-color: #B6E2F9;
+  min-height: 70vh;
 }
 
 #signup {
@@ -157,20 +154,75 @@ th {
   text-align: center;
 }
 
+// about page
+.about {
+  background-color: #e3e3e3;
+  border: 2px solid #6699ff;
+  border-radius: 20px;
+  margin-bottom: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 20px;
+  padding: 50px;
+  width: 600px;
+}
+
+// footer
+footer {
+  background-color: #6bc5f2;
+  border-top: 1px solid #eaeaea;
+  bottom: 0;
+  height: 60px;
+  padding: 15px;
+  position: relative;
+  width: 100%;
+
+  a {
+    color: #894355;
+    font-size: 1.3em;
+    margin-right: 15px;
+    }
+
+  &:hover {
+    color: #222;
+  }
+
+  small {
+    float: left;
+    font-size: 0.9em;
+  }
+
+  ul {
+    float: right;
+    text-decoration: underline;
+
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
+
 // complete loan message
 #complete-loan {
-  display: inline-block;
+  background-color: #f4b69c;
   font-size: 20px;
-  text-decoration-color: #ff0000;
-  text-decoration: underline;
+  margin: auto;
+  text-align: center;
+  text-decoration-color: #b6e2f9;
+  width: 600px;
 }
 
 #help-someone {
-  font-size: 16px;
+  background-color: #faddd1;
+  font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 22px;
+  padding: 6px;
   text-align: center;
-  margin: auto;
-  width: 800px;
-  padding: 0.7em;
+  text-decoration: underline;
+  width: 100%;
 }
 
 // profile page css
