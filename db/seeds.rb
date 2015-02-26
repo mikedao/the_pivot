@@ -117,7 +117,7 @@ startup_category.photos << Photo.create!(
   project1 = Project.create!(
                   title: "Timmy's vaccine shots_#{n}",
                   price: 50000,
-                  description: "These are malaria shots for little Timmy." * 3,
+                  description: "These are malaria shots for little Timmy. " * 3,
                   retired: false,
                   categories: [people_category],
                   tenant_id: Tenant.first.id,
@@ -133,7 +133,7 @@ startup_category.photos << Photo.create!(
   project2 = Project.create!(
                   title: "Steven's school books_#{n}",
                   price: 4000,
-                  description: "How can I teach deez kiiiids?" * 5,
+                  description: "How can I teach deez kiiiids? " * 5,
                   retired: false,
                   categories: [startup_category],
                   tenant_id: Tenant.second.id,
@@ -149,7 +149,7 @@ startup_category.photos << Photo.create!(
   project3 = Project.create!(
                   title: "John's water supply for village_#{n}",
                   price: 9000,
-                  description: "We need water for our village of people." * 3,
+                  description: "We need water for our village of people. " * 3,
                   retired: false,
                   categories: [public_category],
                   tenant_id: Tenant.third.id,
@@ -165,7 +165,7 @@ startup_category.photos << Photo.create!(
   project4 = Project.create!(
                   title: "De Beers_#{n}",
                   price: 16000,
-                  description: "Conflict diamonds are forever" * 5,
+                  description: "Conflict diamonds are forever. " * 5,
                   retired: false,
                   categories: [env_category],
                   tenant_id: Tenant.fourth.id,
@@ -182,7 +182,7 @@ startup_category.photos << Photo.create!(
     project5 = Project.create!(
                     title: "Micro_Diamonds_#{tenant.id}_#{n}",
                     price: 16000,
-                    description: "Conflict diamonds are forever" * 5,
+                    description: "Conflict diamonds are forever. " * 5,
                     retired: false,
                     categories: [env_category],
                     tenant_id: tenant.id,

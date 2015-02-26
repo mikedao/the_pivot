@@ -1,14 +1,16 @@
 <div id="title">
   <h1>Explore Your Lending Options</h1>
+</div>
+<div class="row">
 
-  <div class="row">
-
-    <button class="btn btn-primary" id="filter_projects">Filter Projects</button> </br>
-    <%= render partial: "shared/project_filters" %>
-    <div id="projects"></div>
+  <div class="container">
+    <button class="btn btn-warning" id="filter_projects">Filter Projects</button> </br>
+  <%= render partial: "shared/project_filters" %>
+  <div id="projects"></div>
 
   </div>
 </div>
+
 
 <script charset="utf-8">
   $("#filter_projects").on("click", function() {

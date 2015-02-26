@@ -31,8 +31,8 @@ class AdminUserTest < ActionDispatch::IntegrationTest
     ApplicationController.any_instance.stubs(:current_user).returns(admin)
 
     visit root_path
+
     refute page.has_link?("Lend")
-    refute page.has_link?("Keevahh")
   end
 
   test "an admin when logged in has an Admin Dashboard link" do
