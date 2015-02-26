@@ -28,4 +28,21 @@ class StaticPagesTest < ActionDispatch::IntegrationTest
     assert_equal about_path, current_path
     assert page.has_content?("What is Keevahh?")
   end
+
+  test "an admin can visit the about page in the footer from any page" do
+    admin = create(:admin)
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+
+    visit root_path
+    click_link("About")
+
+    assert_equal about_path, current_path
+    assert page.has_content?("What is Keevahh?")
+
+    visit admin_dashboard_path
+    click_link("About")
+
+    assert_equal about_path, current_path
+    assert page.has_content?("What is Keevahh?")
+  end
 end
