@@ -166,21 +166,21 @@ th {
   background-color: #e3e3e3;
   border: 2px solid #6699ff;
   border-radius: 20px;
+  margin: auto;
   margin-bottom: 2px;
   min-height: 20px;
-  margin: auto;
   padding: 6px;
   width: 50%;
 }
 
 .order-total {
   border: 2px solid #6699ff;
-  width: 50%;
+  font-size: 1.4em;
+  font-weight: bold;
   margin: auto;
   padding: 20px;
   text-align: center;
-  font-weight: bold;
-  font-size: 1.4em;
+  width: 50%;
 }
 
 // about page
