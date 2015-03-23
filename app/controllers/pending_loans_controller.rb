@@ -1,5 +1,6 @@
 class PendingLoansController < ApplicationController
   def create
+    #it starts here for the session cart.
     update_cart
     redirect_to pending_loan_path
   end
@@ -68,6 +69,7 @@ class PendingLoansController < ApplicationController
   end
 
   def valid_loan_amount(remaining_amount)
+    require 'pry' ; binding.pry
     amount = pending_loan_params[:loan_dollar_amount].to_f
     if remaining_amount < 1000
       amount == remaining_amount / 100.00
