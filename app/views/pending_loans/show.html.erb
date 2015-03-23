@@ -53,7 +53,7 @@
         <% end %>
       <% else %>
         <%= link_to "Checkout", new_user_path(message: "You Must Signup or Login to Lend Money"), class: "btn btn-default", style: "width: 150px;" %>
-      <% end %>
+      <% end %ro>
 
       <%= form_for :cart, url: pending_loan_path do |f| %>
         <input name="_method" type="hidden" value="delete" />
