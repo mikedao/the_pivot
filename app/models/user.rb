@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  before_save :valid_email?
+
   belongs_to :tenant
   has_many :orders
 
@@ -16,7 +18,7 @@ class User < ActiveRecord::Base
   validates :zipcode, presence: true
   validates :country, presence: true
 
-  def valid_email?(email)
+  def valid_email?
     email_checker(email)
   end
 
