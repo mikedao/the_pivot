@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
       project.tenant.visible_to_lenders == true &&
       project.current_amount_needed > 0
     end
+
     @categories = Category.select(:name).all
 
     if request.xhr?
